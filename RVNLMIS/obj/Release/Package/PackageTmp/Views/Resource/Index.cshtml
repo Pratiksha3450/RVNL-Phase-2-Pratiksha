@@ -1,0 +1,235 @@
+﻿@model RVNLMIS.Models.ResourceModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+</style>
+
+<!-- [ Main Content ] start -->
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected User ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-xs delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check"></i>&nbsp;Ok</button>
+                <button class="btn btn-default btn-xs" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pcoded-content">
+    <div class="page-wrapper">
+        <div class="page-header">
+        </div>
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div id="ResourceForms">
+                    @Html.Partial("_PartialEditResource", new RVNLMIS.Models.ResourceModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Resource Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by resource name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by resource name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive">
+                        <div class="col-sm-12" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.ResourceModel>()
+                                                                                                                                                                                                                                                .Name("ResourceGrid")
+                                                                                                                                                                                                                                                .Columns(columns =>
+                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                //columns.Bound(c => c.EntityTypeId).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                //        .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(300).Title("Package Name");
+
+
+                                                                                                                                                                                                                                                    columns.Bound(c => c.ResourceName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(300).Title("Resource Name");
+
+                                                                                                                                                                                                                                                    columns.Bound(c => c.ResourceUnit).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(300).Title("Resource Unit").Width(150);
+
+
+                                                                                                                                                                                                                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+                    "<button  data-url='/Resource/EditResourceByResourceId/#=ResourceId#' class='EditResource btn btn-xs btn-warning badge-pill has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" + "<button type='button' id='btnDeleteResource' class='btn btn-xs btn-danger badge-pill has-ripple DeleteResource' data-key='#=ResourceId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                }).Scrollable(scr => scr.Height(400))
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Model(model => model.Id(u => u.ResourceId))
+.Read(read => read.Action("Resource_Details", "Resource"))
+.PageSize(10))
+.Events(events => events.DataBound("dataBound"))
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 265);
+            $('#ResourceGrid').height($(window).height() - 265);
+        });
+        $(window).trigger('resize');
+        function OnResourceSuccess(response) {
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Already Exists") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+
+            }
+        }
+
+        function dataBound() {
+            $(".EditResource").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#ResourceForms').html(data);
+                    setTimeout(function () {
+
+                    }, 500);
+                });
+            });
+
+            $(".DeleteResource").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $(this).data("id");
+                //alert(id);
+                $.ajax({
+                    url: '/Resource/Delete/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        //Refresh Kendo Grid
+
+                        $("#modalDelete").modal('hide');
+                        // ShowSuccessMessage('Deleted Successfully');
+                        $('#ResourceGrid').data('kendoGrid').dataSource.read();
+                        $('#ResourceGrid').data('kendoGrid').refresh();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+        }
+
+        function ClearViewAndGrid() {
+            $("#ResourceId").val(0);
+
+            $("#PackageId").val(null);
+
+            $("#ResourceName").val("");
+            $("#ResourceUnit").val("");
+            $('#ResourceGrid').data('kendoGrid').dataSource.read();
+            $('#ResourceGrid').data('kendoGrid').refresh();
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#ResourceGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "ResourceName", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 }
+
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+    </script>
+}

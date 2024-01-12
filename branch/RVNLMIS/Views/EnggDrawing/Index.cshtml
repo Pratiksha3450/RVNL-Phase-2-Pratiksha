@@ -1,0 +1,690 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var instanceUrl = System.Configuration.ConfigurationManager.AppSettings["ServerPath"] as string;
+}
+
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+
+    .content_wrapper {
+        overflow: hidden;
+        padding: 0.5%;
+    }
+
+    .k-button {
+        border: 1px solid #4680ff;
+        border-radius: 0px;
+    }
+</style>
+
+<div class="modal fade" id="modalDwg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <input type="hidden" id="hdnDeleteId">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Add New Drawing Name</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group mb-3" id="prjContainer">
+                            <label class="col-form-label-sm-user text-black-50" for="txtUserName">Drawing Name</label>
+                            <input type="text" id="txtDwgName" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnAddDwg"><i class="fa fa-check mr-2"></i>Save</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="EnggDrawing">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-md-4 pr-1 mb-1" id="divDwgUpdate">
+                @Html.Partial("_DrawingUpdate", new RVNLMIS.Models.DrawingUpdateModel())
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-md-8 order-md-1 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Package Drawing Approval Info</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="searching" class="form-control" placeholder="Search by Entity Name" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table table-condensed" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.PkgDwgApprovalModel>()
+                                    .Name("PkgDwgAppGrid")
+                                    .Columns(columns =>
+                                    {
+                                    columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("3%");
+                                    columns.Bound(c => c.EntityName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(120);
+                                    columns.Bound(c => c.DrawingName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Drawing Name").Width("10%");
+                                    columns.Bound(c => c.ApprovedBy).HtmlAttributes(new { style = "text-align:left" })
+                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                    columns.Bound(c => c.ActionName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Status").Width("10%");
+                                    columns.Bound(c => c.Date).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("9%");
+                                    columns.Bound(c => c.Revision).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(70);
+                                    columns.Bound(c => c.Remark).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                    @*columns.Template(@<text></text>).Title("Action").ClientTemplate("<button type='button' class='btn btn-xs btn-warning  has-ripple btnEditDrawing'" +
+                                    " data-url='/EnggDrawing/LoadEditDrawingView/#=AutoId#' Title='Edit Drawing Info'><i class='feather icon-edit'></i>" +
+                                    "</button>&nbsp;" +
+                                    "<button type='button' class='btn btn-xs btn-danger  has-ripple btnDelete' data-url='/EnggDrawing/Delete/#=AutoId#' Title='Delete'><i class='feather icon-trash'></i></button>&nbsp;" +
+                                    "#if(AttachFilePath!=null){#<a href='/Procurement/DownloadDoc?path=#=AttachFilePath#&name=#=AttachFileName#' Title='Download' class='btnDownload btn btn-xs btn-success has-ripple'>" +
+                                    "<i class='feather icon-download'></i></a>#}#"
+                                    ).HtmlAttributes(new { style = "text-align:left" }).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("11%");
+                                    columns.Command(command => command.Custom("ViewDetails").Visible("showCommand").Click("showDetails"))
+                                    .HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").Title("Details");*@
+                                        columns.Template(@<text></text>).Title("Action").ClientTemplate("<button type='button' class='btn btn-xs btn-warning  has-ripple btnEditDrawing'" +
+                                    " data-url='/EnggDrawing/LoadEditDrawingView/#=AutoId#' Title='Edit Drawing Info'><i class='feather icon-edit'></i>" +
+                                    "</button>&nbsp;" +
+                                    "<button type='button' class='btn btn-xs btn-danger  has-ripple btnDelete' data-url='/EnggDrawing/Delete/#=AutoId#' Title='Delete'><i class='feather icon-trash'></i></button>&nbsp;")
+                                    .HtmlAttributes(new { style = "text-align:left" }).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("11%");
+                                    }).Scrollable(scr => scr.Height(400))
+                                    .ClientDetailTemplateId("templateInvoicePay")
+                                    .Pageable()
+                                    .Sortable()
+                                    .Pageable(pageable => pageable
+                                    .Refresh(true)
+                                    .PageSizes(true)
+                                    .ButtonCount(5)
+                                    .PageSizes(new List<object> { 10, 20, 50, "all" }).Refresh(true))
+                                    .PersistSelection(true)
+                                    .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    .Group(g => g.Add(d => d.Drawing))
+                                    .Model(model => model.Id(u => u.AutoId))
+                                    .Read(read => read.Action("PkgDwgAppInfo_Read", "EnggDrawing").Data("GetSelectedDrawing"))
+                                    .PageSize(15))
+                                    .Events(events =>
+                                    {
+                                    events.DataBound("dataBound");
+                                    events.Change("resetRowNumber");
+                                    }).Groupable().Resizable(resize => resize.Columns(true))
+                            )
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- [ horizontal-layout ] end -->
+</div>
+<!-- [ Main Content ] end -->
+@section scripts{
+
+
+    <script id="templateInvoicePay" type="text/kendo-tmpl">
+        @(Html.Kendo().Grid<RVNLMIS.Models.DrwAttachment>()
+                        .Name("InvoiceGrid_#=AutoId#") // template expression, to be evaluated in the master context
+                        .Columns(columns =>
+                        {
+                            columns.Bound(e => e.AttachFileName).Width("60%").Title("File Name");
+                            columns.Template(@<text></text>).Title("Action").ClientTemplate(
+                                    "<button type='button' class='btn btn-xs btn-danger  has-ripple btnDrawingDelete' data-url='/EnggDrawing/DeleteDrwaing/\\#=ListId\\#' Title='Delete'><i class='feather icon-trash'></i></button>&nbsp;" +
+                                    "<a href='/Procurement/DownloadDoc?path=\\#=AttachFilePath\\#&name=\\#=AttachFileName\\#' Title='Download' class='btnDownload btn btn-xs btn-success has-ripple'><i class='feather icon-download'></i></a>"
+                                    ).HtmlAttributes(new { style = "text-align:left" }).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("20%");
+                                    columns.Command(command => command.Custom("Preview").Visible("showCommand").Click("showDetails"))
+            .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("View");
+                                })
+                                        .DataSource(dataSource => dataSource.Ajax()
+                                        .PageSize(20)
+                                        .Read(read => read
+                                        .Action("HierarchyBinding_Attachment", "EnggDrawing", new { AutoId = "#=AutoId#" })))
+                                        .Events(events => events.DataBound("dataBound"))
+                                        .Pageable()
+                                        .Sortable()
+                                        .ToClientTemplate()
+        )
+    </script>
+
+
+    @(Html.Kendo().Window().Name("Details")
+                                                                                                                    .Title("Document Preview")
+                                                                                                                    .Visible(false)
+                                                                                                                    .Modal(true)
+                                                                                                                    .Draggable(true)
+                                                                                                                    .Width(1000)
+                                                                                                                    .Height(635)
+)
+    <style>
+        .pdfview_popup {
+            overflow: hidden;
+            width: 100%
+        }
+
+        .k-window {
+            overflow: hidden;
+            border: 4px solid red;
+        }
+
+            .k-window > .k-window-titlebar {
+                background: linear-gradient(to right, #5757c5, #00c18d) !important;
+                color: #fff;
+            }
+    </style>
+
+    <script type="text/x-kendo-template" id="template">
+        <div id="details-container">
+            <div class="row">
+                <div class="col-sm-12" style="width: 500px">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <a class="label label-info" href="@instanceUrl#= AttachFilePath #" target="_blank"> <i class="fa fa-hand-point-right"></i> Click here if file not shown below</a>
+                        </div>
+                    </div>
+                    <object data="@instanceUrl#= AttachFilePath #" type="application/pdf" width="100%" height="560px">
+                        <embed src="https://drive.google.com/viewerng/viewer?url=@instanceUrl#= AttachFilePath #&embedded=true" width="100%" height="560px"></embed>
+                    </object>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var detailsTemplate = kendo.template($("#template").html());
+
+        function showDetails(e) {
+            //e.preventDefault();
+
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            var wnd = $("#Details").data("kendoWindow");
+
+            wnd.content(detailsTemplate(dataItem));
+            wnd.center().open();
+        }
+    </script>
+
+    <script id="noDataTemplate" type="text/x-kendo-tmpl">
+        <div>
+            No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
+        </div>
+        <br />
+        <button class="k-button" onclick="addNew('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
+    </script>
+
+    <script>
+        function addNew(widgetId, value) {
+            //if (value != '' || value != 'undefined' || value != null) {
+            var widget = $("#" + widgetId).getKendoDropDownList();
+            var dataSource = widget.dataSource;
+
+            if (confirm("Are you sure?")) {
+                dataSource.add({
+                    ID: 0,
+                    Name: value
+                });
+
+                dataSource.one("sync", function () {
+                    widget.select(dataSource.view().length - 1);
+                });
+
+                dataSource.sync();
+                //}
+            }
+        };
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+
+    <script>
+        $(window).resize(function () {
+            $('#CardHeight').height($(window).height() - 280);
+            //$('#KendoHeight').height($(window).height() - 195);
+            //$('#PkgDwgAppGrid').height($(window).height() - 195);
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function GetPackageId() {
+            var filterText = $("#EntityId").getKendoDropDownList().filterInput.val();
+            return { pkgId: $("#PackageId").val(), text: filterText }
+        }
+
+        function GetApprId() {
+            return { id: $("#ApprovedById").val() }
+        }
+
+        $(document).ready(function () {
+            BindClickEvent();
+            BindDrpClickEvent();
+
+            $("#modalDwg").on("click", "#btnAddDwg", function () {
+                var dwgName = $("#txtDwgName").val();
+                $("#txtdwgName").data("kendoDropDownList")
+                    .dataSource.add({ "text": dwgName, "value": 1000 });
+            });
+        });
+
+        function showCommand(dataItem) {
+            //console.log("determining to hide or show" + dataItem);
+            // show the Edit button for the item with Status='New'
+            if (dataItem.AttachFilePath != null) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function dataBound() {
+            rowNumber = 0;
+            $(".btnEditDrawing").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $("#divDwgUpdate").html(data);
+                    BindClickEvent();
+                    BindDrpClickEvent();
+
+                    //setTimeout(function () {
+                    var hdnDwgName = $("#HdnDrawingName").val();
+                    // var dropdownlist = $("#txtdwgName").data("kendoDropDownList").value(hdnDwgName);
+                    // dropdownlist.text("ddddg");
+                    //  dropdownlist.select(1);
+                    //    dropdownlist.select(function (dataItem) {
+                    //        return dataItem.Name === "ddddg";
+                    //});
+
+                    //dropdownlist.trigger("change");
+                    //}, 500);
+
+
+                });
+            });
+
+            $(".btnDelete").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                if (confirm("Are you sure to delete this record?")) {
+                    $.get(url, function (response) {
+                        $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        $("#AutoId").val("0");
+                        $("#ApprovedById").data("kendoDropDownList").value(null);
+                        //  $("#txtdwgName").data("kendoDropDownList").value(null);
+                        $("#StrDwgDate").val("");
+                        //$('#IsFinal').prop("checked", false);
+                        //$("#ActionId").val(null);
+                        $("#ActionId").data("kendoDropDownList").value(null);
+                        $("#Revision").val("");
+                        $("#Remark").val("");
+                        $("#AttachmentFile").val('');
+                        $("#openAttach").text("");
+                        $("#btnPartialDUSubmit").val("Add");
+                        RefreshKendoGrid();
+                    });
+                }
+            });
+
+            $(".btnDrawingDelete").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                if (confirm("Are you sure to delete this file?")) {
+                    $.get(url, function (response) {
+                        $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        $("#AutoId").val("0");
+                        $("#ApprovedById").data("kendoDropDownList").value(null);
+                        //  $("#txtdwgName").data("kendoDropDownList").value(null);
+                        $("#StrDwgDate").val("");
+                        //$('#IsFinal').prop("checked", false);
+                        //$("#ActionId").val(null);
+                        $("#ActionId").data("kendoDropDownList").value(null);
+                        $("#Revision").val("");
+                        $("#Remark").val("");
+                        $("#AttachmentFile").val('');
+                        $("#openAttach").text("");
+                        $("#btnPartialDUSubmit").val("Add");
+                        RefreshKendoGrid();
+                    });
+                }
+            });
+        }
+
+        function BindDrpClickEvent() {
+            $("#PackageId").change(function () {
+                var entityDataSource;
+                var selectedPackageId = $("#PackageId").val();
+
+                $("#PkgDwgAppGrid").data("kendoGrid").dataSource.data([]);
+                $("#DrawingTypeId").val("");
+
+                $.get("/EnggDrawing/BindEntityDrpValues?pkgId=" + selectedPackageId, function (data) {
+                    $("#EntityId").html('');
+                    entityDataSource = data;
+                    $("#EntityId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: entityDataSource }));
+                });
+                ClearViewAndGrid();
+            });
+
+            $("#ApprovedById").change(function () {
+                var actionDataSource;
+                var selectedAppr = $("#ApprovedById").val();
+
+                $.get("/EnggDrawing/BindActionsDrp/" + selectedAppr, function (data) {
+                    $("#ActionId").html('');
+                    actionDataSource = data;
+                    $("#ActionId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: actionDataSource }));
+                });
+            });
+
+            $("#DrawingTypeId").change(function () {
+                RefreshKendoGrid();
+            });
+
+            $("#EntityId").change(function () {
+                RefreshKendoGrid();
+            });
+
+            $("#btnAddDwgName").click(function () {
+                $("#modalDwg").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+            var data = new kendo.data.DataSource({
+                batch: true,
+                transport: {
+                    read: {
+                        url: "/EnggDrawing/Get_DrawingNameList",
+                        dataType: "json"
+                    },
+                    //create: {
+                    //    url: crudServiceBaseUrl + "/Products/Create",
+                    //    dataType: "json"
+                    //},
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                //schema: {
+                //    model: {
+                //        id: "ID",
+                //        fields: {
+                //            ID: { type: "string" },
+                //            Name: { type: "string" }
+                //        }
+                //    }
+                //}
+            });
+
+            //var data;
+            //$.get("/EnggDrawing/Get_DrawingNameList", function (response) {
+            //    console.log(response);
+            //    data = response;
+            //});
+
+            //var data1 = [
+            //    { Name: "Black", ID: "1" },
+            //    { Name: "Orange", ID: "2" },
+            //    { Name: "Grey", ID: "3" }
+            //];
+
+            //console.log(data1);
+
+            console.log(data);
+            //$("#txtdwgName").kendoDropDownList({
+            //    filter: "startswith",
+            //    optionLabel: {
+            //        Name: "Select Drawing Name",
+            //       // Id: "0"
+            //    },
+            //    dataTextField: "Name",
+            //    dataValueField: "Name",
+            //    dataSource: data,
+            //    noDataTemplate: $("#noDataTemplate").html()
+            //});
+        }
+
+        function BindClickEvent() {
+            bs_input_file();
+            $("#btnPartialDUSubmit").click(function () {
+                if ($('.errMsg').css('display') == 'block') {
+                    return false;
+                }
+                else {
+                    $(".se-pre-con").show();
+                    $('.progress').css('display', 'block');
+                    //$('.myprogress').css('width', '0');
+                    $('.msg').text('');
+                    //var drpselectDwgName = $("#txtdwgName").data("kendoDropDownList").text();
+                    //console.log(drpselectDwgName);
+                    var data = new FormData($('#dwgUpdateFrm')[0]);
+                    // data.append("DrawingName", drpselectDwgName);
+
+                    console.log(data);
+
+                    $('.msg').text('Uploading in progress...');
+
+                    // $("#loadingDiv").show();
+                    //$("#loadingDiv").css("display", "block");
+                    $.ajax({
+                        url: '/EnggDrawing/SubmitDrawing',
+                        type: "POST",
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        xhr: function () {
+                            var xhr = new window.XMLHttpRequest();
+                            xhr.upload.addEventListener("progress", function (evt) {
+                                if (evt.lengthComputable) {
+                                    var percentComplete = evt.loaded / evt.total;
+                                    percentComplete = parseInt(percentComplete * 100);
+                                    $('.myprogress').text(percentComplete + '%');
+                                    $('.myprogress').css('width', percentComplete + '%');
+                                }
+                            }, false);
+                            return xhr;
+                        },
+                        success: function (response) {
+                            $(".se-pre-con").hide();
+                            // $("#loadingDiv").hide();
+                            $('.msg').text('');
+                            $('.progress').css('display', 'none');
+                            if (response.includes("successfully")) {
+                                $(".field-validation-error ").text('');
+                                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                                RefreshKendoGrid();
+
+                                $("#AutoId").val("0");
+                                $("#btnPartialDUSubmit").html("Add");
+                                //$("#ApprovedById").val(null);
+                                $("#ApprovedById").data("kendoDropDownList").value(null);
+                                //    $("#txtdwgName").data("kendoDropDownList").value(null);
+                                $("#StrDwgDate").val("");
+                                //$('#IsFinal').prop("checked", false);
+                                //$("#ActionId").val(null);
+                                $("#ActionId").data("kendoDropDownList").value(null);
+                                $("#Revision").val("");
+                                $("#Remark").val("");
+                                $("#AttachmentFile").val('');
+                                $("#txtFileinput").val("");
+                                $("#openAttach").text("");
+                                
+                                $("#DrawingName").val('');
+                            }
+                            else if (response == "1") {
+                                $.notify("record already exists.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                            }
+                            else if (response == "0") {
+                                //$.notify("File Extension Is InValid - Only Upload jpeg/png/jpg File", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                                $("#errFile").css("display", "block");
+                            }
+                            else {
+                                $("#divDwgUpdate").html(response);
+                                BindDrpClickEvent();
+                                BindClickEvent();
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            // $("#loadingDiv").css("display", "none");
+                            // alert(xhr.error);
+                        }
+                    });
+                }
+            });
+        }
+
+        function GetSelectedDrawing() {
+            return { entityId: $("#EntityId").val(), drawing: $("#DrawingTypeId").val() }
+        }
+
+        function ClearViewAndGrid() {
+            $("#AutoId").val("0");
+            $("#PackageId").val("");
+            $("#EntityId").val("");
+            $("#DrawingTypeId").data("kendoDropDownList").value(null);
+            $("#ApprovedById").data("kendoDropDownList").value(null);
+            //$("#txtdwgName").data("kendoDropDownList").value(null);
+
+            $("#StrDwgDate").val("");
+            $("#ActionId").data("kendoDropDownList").value(null);
+            $("#Revision").val("");
+            $("#Remark").val("");
+            $("#txtFileinput").val("");
+            $("#DrawingName").val('');
+            $("#AttachmentFile").val('');
+            $("#openAttach").text("");
+            $("#btnPartialDUSubmit").val("Add");
+            $('#IsFinal').prop("checked", false);
+
+            RefreshKendoGrid();
+        }
+
+        function RefreshKendoGrid() {
+            ////Refresh Kendo Grid
+            resetRowNumber();
+            $('#PkgDwgAppGrid').data('kendoGrid').dataSource.read();
+            $('#PkgDwgAppGrid').data('kendoGrid').refresh();
+        }
+
+        function CheckDate() {
+            var tranDate = new Date(document.getElementById('StrDwgDate').value);
+            var today = new Date();
+
+            if (tranDate > today) {
+                $(".errMsg").css("display", "block");
+                // $("#btnPartialDUSubmit").attr("disabled", true);
+            }
+            else {
+                $(".errMsg").css("display", "none");
+                //$('#btnPartialDUSubmit').removeAttr("disabled");
+            }
+        }
+
+        $("#searching").keyup(function () {
+            var selecteditem = $('#searching').val();
+            var kgrid = $("#PkgDwgAppGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "EntityName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='AttachmentFile' multiple='multiple' name='AttachmentFile' class='input-ghost' style='visibility:hidden; height:0'>");
+                        // element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $("#errFile").css("display", "none");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+    </script>
+}

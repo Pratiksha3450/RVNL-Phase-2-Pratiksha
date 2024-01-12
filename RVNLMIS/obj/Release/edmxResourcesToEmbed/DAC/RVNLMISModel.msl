@@ -1,0 +1,2960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbRVNLMISModelStoreContainer" CdmEntityContainer="dbRVNLMISEntities">
+    <FunctionImportMapping FunctionImportName="AddCompletedAmount" FunctionName="dbRVNLMISModel.Store.AddCompletedAmount" />
+    <FunctionImportMapping FunctionImportName="AssignPackageToUser" FunctionName="dbRVNLMISModel.Store.AssignPackageToUser" />
+    <FunctionImportMapping FunctionImportName="CREATEMODEL" FunctionName="dbRVNLMISModel.Store.CREATEMODEL" />
+    <FunctionImportMapping FunctionImportName="Get_DicsiplineWithCode" FunctionName="dbRVNLMISModel.Store.Get_DicsiplineWithCode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.Get_DicsiplineWithCode_Result">
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="DispName" ColumnName="DispName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_EDNameWithCode" FunctionName="dbRVNLMISModel.Store.Get_EDNameWithCode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.Get_EDNameWithCode_Result">
+          <ScalarProperty Name="EDId" ColumnName="EDId" />
+          <ScalarProperty Name="EDName" ColumnName="EDName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetActivityDetailsByChainage" FunctionName="dbRVNLMISModel.Store.GetActivityDetailsByChainage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetActivityDetailsByChainage_Result">
+          <ScalarProperty Name="ScActName" ColumnName="ScActName" />
+          <ScalarProperty Name="PlotColour" ColumnName="PlotColour" />
+          <ScalarProperty Name="PlotThk" ColumnName="PlotThk" />
+          <ScalarProperty Name="Layer" ColumnName="Layer" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="TotalThk" ColumnName="TotalThk" />
+          <ScalarProperty Name="MaxLayerThk" ColumnName="MaxLayerThk" />
+          <ScalarProperty Name="Slope" ColumnName="Slope" />
+          <ScalarProperty Name="TopWd" ColumnName="TopWd" />
+          <ScalarProperty Name="BottomWd" ColumnName="BottomWd" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllIssueDetailsById" FunctionName="dbRVNLMISModel.Store.GetAllIssueDetailsById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetAllIssueDetailsById_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IssueRegNo" ColumnName="IssueRegNo" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PmcName" ColumnName="PmcName" />
+          <ScalarProperty Name="IssueSubject" ColumnName="IssueSubject" />
+          <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+          <ScalarProperty Name="DisciplineName" ColumnName="DisciplineName" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="IssueAddeby" ColumnName="IssueAddeby" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+          <ScalarProperty Name="IssueDescription" ColumnName="IssueDescription" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="otherLocation" ColumnName="otherLocation" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllIssueListUserwise" FunctionName="dbRVNLMISModel.Store.GetAllIssueListUserwise">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetAllIssueListUserwise_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IssueRegNo" ColumnName="IssueRegNo" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PmcName" ColumnName="PmcName" />
+          <ScalarProperty Name="IssueSubject" ColumnName="IssueSubject" />
+          <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+          <ScalarProperty Name="DisciplineName" ColumnName="DisciplineName" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="IssueAddeby" ColumnName="IssueAddeby" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+          <ScalarProperty Name="IssueDescription" ColumnName="IssueDescription" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="otherLocation" ColumnName="otherLocation" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllMasterPIU" FunctionName="dbRVNLMISModel.Store.GetAllMasterPIU">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetAllMasterPIU_Result">
+          <ScalarProperty Name="PIUId" ColumnName="PIUId" />
+          <ScalarProperty Name="PIUName" ColumnName="PIUName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllUserList" FunctionName="dbRVNLMISModel.Store.GetAllUserList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetAllUserList_Result">
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Organisation" ColumnName="Organisation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAttachementDetails" FunctionName="dbRVNLMISModel.Store.GetAttachementDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetAttachementDetails_Result">
+          <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="DocDate" ColumnName="DocDate" />
+          <ScalarProperty Name="DocTime" ColumnName="DocTime" />
+          <ScalarProperty Name="DocumnetType" ColumnName="DocumnetType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAttachementDetailsZip" FunctionName="dbRVNLMISModel.Store.GetAttachementDetailsZip">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetAttachementDetailsZip_Result">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="DocumnetType" ColumnName="DocumnetType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="DocDate" ColumnName="DocDate" />
+          <ScalarProperty Name="DocTime" ColumnName="DocTime" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetConsActivity" FunctionName="dbRVNLMISModel.Store.GetConsActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetConsActivity_Result">
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="ActUnit" ColumnName="ActUnit" />
+          <ScalarProperty Name="ActWtg" ColumnName="ActWtg" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="isStripChart" ColumnName="isStripChart" />
+          <ScalarProperty Name="IsRFI" ColumnName="IsRFI" />
+          <ScalarProperty Name="StripChart" ColumnName="StripChart" />
+          <ScalarProperty Name="RFI" ColumnName="RFI" />
+          <ScalarProperty Name="ActivityGroup" ColumnName="ActivityGroup" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetDocumentDetails" FunctionName="dbRVNLMISModel.Store.GetDocumentDetails" />
+    <FunctionImportMapping FunctionImportName="GetEntitiesBetweenChainage" FunctionName="dbRVNLMISModel.Store.GetEntitiesBetweenChainage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetEntitiesBetweenChainage_Result">
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetEntityActivityIds" FunctionName="dbRVNLMISModel.Store.GetEntityActivityIds">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetEntityActivityIds_Result">
+          <ScalarProperty Name="EntActId" ColumnName="EntActId" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="BudgQty" ColumnName="BudgQty" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="ActUnit" ColumnName="ActUnit" />
+          <ScalarProperty Name="ActivityGroup" ColumnName="ActivityGroup" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="intNo" ColumnName="intNo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetEntityByEId" FunctionName="dbRVNLMISModel.Store.GetEntityByEId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetEntityByEId_Result">
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Long" ColumnName="Long" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetExistActivityListByEntity" FunctionName="dbRVNLMISModel.Store.GetExistActivityListByEntity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetExistActivityListByEntity_Result">
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="ActivityGroup" ColumnName="ActivityGroup" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="intNo" ColumnName="intNo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetExistingConstrEntityAct" FunctionName="dbRVNLMISModel.Store.GetExistingConstrEntityAct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetExistingConstrEntityAct_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
+          <ScalarProperty Name="CompletedQty" ColumnName="CompletedQty" />
+          <ScalarProperty Name="TargetDate" ColumnName="TargetDate" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetExistingProcForPckgMaterial" FunctionName="dbRVNLMISModel.Store.GetExistingProcForPckgMaterial">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetExistingProcForPckgMaterial_Result">
+          <ScalarProperty Name="PkgMatTranId" ColumnName="PkgMatTranId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="RatePerUnit" ColumnName="RatePerUnit" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
+          <ScalarProperty Name="OrderedQty" ColumnName="OrderedQty" />
+          <ScalarProperty Name="DeliveredQty" ColumnName="DeliveredQty" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="PORef" ColumnName="PORef" />
+          <ScalarProperty Name="TargetDate" ColumnName="TargetDate" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetExistMaterialListByPackage" FunctionName="dbRVNLMISModel.Store.GetExistMaterialListByPackage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetExistMaterialListByPackage_Result">
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="DisciplineName" ColumnName="DisciplineName" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="PkgMatId" ColumnName="PkgMatId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetInvoiceNo" FunctionName="dbRVNLMISModel.Store.GetInvoiceNo" />
+    <FunctionImportMapping FunctionImportName="GetMaterialList" FunctionName="dbRVNLMISModel.Store.GetMaterialList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetMaterialList_Result">
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetMenusList" FunctionName="dbRVNLMISModel.Store.GetMenusList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetMenusList_Result">
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+          <ScalarProperty Name="MenuCode" ColumnName="MenuCode" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="ParentMenuName" ColumnName="ParentMenuName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="ParentOrder" ColumnName="ParentOrder" />
+          <ScalarProperty Name="CurrentLiId" ColumnName="CurrentLiId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNextMaterialeCode" FunctionName="dbRVNLMISModel.Store.GetNextMaterialeCode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNextMaterialeCode_Result">
+          <ScalarProperty Name="intNo" ColumnName="intNo" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNextPackageCode" FunctionName="dbRVNLMISModel.Store.GetNextPackageCode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNextPackageCode_Result">
+          <ScalarProperty Name="intNo" ColumnName="intNo" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNotExistActivityListByEntity" FunctionName="dbRVNLMISModel.Store.GetNotExistActivityListByEntity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNotExistActivityListByEntity_Result">
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="ActivityGroup" ColumnName="ActivityGroup" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="intNo" ColumnName="intNo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNotExistMaterialListByPackage" FunctionName="dbRVNLMISModel.Store.GetNotExistMaterialListByPackage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNotExistMaterialListByPackage_Result">
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNullEntityFields" FunctionName="dbRVNLMISModel.Store.GetNullEntityFields">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNullEntityFields_Result">
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNullPackageFields" FunctionName="dbRVNLMISModel.Store.GetNullPackageFields">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNullPackageFields_Result">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNullProjectFields" FunctionName="dbRVNLMISModel.Store.GetNullProjectFields">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNullProjectFields_Result">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="EDId" ColumnName="EDId" />
+          <ScalarProperty Name="PIUId" ColumnName="PIUId" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ProjectFullName" ColumnName="ProjectFullName" />
+          <ScalarProperty Name="DateOfTransfer" ColumnName="DateOfTransfer" />
+          <ScalarProperty Name="ProjectLength" ColumnName="ProjectLength" />
+          <ScalarProperty Name="RailwayId" ColumnName="RailwayId" />
+          <ScalarProperty Name="ProjectTypeId" ColumnName="ProjectTypeId" />
+          <ScalarProperty Name="AnticipatedValue" ColumnName="AnticipatedValue" />
+          <ScalarProperty Name="ValueTillDate" ColumnName="ValueTillDate" />
+          <ScalarProperty Name="IsMonitorFlag" ColumnName="IsMonitorFlag" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNullProjectFieldsString" FunctionName="dbRVNLMISModel.Store.GetNullProjectFieldsString">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNullProjectFieldsString_Result">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNullSectionFields" FunctionName="dbRVNLMISModel.Store.GetNullSectionFields">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetNullSectionFields_Result">
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetOGLFRLByChainage" FunctionName="dbRVNLMISModel.Store.GetOGLFRLByChainage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetOGLFRLByChainage_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Chainage" ColumnName="Chainage" />
+          <ScalarProperty Name="OGL" ColumnName="OGL" />
+          <ScalarProperty Name="FRL" ColumnName="FRL" />
+          <ScalarProperty Name="CsID" ColumnName="CsID" />
+          <ScalarProperty Name="CSName" ColumnName="CSName" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetOGLFRLforPackage" FunctionName="dbRVNLMISModel.Store.GetOGLFRLforPackage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetOGLFRLforPackage_Result">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="CSName" ColumnName="CSName" />
+          <ScalarProperty Name="ScActName" ColumnName="ScActName" />
+          <ScalarProperty Name="PlotColour" ColumnName="PlotColour" />
+          <ScalarProperty Name="PlotThk" ColumnName="PlotThk" />
+          <ScalarProperty Name="Chainage" ColumnName="Chainage" />
+          <ScalarProperty Name="OGL" ColumnName="OGL" />
+          <ScalarProperty Name="FRL" ColumnName="FRL" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="Layer" ColumnName="Layer" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="TotalThk" ColumnName="TotalThk" />
+          <ScalarProperty Name="MaxLayerThk" ColumnName="MaxLayerThk" />
+          <ScalarProperty Name="Slope" ColumnName="Slope" />
+          <ScalarProperty Name="TopWd" ColumnName="TopWd" />
+          <ScalarProperty Name="ActTopLevel" ColumnName="ActTopLevel" />
+          <ScalarProperty Name="ActBottomLevel" ColumnName="ActBottomLevel" />
+          <ScalarProperty Name="LayerCount" ColumnName="LayerCount" />
+          <ScalarProperty Name="StartX" ColumnName="StartX" />
+          <ScalarProperty Name="StartY" ColumnName="StartY" />
+          <ScalarProperty Name="EndX" ColumnName="EndX" />
+          <ScalarProperty Name="EndY" ColumnName="EndY" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetPackageListByProjectId" FunctionName="dbRVNLMISModel.Store.GetPackageListByProjectId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetPackageListByProjectId_Result">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetPackageNameById" FunctionName="dbRVNLMISModel.Store.GetPackageNameById" />
+    <FunctionImportMapping FunctionImportName="GetPackageUserLogs" FunctionName="dbRVNLMISModel.Store.GetPackageUserLogs">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetPackageUserLogs_Result">
+          <ScalarProperty Name="AccessedTime" ColumnName="AccessedTime" />
+          <ScalarProperty Name="AccessedTime1" ColumnName="AccessedTime1" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessedDate" ColumnName="AccessedDate" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetPackageUserLogsDetails" FunctionName="dbRVNLMISModel.Store.GetPackageUserLogsDetails" />
+    <FunctionImportMapping FunctionImportName="getPIUNameByPIUId" FunctionName="dbRVNLMISModel.Store.getPIUNameByPIUId" />
+    <FunctionImportMapping FunctionImportName="GetProcMaterial" FunctionName="dbRVNLMISModel.Store.GetProcMaterial">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetProcMaterial_Result">
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="DisciplineGroup" ColumnName="DisciplineGroup" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProcPkgMaterial" FunctionName="dbRVNLMISModel.Store.GetProcPkgMaterial">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetProcPkgMaterial_Result">
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="DispName" ColumnName="DispName" />
+          <ScalarProperty Name="Selected" ColumnName="Selected" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProcPkgMaterial_BK" FunctionName="dbRVNLMISModel.Store.GetProcPkgMaterial_BK">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetProcPkgMaterial_BK_Result">
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="DispName" ColumnName="DispName" />
+          <ScalarProperty Name="Selected" ColumnName="Selected" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProcurementIndexList" FunctionName="dbRVNLMISModel.Store.GetProcurementIndexList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetProcurementIndexList_Result">
+          <ScalarProperty Name="PkgMatId" ColumnName="PkgMatId" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="RatePerUnit" ColumnName="RatePerUnit" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+          <ScalarProperty Name="OriginalQty" ColumnName="OriginalQty" />
+          <ScalarProperty Name="CumOrderedQty" ColumnName="CumOrderedQty" />
+          <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
+          <ScalarProperty Name="CumDeliveredQty" ColumnName="CumDeliveredQty" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProjectByPIUId" FunctionName="dbRVNLMISModel.Store.GetProjectByPIUId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetProjectByPIUId_Result">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProjectNameByPId" FunctionName="dbRVNLMISModel.Store.GetProjectNameByPId" />
+    <FunctionImportMapping FunctionImportName="GetReportDataForPowerBIReport" FunctionName="dbRVNLMISModel.Store.GetReportDataForPowerBIReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetReportDataForPowerBIReport_Result">
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+          <ScalarProperty Name="WorkspaceID" ColumnName="WorkspaceID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+          <ScalarProperty Name="AppSecret" ColumnName="AppSecret" />
+          <ScalarProperty Name="DatasetId" ColumnName="DatasetId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRoleAssignedPackageList" FunctionName="dbRVNLMISModel.Store.GetRoleAssignedPackageList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetRoleAssignedPackageList_Result">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRoleAssignedPackageListForMaterialPackage" FunctionName="dbRVNLMISModel.Store.GetRoleAssignedPackageListForMaterialPackage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetRoleAssignedPackageListForMaterialPackage_Result">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRoleAssignedProjectList" FunctionName="dbRVNLMISModel.Store.GetRoleAssignedProjectList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetRoleAssignedProjectList_Result">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSectionsBetweenChainage" FunctionName="dbRVNLMISModel.Store.GetSectionsBetweenChainage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetSectionsBetweenChainage_Result">
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="SectionCode" ColumnName="SectionCode" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetTicketDetails" FunctionName="dbRVNLMISModel.Store.GetTicketDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetTicketDetails_Result">
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+          <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
+          <ScalarProperty Name="Issue" ColumnName="Issue" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserDetailsById" FunctionName="dbRVNLMISModel.Store.GetUserDetailsById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetUserDetailsById_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleTableId" ColumnName="RoleTableId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="OTP" ColumnName="OTP" />
+          <ScalarProperty Name="ParentOrder" ColumnName="ParentOrder" />
+          <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="FCMToken" ColumnName="FCMToken" />
+          <ScalarProperty Name="IosUserId" ColumnName="IosUserId" />
+          <ScalarProperty Name="UserToken" ColumnName="UserToken" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserwiseAuditDetails" FunctionName="dbRVNLMISModel.Store.GetUserwiseAuditDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetUserwiseAuditDetails_Result">
+          <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="AreaAccessed" ColumnName="AreaAccessed" />
+          <ScalarProperty Name="TimeAccessed" ColumnName="TimeAccessed" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FormName" ColumnName="FormName" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ImportScPkgChngLevel" FunctionName="dbRVNLMISModel.Store.ImportScPkgChngLevel" />
+    <FunctionImportMapping FunctionImportName="INSERT_EntityActivity" FunctionName="dbRVNLMISModel.Store.INSERT_EntityActivity" />
+    <FunctionImportMapping FunctionImportName="PackagelistByUserId" FunctionName="dbRVNLMISModel.Store.PackagelistByUserId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.PackagelistByUserId_Result">
+          <ScalarProperty Name="PkgId" ColumnName="PkgId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PackageStatusByCount" FunctionName="dbRVNLMISModel.Store.PackageStatusByCount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.PackageStatusByCount_Result">
+          <ScalarProperty Name="EDName" ColumnName="EDName" />
+          <ScalarProperty Name="CPMCode" ColumnName="CPMCode" />
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="PackageShortName" ColumnName="PackageShortName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="SectionCount" ColumnName="SectionCount" />
+          <ScalarProperty Name="EntityCount" ColumnName="EntityCount" />
+          <ScalarProperty Name="EnggDwgCount" ColumnName="EnggDwgCount" />
+          <ScalarProperty Name="MaterialAssignedCount" ColumnName="MaterialAssignedCount" />
+          <ScalarProperty Name="MaterialDataUpdatedCount" ColumnName="MaterialDataUpdatedCount" />
+          <ScalarProperty Name="ConActCount" ColumnName="ConActCount" />
+          <ScalarProperty Name="ConActDataUpdateCount" ColumnName="ConActDataUpdateCount" />
+          <ScalarProperty Name="InvoiceCount" ColumnName="InvoiceCount" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PackageUserLogin" FunctionName="dbRVNLMISModel.Store.PackageUserLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.PackageUserLogin_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="RoleTableId" ColumnName="RoleTableId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="RFIBOQInsert" FunctionName="dbRVNLMISModel.Store.RFIBOQInsert" />
+    <FunctionImportMapping FunctionImportName="RoleMenuInsert" FunctionName="dbRVNLMISModel.Store.RoleMenuInsert" />
+    <FunctionImportMapping FunctionImportName="SectionImport" FunctionName="dbRVNLMISModel.Store.SectionImport" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="dbRVNLMISModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="dbRVNLMISModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="dbRVNLMISModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="dbRVNLMISModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="dbRVNLMISModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_INSERT_MaterialIDWithPackage" FunctionName="dbRVNLMISModel.Store.SP_INSERT_MaterialIDWithPackage" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="dbRVNLMISModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="SP_UnAssignAllMaterialsWithPackageId" FunctionName="dbRVNLMISModel.Store.SP_UnAssignAllMaterialsWithPackageId" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="dbRVNLMISModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="SpGetPackageByRoleId" FunctionName="dbRVNLMISModel.Store.SpGetPackageByRoleId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.SpGetPackageByRoleId_Result">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SpGetPMCManagerDetails" FunctionName="dbRVNLMISModel.Store.SpGetPMCManagerDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.SpGetPMCManagerDetails_Result">
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="WhatsappNo" ColumnName="WhatsappNo" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="NoOfUser" ColumnName="NoOfUser" />
+          <ScalarProperty Name="IsAppUser" ColumnName="IsAppUser" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SpGetSubPMCManagerDetails" FunctionName="dbRVNLMISModel.Store.SpGetSubPMCManagerDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.SpGetSubPMCManagerDetails_Result">
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+          <ScalarProperty Name="WId" ColumnName="WId" />
+          <ScalarProperty Name="ResidentEngineerName" ColumnName="ResidentEngineerName" />
+          <ScalarProperty Name="ResidentEngineerName2" ColumnName="ResidentEngineerName2" />
+          <ScalarProperty Name="ReWhatsAppNum" ColumnName="ReWhatsAppNum" />
+          <ScalarProperty Name="Re2WhatsAppNum" ColumnName="Re2WhatsAppNum" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SuperAdminLogin" FunctionName="dbRVNLMISModel.Store.SuperAdminLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.SuperAdminLogin_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="RoleTableId" ColumnName="RoleTableId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UnAssignAllActivitiesWithEntity" FunctionName="dbRVNLMISModel.Store.UnAssignAllActivitiesWithEntity" />
+    <FunctionImportMapping FunctionImportName="UpdateApprFinishDate" FunctionName="dbRVNLMISModel.Store.UpdateApprFinishDate" />
+    <FunctionImportMapping FunctionImportName="UpdatePackageLength" FunctionName="dbRVNLMISModel.Store.UpdatePackageLength" />
+    <FunctionImportMapping FunctionImportName="GenerateRFICode" FunctionName="dbRVNLMISModel.Store.GenerateRFICode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GenerateRFICode_Result">
+          <ScalarProperty Name="WorkGrId" ColumnName="WorkGrId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="RFICountSummary" FunctionName="dbRVNLMISModel.Store.RFICountSummary">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.RFICountSummary_Result">
+          <ScalarProperty Name="AddCount" ColumnName="AddCount" />
+          <ScalarProperty Name="RejectedCount" ColumnName="RejectedCount" />
+          <ScalarProperty Name="AssignedCount" ColumnName="AssignedCount" />
+          <ScalarProperty Name="ApprovedByPMCCount" ColumnName="ApprovedByPMCCount" />
+          <ScalarProperty Name="ApprByRVNLCount" ColumnName="ApprByRVNLCount" />
+          <ScalarProperty Name="PartiallyAppCount" ColumnName="PartiallyAppCount" />
+          <ScalarProperty Name="RevisedCount" ColumnName="RevisedCount" />
+          <ScalarProperty Name="ReOpenCount" ColumnName="ReOpenCount" />
+          <ScalarProperty Name="ScheduledCount" ColumnName="ScheduledCount" />
+          <ScalarProperty Name="ReScheduledCount" ColumnName="ReScheduledCount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stripGetActivitesInSquence" FunctionName="dbRVNLMISModel.Store.stripGetActivitesInSquence">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.stripGetActivitesInSquence_Result">
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="StripActId" ColumnName="StripActId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stripGetProgress" FunctionName="dbRVNLMISModel.Store.stripGetProgress">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.stripGetProgress_Result">
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ActProgressId" ColumnName="ActProgressId" />
+          <ScalarProperty Name="StripActId" ColumnName="StripActId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetDemoDetails" FunctionName="dbRVNLMISModel.Store.GetDemoDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRVNLMISModel.GetDemoDetails_Result">
+          <ScalarProperty Name="DemoId" ColumnName="DemoId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DemoDate" ColumnName="DemoDate" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+          <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblActivityGroups">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblActivityGroup">
+        <MappingFragment StoreEntitySet="tblActivityGroup">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ActivityGroupName" ColumnName="ActivityGroupName" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAppMenus">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblAppMenu">
+        <MappingFragment StoreEntitySet="tblAppMenus">
+          <ScalarProperty Name="IsRFI" ColumnName="IsRFI" />
+          <ScalarProperty Name="ParentOrder" ColumnName="ParentOrder" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="LiTagId" ColumnName="LiTagId" />
+          <ScalarProperty Name="MenuCode" ColumnName="MenuCode" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ParrentId" ColumnName="ParrentId" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblApprActions">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblApprAction">
+        <MappingFragment StoreEntitySet="tblApprActions">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ApproverId" ColumnName="ApproverId" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAttachments">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblAttachment">
+        <MappingFragment StoreEntitySet="tblAttachments">
+          <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAudits">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblAudit">
+        <MappingFragment StoreEntitySet="tblAudit">
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="FormName" ColumnName="FormName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TimeAccessed" ColumnName="TimeAccessed" />
+          <ScalarProperty Name="AreaAccessed" ColumnName="AreaAccessed" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblCashFlows">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblCashFlow">
+        <MappingFragment StoreEntitySet="tblCashFlow">
+          <ScalarProperty Name="PlannedValue" ColumnName="PlannedValue" />
+          <ScalarProperty Name="ActualValue" ColumnName="ActualValue" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="CashFlowId" ColumnName="CashFlowId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblConsActivities">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblConsActivity">
+        <MappingFragment StoreEntitySet="tblConsActivity">
+          <ScalarProperty Name="KeyFlag" ColumnName="KeyFlag" />
+          <ScalarProperty Name="IsRFI" ColumnName="IsRFI" />
+          <ScalarProperty Name="isStripChart" ColumnName="isStripChart" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="ActWtg" ColumnName="ActWtg" />
+          <ScalarProperty Name="ActUnit" ColumnName="ActUnit" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="ActivityGroup" ColumnName="ActivityGroup" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblConsEntActs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblConsEntAct">
+        <MappingFragment StoreEntitySet="tblConsEntAct">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="BudgQty" ColumnName="BudgQty" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="EntActId" ColumnName="EntActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblConsEntActTrans">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblConsEntActTran">
+        <MappingFragment StoreEntitySet="tblConsEntActTran">
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="TargetDate" ColumnName="TargetDate" />
+          <ScalarProperty Name="CompletedQty" ColumnName="CompletedQty" />
+          <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="EntActId" ColumnName="EntActId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDataIssues">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblDataIssue">
+        <MappingFragment StoreEntitySet="tblDataIssue">
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="DataTicket" ColumnName="DataTicket" />
+          <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDataIssueStatus">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblDataIssueStatu">
+        <MappingFragment StoreEntitySet="tblDataIssueStatus">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDataIssueStatusLogs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblDataIssueStatusLog">
+        <MappingFragment StoreEntitySet="tblDataIssueStatusLog">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+          <ScalarProperty Name="LogId" ColumnName="LogId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDeletedRecordLogs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblDeletedRecordLog">
+        <MappingFragment StoreEntitySet="tblDeletedRecordLogs">
+          <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+          <ScalarProperty Name="DeletedIds" ColumnName="DeletedIds" />
+          <ScalarProperty Name="NoOfRecords" ColumnName="NoOfRecords" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDemoes">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblDemo">
+        <MappingFragment StoreEntitySet="tblDemo">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="TimeslotID" ColumnName="TimeslotID" />
+          <ScalarProperty Name="DemoDate" ColumnName="DemoDate" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="DemoId" ColumnName="DemoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDisciplines">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblDiscipline">
+        <MappingFragment StoreEntitySet="tblDiscipline">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="DispName" ColumnName="DispName" />
+          <ScalarProperty Name="DispCode" ColumnName="DispCode" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDocuments">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblDocument">
+        <MappingFragment StoreEntitySet="tblDocument">
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="UploadedOn" ColumnName="UploadedOn" />
+          <ScalarProperty Name="DocumnetType" ColumnName="DocumnetType" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEnggApprGates">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblEnggApprGate">
+        <MappingFragment StoreEntitySet="tblEnggApprGate">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="ApprGateName" ColumnName="ApprGateName" />
+          <ScalarProperty Name="ApprGateId" ColumnName="ApprGateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEnggDwgAttachments">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblEnggDwgAttachment">
+        <MappingFragment StoreEntitySet="tblEnggDwgAttachment">
+          <ScalarProperty Name="EnggDwgId" ColumnName="EnggDwgId" />
+          <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEnggDwgTypes">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblEnggDwgType">
+        <MappingFragment StoreEntitySet="tblEnggDwgType">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="DwgName" ColumnName="DwgName" />
+          <ScalarProperty Name="DwgId" ColumnName="DwgId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEnggEntDwgApprs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblEnggEntDwgAppr">
+        <MappingFragment StoreEntitySet="tblEnggEntDwgAppr">
+          <ScalarProperty Name="DrawingName" ColumnName="DrawingName" />
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="ApprFinsihDate" ColumnName="ApprFinsihDate" />
+          <ScalarProperty Name="ApprStartDate" ColumnName="ApprStartDate" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="AppGateId" ColumnName="AppGateId" />
+          <ScalarProperty Name="DwgId" ColumnName="DwgId" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEntityTypes">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblEntityType">
+        <MappingFragment StoreEntitySet="tblEntityType">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEvents">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblEvent">
+        <MappingFragment StoreEntitySet="tblEvents">
+          <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+          <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+          <ScalarProperty Name="End" ColumnName="End" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInvoices">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblInvoice">
+        <MappingFragment StoreEntitySet="tblInvoice">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CertifiedAmount" ColumnName="CertifiedAmount" />
+          <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInvoicePayments">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblInvoicePayment">
+        <MappingFragment StoreEntitySet="tblInvoicePayment">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblIssues">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblIssue">
+        <MappingFragment StoreEntitySet="tblIssue">
+          <ScalarProperty Name="IssueAddeby" ColumnName="IssueAddeby" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="otherLocation" ColumnName="otherLocation" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+          <ScalarProperty Name="IssueSubject" ColumnName="IssueSubject" />
+          <ScalarProperty Name="IssueDescription" ColumnName="IssueDescription" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="IssueRegNo" ColumnName="IssueRegNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblKPIPlanActuals">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblKPIPlanActual">
+        <MappingFragment StoreEntitySet="tblKPIPlanActual">
+          <ScalarProperty Name="RemainingLateUnit" ColumnName="RemainingLateUnit" />
+          <ScalarProperty Name="RemainingEarlyUnit" ColumnName="RemainingEarlyUnit" />
+          <ScalarProperty Name="ActualUnit" ColumnName="ActualUnit" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMasterEDs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMasterED">
+        <MappingFragment StoreEntitySet="tblMasterED">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="EDName" ColumnName="EDName" />
+          <ScalarProperty Name="EDCode" ColumnName="EDCode" />
+          <ScalarProperty Name="EDId" ColumnName="EDId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMasterEntities">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMasterEntity">
+        <MappingFragment StoreEntitySet="tblMasterEntity">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="Long" ColumnName="Long" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMasterGroups">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMasterGroup">
+        <MappingFragment StoreEntitySet="tblMasterGroup">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMasterPIUs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMasterPIU">
+        <MappingFragment StoreEntitySet="tblMasterPIU">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitute" ColumnName="Latitute" />
+          <ScalarProperty Name="PIUName" ColumnName="PIUName" />
+          <ScalarProperty Name="PIUCode" ColumnName="PIUCode" />
+          <ScalarProperty Name="EDId" ColumnName="EDId" />
+          <ScalarProperty Name="PIUId" ColumnName="PIUId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMasterProjects">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMasterProject">
+        <MappingFragment StoreEntitySet="tblMasterProjects">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsMonitorFlag" ColumnName="IsMonitorFlag" />
+          <ScalarProperty Name="ValueTillDate" ColumnName="ValueTillDate" />
+          <ScalarProperty Name="AnticipatedValue" ColumnName="AnticipatedValue" />
+          <ScalarProperty Name="ProjectTypeId" ColumnName="ProjectTypeId" />
+          <ScalarProperty Name="RailwayId" ColumnName="RailwayId" />
+          <ScalarProperty Name="ProjectLength" ColumnName="ProjectLength" />
+          <ScalarProperty Name="DateOfTransfer" ColumnName="DateOfTransfer" />
+          <ScalarProperty Name="ProjectFullName" ColumnName="ProjectFullName" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="PIUId" ColumnName="PIUId" />
+          <ScalarProperty Name="EDId" ColumnName="EDId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMasterRailways">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMasterRailway">
+        <MappingFragment StoreEntitySet="tblMasterRailway">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="RailwayName" ColumnName="RailwayName" />
+          <ScalarProperty Name="RailwayCode" ColumnName="RailwayCode" />
+          <ScalarProperty Name="RailwayId" ColumnName="RailwayId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMaterialDistributions">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMaterialDistribution">
+        <MappingFragment StoreEntitySet="tblMaterialDistribution">
+          <ScalarProperty Name="EMDeliveredQty" ColumnName="EMDeliveredQty" />
+          <ScalarProperty Name="EMOrderedQty" ColumnName="EMOrderedQty" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="PackMatId" ColumnName="PackMatId" />
+          <ScalarProperty Name="EMDId" ColumnName="EMDId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMilestones">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMilestone">
+        <MappingFragment StoreEntitySet="tblMilestone">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="ProjCompFlag" ColumnName="ProjCompFlag" />
+          <ScalarProperty Name="ContractMonitor" ColumnName="ContractMonitor" />
+          <ScalarProperty Name="MilePlanDate" ColumnName="MilePlanDate" />
+          <ScalarProperty Name="MileName" ColumnName="MileName" />
+          <ScalarProperty Name="PrimaMileCode" ColumnName="PrimaMileCode" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="MilestoneId" ColumnName="MilestoneId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMilestoneActuals">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblMilestoneActual">
+        <MappingFragment StoreEntitySet="tblMilestoneActual">
+          <ScalarProperty Name="MileDate" ColumnName="MileDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="MilestoneId" ColumnName="MilestoneId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblModules">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblModule">
+        <MappingFragment StoreEntitySet="tblModule">
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNotifications">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblNotification">
+        <MappingFragment StoreEntitySet="tblNotification">
+          <ScalarProperty Name="Response" ColumnName="Response" />
+          <ScalarProperty Name="Payload" ColumnName="Payload" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+          <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNotificationMsgs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblNotificationMsg">
+        <MappingFragment StoreEntitySet="tblNotificationMsg">
+          <ScalarProperty Name="Response" ColumnName="Response" />
+          <ScalarProperty Name="DeliveredOn" ColumnName="DeliveredOn" />
+          <ScalarProperty Name="SentOn" ColumnName="SentOn" />
+          <ScalarProperty Name="isDelivered" ColumnName="isDelivered" />
+          <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+          <ScalarProperty Name="TblType" ColumnName="TblType" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNotificationReadStatus">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblNotificationReadStatu">
+        <MappingFragment StoreEntitySet="tblNotificationReadStatus">
+          <ScalarProperty Name="ReadOn" ColumnName="ReadOn" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNotificationSettings">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblNotificationSetting">
+        <MappingFragment StoreEntitySet="tblNotificationSetting">
+          <ScalarProperty Name="IsPopup" ColumnName="IsPopup" />
+          <ScalarProperty Name="IsDesktopPush" ColumnName="IsDesktopPush" />
+          <ScalarProperty Name="IsAppPush" ColumnName="IsAppPush" />
+          <ScalarProperty Name="IsWhatsApp" ColumnName="IsWhatsApp" />
+          <ScalarProperty Name="IsSMS" ColumnName="IsSMS" />
+          <ScalarProperty Name="IsEmail" ColumnName="IsEmail" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPackages">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPackage">
+        <MappingFragment StoreEntitySet="tblPackages">
+          <ScalarProperty Name="IsSubscribed" ColumnName="IsSubscribed" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="EoTgranted" ColumnName="EoTgranted" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="TotalKmLength" ColumnName="TotalKmLength" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="BalanceValue" ColumnName="BalanceValue" />
+          <ScalarProperty Name="CompletedValue" ColumnName="CompletedValue" />
+          <ScalarProperty Name="RevisedPackageValue" ColumnName="RevisedPackageValue" />
+          <ScalarProperty Name="PackageValue" ColumnName="PackageValue" />
+          <ScalarProperty Name="ForecastComplDate" ColumnName="ForecastComplDate" />
+          <ScalarProperty Name="PackageFinish" ColumnName="PackageFinish" />
+          <ScalarProperty Name="PackageStart" ColumnName="PackageStart" />
+          <ScalarProperty Name="PCPM" ColumnName="PCPM" />
+          <ScalarProperty Name="PMC" ColumnName="PMC" />
+          <ScalarProperty Name="Contractor" ColumnName="Contractor" />
+          <ScalarProperty Name="Client" ColumnName="Client" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PackageShortName" ColumnName="PackageShortName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPackageSCurves">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPackageSCurve">
+        <MappingFragment StoreEntitySet="tblPackageSCurve">
+          <ScalarProperty Name="ActualValue" ColumnName="ActualValue" />
+          <ScalarProperty Name="PlannedValueLate" ColumnName="PlannedValueLate" />
+          <ScalarProperty Name="PlannedValueEarly" ColumnName="PlannedValueEarly" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPackageUserContacts">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPackageUserContact">
+        <MappingFragment StoreEntitySet="tblPackageUserContact">
+          <ScalarProperty Name="NoOfUser" ColumnName="NoOfUser" />
+          <ScalarProperty Name="IsAppUser" ColumnName="IsAppUser" />
+          <ScalarProperty Name="WhatsappNo" ColumnName="WhatsappNo" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPackageValues">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPackageValue">
+        <MappingFragment StoreEntitySet="tblPackageValue">
+          <ScalarProperty Name="ProposedVariationValue" ColumnName="ProposedVariationValue" />
+          <ScalarProperty Name="ProposedVariations" ColumnName="ProposedVariations" />
+          <ScalarProperty Name="RevisedContractValue" ColumnName="RevisedContractValue" />
+          <ScalarProperty Name="ApprovedVariationValue" ColumnName="ApprovedVariationValue" />
+          <ScalarProperty Name="ApprovedVariations" ColumnName="ApprovedVariations" />
+          <ScalarProperty Name="TotalContractValue" ColumnName="TotalContractValue" />
+          <ScalarProperty Name="ProvisionalSum" ColumnName="ProvisionalSum" />
+          <ScalarProperty Name="OriginalContractValue" ColumnName="OriginalContractValue" />
+          <ScalarProperty Name="BalancePaymentDue" ColumnName="BalancePaymentDue" />
+          <ScalarProperty Name="PaidInvoiceAmount" ColumnName="PaidInvoiceAmount" />
+          <ScalarProperty Name="PendingAmount" ColumnName="PendingAmount" />
+          <ScalarProperty Name="CertifiedInvoiceAmount" ColumnName="CertifiedInvoiceAmount" />
+          <ScalarProperty Name="CertifiedInvoices" ColumnName="CertifiedInvoices" />
+          <ScalarProperty Name="LatestInvoiceAmount" ColumnName="LatestInvoiceAmount" />
+          <ScalarProperty Name="LatestInvoiceDate" ColumnName="LatestInvoiceDate" />
+          <ScalarProperty Name="TotalInvoicedAmount" ColumnName="TotalInvoicedAmount" />
+          <ScalarProperty Name="InvoiceSubmitted" ColumnName="InvoiceSubmitted" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPkgMatTransactions">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPkgMatTransaction">
+        <MappingFragment StoreEntitySet="tblPkgMatTransaction">
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="TargetDate" ColumnName="TargetDate" />
+          <ScalarProperty Name="PORef" ColumnName="PORef" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="DeliveredQty" ColumnName="DeliveredQty" />
+          <ScalarProperty Name="OrderedQty" ColumnName="OrderedQty" />
+          <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="PkgMatId" ColumnName="PkgMatId" />
+          <ScalarProperty Name="PkgMatTranId" ColumnName="PkgMatTranId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPMCReportDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPMCReportDetail">
+        <MappingFragment StoreEntitySet="tblPMCReportDetails">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ReportingDate" ColumnName="ReportingDate" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PRId" ColumnName="PRId" />
+          <ScalarProperty Name="PMCReportId" ColumnName="PMCReportId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPMCReportTypes">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPMCReportType">
+        <MappingFragment StoreEntitySet="tblPMCReportType">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="PMCReportType" ColumnName="PMCReportType" />
+          <ScalarProperty Name="PRId" ColumnName="PRId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPowerBIReports">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPowerBIReport">
+        <MappingFragment StoreEntitySet="tblPowerBIReport">
+          <ScalarProperty Name="DatasetId" ColumnName="DatasetId" />
+          <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+          <ScalarProperty Name="AppSecret" ColumnName="AppSecret" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="isDashboard" ColumnName="isDashboard" />
+          <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+          <ScalarProperty Name="WorkSpaceId" ColumnName="WorkSpaceId" />
+          <ScalarProperty Name="ReportImage" ColumnName="ReportImage" />
+          <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProcMaterials">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblProcMaterial">
+        <MappingFragment StoreEntitySet="tblProcMaterial">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProcPkgMaterials">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblProcPkgMaterial">
+        <MappingFragment StoreEntitySet="tblProcPkgMaterial">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="OriginalQty" ColumnName="OriginalQty" />
+          <ScalarProperty Name="RatePerUnit" ColumnName="RatePerUnit" />
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PkgMatId" ColumnName="PkgMatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProjectTypes">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblProjectType">
+        <MappingFragment StoreEntitySet="tblProjectType">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="ProjectTypeName" ColumnName="ProjectTypeName" />
+          <ScalarProperty Name="ProjectTypeCode" ColumnName="ProjectTypeCode" />
+          <ScalarProperty Name="ProjectTypeId" ColumnName="ProjectTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblReportPeriodMs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblReportPeriodM">
+        <MappingFragment StoreEntitySet="tblReportPeriodM">
+          <ScalarProperty Name="RPName" ColumnName="RPName" />
+          <ScalarProperty Name="RPFinish" ColumnName="RPFinish" />
+          <ScalarProperty Name="RPStart" ColumnName="RPStart" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ReportPeriodId" ColumnName="ReportPeriodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblResidentEnggDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblResidentEnggDetail">
+        <MappingFragment StoreEntitySet="tblResidentEnggDetails">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Re2WhatsAppNum" ColumnName="Re2WhatsAppNum" />
+          <ScalarProperty Name="ReWhatsAppNum" ColumnName="ReWhatsAppNum" />
+          <ScalarProperty Name="ResidentEngineerName2" ColumnName="ResidentEngineerName2" />
+          <ScalarProperty Name="ResidentEngineerName" ColumnName="ResidentEngineerName" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+          <ScalarProperty Name="WId" ColumnName="WId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblResources">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblResource">
+        <MappingFragment StoreEntitySet="tblResources">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ResourceUnit" ColumnName="ResourceUnit" />
+          <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRoles">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRole">
+        <MappingFragment StoreEntitySet="tblRole">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRoleMenuAccesses">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRoleMenuAccess">
+        <MappingFragment StoreEntitySet="tblRoleMenuAccess">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleMenuId" ColumnName="RoleMenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblScActivityDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblScActivityDetail">
+        <MappingFragment StoreEntitySet="tblScActivityDetails">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="PlotThk" ColumnName="PlotThk" />
+          <ScalarProperty Name="PlotColour" ColumnName="PlotColour" />
+          <ScalarProperty Name="ScActName" ColumnName="ScActName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ScActID" ColumnName="ScActID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblScChainageUpdates">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblScChainageUpdate">
+        <MappingFragment StoreEntitySet="tblScChainageUpdate">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblScCsDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblScCsDetail">
+        <MappingFragment StoreEntitySet="tblScCsDetails">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="BottomWd" ColumnName="BottomWd" />
+          <ScalarProperty Name="TopWd" ColumnName="TopWd" />
+          <ScalarProperty Name="Slope" ColumnName="Slope" />
+          <ScalarProperty Name="MaxLayerThk" ColumnName="MaxLayerThk" />
+          <ScalarProperty Name="TotalThk" ColumnName="TotalThk" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Layer" ColumnName="Layer" />
+          <ScalarProperty Name="ScActID" ColumnName="ScActID" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="CsID" ColumnName="CsID" />
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSchedules">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblSchedule">
+        <MappingFragment StoreEntitySet="tblSchedule">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="TimeslotId" ColumnName="TimeslotId" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSCPkgChngLvls">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblSCPkgChngLvl">
+        <MappingFragment StoreEntitySet="tblSCPkgChngLvl">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CsID" ColumnName="CsID" />
+          <ScalarProperty Name="FRL" ColumnName="FRL" />
+          <ScalarProperty Name="OGL" ColumnName="OGL" />
+          <ScalarProperty Name="Chainage" ColumnName="Chainage" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSCPkgCrossSections">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblSCPkgCrossSection">
+        <MappingFragment StoreEntitySet="tblSCPkgCrossSection">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CSName" ColumnName="CSName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="CsID" ColumnName="CsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSections">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblSection">
+        <MappingFragment StoreEntitySet="tblSection">
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="SectionFinish" ColumnName="SectionFinish" />
+          <ScalarProperty Name="SectionStart" ColumnName="SectionStart" />
+          <ScalarProperty Name="SectionCode" ColumnName="SectionCode" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSettings">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblSetting">
+        <MappingFragment StoreEntitySet="tblSettings">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+          <ScalarProperty Name="DataType" ColumnName="DataType" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="SKey" ColumnName="SKey" />
+          <ScalarProperty Name="SettingID" ColumnName="SettingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSystemResolutionDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblSystemResolutionDetail">
+        <MappingFragment StoreEntitySet="tblSystemResolutionDetails">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="BrowserDetails" ColumnName="BrowserDetails" />
+          <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+          <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="SysId" ColumnName="SysId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTargetSections">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblTargetSection">
+        <MappingFragment StoreEntitySet="tblTargetSections">
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="TargetSectionId" ColumnName="TargetSectionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTickets">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblTicket">
+        <MappingFragment StoreEntitySet="tblTicket">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Issue" ColumnName="Issue" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTimeslots">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblTimeslot">
+        <MappingFragment StoreEntitySet="tblTimeslot">
+          <ScalarProperty Name="To" ColumnName="To" />
+          <ScalarProperty Name="From" ColumnName="From" />
+          <ScalarProperty Name="TimeslotId" ColumnName="TimeslotId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserDataAccesses">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblUserDataAccess">
+        <MappingFragment StoreEntitySet="tblUserDataAccess">
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="UserDataAceessID" ColumnName="UserDataAceessID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserLogs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblUserLog">
+        <MappingFragment StoreEntitySet="tblUserLog">
+          <ScalarProperty Name="AccessedOn" ColumnName="AccessedOn" />
+          <ScalarProperty Name="UpdatedValue" ColumnName="UpdatedValue" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="FormName" ColumnName="FormName" />
+          <ScalarProperty Name="MACAddress" ColumnName="MACAddress" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LogID" ColumnName="LogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserMasters">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblUserMaster">
+        <MappingFragment StoreEntitySet="tblUserMaster">
+          <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+          <ScalarProperty Name="UserToken" ColumnName="UserToken" />
+          <ScalarProperty Name="IosUserId" ColumnName="IosUserId" />
+          <ScalarProperty Name="FCMToken" ColumnName="FCMToken" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+          <ScalarProperty Name="ParentOrder" ColumnName="ParentOrder" />
+          <ScalarProperty Name="OTP" ColumnName="OTP" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RoleTableId" ColumnName="RoleTableId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLogAudits">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.UserLogAudit">
+        <MappingFragment StoreEntitySet="UserLogAudit">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
+          <ScalarProperty Name="UpdatedValues" ColumnName="UpdatedValues" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="UserlogAuditId" ColumnName="UserlogAuditId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBOQMasters">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblBOQMaster">
+        <MappingFragment StoreEntitySet="tblBOQMaster">
+          <ScalarProperty Name="BoqQty" ColumnName="BoqQty" />
+          <ScalarProperty Name="BoqRate" ColumnName="BoqRate" />
+          <ScalarProperty Name="BoqUnit" ColumnName="BoqUnit" />
+          <ScalarProperty Name="BoqName" ColumnName="BoqName" />
+          <ScalarProperty Name="BoqCode" ColumnName="BoqCode" />
+          <ScalarProperty Name="BoqID" ColumnName="BoqID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEnclosures">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblEnclosure">
+        <MappingFragment StoreEntitySet="tblEnclosure">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="EnclName" ColumnName="EnclName" />
+          <ScalarProperty Name="EnclId" ColumnName="EnclId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInspectionStatus">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblInspectionStatu">
+        <MappingFragment StoreEntitySet="tblInspectionStatus">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="InspDesc" ColumnName="InspDesc" />
+          <ScalarProperty Name="StatusType" ColumnName="StatusType" />
+          <ScalarProperty Name="InspId" ColumnName="InspId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOrganisations">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblOrganisation">
+        <MappingFragment StoreEntitySet="tblOrganisation">
+          <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+          <ScalarProperty Name="OrganisationId" ColumnName="OrganisationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFI">
+        <MappingFragment StoreEntitySet="tblRFI">
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="WorksideID" ColumnName="WorksideID" />
+          <ScalarProperty Name="OtherLocation" ColumnName="OtherLocation" />
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="LayerNo" ColumnName="LayerNo" />
+          <ScalarProperty Name="RFIID" ColumnName="RFIID" />
+          <ScalarProperty Name="WorkGroupID" ColumnName="WorkGroupID" />
+          <ScalarProperty Name="SubDate" ColumnName="SubDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIActivities">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIActivity">
+        <MappingFragment StoreEntitySet="tblRFIActivity">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="RFIActName" ColumnName="RFIActName" />
+          <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="RFIActId" ColumnName="RFIActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIActivityBOQs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIActivityBOQ">
+        <MappingFragment StoreEntitySet="tblRFIActivityBOQ">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="RFIBOQCode" ColumnName="RFIBOQCode" />
+          <ScalarProperty Name="RFIBOQId" ColumnName="RFIBOQId" />
+          <ScalarProperty Name="RFIActId" ColumnName="RFIActId" />
+          <ScalarProperty Name="RFIActBOQId" ColumnName="RFIActBOQId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIDesignations">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIDesignation">
+        <MappingFragment StoreEntitySet="tblRFIDesignation">
+          <ScalarProperty Name="OrganisationId" ColumnName="OrganisationId" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="RFIDesignId" ColumnName="RFIDesignId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIEnclosures">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIEnclosure">
+        <MappingFragment StoreEntitySet="tblRFIEnclosure">
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="EnclAttachPath" ColumnName="EnclAttachPath" />
+          <ScalarProperty Name="EnclAttach" ColumnName="EnclAttach" />
+          <ScalarProperty Name="EnclId" ColumnName="EnclId" />
+          <ScalarProperty Name="RFIId" ColumnName="RFIId" />
+          <ScalarProperty Name="RFIEnclId" ColumnName="RFIEnclId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIMains">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIMain">
+        <MappingFragment StoreEntitySet="tblRFIMain">
+          <ScalarProperty Name="ResultOfInspection" ColumnName="ResultOfInspection" />
+          <ScalarProperty Name="BOQItemNo" ColumnName="BOQItemNo" />
+          <ScalarProperty Name="InspectionOn" ColumnName="InspectionOn" />
+          <ScalarProperty Name="DateOfInspection" ColumnName="DateOfInspection" />
+          <ScalarProperty Name="RecivedDatee" ColumnName="RecivedDatee" />
+          <ScalarProperty Name="RFINo" ColumnName="RFINo" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ApprovedFinishChainage" ColumnName="ApprovedFinishChainage" />
+          <ScalarProperty Name="ApprovedStartChainage" ColumnName="ApprovedStartChainage" />
+          <ScalarProperty Name="WorkDescription" ColumnName="WorkDescription" />
+          <ScalarProperty Name="RFICloseDate" ColumnName="RFICloseDate" />
+          <ScalarProperty Name="RFIOpenDate" ColumnName="RFIOpenDate" />
+          <ScalarProperty Name="RFIStatus" ColumnName="RFIStatus" />
+          <ScalarProperty Name="WorkSide" ColumnName="WorkSide" />
+          <ScalarProperty Name="OtherWorkLocation" ColumnName="OtherWorkLocation" />
+          <ScalarProperty Name="Entity" ColumnName="Entity" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainge" ColumnName="StartChainge" />
+          <ScalarProperty Name="LocationType" ColumnName="LocationType" />
+          <ScalarProperty Name="RFIActivityId" ColumnName="RFIActivityId" />
+          <ScalarProperty Name="LayerNo" ColumnName="LayerNo" />
+          <ScalarProperty Name="RFICode" ColumnName="RFICode" />
+          <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+          <ScalarProperty Name="PkgId" ColumnName="PkgId" />
+          <ScalarProperty Name="RFIId" ColumnName="RFIId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFINotifications">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFINotification">
+        <MappingFragment StoreEntitySet="tblRFINotification">
+          <ScalarProperty Name="AcceptedOn" ColumnName="AcceptedOn" />
+          <ScalarProperty Name="SentOn" ColumnName="SentOn" />
+          <ScalarProperty Name="SentToId" ColumnName="SentToId" />
+          <ScalarProperty Name="Notification" ColumnName="Notification" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="RFIRevId" ColumnName="RFIRevId" />
+          <ScalarProperty Name="RFINotifyId" ColumnName="RFINotifyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIPictures">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIPicture">
+        <MappingFragment StoreEntitySet="tblRFIPictures">
+          <ScalarProperty Name="InspStatus" ColumnName="InspStatus" />
+          <ScalarProperty Name="AddedLocation" ColumnName="AddedLocation" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="AddedById" ColumnName="AddedById" />
+          <ScalarProperty Name="PicPath" ColumnName="PicPath" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="RFIRevId" ColumnName="RFIRevId" />
+          <ScalarProperty Name="RFIPicId" ColumnName="RFIPicId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIRevisions">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIRevision">
+        <MappingFragment StoreEntitySet="tblRFIRevision">
+          <ScalarProperty Name="ContrComment" ColumnName="ContrComment" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="InspStatus" ColumnName="InspStatus" />
+          <ScalarProperty Name="InspId" ColumnName="InspId" />
+          <ScalarProperty Name="InspBy" ColumnName="InspBy" />
+          <ScalarProperty Name="InspDate" ColumnName="InspDate" />
+          <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+          <ScalarProperty Name="AcceptedBy" ColumnName="AcceptedBy" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="CreatedLocation" ColumnName="CreatedLocation" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="RFIId" ColumnName="RFIId" />
+          <ScalarProperty Name="RFIRevId" ColumnName="RFIRevId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFITimelineActivities">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFITimelineActivity">
+        <MappingFragment StoreEntitySet="tblRFITimelineActivity">
+          <ScalarProperty Name="AttachAutoId" ColumnName="AttachAutoId" />
+          <ScalarProperty Name="AttachmentType" ColumnName="AttachmentType" />
+          <ScalarProperty Name="RFIId" ColumnName="RFIId" />
+          <ScalarProperty Name="TimelineActDate" ColumnName="TimelineActDate" />
+          <ScalarProperty Name="StatusClass" ColumnName="StatusClass" />
+          <ScalarProperty Name="TimelineActText" ColumnName="TimelineActText" />
+          <ScalarProperty Name="RFITimelineActID" ColumnName="RFITimelineActID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRFIUsers">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblRFIUser">
+        <MappingFragment StoreEntitySet="tblRFIUser">
+          <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="ReportingTo" ColumnName="ReportingTo" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+          <ScalarProperty Name="Organisation" ColumnName="Organisation" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="PackgeId" ColumnName="PackgeId" />
+          <ScalarProperty Name="RFIUserId" ColumnName="RFIUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblWorkGroups">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblWorkGroup">
+        <MappingFragment StoreEntitySet="tblWorkGroup">
+          <ScalarProperty Name="WorkGrPrefix" ColumnName="WorkGrPrefix" />
+          <ScalarProperty Name="WorkGrName" ColumnName="WorkGrName" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="WorkGrId" ColumnName="WorkGrId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblWorkSides">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblWorkSide">
+        <MappingFragment StoreEntitySet="tblWorkSide">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="WorkSideName" ColumnName="WorkSideName" />
+          <ScalarProperty Name="WorkSideId" ColumnName="WorkSideId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblStripPkgActs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblStripPkgAct">
+        <MappingFragment StoreEntitySet="tblStripPkgAct">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="StripActId" ColumnName="StripActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblStripPkgProgresses">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblStripPkgProgress">
+        <MappingFragment StoreEntitySet="tblStripPkgProgress">
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="StripActId" ColumnName="StripActId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ActProgressId" ColumnName="ActProgressId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPkgChngLvls">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPkgChngLvl">
+        <MappingFragment StoreEntitySet="tblPkgChngLvl">
+          <ScalarProperty Name="FormLvl" ColumnName="FormLvl" />
+          <ScalarProperty Name="FRL" ColumnName="FRL" />
+          <ScalarProperty Name="OGL" ColumnName="OGL" />
+          <ScalarProperty Name="Chainage" ColumnName="Chainage" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="C06ConsSummary">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.C06ConsSummary">
+        <MappingFragment StoreEntitySet="06ConsSummary">
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="CompletedWtg" ColumnName="CompletedWtg" />
+          <ScalarProperty Name="TotalWtg" ColumnName="TotalWtg" />
+          <ScalarProperty Name="ActivityGroup" ColumnName="ActivityGroup" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="ComplQty" ColumnName="ComplQty" />
+          <ScalarProperty Name="ReviseQty" ColumnName="ReviseQty" />
+          <ScalarProperty Name="ActWtg" ColumnName="ActWtg" />
+          <ScalarProperty Name="ActUnit" ColumnName="ActUnit" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="BudgQty" ColumnName="BudgQty" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="EntActId" ColumnName="EntActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="C100ProcForm">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.C100ProcForm">
+        <MappingFragment StoreEntitySet="100ProcForm">
+          <ScalarProperty Name="CumDeliveredQty" ColumnName="CumDeliveredQty" />
+          <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
+          <ScalarProperty Name="CumOrderedQty" ColumnName="CumOrderedQty" />
+          <ScalarProperty Name="OriginalQty" ColumnName="OriginalQty" />
+          <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="RatePerUnit" ColumnName="RatePerUnit" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="PkgMatId" ColumnName="PkgMatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConstructionActivityViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ConstructionActivityView">
+        <MappingFragment StoreEntitySet="ConstructionActivityView">
+          <ScalarProperty Name="CompletedQtyToDate" ColumnName="CompletedQtyToDate" />
+          <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="BudgQty" ColumnName="BudgQty" />
+          <ScalarProperty Name="ActUnit" ColumnName="ActUnit" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="EntActId" ColumnName="EntActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CrossKPIReports">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.CrossKPIReport">
+        <MappingFragment StoreEntitySet="CrossKPIReport">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="RemainingLateUnit" ColumnName="RemainingLateUnit" />
+          <ScalarProperty Name="RemainingEarlyUnit" ColumnName="RemainingEarlyUnit" />
+          <ScalarProperty Name="ActualUnit" ColumnName="ActualUnit" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+          <ScalarProperty Name="RPName" ColumnName="RPName" />
+          <ScalarProperty Name="RPFinish" ColumnName="RPFinish" />
+          <ScalarProperty Name="RPStart" ColumnName="RPStart" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="ReportPeriodId" ColumnName="ReportPeriodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CrossSectionDetailsViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.CrossSectionDetailsView">
+        <MappingFragment StoreEntitySet="CrossSectionDetailsView">
+          <ScalarProperty Name="TotalThk" ColumnName="TotalThk" />
+          <ScalarProperty Name="TopWd" ColumnName="TopWd" />
+          <ScalarProperty Name="Slope" ColumnName="Slope" />
+          <ScalarProperty Name="BottomWd" ColumnName="BottomWd" />
+          <ScalarProperty Name="MaxLayerThk" ColumnName="MaxLayerThk" />
+          <ScalarProperty Name="StrLayer" ColumnName="StrLayer" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="CrossSectionName" ColumnName="CrossSectionName" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="CsID" ColumnName="CsID" />
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EnggDwgAttachmentViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.EnggDwgAttachmentView">
+        <MappingFragment StoreEntitySet="EnggDwgAttachmentView">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="EnggDwgId" ColumnName="EnggDwgId" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EntityDrawingApprViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.EntityDrawingApprView">
+        <MappingFragment StoreEntitySet="EntityDrawingApprView">
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="DrawingName" ColumnName="DrawingName" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="ApprStartDate" ColumnName="ApprStartDate" />
+          <ScalarProperty Name="DwgName" ColumnName="DwgName" />
+          <ScalarProperty Name="ApprGateName" ColumnName="ApprGateName" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="ApprGateId" ColumnName="ApprGateId" />
+          <ScalarProperty Name="DwgId" ColumnName="DwgId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EntityTypeWithActGroupViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.EntityTypeWithActGroupView">
+        <MappingFragment StoreEntitySet="EntityTypeWithActGroupView">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ActGId" ColumnName="ActGId" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActivityGroupName" ColumnName="ActivityGroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoicePaymentViewDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.InvoicePaymentViewDetail">
+        <MappingFragment StoreEntitySet="InvoicePaymentViewDetails">
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CertifiedAmount" ColumnName="CertifiedAmount" />
+          <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="isPaid" ColumnName="isPaid" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceSumViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.InvoiceSumView">
+        <MappingFragment StoreEntitySet="InvoiceSumView">
+          <ScalarProperty Name="IsPaidPayment" ColumnName="IsPaidPayment" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceTotalSumViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.InvoiceTotalSumView">
+        <MappingFragment StoreEntitySet="InvoiceTotalSumView">
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KPIViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.KPIView">
+        <MappingFragment StoreEntitySet="KPIView">
+          <ScalarProperty Name="RPName" ColumnName="RPName" />
+          <ScalarProperty Name="RPFinish" ColumnName="RPFinish" />
+          <ScalarProperty Name="RemainingLateUnit" ColumnName="RemainingLateUnit" />
+          <ScalarProperty Name="RemainingEarlyUnit" ColumnName="RemainingEarlyUnit" />
+          <ScalarProperty Name="ActualUnit" ColumnName="ActualUnit" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MaterialWithDisplineViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.MaterialWithDisplineView">
+        <MappingFragment StoreEntitySet="MaterialWithDisplineView">
+          <ScalarProperty Name="DispName" ColumnName="DispName" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MilestoneSlippages">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.MilestoneSlippage">
+        <MappingFragment StoreEntitySet="MilestoneSlippage">
+          <ScalarProperty Name="Variance" ColumnName="Variance" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MileDate" ColumnName="MileDate" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="MilePlanDate" ColumnName="MilePlanDate" />
+          <ScalarProperty Name="MileName" ColumnName="MileName" />
+          <ScalarProperty Name="MilestoneId" ColumnName="MilestoneId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageDetailsViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.PackageDetailsView">
+        <MappingFragment StoreEntitySet="PackageDetailsView">
+          <ScalarProperty Name="IsSubscribed" ColumnName="IsSubscribed" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="EoTgranted" ColumnName="EoTgranted" />
+          <ScalarProperty Name="Durations" ColumnName="Durations" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="TotalKmLengths" ColumnName="TotalKmLengths" />
+          <ScalarProperty Name="TotalKmLength" ColumnName="TotalKmLength" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="BalanceValues" ColumnName="BalanceValues" />
+          <ScalarProperty Name="BalanceValue" ColumnName="BalanceValue" />
+          <ScalarProperty Name="CompletedValues" ColumnName="CompletedValues" />
+          <ScalarProperty Name="CompletedValue" ColumnName="CompletedValue" />
+          <ScalarProperty Name="RevisedPackageValues" ColumnName="RevisedPackageValues" />
+          <ScalarProperty Name="RevisedPackageValue" ColumnName="RevisedPackageValue" />
+          <ScalarProperty Name="PackageValues" ColumnName="PackageValues" />
+          <ScalarProperty Name="PackageValue" ColumnName="PackageValue" />
+          <ScalarProperty Name="ForecastComplDate" ColumnName="ForecastComplDate" />
+          <ScalarProperty Name="PackageFinish" ColumnName="PackageFinish" />
+          <ScalarProperty Name="PackageStart" ColumnName="PackageStart" />
+          <ScalarProperty Name="PCPM" ColumnName="PCPM" />
+          <ScalarProperty Name="PMC" ColumnName="PMC" />
+          <ScalarProperty Name="Contractor" ColumnName="Contractor" />
+          <ScalarProperty Name="Client" ColumnName="Client" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PackageShortName" ColumnName="PackageShortName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageInvoices">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.PackageInvoice">
+        <MappingFragment StoreEntitySet="PackageInvoice">
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="CertifiedAmount" ColumnName="CertifiedAmount" />
+          <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageMaterialDetailsViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.PackageMaterialDetailsView">
+        <MappingFragment StoreEntitySet="PackageMaterialDetailsView">
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="DisciplineName" ColumnName="DisciplineName" />
+          <ScalarProperty Name="MaterialUnit" ColumnName="MaterialUnit" />
+          <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="OriginalQty" ColumnName="OriginalQty" />
+          <ScalarProperty Name="RatePerUnit" ColumnName="RatePerUnit" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PkgMatId" ColumnName="PkgMatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageUserDetailsViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.PackageUserDetailsView">
+        <MappingFragment StoreEntitySet="PackageUserDetailsView">
+          <ScalarProperty Name="UpdateScore" ColumnName="UpdateScore" />
+          <ScalarProperty Name="IsSubscribed" ColumnName="IsSubscribed" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="EoTgranted" ColumnName="EoTgranted" />
+          <ScalarProperty Name="Durations" ColumnName="Durations" />
+          <ScalarProperty Name="RFIUsersCount" ColumnName="RFIUsersCount" />
+          <ScalarProperty Name="DispUsersCount" ColumnName="DispUsersCount" />
+          <ScalarProperty Name="RFICount" ColumnName="RFICount" />
+          <ScalarProperty Name="InvoiceCount" ColumnName="InvoiceCount" />
+          <ScalarProperty Name="EnggDrawingCount" ColumnName="EnggDrawingCount" />
+          <ScalarProperty Name="ConsActivityCount" ColumnName="ConsActivityCount" />
+          <ScalarProperty Name="ConsActDataUpdateCount" ColumnName="ConsActDataUpdateCount" />
+          <ScalarProperty Name="ProcMatAssignCount" ColumnName="ProcMatAssignCount" />
+          <ScalarProperty Name="ProcMatDataCount" ColumnName="ProcMatDataCount" />
+          <ScalarProperty Name="EntityCount" ColumnName="EntityCount" />
+          <ScalarProperty Name="SectionCount" ColumnName="SectionCount" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="TotalKmLengths" ColumnName="TotalKmLengths" />
+          <ScalarProperty Name="PackageED" ColumnName="PackageED" />
+          <ScalarProperty Name="PackageCPM" ColumnName="PackageCPM" />
+          <ScalarProperty Name="TotalKmLength" ColumnName="TotalKmLength" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="BalanceValues" ColumnName="BalanceValues" />
+          <ScalarProperty Name="BalanceValue" ColumnName="BalanceValue" />
+          <ScalarProperty Name="CompletedValues" ColumnName="CompletedValues" />
+          <ScalarProperty Name="CompletedValue" ColumnName="CompletedValue" />
+          <ScalarProperty Name="RevisedPackageValues" ColumnName="RevisedPackageValues" />
+          <ScalarProperty Name="RevisedPackageValue" ColumnName="RevisedPackageValue" />
+          <ScalarProperty Name="PackageValues" ColumnName="PackageValues" />
+          <ScalarProperty Name="PackageValue" ColumnName="PackageValue" />
+          <ScalarProperty Name="ForecastComplDate" ColumnName="ForecastComplDate" />
+          <ScalarProperty Name="PackageFinish" ColumnName="PackageFinish" />
+          <ScalarProperty Name="PackageStart" ColumnName="PackageStart" />
+          <ScalarProperty Name="PCPM" ColumnName="PCPM" />
+          <ScalarProperty Name="PMC" ColumnName="PMC" />
+          <ScalarProperty Name="Contractor" ColumnName="Contractor" />
+          <ScalarProperty Name="Client" ColumnName="Client" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PackageShortName" ColumnName="PackageShortName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PMCReportDetailsViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.PMCReportDetailsView">
+        <MappingFragment StoreEntitySet="PMCReportDetailsView">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ReportingDates" ColumnName="ReportingDates" />
+          <ScalarProperty Name="ReportingDate" ColumnName="ReportingDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="PMCReportType" ColumnName="PMCReportType" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PRId" ColumnName="PRId" />
+          <ScalarProperty Name="PMCReportId" ColumnName="PMCReportId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectDetailsViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ProjectDetailsView">
+        <MappingFragment StoreEntitySet="ProjectDetailsView">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="DateOfTransfer" ColumnName="DateOfTransfer" />
+          <ScalarProperty Name="PIUCode" ColumnName="PIUCode" />
+          <ScalarProperty Name="ProjectTypeName" ColumnName="ProjectTypeName" />
+          <ScalarProperty Name="RailwayCode" ColumnName="RailwayCode" />
+          <ScalarProperty Name="PIUName" ColumnName="PIUName" />
+          <ScalarProperty Name="EDName" ColumnName="EDName" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="ValueTillDates" ColumnName="ValueTillDates" />
+          <ScalarProperty Name="ValueTillDate" ColumnName="ValueTillDate" />
+          <ScalarProperty Name="AnticipatedValues" ColumnName="AnticipatedValues" />
+          <ScalarProperty Name="AnticipatedValue" ColumnName="AnticipatedValue" />
+          <ScalarProperty Name="ProjectLengths" ColumnName="ProjectLengths" />
+          <ScalarProperty Name="ProjectLength" ColumnName="ProjectLength" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ProjectFullName" ColumnName="ProjectFullName" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SectionViews">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.SectionView">
+        <MappingFragment StoreEntitySet="SectionView">
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="SectionLength" ColumnName="SectionLength" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="SectionFinish" ColumnName="SectionFinish" />
+          <ScalarProperty Name="SectionStart" ColumnName="SectionStart" />
+          <ScalarProperty Name="SectionCode" ColumnName="SectionCode" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetailsWithRoles">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.UserDetailsWithRole">
+        <MappingFragment StoreEntitySet="UserDetailsWithRole">
+          <ScalarProperty Name="PackageList" ColumnName="PackageList" />
+          <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+          <ScalarProperty Name="IosUserId" ColumnName="IosUserId" />
+          <ScalarProperty Name="FCMToken" ColumnName="FCMToken" />
+          <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
+          <ScalarProperty Name="TableDataCode" ColumnName="TableDataCode" />
+          <ScalarProperty Name="TableDataName" ColumnName="TableDataName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RoleTableId" ColumnName="RoleTableId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewCashFlows">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewCashFlow">
+        <MappingFragment StoreEntitySet="ViewCashFlow">
+          <ScalarProperty Name="CumCertifiedAmount" ColumnName="CumCertifiedAmount" />
+          <ScalarProperty Name="CumInvoiceAmount" ColumnName="CumInvoiceAmount" />
+          <ScalarProperty Name="CumPaidAmount" ColumnName="CumPaidAmount" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="CertifiedAmount" ColumnName="CertifiedAmount" />
+          <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+          <ScalarProperty Name="RPStart" ColumnName="RPStart" />
+          <ScalarProperty Name="RPFinish" ColumnName="RPFinish" />
+          <ScalarProperty Name="RPName" ColumnName="RPName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewConsActSummaryForExcels">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewConsActSummaryForExcel">
+        <MappingFragment StoreEntitySet="ViewConsActSummaryForExcel">
+          <ScalarProperty Name="BudgQty" ColumnName="BudgQty" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ActivityCode" ColumnName="ActivityCode" />
+          <ScalarProperty Name="CompletedWtg" ColumnName="CompletedWtg" />
+          <ScalarProperty Name="TotalWtg" ColumnName="TotalWtg" />
+          <ScalarProperty Name="ComplQty" ColumnName="ComplQty" />
+          <ScalarProperty Name="ActUnit" ColumnName="ActUnit" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="EntActId" ColumnName="EntActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewDemoCalendars">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewDemoCalendar">
+        <MappingFragment StoreEntitySet="ViewDemoCalendar">
+          <ScalarProperty Name="DemoDate" ColumnName="DemoDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="DemoID" ColumnName="DemoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewIssueRegisters">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewIssueRegister">
+        <MappingFragment StoreEntitySet="ViewIssueRegister">
+          <ScalarProperty Name="PackageShortName" ColumnName="PackageShortName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="Expr22" ColumnName="Expr22" />
+          <ScalarProperty Name="Expr15" ColumnName="Expr15" />
+          <ScalarProperty Name="Expr13" ColumnName="Expr13" />
+          <ScalarProperty Name="Expr12" ColumnName="Expr12" />
+          <ScalarProperty Name="Expr11" ColumnName="Expr11" />
+          <ScalarProperty Name="Expr10" ColumnName="Expr10" />
+          <ScalarProperty Name="Expr9" ColumnName="Expr9" />
+          <ScalarProperty Name="Expr8" ColumnName="Expr8" />
+          <ScalarProperty Name="Expr7" ColumnName="Expr7" />
+          <ScalarProperty Name="Expr6" ColumnName="Expr6" />
+          <ScalarProperty Name="Expr5" ColumnName="Expr5" />
+          <ScalarProperty Name="Expr4" ColumnName="Expr4" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Expr17" ColumnName="Expr17" />
+          <ScalarProperty Name="Expr16" ColumnName="Expr16" />
+          <ScalarProperty Name="Expr14" ColumnName="Expr14" />
+          <ScalarProperty Name="Long" ColumnName="Long" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="Expr3" ColumnName="Expr3" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+          <ScalarProperty Name="otherLocation" ColumnName="otherLocation" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+          <ScalarProperty Name="IssueDescription" ColumnName="IssueDescription" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="IssueRegNo" ColumnName="IssueRegNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewPackageStatusReports">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewPackageStatusReport">
+        <MappingFragment StoreEntitySet="viewPackageStatusReport">
+          <ScalarProperty Name="InvoiceCount" ColumnName="InvoiceCount" />
+          <ScalarProperty Name="ConActDataUpdateCount" ColumnName="ConActDataUpdateCount" />
+          <ScalarProperty Name="ConActCount" ColumnName="ConActCount" />
+          <ScalarProperty Name="MaterialDataUpdatedCount" ColumnName="MaterialDataUpdatedCount" />
+          <ScalarProperty Name="MaterialAssignedCount" ColumnName="MaterialAssignedCount" />
+          <ScalarProperty Name="EnggDwgCount" ColumnName="EnggDwgCount" />
+          <ScalarProperty Name="EntityCount" ColumnName="EntityCount" />
+          <ScalarProperty Name="SectionCount" ColumnName="SectionCount" />
+          <ScalarProperty Name="CPM" ColumnName="CPM" />
+          <ScalarProperty Name="CPMCode" ColumnName="CPMCode" />
+          <ScalarProperty Name="EDName" ColumnName="EDName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageShortName" ColumnName="PackageShortName" />
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewRfiActivities">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewRfiActivity">
+        <MappingFragment StoreEntitySet="viewRfiActivity">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="WorkGrName" ColumnName="WorkGrName" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="RFIActName" ColumnName="RFIActName" />
+          <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="RFIActId" ColumnName="RFIActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewScChainageUpdateCharts">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewScChainageUpdateChart">
+        <MappingFragment StoreEntitySet="viewScChainageUpdateChart">
+          <ScalarProperty Name="PackageCode" ColumnName="PackageCode" />
+          <ScalarProperty Name="PackageShortName" ColumnName="PackageShortName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="ScActName" ColumnName="ScActName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewSCurves">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewSCurve">
+        <MappingFragment StoreEntitySet="ViewSCurve">
+          <ScalarProperty Name="CumPlanEarly" ColumnName="CumPlanEarly" />
+          <ScalarProperty Name="CumActual" ColumnName="CumActual" />
+          <ScalarProperty Name="PlanLate" ColumnName="PlanLate" />
+          <ScalarProperty Name="PlanEarly" ColumnName="PlanEarly" />
+          <ScalarProperty Name="Actual" ColumnName="Actual" />
+          <ScalarProperty Name="RPName" ColumnName="RPName" />
+          <ScalarProperty Name="RPFinish" ColumnName="RPFinish" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewStripChartEntities">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewStripChartEntity">
+        <MappingFragment StoreEntitySet="viewStripChartEntity">
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewStripChartSections">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewStripChartSection">
+        <MappingFragment StoreEntitySet="viewStripChartSection">
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="SectionCode" ColumnName="SectionCode" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewStripProgress1">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewStripProgress1">
+        <MappingFragment StoreEntitySet="viewStripProgress1">
+          <ScalarProperty Name="DispName" ColumnName="DispName" />
+          <ScalarProperty Name="DispId" ColumnName="DispId" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="StripActId" ColumnName="StripActId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ActProgressId" ColumnName="ActProgressId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewTimeslots">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewTimeslot">
+        <MappingFragment StoreEntitySet="ViewTimeslot">
+          <ScalarProperty Name="Timeslot" ColumnName="Timeslot" />
+          <ScalarProperty Name="TimeslotId" ColumnName="TimeslotId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewUserNotificationMsgs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewUserNotificationMsg">
+        <MappingFragment StoreEntitySet="viewUserNotificationMsg">
+          <ScalarProperty Name="WhatsAppNo" ColumnName="WhatsAppNo" />
+          <ScalarProperty Name="UserToken" ColumnName="UserToken" />
+          <ScalarProperty Name="IosUserId" ColumnName="IosUserId" />
+          <ScalarProperty Name="FCMToken" ColumnName="FCMToken" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="RoleTableId" ColumnName="RoleTableId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DeliveredOn" ColumnName="DeliveredOn" />
+          <ScalarProperty Name="SentOn" ColumnName="SentOn" />
+          <ScalarProperty Name="isDelivered" ColumnName="isDelivered" />
+          <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewUserNotifies">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewUserNotify">
+        <MappingFragment StoreEntitySet="viewUserNotify">
+          <ScalarProperty Name="UserToken" ColumnName="UserToken" />
+          <ScalarProperty Name="IosUserId" ColumnName="IosUserId" />
+          <ScalarProperty Name="WhatsappNo" ColumnName="WhatsappNo" />
+          <ScalarProperty Name="FCMToken" ColumnName="FCMToken" />
+          <ScalarProperty Name="RoleTableId" ColumnName="RoleTableId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewRFIMainDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewRFIMainDetail">
+        <MappingFragment StoreEntitySet="ViewRFIMainDetails">
+          <ScalarProperty Name="Enclosure" ColumnName="Enclosure" />
+          <ScalarProperty Name="ApprovedFinishChainage" ColumnName="ApprovedFinishChainage" />
+          <ScalarProperty Name="ApprovedStartChainage" ColumnName="ApprovedStartChainage" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="InspStatus" ColumnName="InspStatus" />
+          <ScalarProperty Name="ContrComment" ColumnName="ContrComment" />
+          <ScalarProperty Name="InspBy" ColumnName="InspBy" />
+          <ScalarProperty Name="InspId" ColumnName="InspId" />
+          <ScalarProperty Name="AcceptedBy" ColumnName="AcceptedBy" />
+          <ScalarProperty Name="InspDate" ColumnName="InspDate" />
+          <ScalarProperty Name="AssignedToName" ColumnName="AssignedToName" />
+          <ScalarProperty Name="revision" ColumnName="revision" />
+          <ScalarProperty Name="RFIRevId" ColumnName="RFIRevId" />
+          <ScalarProperty Name="RFIOpenDate" ColumnName="RFIOpenDate" />
+          <ScalarProperty Name="RFIActivityId" ColumnName="RFIActivityId" />
+          <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="Entity" ColumnName="Entity" />
+          <ScalarProperty Name="WorkGrName" ColumnName="WorkGrName" />
+          <ScalarProperty Name="RFIStatus" ColumnName="RFIStatus" />
+          <ScalarProperty Name="LayerNo" ColumnName="LayerNo" />
+          <ScalarProperty Name="RFIActName" ColumnName="RFIActName" />
+          <ScalarProperty Name="OtherWorkLocation" ColumnName="OtherWorkLocation" />
+          <ScalarProperty Name="WorkDescription" ColumnName="WorkDescription" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainge" ColumnName="StartChainge" />
+          <ScalarProperty Name="LocationType" ColumnName="LocationType" />
+          <ScalarProperty Name="WorkSide" ColumnName="WorkSide" />
+          <ScalarProperty Name="RFICode" ColumnName="RFICode" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PkgId" ColumnName="PkgId" />
+          <ScalarProperty Name="RFIId" ColumnName="RFIId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewRFIPDFDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewRFIPDFDetail">
+        <MappingFragment StoreEntitySet="ViewRFIPDFDetails">
+          <ScalarProperty Name="WorkDescription" ColumnName="WorkDescription" />
+          <ScalarProperty Name="DateOfSubmission" ColumnName="DateOfSubmission" />
+          <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="InspStatus" ColumnName="InspStatus" />
+          <ScalarProperty Name="InspId" ColumnName="InspId" />
+          <ScalarProperty Name="InspDate" ColumnName="InspDate" />
+          <ScalarProperty Name="AssignedToName" ColumnName="AssignedToName" />
+          <ScalarProperty Name="RFIRevId" ColumnName="RFIRevId" />
+          <ScalarProperty Name="RFIOpenDate" ColumnName="RFIOpenDate" />
+          <ScalarProperty Name="RFIActivityId" ColumnName="RFIActivityId" />
+          <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="Entity" ColumnName="Entity" />
+          <ScalarProperty Name="WorkGrName" ColumnName="WorkGrName" />
+          <ScalarProperty Name="RFIStatus" ColumnName="RFIStatus" />
+          <ScalarProperty Name="LayerNo" ColumnName="LayerNo" />
+          <ScalarProperty Name="RFIActName" ColumnName="RFIActName" />
+          <ScalarProperty Name="OtherWorkLocation" ColumnName="OtherWorkLocation" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainge" ColumnName="StartChainge" />
+          <ScalarProperty Name="LocationType" ColumnName="LocationType" />
+          <ScalarProperty Name="WorkSide" ColumnName="WorkSide" />
+          <ScalarProperty Name="PrevRFICode" ColumnName="PrevRFICode" />
+          <ScalarProperty Name="RFICode" ColumnName="RFICode" />
+          <ScalarProperty Name="BOQCode" ColumnName="BOQCode" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Client" ColumnName="Client" />
+          <ScalarProperty Name="Requestedby" ColumnName="Requestedby" />
+          <ScalarProperty Name="Contractor" ColumnName="Contractor" />
+          <ScalarProperty Name="PMC" ColumnName="PMC" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PkgId" ColumnName="PkgId" />
+          <ScalarProperty Name="RFIId" ColumnName="RFIId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewRFIUsersDetails">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.ViewRFIUsersDetail">
+        <MappingFragment StoreEntitySet="ViewRFIUsersDetails">
+          <ScalarProperty Name="ReportingToUser" ColumnName="ReportingToUser" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackgeId" ColumnName="PackgeId" />
+          <ScalarProperty Name="Organisation" ColumnName="Organisation" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="RFIUserId" ColumnName="RFIUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewStripActivityTwoes">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewStripActivityTwo">
+        <MappingFragment StoreEntitySet="viewStripActivityTwo">
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="ConsActId" ColumnName="ConsActId" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="StripActId" ColumnName="StripActId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewStripProgresses">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.viewStripProgress">
+        <MappingFragment StoreEntitySet="viewStripProgress">
+          <ScalarProperty Name="StripActId" ColumnName="StripActId" />
+          <ScalarProperty Name="ActProgressId" ColumnName="ActProgressId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndChainage" ColumnName="EndChainage" />
+          <ScalarProperty Name="StartChainage" ColumnName="StartChainage" />
+          <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="RFIBulkImport" FunctionName="dbRVNLMISModel.Store.RFIBulkImport" />
+    <FunctionImportMapping FunctionImportName="RFIBulkImportAhemedabadProject" FunctionName="dbRVNLMISModel.Store.RFIBulkImportAhemedabadProject" />
+    <EntitySetMapping Name="tblPushNotifyLogs">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblPushNotifyLog">
+        <MappingFragment StoreEntitySet="tblPushNotifyLog">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="isSent" ColumnName="isSent" />
+          <ScalarProperty Name="PushId" ColumnName="PushId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PLogId" ColumnName="PLogId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserPushNotifyIds">
+      <EntityTypeMapping TypeName="dbRVNLMISModel.tblUserPushNotifyId">
+        <MappingFragment StoreEntitySet="tblUserPushNotifyIds">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="PushType" ColumnName="PushType" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,116 @@
+﻿@model RVNLMIS.Areas.RFI.Models.RFIBOQMasterModel
+@{
+    Layout = null;
+}
+<div class="card">
+    <div class="card-header">
+        <h5>BOQ Master</h5>
+    </div>
+    @using (Ajax.BeginForm("SubmitRFIBOQ", "RFIBOQMaster", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnBOQMasterSuccess" }, new { @class = "form", @id = "frmGroup" }))
+    {
+        @Html.HiddenFor(model => model.BoqID)
+
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+           
+            <div class="row mb-1">
+                @* Boq Code *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                        Boq Code
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.BoqCode, new { htmlAttributes = new { @class = "form-control ", @type = "text", @readonly = "readonly" } })
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row mb-1">
+                @* Boq Name *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                        Boq Name
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.BoqName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "BOQ Name" } })
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row mb-1">
+                @* Boq Unit *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtunit">
+                        Boq Unit
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.BoqUnit, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "BOQ Unit" } })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="row mb-1">
+                @* Boq Rate *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtRate">
+                        Boq Rate
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.BoqRate, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "12", onkeypress = "return Numbers1Dot1MinusOnly(this,event)", @placeholder = "BOQ Rate" } })
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row mb-1">
+                @* Boq Quantity *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtRate">
+                        Boq Quantity
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.BoqQty, new { htmlAttributes = new { @class = "form-control", onkeypress = "return Numbers1Dot1MinusOnly(this,event)", @maxlength = "12", @type = "text", @placeholder = "BOQ Quantity" } })
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="text-right mt-2">
+                        <button type="submit" class="btn btn-sm btn_theme pull-right">Save</button>
+                        @*<button type="button" class="btn btn-sm btn-theme "><i class="fa fa-eye"></i> &nbsp; Preview</button>*@
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    }
+</div>
+
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 204);
+    });
+    $(window).trigger('resize');
+</script>

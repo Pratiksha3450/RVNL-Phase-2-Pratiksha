@@ -1,0 +1,58 @@
+﻿@model RVNLMIS.Models.RailwayMasterModel
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header pb-4">
+        <h5>Railway Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddRailwayDetails", "RailwayMaster", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnRailwaySuccess" }, new { @class = "form", @id = "frmRailway" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RailwayId)
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEDCode">Railway Code @Html.ValidationMessageFor(model => model.RailwayCode, "", new { @class = "text-danger" })</label>
+                        @if (Model.RailwayId != 0)
+                        {
+                            @Html.EditorFor(model => model.RailwayCode, new { htmlAttributes = new { @class = "mb-3 form-control disableCN", @type = "text", @placeholder = "Enter railway code" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.RailwayCode, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter railway code" } })
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12 mb-1">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEDName">Railway Name @Html.ValidationMessageFor(model => model.RailwayName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.RailwayName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter railway name" } })
+                    </div>
+                </div>
+                <div class="col-md-12 text-right">
+                    @*@if (Model.RailwayId != 0)
+                    {
+                        <button type="submit" class="btn btn-xs btn-primary has-ripple  btnSubmit" value="Update"><i class="m-r-5 feather icon-check"></i>Update</button>
+                    }
+                    else
+                    {*@
+                    <button type="submit" class="btn btn-sm btn-theme has-ripple  btnSubmit mt-2">Save</button>
+                    @*}*@
+                    @* <button type="button" id="btnReset" class="btn btn-sm btn-danger pull-right btn-xs" onclick="ClearViewAndGrid()"><i class="fa fa-refresh"></i> Reset</button>*@
+                </div>
+            </div>
+        </div>
+
+        
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 203);
+    });
+    $(window).trigger('resize');
+</script>
+

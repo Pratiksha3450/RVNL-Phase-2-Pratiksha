@@ -1,0 +1,159 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!--[if !mso]><!-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<![endif]-->
+    <title></title>
+    <!--[if !mso]><!-->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .contents{
+            margin-top:5%;
+        }
+        .subtable tbody{
+            padding: 0.2% 3%;
+        }
+    </style>
+</head>
+	<body>
+		<div class="contents">
+			<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+				<tbody>
+					<!-- START HEADER/BANNER -->
+						<tr>
+							<td align="center">
+								<table class="subtable" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+									<tbody><tr>
+										<td align="center" valign="top">
+											<table class="col-600" width="600" height="100" border="0" align="center" cellpadding="0" cellspacing="0">
+
+												<tbody>
+													<tr>
+														<td align="center" style="line-height: 0px; border: 1px solid #ccc;">
+															<img style="" src="img/primabi.png" width="20%" height="auto" alt="logo">
+														</td>
+													</tr>
+
+												</tbody>
+											</table>
+										</td>
+									</tr></tbody>
+								</table>
+							</td>
+						</tr>
+
+
+					<!-- END HEADER/BANNER -->
+					<!--  -->
+						<tr>
+							<td align="center">
+								<table class="subtable" width="600" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-left:20px; margin-right:20px; border-left: 1px solid #dbd9d9; border-right: 1px solid #dbd9d9; padding: 2%;">
+									<tbody>
+
+									<tr>
+										<td align="center" style="font-family: 'Lato', sans-serif; font-size:14px; color:#757575; line-height:24px; font-weight: 300;">
+											<img style="width: 40%; margin: 2%;" src="~Content/assets/images/about.png" width="50" height="auto" alt="logo">
+											<!-- <img style="width: 20%; margin: 2%;" src="~Content/assets/images/tickicon.png" width="50" height="auto" alt="logo"> -->
+
+											<div align="center" style="font-family: 'Raleway', sans-serif; font-size:22px; font-weight: 400; color:#2a3a4b;margin-bottom: 2%;">
+												You have successfully registered </br>to PrimaBi !
+											</div>
+										</td>
+									</tr>
+
+								</tbody></table>
+							</td>
+						</tr>
+					<!--  -->
+					<!--  -->
+
+						<tr>
+							<td align="center">
+								<table class="subtable" width="600" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-left:20px; margin-right:20px; border-left: 1px solid #dbd9d9; border-right: 1px solid #dbd9d9; padding: 0.5% 2%;">
+									<tbody style="padding:1px 9px">
+									<tr>
+										<td align="left" style="font-family: 'Lato', sans-serif; font-size:14px; color:#757575; line-height:24px; font-weight: 300;padding: 0px 9px;">
+											Hi,  #Fname#  
+										</td>
+									</tr>
+
+									<tr>
+										<td height="10"></td>
+									</tr>
+
+
+									<tr>
+										<td align="left" style="font-family: 'Lato', sans-serif; font-size:14px; color:#757575; line-height:24px; font-weight: 300;padding: 0px 9px;">
+											You have successfully registered to PrimaBi !
+											Please find Login credentials,<br/></br>
+                                             <b style="font-weight: 600;">Username: </b>#email#</br>
+                                             <b style="font-weight: 600;">Password: </b>#password#
+										</td>
+									</tr>
+
+									<tr>
+										<td height="10"></td>
+									</tr>
+
+									
+
+									<tr>
+										<td height="10"></td>
+									</tr>
+
+									<tr>
+										<td align="left" style="font-family: 'Lato', sans-serif; font-size:14px; color:#757575; line-height:24px; font-weight: 300;padding: 0px 9px;">
+											Best regards,
+											</br>
+											[Your name]
+										</td>
+									</tr>
+									<tr>
+										<td height="15"></td>
+									</tr>
+
+
+								</tbody></table>
+							</td>
+						</tr>
+					<!--  -->
+						<tr>
+							<td align="center">
+								<table class="subtable" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+									<tbody><tr>
+										<td align="center" valign="top" style="border: 0.3px solid #ccc;">
+											<table class="col-600" width="600" height="40" border="0" align="center" cellpadding="0" cellspacing="0">
+
+												<tbody>
+													<tr>
+														<td align="center" style="line-height: 0px; font-size: 12px;">
+															 Copyright @ 2020 Primabi All rights reserved. 
+														</td>
+													</tr>
+
+												</tbody>
+											</table>
+										</td>
+									</tr></tbody>
+								</table>
+							</td>
+						</tr>
+					<!--  -->
+
+				</tbody>
+			</table>
+		</div>
+	</body>
+
+</html>
+
+
+		

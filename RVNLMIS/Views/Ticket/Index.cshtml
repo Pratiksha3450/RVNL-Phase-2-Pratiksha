@@ -1,0 +1,290 @@
+﻿@model IEnumerable<RVNLMIS.Models.TicketModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+}
+<style type="text/css">
+    /*.lb-closeContainer {
+        position: absolute;
+        top: 0;
+        right: inherit;
+        margin: 1%;
+    }
+    .lb-nav {
+        display: none !important;
+    }
+    .lb-data .lb-details {
+        display: none !important;
+    }*/
+    .ekko-lightbox .modal-body {
+        overflow: auto;
+        padding: 2% 2% 0 2%;
+        max-height: fit-content;
+    }
+    /*.ekko-lightbox .modal-title {
+        visibility: hidden;
+    }*/
+    .ekko-lightbox .modal-header .close {
+        font-size: medium;
+        opacity: 1;
+    }
+    .lb-data .lb-close {
+        position: relative;
+        top: -323px;
+        bottom: auto;
+        margin: 2%;
+    }
+    .lb-data .lb-number {
+        display: none;
+    }
+</style>
+
+
+@*<div class="loader-bg">
+    <div class="loader-track">
+        <div class="loader-fill"></div>
+    </div>
+</div>*@
+
+<div class="help-desk">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <nav class="navbar justify-content-between p-0 align-items-center p-2">
+                    <h5>Ticket List</h5>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                        <button type="button" class="btn btn-sm waves-effect waves-light badge badge-light-brown  mr-3" id="btnCreate" href="javascript:void()" data-url="@Url.Action("Create", "Ticket")">
+                            <i class="fas fa-plus mr-1"></i>  Create Ticket
+                        </button>
+                        <label onclick="$('.help-desk').removeClass('md-view').removeClass('large-view').addClass('sm-view')" class="btn waves-effect waves-light btn-primary btn-sm">
+                            <input type="radio" name="options" id="option1" checked> <i class="feather icon-align-justify m-0"></i>
+                        </label>
+                        <label onclick="$('.help-desk').removeClass('sm-view').removeClass('large-view').addClass('md-view')" class="btn waves-effect waves-light btn-primary btn-sm">
+                            <input type="radio" name="options" id="option2"> <i class="feather icon-grid m-0"></i>
+                        </label>
+                        <label onclick="$('.help-desk').removeClass('md-view').removeClass('sm-view').addClass('large-view')" class="btn waves-effect waves-light btn-primary active btn-sm">
+                            <input type="radio" name="options" id="option3"> <i class="feather icon-menu m-0"></i>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
+        @*@if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {*@
+                <div class="ticket-block" id="DivList">
+                    
+                </div>
+
+            @*}
+        }*@
+
+    </div>
+
+</div>
+<!-- [ Main Content ] end -->
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <input type="hidden" id="hdnDeleteId">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body" id="noscroll">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="TicketModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="CreateTicketContainer">
+
+    </div>
+</div>
+
+
+
+@section scripts{
+
+
+    <script>
+       
+
+        $(document).ready(function () {
+
+           
+            $.ajax({
+                url: '/Ticket/GetTicketList',
+                type: "GET",              
+                success: function (Result) {
+                    if (Result.SucMessage == "1") {
+                      
+                       // console.log(JSON.stringify(Result.ListStr));
+                        $("#DivList").html(Result.ListStr);   
+                    }                    
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.error);
+                }
+            });
+
+
+            $(document).on('click', '.btnDelete', function () {
+                
+                var Id = $(this).data("key");
+                // $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#hdnDeleteId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+            $("#btnDeleteConfirm").on("click", function () {
+            debugger;
+                var id = $("#hdnDeleteId").val();
+
+            $.ajax({
+                url: '/Ticket/Delete',
+                type: "POST",
+                data: { TicketID: id },
+                success: function (Result) {
+                    if (Result.SucMessage == "1") {                       
+                       $.notify("Deleted Successfully", { align: "right", verticalAlign: "top", type: "warning", background: "#20D67B", color: "#fff" });                      
+                        $("#DivList").html(Result.ListStr);   
+                        $("#modalDelete").modal('hide');
+                    }
+                    //debugger;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.error);
+                }
+            });
+        });
+
+            $(document).on('click', '#btnSubmmit', function () {
+                debugger;
+              
+
+           
+            $('#TicketNo').keypress(function (e) {
+                e.preventDefault();
+            });
+            var Pck = $("#cmbPackageID").val();
+            var Issue = $("#txtIssue").val();
+            var desc = $("#txtDesc").val();
+
+            if (Pck == '') {
+                $.notify("Select Package", { align: "right", verticalAlign: "top", type: "danger", background: "#D8210F", color: "white", });
+                $("#cmbPackageID").velocity("callout.shake");
+                $(".se-pre-con").hide();
+            }
+            else if (Issue == '') {
+                $.notify("Enter Issue", { align: "right", verticalAlign: "top", type: "danger", background: "#D8210F", color: "white", });
+                $("#txtIssue").velocity("callout.shake");
+                $(".se-pre-con").hide();
+            }
+            else if (desc == '') {
+                $.notify("Enter Description", { align: "right", verticalAlign: "top", type: "danger", background: "#D8210F", color: "white", });
+                $("#txtDesc").velocity("callout.shake");
+                $(".se-pre-con").hide();
+            }
+
+            else {
+                // $("#divLoader").show();
+                var formdata = new FormData($('form').get(0));
+                var file = document.getElementById("ImageFile").files[0];
+                formdata.append("AttachmentFile", file);
+                formdata.append("Issue", $("#txtIssue").val());
+                formdata.append("Description", $("#txtDesc").val());
+                formdata.append("PackageId", $("#cmbPackageID").val());
+                debugger;
+                setTimeout(function () {
+                    debugger;
+                    $(".se-pre-con").show();
+                }, 100);
+                $.ajax({
+                    url: '/Ticket/SubmitTicket',
+                    type: "POST",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        debugger;
+
+                        if (data.SucMessage == "1") {
+
+                            ClearViewAndGrid();
+                            //window.location.reload();
+                            $('#TicketModel').modal('hide');
+                            $.notify("Ticket Created Successfully", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            setTimeout(function () {
+                                debugger;
+                                $("#DivList").html(data.ListStr);
+                                $(".se-pre-con").hide();
+                                //$("#divLoader").hide();
+                            }, 500);
+                          
+
+                        }
+                        else if (data.SucMessage == "3") {
+                            $(".se-pre-con").hide();
+                            $.notify("Warning: Already Exists!", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                           
+                        }
+                        else {
+                            $(".se-pre-con").hide();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.error);
+                    }
+                });
+                $(".se-pre-con").hide();
+            }
+               
+        });
+
+
+
+        function ClearViewAndGrid() {
+
+            $("#TicketId").val(0);
+            $("#TicketNo").val("");
+            $("#Issue").val("");
+            $("#Description").val("");
+            $("#PackageId").val(0);
+        }
+
+
+    });
+
+    $("#btnCreate").on("click", function () {
+        var url = $(this).data("url");
+        // alert(url);
+        $.get(url, function (data) {
+            $('#CreateTicketContainer').html(data);
+            $('#TicketModel').modal('show');
+            // BindOnChangeEvent();
+        });
+    });
+
+
+    </script>
+
+
+}
+@Scripts.Render("~/bundles/jqueryval")

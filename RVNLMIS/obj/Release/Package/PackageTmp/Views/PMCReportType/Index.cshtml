@@ -1,0 +1,278 @@
+﻿@model RVNLMIS.Models.PMCReportType
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+</style>
+
+<!-- [ Main Content ] start -->
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected Report Type ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+        </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-3 pr-1">
+                <div id="PMCReportTypeForms">
+                    @Html.Partial("_PartialEditPMCReportType", new RVNLMIS.Models.PMCReportType())
+                </div>
+            </div>
+ 
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>PMC ReportType Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by PMCReport name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by PMC Report Type Name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.PMCReportType>()
+                                .Name("PMCReportTypeNameGrid")
+                                .Columns(columns =>
+                                {
+                                //columns.Bound(c => c.PMCReportTypeId).HtmlAttributes(new { style = "text-align:left" })
+                                //        .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+                                columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                columns.Bound(c => c.PMCReportTypeName).HtmlAttributes(new { style = "text-align:left" })
+                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("PMC Report Type Name");
+
+
+                                                                                                                                                                                                                                                                                columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+                                "<button  data-url='/PMCReportType/EditPMCReportTypeByPRId/#=PRId#' class='EditPMCReportType btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" + "<button type='button' id='btnDeletePMCReportType' class='btn btn-xs btn-danger has-ripple DeletePMCReportType' data-key='#=PRId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                }).Scrollable(scr => scr.Height(400))
+                                .ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+                                .Pageable()
+                                .Sortable()
+                                .Pageable(pageable => pageable
+                                .Refresh(true)
+                                .PageSizes(true)
+                                .ButtonCount(5)
+                                .PageSizes(new List<object>
+                                { 10, 20, 50, "all" }).Refresh(true))
+                                .PersistSelection(true)
+                                .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Model(model => model.Id(u => u.PRId))
+                                .Read(read => read.Action("PMCReportType_Details", "PMCReportType"))
+                                .PageSize(15)).Groupable()
+                                .Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound"))
+                                .Excel(excel => excel
+                                //.FileName("PIUMasterExcel.xlsx")
+                                .Filterable(true)
+                                .ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+                                )
+                                .Pdf(pdf => pdf
+                                .AllPages()
+                                .AvoidLinks()
+                                .PaperSize("A4")
+                                .Scale(0.8)
+                                .Margin("2cm", "1cm", "1cm", "1cm")
+                                .Landscape()
+                                .RepeatHeaders()
+                                .TemplateId("page-template")
+                                //.FileName("PIUMasterPdf.pdf")
+                                .ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+                                )
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+        </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#PMCReportTypeNameGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+
+            return ++rowNumber;
+        }
+        function dataBound() {
+            resetRowNumber();
+            $(".EditPMCReportType").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#PMCReportTypeForms').html(data);
+                    setTimeout(function () {
+
+                    }, 500);
+                });
+            });
+
+            $(".DeletePMCReportType").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+
+
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "PMCReport Type - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#PMCReportTypeNameGrid").data("kendoGrid");
+            grid.hideColumn(2);
+
+            grid.options.pdf.fileName = "PMCReport Type - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(2);
+            });
+        }
+
+        function OnPMCReportTypeSuccess(response) {
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Already Exists") {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+
+            }
+        }
+
+
+        $("#btnDeleteConfirm").on("click", function () {
+            //var id = $(this).data("id");
+            var id = $("#hiddenId").val();
+            //alert(id);
+            $.ajax({
+                url: '/PMCReportType/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    // ShowSuccessMessage('Deleted Successfully');
+                    $('#PMCReportTypeNameGrid').data('kendoGrid').dataSource.read();
+                    $('#PMCReportTypeNameGrid').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        function ClearViewAndGrid() {
+
+            $("#PRId").val("0");
+            $("#PMCReportTypeName").val("");
+            $('#PMCReportTypeNameGrid').data('kendoGrid').dataSource.read();
+            $('#PMCReportTypeNameGrid').data('kendoGrid').refresh();
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#PMCReportTypeNameGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "PMCReportTypeName", operator: "contains", value: v1 }
+                                    //,{ field: "DisciplineName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+    </script>
+}

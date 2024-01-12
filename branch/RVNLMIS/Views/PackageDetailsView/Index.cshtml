@@ -1,0 +1,145 @@
+﻿@model RVNLMIS.Models.PackageModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .new-cust-card .align-middle .status {
+        position: absolute;
+        right: 0;
+        top: 6px !important;
+        font-size: 13px;
+    }
+
+    .wordwrap {
+        white-space: pre-wrap !important;
+    }
+
+    .content_wrapper {
+        overflow: hidden;
+        padding: 0.5%;
+    }
+</style>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- subscribe start -->
+        <div class="row">
+            <div class="col-md-6 pr-1">
+                <div class="card new-cust-card">
+                    <div class="card-header" id="Card1">
+
+                        @*<img src="~/Content/assets/images/pages/interview.svg" alt="image" class="img-fluid wid-100 mb-2">*@
+                        <h5>Package Details</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary" onclick="history.go(-1);"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" id="Package">
+                        <table class='table table-sm mb-0 '>
+                            <tbody>
+
+
+                                <tr><td>Package Name</td><td style="white-space: pre-wrap !important;">: @Model.PackageName </td></tr>
+
+                                <tr><td>Package Short Name</td><td data-toggle="tooltip" data-placement="top" title="" data-original-title="@Model.Description">: @Model.PackageShortName </td></tr>
+
+                                <tr><td>Package Code</td><td>: @Model.PackageCode </td></tr>
+
+                                <tr><td>Client</td><td>: @Model.Client </td></tr>
+
+                                <tr><td>Contractor</td><td>: @Model.Contractor </td></tr>
+
+                                <tr><td>PMC</td><td>: @Model.PMC </td></tr>
+
+                                <tr><td>PCPM</td><td>: @Model.PCPM </td></tr>
+
+                                <tr><td>Package Start</td><td>: @String.Format("{0:dd MMM yyyy}", Model.PackageStart) </td></tr>
+
+                                <tr><td>Package Finish</td><td>: @String.Format("{0:dd MMM yyyy}", Model.PackageFinish) </td></tr>
+
+                                <tr><td>Forecast Completed Date</td><td>: @String.Format("{0:dd MMM yyyy}", Model.ForecastComplDate) </td></tr>
+
+                                <tr><td>Package Value</td><td>: @String.Format("{0:c}", Model.PackageValue / 10000000) Crore </td></tr>
+
+                                <tr><td>Revised Package Value</td><td>: @String.Format("{0:c}", Model.RevisedPackageValue / 10000000) Crore </td></tr>
+
+                                <tr><td>Balance Value</td><td>: @String.Format("{0:c}", Model.BalanceValue / 10000000) Crore </td></tr>
+
+                                <tr><td>Start Chainage</td><td>: @Model.StartChainage </td></tr>
+
+                                <tr><td>End Chainage</td><td>: @Model.EndChainage </td></tr>
+
+                                <tr><td>Total Km</td><td>:  @Model.TotalKmLengths </td></tr>
+
+                                <tr><td>Duration</td><td>: @Model.Duration Days</td></tr>
+                                <tr><td>Description</td><td style="white-space: pre-wrap !important;">: @Model.Description</td></tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    @*<div class="modal-footer">
+                            <button class="btn btn-success btn-xs delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check"></i>&nbsp;Ok</button>
+
+                        </div>*@
+                </div>
+            </div>
+
+            <div class="col-md-6 order-md-1 pl-1" id="Section">
+                <div class="card new-cust-card" id="Card2">
+                    <div class="card-header">
+                        <h5>Section list</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                @*<button type="button" id="btnPackageDetails" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                                            </button>*@
+                                @*<ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cust-scroll H_scroll" style="  overflow-y: scroll; height:100%">
+                        <div class="card-body p-b-0 pl-3 pr-1" id="divSection">
+                            @Html.Raw(ViewBag.SectionDetails)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- subscribe end -->
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).on('click', '#backLink', function () {
+            history.go(-1);
+        });
+    </script>
+    <script>
+
+        $(".new-cust-card").css("height", $(window).height() - 130);
+        $(window).resize(function () {
+            $(".new-cust-card").css("height", $(window).height() - 130);
+        })
+
+    </script>
+
+    <script>
+        //$(window).resize(function () {
+        //    $('#card1').height($(window).height() - 257);
+        //    $('#card2').height($(window).height() - 257);
+        //});
+        //$(window).trigger('resize');
+    </script>
+
+}

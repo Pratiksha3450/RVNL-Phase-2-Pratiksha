@@ -1,0 +1,395 @@
+﻿@model RVNLMIS.Models.ConsActivity
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+
+    input[type=checkbox] {
+        position: relative;
+        cursor: pointer;
+        content: "";
+        display: block;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        top: 0;
+        left: 0;
+        border: 2px solid #4e94c2;
+        border-radius: 3px;
+        background-color: white;
+    }
+
+        input[type=checkbox]:checked:after {
+            content: "";
+            display: block;
+            width: 5px;
+            height: 10px;
+            border: solid #000000;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            position: absolute;
+            top: 2px;
+            left: 6px;
+        }
+</style>
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-sm-3 pr-1">
+                <div id="frmConsActivity">
+                    @Html.Partial("_PartialAddEditConsActivity", new RVNLMIS.Models.ConsActivity())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <h5>Activity Details</h5>
+                            </div>
+                            @*<div class="col-sm-12 col-md-2">
+                                <span> <input type="checkbox" id="chkIsStrip" name="IsStripChart" /> <b>Is Strip Chart</b> </span>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <span> <input type="checkbox" id="chkIsRFI" name="chkIsRFI" /> <b>Is RFI</b> </span>
+                            </div>*@
+                            <div class="col-md-2">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="chkIsStrip" name="IsStripChart">
+                                    <label class="custom-control-label" for="chkIsStrip">Is Strip Chart</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="chkIsRFI" name="chkIsRFI">
+                                    <label class="custom-control-label" for="chkIsRFI">Is RFI </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by Activity Code or Name" placeholder="Search by Activity Code or Name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive">
+                        <div class="table table-condensed" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.ConsActivity>()
+                                                                                                                                                                                                                                                                .Name("ConsActivityMasterGrid")
+                                                                                                                                                                                                                                                                .Columns(columns =>
+                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                //columns.Bound(c => c.ConsActivityId).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                //        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                                                                                                                                                                                                                                columns.Bound(c => c.ActivityCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Code").Width("6%");
+
+                                                                                                                                                                                                                                                                columns.Bound(c => c.ActivityGroup).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                columns.Bound(c => c.ActivityName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                         .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                columns.Bound(c => c.ActUnit).Title("Activity Unit").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                   .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("8%");
+
+                                                                                                                                                                                                                                                                columns.Bound(c => c.ActWtg).HtmlAttributes(new { style = "text-align:right" }).Title("Activity Wtg")
+                                                                                                                                                                                                                                                                              .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("8%");
+
+                                                                                                                                                                                                                                                                columns.Bound(c => c.StripChart).HtmlAttributes(new { style = "text-align:right" }).Title("Is Strip Chart")
+                                                                                                                                                                                                                                                                             .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("8%");
+
+                                                                                                                                                                                                                                                                columns.Bound(c => c.RFI).HtmlAttributes(new { style = "text-align:right" }).Title("Is RFI")
+                                                                                                                                                                                                                                                                             .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("8%");
+
+                                                                                                                                                                                                                                                                columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/ManageActivities/EditbyConsActivityID/#=ConsActId#' class='EditConsActivity btn btn-xs btn-warning  has-ripple'><i class='feather icon-edit'></i></button>" + " <button type='button' id='btnDeleteConsActivity' class='btn btn-xs btn-danger has-ripple DeleteConsActivity' data-key='#=ConsActId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+}).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax().Group(g => g.Add(c => c.ActivityGroup))
+.Model(model => model.Id(u => u.ConsActId))
+.Read(read => read.Action("ConsActivity_Details", "ManageActivities").Data("GetActId"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable()
+.Excel(excel => excel
+.FileName("ConsActivityMasterExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("ConsActivityMasterPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function GetActId() {
+            return { actID: $("#ActGId").val(), };
+        }
+        $("#ActGId").change(function () {
+            $('#ConsActivityMasterGrid').data('kendoGrid').dataSource.read();
+            $('#ConsActivityMasterGrid').data('kendoGrid').refresh();
+        });
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#ConsActivityMasterGrid').height($(window).height() - 198);
+
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        function OnConsActivitySuccess(response) {
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $(".btnSubmit").val('Save');
+            }
+            else if (response == "2") {
+                $.notify("ConsActivity Name already exists", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            } else if (response == "3") {
+                $.notify("ConsActivity Code already exists", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+                //showNoty('warning', 'ED Add/Updated Failed!');
+                //if (response == "2") {
+                ////$.notify("Entity Name already exists.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "ConsActivity Master - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#ConsActivityMasterGrid").data("kendoGrid");
+            grid.hideColumn(6);
+            grid.options.pdf.fileName = "ConsActivity Master - " + kendo.toString(new Date, "dd-MMM-yyyy");
+            e.promise.done(function () {
+                grid.showColumn(6);
+            });
+        }
+
+        ActivityCode();
+
+        function dataBound() {
+            resetRowNumber();
+            $(".EditConsActivity").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#frmConsActivity').html(data);
+                    setTimeout(function () {
+                        ActivityCode();
+                    }, 500);
+                });
+            });
+
+            $("#btnReset").on("click", function (e) {
+                $(".btnSubmit").val('Save');
+            });
+
+            $(".DeleteConsActivity").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            //alert(id);
+            $.ajax({
+                url: '/ManageActivities/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    $('#ConsActivityMasterGrid').data('kendoGrid').dataSource.read();
+                    $('#ConsActivityMasterGrid').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        function ClearViewAndGrid() {
+            $("#ConsActId").val("");
+            $("#ActivityCode").val("");
+            $("#ActivityName").val("");
+            $("#ActGId").prop('selectedIndex', 0);
+            $("#ConsActivityId").val(0);
+            $("#ActUnit").val("");
+            $("#ActWtg").val("");         
+
+            $('#isStripChart').attr('checked', false);
+            $('#IsRFI').attr('checked', false);
+           
+            $('#ConsActivityMasterGrid').data('kendoGrid').dataSource.read();
+            $('#ConsActivityMasterGrid').data('kendoGrid').refresh();
+        }
+        $(document).ready(function () {
+
+            $("#chkIsStrip").prop("checked", false);
+            $("#chkIsRFI").prop("checked", false);
+
+
+            $('#chkIsStrip').change(function () {
+                var kgrid = $("#ConsActivityMasterGrid").data("kendoGrid");
+                if (this.checked) {
+                    kgrid.dataSource.filter({ field: "StripChart", operator: "equals", value: 'Yes' });
+                }
+                else {
+                    kgrid.dataSource.filter({ field: "StripChart", operator: "equals", value: 'No' });
+                }
+            });   
+
+
+            $('#chkIsRFI').change(function () {
+                var kgrid = $("#ConsActivityMasterGrid").data("kendoGrid");
+                if (this.checked) {
+                    kgrid.dataSource.filter({ field: "RFI", operator: "equals", value: 'Yes' });
+                }
+                else {
+                    kgrid.dataSource.filter({ field: "RFI", operator: "equals", value: 'No' });
+                }
+            });       
+        });
+
+
+
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#ConsActivityMasterGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "ActivityCode", operator: "contains", value: v1 },
+                                    { field: "ActivityName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+                        });
+                    }
+                });
+               // alert(JSON.stringify(andfilter));
+
+                
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+
+
+        function ActivityCode() {
+            $("#ActGId").change(function () {
+                var dID = $("#ActGId").val();
+                $.get("/ManageActivities/ActivityCode", { id: dID },
+                    function (data) {
+                        $("#ActivityCode").val(data);
+                    });
+            });
+        };
+
+    </script>
+}

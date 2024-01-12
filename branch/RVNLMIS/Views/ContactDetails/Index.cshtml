@@ -1,0 +1,356 @@
+﻿@model RVNLMIS.Models.ContactDetailsModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Contact Details</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="PrimaBI" />
+
+    <link rel="icon" href="~/Content/assets/images/favicon.ico" type="image/x-icon">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link href="~/Content/web/kendo.common-bootstrap.core.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.mobile.min.css" rel="stylesheet" />
+    <link href="~/Content/JQueryNotify/css/notify.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/plugins/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/chosen.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/theme.css" rel="stylesheet" />
+    <script src="~/Content/assets/js/vendor-all.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pako.min.js"></script>
+    <link href="~/Content/assets/css/pages.css" rel="stylesheet">
+    <style>
+        .lockscreen .card .card-block, .card .card-body {
+            width: 100%;
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 20px 31px !important;
+        }
+
+        .pcoded-main-container {
+            background: url(../../Content/images/screen2.jpg) center top / cover no-repeat !important;
+            position: relative;
+            margin: 0 auto;
+            padding-top: 0;
+            display: block;
+            clear: both;
+            float: unset;
+            right: 0;
+            top: 0;
+            margin-left: 230px;
+            min-height: 105vh !important;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .login-block {
+            margin: 0;
+        }
+
+        .lockscreen .card .card-block, .card .card-body {
+            width: 100%;
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 45px 60px;
+        }
+
+        .login-block .auth-box {
+            margin: 20px auto 0 auto;
+            max-width: 400px !important;
+        }
+    </style>
+
+    <style>
+        .fullscreenDIV {
+            text-align: left;
+            background-color: #FFFFFF;
+            cursor: grab;
+            padding-left: 20px;
+        }
+
+        .pcoded-header .dropdown .dropdown-toggle {
+            line-height: 50px;
+            display: inline-block;
+            text-align: center;
+            width: 130px !important;
+        }
+
+        .pcoded-navbar.theme-horizontal {
+            display: block;
+            height: 50px;
+            width: 100%;
+            z-index: 1023;
+            position: fixed;
+            border-radius: 0;
+            top: 0px !important;
+            margin-top: 0;
+        }
+
+            .pcoded-navbar.theme-horizontal ~ .pcoded-main-container {
+                margin-top: 50px !important;
+                margin-left: 0;
+                padding-top: 1px;
+                min-height: calc(100vh - 50px) !important;
+            }
+    </style>
+</head>
+<body>
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <nav class="pcoded-navbar theme-horizontal menu-light brand-blue"></nav>
+    <header class="navbar pcoded-header navbar-expand-lg header-blue navbar-light">
+        <div class="m-header">
+            @*<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>*@
+            <a href="#!" class="b-brand">
+                <!-- ========   change your logo hear   ============ -->
+                <img src="~/Content/assets/images/logo/RVNL_logo_white.png" alt="" class="logo" width="200px">
+                <img src="~/Content/assets/images/logo-icon.png" alt="" class="logo-thumb">
+            </a>
+            <a href="#!" class="mob-toggler">
+                <i class="feather icon-more-vertical"></i>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <div class="dropdown drp-user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="feather icon-user"></i> Welcome @(Html.Encode(User.Identity.Name.Split('|')[0])) &nbsp;&nbsp;&nbsp;
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-notification">
+                            <div class="pro-head">
+                                <img src="~/Content/assets/images/ProfilePic.png" class="img-radius" alt="User-Profile-Image" />
+                                <span>@(Html.Encode(User.Identity.Name.Split('|')[0]))</span>
+                            </div>
+                            <ul class="pro-body">
+                                <li><a href="/Login/LogOut" class="dropdown-item"><i class="feather icon-lock"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="pcoded-main-container">
+
+
+        <div class="lockscreen">
+            <!-- Pre-loader start -->
+            <!-- Pre-loader end -->
+            <section class="login-block">
+                <!-- Container-fluid starts -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Login card start -->
+                            <div class="md-float-material form-material">
+                                <div class="auth-box card" style="">
+                                    <div class="col-md-12 card-block">
+                                        <div>
+                                            <div class="text-center m-b-10">
+                                                <h5>
+                                                    Contact Details of <span class="text-success"> @Model.PackageInfo</span> user
+                                                </h5>
+                                            </div>
+                                            <div class="text-center">
+                                                <img src="~/Content/images/ProfilePic.png" alt="logo.png" style="max-width:15% !important">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h3 class="text-center"><i class="icofont icofont-lock text-primary f-50"></i></h3>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 m-b-10">
+                                                    <h5 class="text-center"> @(Html.Encode(User.Identity.Name.Split('|')[0]))</h5>
+                                                </div>
+                                            </div>
+                                            @using (Ajax.BeginForm("AddUserContact", "ContactDetails", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "QsubmitSuccess" }, new { @class = "form", Page = "form" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.HiddenFor(Model => Model.UserId)
+                                                @Html.HiddenFor(Model => Model.PackageId)
+                                                <div class="">
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName"> PMC Project Manager Name <span class="text-danger"> @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex: PMC Project Manager Name" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName"> Email Id <span class="text-danger"> @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex: Email Address" } })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*<div class="">
+                                                        <div class="form-group mb-2" style="display:none">
+                                                            <label class="col-form-label-sm-user text-black-50" for="fullName"> Contact Number <span class="text-danger"> @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })</span></label>
+                                                            <div class="row">
+                                                                <div class="col-sm-12 col-md-12">
+                                                                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control numericOnly form-control-sm", @type = "text", @placeholder = "Ex: Contact Number" } })
+                                                                </div>
+                                                                <div class="full-width">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+                                                <div class="">
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName"> WhatsApp Number <span class="text-danger"> @Html.ValidationMessageFor(model => model.WhatsappNo, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.WhatsappNo, new { htmlAttributes = new { @class = "form-control numericOnly form-control-sm", @type = "text", @placeholder = "Ex: WhatsApp number" } })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName"> Are you  using PrimaBi App</label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                <div class="custom-control custom-switch">
+                                                                    @Html.CheckBoxFor(model => model.IsAppUser, new { @class = "custom-control-input" })
+                                                                    <label class="custom-control-label" for="IsAppUser">No / Yes</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="" style="display:none">
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName"> Number of Users <span class="text-danger"> @Html.ValidationMessageFor(model => model.NoOfUser, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.NoOfUser, new { htmlAttributes = new { @class = "form-control numericOnly form-control-sm", @type = "number", @placeholder = "Ex: number of users", @title = "Number of users using this login credentials" } })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName"> Resident Engineer Name <span class="text-danger"> @Html.ValidationMessageFor(model => model.ResidentEngineerName, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.ResidentEngineerName, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex: Resident Engineer Name", @title = "Resident Engineer Name" } })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName"> Resident Engineer WhatsApp Number <span class="text-danger"> @Html.ValidationMessageFor(model => model.ResidentEngineerName, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.ReWhatsAppNum, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex: Resident Engineer WhatsApp Number", @title = "Resident Engineer WhatsApp Number" } })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName">Secound Resident Engineer Name <span class="text-danger"> @Html.ValidationMessageFor(model => model.ResidentEngineerName2, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.ResidentEngineerName2, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex:Secound Resident Engineer Name", @title = "Secound Resident Engineer Name" } })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label class="col-form-label-sm-user text-black-50" for="fullName">Secound Resident Engineer WhatsApp Number <span class="text-danger"> @Html.ValidationMessageFor(model => model.Re2WhatsAppNum, "", new { @class = "text-danger" })</span></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                @Html.EditorFor(model => model.Re2WhatsAppNum, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex: Secound Resident Engineer WhatsApp Number", @title = "Secound Resident Engineer WhatsApp Number" } })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 m-t-10 text-right">
+                                                        <button type="submit" id="btn-btnSubmit" class="btn btn-sm full-width btn-theme btn-block waves-effect text-center m-b-20" value="Save"><i class="m-r-5 feather icon-check"></i>Continue</button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Login card end -->
+                        </div>
+                        <!-- end of col-sm-12 -->
+                    </div>
+                    <!-- end of row -->
+                </div>
+                <!-- end of container-fluid -->
+            </section>
+            <!-- i18next.min.js -->
+            <script src="~/Content/assets/js/i18next.min.js"></script>
+            <script src="~/Content/assets/js/i18nextXHRBackend.min.js"></script>
+            <script src="~/Content/assets/js/i18nextBrowserLanguageDetector.min.js"></script>
+            <script src="~/Content/assets/js/jquery-i18next.min.js"></script>
+        </div>
+    </div>
+
+    <script src="~/Content/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/ripple.js"></script>
+    <script src="~/Content/assets/js/pcoded.min.js"></script>
+    <script src="~/Content/assets/js/plugins/prism.js"></script>
+    <script src="~/Content/assets/js/horizontal-menu.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    <script src="~/Content/assets/js/uikit.js"></script>
+    <script src="~/Content/assets/js/analytics.js"></script>
+    <script>
+
+    </script>
+
+    <script src="~/Content/JQueryNotify/js/notify.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        $(".numericOnly").keypress(function (e) {
+            if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
+        });
+
+        function QsubmitSuccess(data) {
+        alert(data);
+            if (data == "0") {
+                $.notify('Technical Error Please Try Again Later', { align: "right", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+            }
+            else {
+                window.location.href = "/Packages/Index";
+            }
+        }
+    </script>
+</body>
+</html>

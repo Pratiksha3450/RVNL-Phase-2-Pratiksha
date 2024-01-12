@@ -1,0 +1,91 @@
+﻿@model RVNLMIS.Models.SectionModel
+
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Section Information</h5>
+    </div>
+
+    @using (Ajax.BeginForm("AddSectionDetails", "Section", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSectionSuccess" }, new { @class = "form", @id = "Sectionform" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(mode => Model.SectionId)
+        @Html.Hidden("secCode", (string)@ViewBag.Sectioncode)
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        @if (ViewBag.PackageList.Items.Count == 1)
+                        {
+                            
+                            @Html.DropDownListFor(model => model.PackageId, ViewBag.PackageList as SelectList, new { @class = "form-control form-control-sm" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.PackageId, ViewBag.PackageList as SelectList, "Select Package", new { @class = "form-control form-control-sm" })
+                            @*@Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })*@
+                        }
+                        @*@Html.DropDownListFor(model => model.PackageId, ViewBag.PackageList as SelectList, "Select Package", new { @class = "form-control ddlEDId" })*@
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionCode">Section Code (Ex: P01S1)@Html.ValidationMessageFor(model => model.SectionCode, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.SectionCode, new { htmlAttributes = new { @class = "form-control disableCN", @type = "text", @placeholder = "Ex: P01S1" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionName">Section Name @Html.ValidationMessageFor(model => model.SectionName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.SectionName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Section name" } })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionStart">
+                            Section Start @Html.ValidationMessageFor(model => model.SectionStarts, "", new { @class = "text-danger" })
+                        </label>
+                        @Html.EditorFor(model => model.SectionStarts, new { htmlAttributes = new { @class = "form-control", onkeydown = "return false",@type = "date" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionFinish">
+                            Section Finish @Html.ValidationMessageFor(model => model.SectionFinishs, "", new { @class = "text-danger" })
+                        </label>
+                        @Html.EditorFor(model => model.SectionFinishs, new { htmlAttributes = new { @class = "form-control", onkeydown = "return false",@type = "date" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtStartChaining">
+                            Start Chainage @Html.ValidationMessageFor(model => model.StartChaining, "", new { @class = "text-danger" })
+                        </label>
+                        @Html.EditorFor(model => model.StartChaining, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex: 00+11", onkeypress = "return Numbers1PlusOnly(this,event)" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEndChaining">
+                            End Chainage @Html.ValidationMessageFor(model => model.EndChaining, "", new { @class = "text-danger" })
+                        </label>
+                        @Html.EditorFor(model => model.EndChaining, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex: 00+11", onkeypress = "return Numbers1PlusOnly(this,event)" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-xs btn-primary pull-right" value="Save"><i class="m-r-5 feather icon-check"></i>Save</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

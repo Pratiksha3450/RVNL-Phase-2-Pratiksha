@@ -1,0 +1,241 @@
+﻿@model RVNLMIS.Models.DroneSModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+    }
+</style>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-sm-3 pr-1">
+                <div id="frmProcMaterial">
+
+                    @Html.Partial("_PartialDroneUploadFile", new RVNLMIS.Models.DroneSModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Image or Video Details</h5>
+                    </div>
+                    <br />
+                    <div class="card-body">
+                        <div class="card-columns" id="ImageVideoDetails">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+        bindDropdownList();
+        function bindDropdownList() {
+
+            $("#PackageId").change(function () {
+                var sectionDataSource;
+                BindEntity("");
+
+                var selectedPackageId = $("#PackageId").val();
+                $.get("/DroneSurveyDetail/GetSectionsByPackage/" + selectedPackageId, function (data) {
+                    $("#SectionId").html('');
+                    sectionDataSource = data;
+                    $("#SectionId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: sectionDataSource }));
+                });
+            });
+
+            $("#SectionId").change(function () {
+                var SectionID = $("#SectionId").val();
+                BindEntity(SectionID);
+            });
+        }
+        function BindEntity(SectionID) {
+            var entityDataSource;
+            $.get("/DroneSurveyDetail/GetEntityBySection", { sectionId: SectionID },
+                function (data) {
+                    $("#EntityId").html('');
+                    entityDataSource = data;
+                    $("#EntityId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: entityDataSource }));
+                    // RefreshKendoGrid();
+                });
+        }
+        var formdata = new FormData(); //FormData object
+        var buttonClicked = "";
+        $(document).ready(function () {
+            $("#DivVideoFile").hide();
+            $("#DivImageUploader").show();
+            $("#fileInput").on("change", function () {
+                var fileInput = document.getElementById('fileInput');
+                for (i = 0; i < fileInput.files.length; i++) {
+                    debugger;
+                    var sfilename = fileInput.files[i].name;
+                    let srandomid = Math.random().toString(36).substring(7);
+                    formdata.append(sfilename, fileInput.files[i]);
+                    var markup = "<tr id='" + srandomid + "'><td>" + sfilename + "</td><td><a href='#' onclick='DeleteFile(\"" + srandomid + "\",\"" + sfilename +
+                        "\")'><span class='fa fa-trash-o red'>d</span></a></td></tr>";
+                    $("#FilesList tbody").append(markup);
+                }
+                chkatchtbl();
+                $('#fileInput').val('');
+            });
+
+            $("#btnDroneDetails").on('click', function (e) {
+                var val = buttonClicked;
+                e.preventDefault();
+                var objDroneImageform = $("#DroneImageform").serializeObject();
+                formdata.append("objDroneImageform", JSON.stringify(objDroneImageform));
+                var fileInput = document.getElementById('fileInput');
+                $.ajax({
+                    url: '/DroneSurveyDetail/VerifyDetails',
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: formdata,
+                    async: false,
+                    success: function (data) {
+                        formdata.delete('objDroneImageform');
+                        AddDroneImageSuccess(data);
+                    },
+                    error: function (err) {
+                        OnSuccess(err);
+                    }
+                });
+
+            });
+
+            $("#FilteType").on("change", function () {
+                var filteType = $("#FilteType").val();
+
+                if (filteType == 1) {
+                    $("#DivImageUploader").hide();
+                    $("#DivVideoFile").show();
+                } else {
+                    $("#DivVideoFile").hide();
+                    $("#DivImageUploader").show();
+                }
+
+            });
+
+        });
+        function chkatchtbl() {
+            if ($('#FilesList tr').length > 1) {
+                $("#FilesList").css("visibility", "visible");
+            } else {
+                $("#FilesList").css("visibility", "hidden");
+            }
+        }
+        function DeleteFile(Fileid, FileName) {
+            formdata.delete(FileName)
+            $("#" + Fileid).remove();
+            chkatchtbl();
+        }
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                var fileType = $('#FilteType').val();
+                var sid = $('#SectionId').val();
+                var eid = $('#EntityId').val();
+                GetImageList(sid, eid, fileType);
+            }, 1000);
+        });
+
+        function GetImageList(sid, eid, fileType) {
+
+            $.ajax({
+                url: '/DroneSurveyDetail/GetImageAndVideoListById?sid=' + sid + '&eid=' + eid + '&fileType=' + fileType,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    $('#ImageVideoDetails').html('');
+                    var strHtml = '';
+                    $.each(result, function (i, model) {
+                        console.log(model);
+                        strHtml = strHtml + '<div class="card">';
+                        if (model.DFileType == "1") {
+                            strHtml = strHtml + '<video class="img-fluid card-img-top" style="height: 200px;" controls loop="true">  <source src="../Uploads/Drone' + model.DFileName + '"  type="video/mp4"></video> <span class="myspanTitle" ></span>';
+                        } else {
+                            strHtml = strHtml + ' <img style="height: 200px;" class="img-fluid card-img-top" src="../Uploads/Drone' + model.DFileName + '" alt="Card image cap" />';
+
+                        }
+                        strHtml = strHtml + '</div>';
+                        ;
+
+                    });
+                    $('#ImageVideoDetails').html(strHtml);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
+        }
+
+        $("#SectionId").change(function () {
+            var fileType = $('#FilteType').val();
+            var sid = $("#SectionId").val();
+            var eid = $('#EntityId').val();
+            GetImageList(sid, eid, fileType);
+        });
+        $("#EntityId").change(function () {
+            var fileType = $('#FilteType').val();
+            var sid = $("#SectionId").val();
+            var eid = $('#EntityId').val();
+            GetImageList(sid, eid, fileType);
+        });
+        $("#FilteType").change(function () {
+            var fileType = $('#FilteType').val();
+            var sid = $("#SectionId").val();
+            var eid = $('#EntityId').val();
+            GetImageList(sid, eid, fileType);
+        });
+
+        function AddDroneImageSuccess(data) {
+
+            if (data == "Add successfully") {
+                $.notify('Image or Video Uploaded Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                location.reload();
+            } else if (data == "Error") {
+                $.notify('Something went wrong, please try again!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data == "Error converting value {null} to type 'System.Int32'. Path 'SectionId', line 1, position 31.") {
+                $.notify('Please select Section', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data == "Error converting value {null} to type 'System.Int32'. Path 'PackageId', line 1, position 15.") {
+                $.notify('Please select Package', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            } else if (data == "file Empty") {
+                $.notify('Please select File', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+        }
+    </script>
+}

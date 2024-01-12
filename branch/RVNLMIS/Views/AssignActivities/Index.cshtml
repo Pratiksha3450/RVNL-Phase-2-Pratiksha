@@ -1,0 +1,503 @@
+﻿@using RVNLMIS.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+
+<style>
+    #Activity {
+        
+    }
+    #EntityActivity {
+         
+    }
+
+
+    .demo-section label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    #example .demo-section {
+        font-size: smaller !important;
+        max-width: none;
+        width: 100%;
+    }
+
+    #example .k-listbox {
+        width: 49%;
+        height: 370px;
+    }
+
+        #example .k-listbox:first-of-type {
+            margin-right: 1px;
+        }
+
+        #example .k-listbox .k-item {
+            cursor: move;
+        }
+
+    #example .arrow {
+        padding: 8px 0 5px 238px;
+    }
+
+    #button {
+        float: right;
+        margin-top: 20px;
+    }
+
+    .k-listbox .k-list-scroller {
+        min-height: 100%;
+        height: 110%;
+    }
+</style>
+
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<input type="hidden" id="hdnConsActID" />
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <div class="row">
+            <div class="col-sm-6 pr-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-4" id="pkgcontainer">
+                                @if (roleCode == "PKG")
+                                {
+                                    @(Html.Kendo().DropDownList().Name("ddlPackage").Popup(p => p.AppendTo("#pkgcontainer")).HtmlAttributes(new { @class = "form-control" }).BindTo(ViewBag.PackageList as SelectList)
+                                    )
+                                }
+                                else
+                                {
+                                    @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#pkgcontainer"))
+.Name("ddlPackage")
+.DataTextField("PackageName")
+.DataValueField("PackageId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+.Filter("contains").OptionLabel("Select Package")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                {
+                                                                                                read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                                                            })
+                                                                                                                .ServerFiltering(true);
+})
+                                    )
+                                }
+                            </div>
+                            <div class="col-md-4" id="Sectioncontainer">
+
+                                @* @Html.DropDownList("SectionID", (IEnumerable<SelectListItem>)ViewBag.SectionList, "Select Section", htmlAttributes: new { @id = "SectionID", @class = "form-control" })*@
+                                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#Sectioncontainer"))
+                                                                             .Name("SectionID")
+                                                                             .DataTextField("SectionName")
+                                                                             .DataValueField("SectionId")
+                                                                             .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                             .Filter("contains").OptionLabel("Select Section")
+                                                                             .DataSource(source =>
+                                                                             {
+                                                                                 source.Read(read =>
+                                                                                 {
+                                                                                     read.Action("Get_SectionsByPackage", "EntityMaster").Data("getPkgId");//, new { id = 0 });
+                                                                                                 })
+                                                                                      .ServerFiltering(true);
+                                                                             })
+                                )
+                            </div>
+                            <div class="col-md-4" id="entitycontainer">
+                                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#entitycontainer"))
+.Name("EntityID")
+.DataTextField("EntityName")
+.DataValueField("EntityID")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+.Filter("contains").OptionLabel("Select Entity")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                                                                                                                                               {
+                                                                                                                                                                                                                                                                               read.Action("GetEntityUnderSection", "AssignActivities").Data("GetSectionId");
+                                                                                                                                                                                                                                                                           })
+                                                                                                                                                                                                                                                                                               .ServerFiltering(true);
+})
+                                )
+                                @*@Html.DropDownList("EntityID", (IEnumerable<SelectListItem>)ViewBag.EntityList, "Select Entity", htmlAttributes: new { @id = "EntityID", @class = "form-control" })*@
+                            </div>
+
+                            <div class="col-md-4" id="ActGrpcontainer">
+
+
+                                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#ActGrpcontainer"))
+.Name("ddlActivityGroup")
+.DataTextField("ActivityGroupName")
+.DataValueField("ActGId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+//.Filter("contains")
+//.OptionLabel("Select Activity Group Name")
+.DataSource(source =>
+{
+                            source.Read(read =>
+                                                                            {
+                                                                                read.Action("ServerFiltering_GetActivityGroupsList", "AssignActivities");
+                                                                            });
+                            // .ServerFiltering(true);
+})
+                                )
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                     <div class="card-body pl-2 pt-2" id="Card1">
+                        
+                        <div class="pl-3">
+                            <div class=" " id="KendoHeight">
+                                <div id="example" role="application">
+                                    <div class="demo-section k-content wide">
+                                        <div class="row mt-2 mb-1">
+                                            <div class="col-md-6">
+                                                <label for="optional" id="Activity">Activity List</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="selected" id="EntityActivity" class="pull-left"> Entity Activity List</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a class="btn btn-xs btn-primary btn-savelist" href="#" id="submit-form" title="Save List"
+                                                   style="">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        @(Html.Kendo().ListBox()
+                                                                                .Name("lst1")
+                                                                                .Toolbar(toolbar => toolbar.Tools(
+                                                                                tools => tools
+                                                                                .MoveUp()
+                                                                                .MoveDown()
+                                                                                .TransferTo()
+                                                                                .TransferAllTo()
+                                                                                .Remove()
+                                                                                )).ConnectWith("lst2")
+                                                                                .Selectable(ListBoxSelectable.Multiple)
+                                                                                .Draggable(true)
+                                                                                .DropSources("lst2")
+                                                                                .DataTextField("ActivityName")
+                                                                                .DataValueField("ConsActID")
+                                                                                .DataSource(source => source
+                                                                                .Read(read => read.Action("Activity_DetailsList1", "AssignActivities").Data("GetEntityId"))
+                                                                                )
+                                        )
+
+                                        @(Html.Kendo().ListBox()
+                                                                            .Name("lst2")
+                                                                            .ConnectWith("lst1")
+                                                                            .Selectable(ListBoxSelectable.Multiple)
+                                                                            .Draggable()
+                                                                            .DropSources("lst1")
+                                                                            .DataSource(source => source.Read(read => read.Action("Activity_DetailsList2", "AssignActivities").Data("GetEntityId")))
+                                                                            .DataTextField("ActivityName")
+                                                                            .DataValueField("ConsActID")
+
+                                                                            .Toolbar(toolbar =>
+                                                                            {
+                                                                                toolbar.Position(Kendo.Mvc.UI.Fluent.ListBoxToolbarPosition.Right);
+                                                                                toolbar.Tools(tools => tools
+                                                                                                        .MoveUp()
+
+                                                                                                        .MoveDown()
+                                                                                                        .Remove()
+                                                                                                        );
+                                                                            })
+                                        )
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Construction Activity List</h5>
+                            </div>
+                            <div class="col-md-6 divMag">
+                                <input type="search" id="searching" class="form-control" placeholder="Search by Activity Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <div class="customtoolbar" id="KendoHeight">
+
+
+                                @(Html.Kendo().Grid<RVNLMIS.Models.ConsActivityModel>()
+                                                                    .Name("ActivityGrid")
+                                                                    .Columns(columns =>
+                                                                    {
+
+                                                                        columns.Bound(c => c.Selected).Visible(false);
+
+                                                                        columns.Bound(c => c.ActivityCode).HtmlAttributes(new { style = "text-align:left" }).Title("Code").Width("10%").HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                        columns.Bound(c => c.ActivityName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("25%");
+                                                                        columns.Bound(c => c.ActivityGroup).HtmlAttributes(new { style = "text-align:left" }).Title("Activity Group")
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("25%");
+                                                                        columns.Bound(c => c.OriginalQty).HtmlAttributes(new { style = "text-align:right" }).Title("Original Qty").Width(250)
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("10%");
+                                                                        columns.Bound(c => c.Unit).HtmlAttributes(new { style = "text-align:right" }).Title("Unit")
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("15%");
+                                                                    }).Scrollable(scr => scr.Height(400))
+                                                                    .Pageable()
+                                                                    .ToolBar(toolBar =>
+                                                                    {
+                                                                        toolBar.Save();
+                                                                    })
+                                                                    .Editable(editable => editable.Mode(GridEditMode.InCell))
+
+                                                                    .Sortable()
+                                                                    .ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+                                                                    //.Navigatable()
+                                                                    .Pageable(pageable => pageable
+                                                                    .Refresh(true)
+                                                                    .PageSizes(true)
+                                                                    .ButtonCount(5)
+                                                                    .PageSizes(new List<object>
+                                                                    { 10, 20, 50, "all" }).Refresh(false))
+
+                                                                    // .PersistSelection(false)
+                                                                    .DataSource(dataSource => dataSource
+                                                                    .Ajax()
+                                                                    .Group(g => g.Add(c => c.ActivityGroup))
+                                                                    .Batch(true)
+                                                                    .ServerOperation(false)
+                                                                    .Update(update => update.Action("EditingCustom_Update", "AssignActivities"))
+                                                                    .Model(model => model.Id(u => u.EntActId))
+
+                                                                    .Model(model =>
+                                                                    {
+                                                                        model.Id(p => p.EntActId);
+                                                                        model.Field(p => p.ActivityCode).Editable(false);
+                                                                        model.Field(p => p.ActivityName).Editable(false);
+                                                                        model.Field(p => p.ActivityGroup).Editable(false);
+
+                                                                    })
+
+
+                                                                    .Read(read => read.Action("Activity_Details", "AssignActivities").Data("GetEntityId"))
+                                                                    .PageSize(15)).Groupable()
+                                                                    .Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+                                                                    .Excel(excel => excel
+                                                                    .FileName("Activity_Details_Excel.xlsx")
+                                                                    .Filterable(true)
+                                                                    .ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+                                                                    )
+                                                                    .Pdf(pdf => pdf
+                                                                    .AllPages()
+                                                                    .AvoidLinks()
+                                                                    .PaperSize("A4")
+                                                                    .Scale(0.8)
+                                                                    .Margin("2cm", "1cm", "1cm", "1cm")
+                                                                    .Landscape()
+                                                                    .RepeatHeaders()
+                                                                    .TemplateId("page-template")
+                                                                    .FileName("Activity_Details_Pdf.pdf")
+                                                                    .ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+                                                                    )
+
+                                                                    .Events(ev => ev.DataBound("dataBound"))
+                                )
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        function HideColumn(e) {
+
+            var grid = $("#ActivityGrid").data("kendoGrid");
+            grid.hideColumn(11);
+
+            grid.options.pdf.fileName = "AssignActivities - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(11);
+            });
+        }
+
+        function getPkgId() {
+            var dID = $("#ddlPackage").val();
+            var filterText = $("#SectionID").getKendoDropDownList().filterInput.val();
+            return { id: dID, text: filterText }
+        }
+
+        function GetSectionId() {
+            var dID = $("#SectionID").val();
+            return { sectionId: dID };
+        }
+
+        function dataBound() { }
+
+        bindDropdownList();
+        function bindDropdownList() {
+            $("#ddlPackage").change(function () {
+                var sectionDataSource;
+
+                BindEntity("");
+
+                var selectedPackageId = $("#ddlPackage").val();
+                $.get("/EntityMaster/Get_SectionsByPackage/" + selectedPackageId, function (data) {
+                    $("#SectionID").html('');
+                    sectionDataSource = data;
+                    $("#SectionID").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: sectionDataSource }));
+                });
+            });
+
+            $("#SectionID").change(function () {
+                var SectionID = $("#SectionID").val();
+                BindEntity(SectionID);
+            });
+        }
+
+        function BindEntity(SectionID) {
+            var entityDataSource;
+
+            $.get("/AssignActivities/GetEntityUnderSection", { sectionId: SectionID },
+                function (data) {
+                    $("#EntityID").html('');
+                    entityDataSource = data;
+                    $("#EntityID").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: entityDataSource }));
+                   // RefreshKendoGrid();
+                });
+        }
+
+        function GetEntityId() {
+            var activityGroupId = $("#ddlActivityGroup").data("kendoDropDownList").value();
+            return { entityID: $("#EntityID").val(), activityGroup: activityGroupId };
+        }
+
+        //filter grid on package selection
+        $("#EntityID").change(function () {
+            RefreshKendoGrid();
+        });
+
+        $("#ddlActivityGroup").change(function () {
+            RefreshKendoGrid();
+        });
+
+        function RefreshKendoGrid() {
+            $('#ActivityGrid').data('kendoGrid').dataSource.read();
+            $('#ActivityGrid').data('kendoGrid').refresh();
+
+            $('#lst1').data('kendoListBox').dataSource.read();
+            $('#lst1').data('kendoListBox').refresh();
+
+            $('#lst2').data('kendoListBox').dataSource.read();
+            $('#lst2').data('kendoListBox').refresh();
+        }
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 205);
+            $('#ActivityGrid').height($(window).height() - 208);
+            $('#Card1').height($(window).height() - 245);
+            $('#lst1').height($(window).height() - 365);
+            $('#lst2').height($(window).height() - 365);
+        });
+
+        $(window).trigger('resize');
+
+        $("#searching").on("input", function (e) {
+            var listBox = $("#lst1").getKendoListBox();
+            var sarchString = $(this).val();
+            listBox.dataSource.filter({ field: "ActivityName", operator: "contains", value: sarchString });
+            var listView = $("#lst2").getKendoListBox();
+            var sarchString = $(this).val();
+            listView.dataSource.filter({ field: "ActivityName", operator: "contains", value: sarchString });
+
+            var value = $("#searching").val();
+            grid = $("#ActivityGrid").data("kendoGrid");
+
+            if (value) {
+                grid.dataSource.filter({ field: "ActivityName", operator: "contains", value: value });
+            } else {
+                grid.dataSource.filter({});
+            }
+
+        });
+
+        $(function () {
+            $('#submit-form').on('click', function () {
+                var dt = $('#lst2').data('kendoListBox').dataItems();
+                console.log(dt);
+                var actGroupId = $("#ddlActivityGroup").val();
+
+                var EntityID = $("#EntityID").val();
+                if ((EntityID === "0" || EntityID === '')) {
+                    $.notify("Select Entity", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/AssignActivities/Create",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ "selectedItems": $('#lst2').data('kendoListBox').dataItems(), "EntityID": EntityID, "activityGroupId": actGroupId }),
+                        dataType: "json",
+                        success: function (result) {
+
+                            $.notify(result, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            RefreshKendoGrid();
+                        }
+                    });
+                }
+            })
+        })
+
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "AssignActivities - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,1055 @@
+﻿@model RVNLMIS.Models.InvoicePaymentDetail
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var instanceUrl = System.Configuration.ConfigurationManager.AppSettings["ServerPath"] as string;
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+    }
+
+    .mb-3, .my-3 {
+        margin-bottom: 5px !important;
+    }
+
+    .k-grid colgroup > col:nth-child(3) {
+        width: 0; /* hides only the 4th column during PDF export */
+    }
+
+    .k-button {
+        border: 1px solid #4680ff;
+        border-radius: 0px;
+    }
+
+    .float {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        bottom: 40px;
+        left: 40px;
+        background-color: #0C9;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+    }
+
+    #modal_instructions {
+        position: fixed;
+        width: auto;
+        background: crimson;
+        bottom: 3%;
+        padding: 0.4% 1% 1% 1%;
+        margin: 0;
+        text-align: center;
+        right: auto;
+        left: 1%;
+        border: none;
+        border-radius: 0;
+    }
+</style>
+
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<div class="modal fade" id="createInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="createInvoiceModal" aria-hidden="true" data-backdrop="static">
+    <div id="createInvoiceContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="AddInvoiceModal" aria-hidden="true" data-backdrop="static">
+    <div id="AddInvoiceContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+<input type="hidden" id="hiddenId" />
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">You wish to delete selected Invoice With Payment Details and attachment file ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirmInvoice"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDeletePayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">You wish to delete selected Payment Details and attachment file ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeletePaymnetDetails"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class=" ">
+        <div class="row">
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-12">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <h5>Invoice Details  </h5>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="lblAmount"></p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="full-width">
+                                    <div class="input-group input-group-sm">
+
+                                        <input type="search" id="txtSearch" class="form-control mr-4" title="Search by Invoice no , Project Name or Package Name"
+                                               aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by Invoice no , Project Name or Package Name" width="30%" />
+
+                                        <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()"
+                                                data-url="@Url.Action("Create", "InvoicePayment")" value="Save" id="btnCreateInvoice" title="Add Invoice">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by Invoice no , Project Name or Package Name"
+                                               aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by Invoice no , Project Name or Package Name" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 text-right">
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()"
+                                            data-url="@Url.Action("Create", "InvoicePayment")" value="Save" id="btnCreateInvoice" title="Add Invoice"><i class="fas fa-plus"></i> Add</button>
+                                </div>*@
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-condensed" id="KendoHeight" style="overflow-y:scroll">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.InvoicePaymentDetail>()
+                                                                                                .Name("InvoiceGrid")
+                                                                                                .Columns(columns =>
+                                                                                                {
+                                                                                                    columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+                                                                                                    columns.Bound(c => c.InvoiceNo).HtmlAttributes(new { style = "text-align:left" })
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%").Title("Invoice No");
+
+                                                                                                    columns.Bound(c => c.ProjectName).HtmlAttributes(new { style = "text-align:left", title = "#= ProjectName #" })
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("24%").Title("Project Name");
+
+                                                                                                    columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left", title = "#= PackageName #" })
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("24%").Title("Package Name");
+
+                                                                                                    columns.Bound(c => c.InvoiceDate).HtmlAttributes(new { style = "text-align:right" }).Format("{0:dd-MMM-yyyy}")
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("10%").Title("Invoice Date");
+
+                                                                                                    columns.Bound(c => c.InvoiceAmount).Format("{0:n}").HtmlAttributes(new { style = "text-align:right" })
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("10%").Title("Invoice Amount");
+
+                                                                                                    columns.Bound(c => c.CertifiedAmount).Format("{0:n}").HtmlAttributes(new { style = "text-align:right" })
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("10%").Title("Certified Amount");
+
+
+                                                                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/InvoicePayment/EditInvoiceByInvoiceId/#=InvoiceId#' class='EditInvoice btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>"
++ "&nbsp;" + "<button type='button'  data-url='/InvoicePayment/AddInvoicePayByInvoiceId/#=InvoiceId#' class='btn btn-xs btn-info has-ripple InvoicePaymentInfo' data-key='#=InvoiceId#' Title='Add Payment Info'><i class='fas fa-plus'></i></button>"
++ "&nbsp;" + "<button type='button' id='btnDeleteInvoice' class='btn btn-xs btn-danger has-ripple DeleteInvoice' data-key='#=InvoiceId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                                                                }).Scrollable(scr => scr.Height(400))
+.ClientDetailTemplateId("templateInvoicePay")
+
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Model(model => model.Id(u => u.InvoiceId))
+.Events(events =>
+                                                            {
+                                                                            //events.RequestStart("request_Start");
+                                                                            events.RequestEnd("request_end");
+                                                            })
+.Read(read => read.Action("InvoiceDetails_Details", "InvoicePayment"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.ExcelExport("ExportExcel").PdfExport("HideColumn").DataBound("dataBoundInvoice"))
+.Excel(excel => excel
+.FileName("InvoiceDetailsExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("InvoiceDetailsPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Trigger the modal with a button -->
+     <button href="#" class="float fullscreen" id="modal_instructions" title="Instructions" data-toggle="modal" data-target="#myModal"> 
+        Instructions to Add Installment Invoice 
+     </button>
+ 
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Steps to Add Installment Invoice</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body pl-4 pr-4">
+
+                <p>
+                    <div class="row border p-3">
+                        <div class="col-md-6">
+                            <img src="~/Content/assets/images/invoice_instructions/step1.jpg" class="img-fluid" />
+                            <h5 class="mt-2 mb-2"> Step 1 : Click on Add button</h5>
+                            <ul>
+                                <li> After Successful payment of Installment you have to add invoice from system. </li>
+                                <li> Click on plus icon </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="~/Content/assets/images/invoice_instructions/step2.jpg" class="img-fluid" />
+                            <h5 class="mt-2 mb-2"> Step 2 : Add Payment Details</h5>
+                            <ul>
+                                <li> Then Popup will appear </li>
+                                <li> Add "Paid Amount" </li>
+                                <li> Add "Payment Date" </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </p>
+
+
+                <div class="row border p-3">
+                    <div class="col-md-6">
+                        <img src="~/Content/assets/images/invoice_instructions/step3.jpg" class="img-fluid" />
+                        <h5 class="mt-2 mb-2"> Step 3 : Upload Receipt in PDF format</h5>
+                        <ul>
+                            <li> Upload File </li>
+                            <li> Upload file in PDF format only </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="~/Content/assets/images/invoice_instructions/step4.jpg" class="img-fluid" />
+                        <h5 class="mt-2 mb-2"> Step 4 : Click to SAVE</h5>
+                        <ul>
+                            <li> Click on "Save" button to proceed </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+
+    <script id="templateInvoicePay" type="text/kendo-tmpl">
+        @(Html.Kendo().Grid<RVNLMIS.Models.InvoicePayment>()
+                                                                        .Name("InvoiceGrid_#=InvoiceId#") // template expression, to be evaluated in the master context
+                                                                        .Columns(columns =>
+                                                                        {
+                                                                            columns.Bound(e => e.InvoiceNo).Width("10%").Title("Invoice No");
+                                                                            columns.Bound(e => e.PaidAmount).Format("{0:n}").Width("20%").Title("Paid Amount");
+                                                                            columns.Bound(e => e.PaymentDate).Format("{0:dd-MMM-yyyy}").Width("20%").Title("Payment Date");
+                                                                            columns.Bound(e=>e.Remark).Title("Remark").Width("45%");
+                                                                            columns.Template(@<text></text>).Title("Action").ClientTemplate(
+                                                                                
+                                                                                "<button type='button'   data-url='/InvoicePayment/GetPayDetailsByPaymentId?id=\\#=PaymentId\\#' class='btn btn-xs btn-warning has-ripple EditInvoicePaymentInfo' Title='Add Payment Info'><i class='fas fa-edit'></i></button>" + "&nbsp;" +
+                                                                                                "<button type='button' id='btnPaymnetDetails' class='btn btn-xs btn-danger has-ripple DeletePaymnetDetails' data-key='\\#=PaymentId\\#'  Title='Delete'><i class='feather icon-trash'></i></button>"+
+                                                                                                "\\#if(AttachFilePath!=''){\\# <button Id='btnViewPdf'  data-key='\\#=AttachFilePath \\#' class='btnViewPdf ViewPdf btn btn-xs btn-success has-ripple' title='View'><i class='fas fa-file-pdf'></i></button>" + "&nbsp;\\#}\\#" ).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%")
+                                                                                                ;
+                                                                                    //columns.Command(command => command.Custom("ViewDetails").Visible("showCommand").Click("showDetails")).HeaderHtmlAttributes(new { style = "text-align:center" }).Title("View").Width("10%");
+                                                                                })
+                                                                                                .DataSource(dataSource => dataSource.Ajax()
+                                                                                                .PageSize(20)
+                                                                                                .Read(read => read
+                                                                                                .Action("HierarchyBinding_Sub", "InvoicePayment", new { InvoiceId = "#=InvoiceId#" })))
+                                                                                                .Events(events => events.DataBound("dataBound"))
+                                                                                                .Pageable()
+                                                                                                .Sortable()
+                                                                                                .ToClientTemplate()
+        )
+    </script>
+
+    @(Html.Kendo().Window().Name("Details")
+                                                                    .Title("Document Preview")
+                                                                    .Visible(false)
+                                                                    .Modal(true)
+                                                                    .Draggable(true)
+                                                                    .Width(1000)
+                                                                    .Height(635)
+
+    )
+    <style>
+        .pdfview_popup {
+            overflow: hidden;
+            width: 100%
+        }
+
+        .k-window {
+            overflow: hidden;
+            border: 4px solid red;
+        }
+
+            .k-window > .k-window-titlebar {
+                background: linear-gradient(to right, #5757c5, #00c18d) !important;
+                color: #fff;
+            }
+    </style>
+
+    <script type="text/x-kendo-template" id="template">
+        <div id="details-container" class="pdfview_popup">
+            <div class="row">
+                <div class="col-sm-12" style="width: 500px">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <a class="label label-info" href="@instanceUrl#= AttachFilePath #" target="_blank"> <i class="fa fa-hand-point-right"></i> Click here if file not shown below</a>
+                        </div>
+                    </div>
+                    <object data="@instanceUrl#= AttachFilePath #" type="application/pdf" width="100%" height="560px">
+                        <embed src="https://drive.google.com/viewerng/viewer?url=@instanceUrl#= AttachFilePath #&embedded=true" width="100%" height="560px"></embed>
+                    </object>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var detailsTemplate = kendo.template($("#template").html());
+
+        function showDetails(e) {
+            //e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            console.log(dataItem);
+            var wnd = $("#Details").data("kendoWindow");
+            wnd.content(detailsTemplate(dataItem));
+            wnd.center().open();
+
+        }
+
+        $(document).on('click', '.btnViewPdf', function (e) {
+
+            var url = $(this).data("key");
+            var dt = { AttachFilePath: url };
+            if (url==null) {
+                $.notify("No attachment found", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                console.log(url);
+                var wnd = $("#Details").data("kendoWindow");
+                wnd.content(detailsTemplate(dt));
+                wnd.center().open();
+
+
+            }
+            
+        });
+    </script>
+    <script>
+        function showCommand(dataItem) {
+            //console.log("determining to hide or show" + dataItem);
+            // show the Edit button for the item with Status='New'
+            if (dataItem.AttachFilePath != null) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            //$('#InvoiceGrid').height($(window).height() - 105);
+            //$('.k-grid-content').height($(window).height() - 195);
+
+        });
+        $(window).trigger('resize');
+        $("#btnCreateInvoice").on("click", function () {
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#createInvoiceContainer').html(data);
+                $('#createInvoiceModal').modal('show');
+                BindOnChangeEvent();
+            });
+        });
+
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function GetTotalInvoice() {
+            console.log("Refresh Call");
+            $.ajax({
+                url: '/InvoicePayment/GetTotalInvoice',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var amount = response;//'@ViewBag.TotalPaid';
+                // amount = amount.toString();
+                if (amount != '') {
+                    console.log(amount);
+                    var afterPoint = '';
+                    if (amount.indexOf('.') > 0)
+                        afterPoint = amount.substring(amount.indexOf('.'), amount.indexOf('.') + 2);
+                    amount = Math.floor(amount);
+                    amount = amount.toString();
+                    var lastThree = amount.substring(amount.length - 3);
+                    var otherNumbers = amount.substring(0, amount.length - 3);
+                    if (otherNumbers != '')
+                        lastThree = ',' + lastThree;
+                    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+                    $("#lblAmount").text('');
+                    $("#lblAmount").append('<h5>Total Paid : &#8377; ' + res + '</h5>  ( ' + price_in_words(amount) + ' )');// .text("Total Paid : &#8377; " + res);
+                    }
+                else {
+                    $("#lblAmount").text('');
+                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+
+        }
+        function request_end(e) {
+            console.log(e.type);
+            GetTotalInvoice();
+        }
+
+        $(document).ready(function () {
+            GetTotalInvoice();
+            $("#btnImport").on("click", function () {
+                $.get("/InvoicePayment/GetImortModal", function (data) {
+                    $('#createInvoiceContainer').html(data);
+                    $('#createInvoiceModal').modal('show');
+                });
+            });
+
+            $("#createInvoiceContainer").on("click", "#btnExcelImport", function () {
+                var formdata = new FormData();
+                var file = document.getElementById("FileUpload").files[0];
+                var packId = $("#packageId").val();
+
+                if (packId == '' || packId == null || packId == 'undefined') {
+                    $.notify("Please select Package", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                if (file == 'undefined' || file == '' || file == null) {
+                    $.notify("Please select file", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                else {
+                    formdata.append("FileUpload", file);
+                    formdata.append("packageId", $("#packageId").val());
+
+                    $.ajax
+                        ({
+                            url: '/InvoicePayment/ImportExcel',
+                            type: 'POST',
+                            data: formdata,
+                            // datatype: 'json',
+                            processData: false,
+                            contentType: false,
+                            success: function (result) {
+                                if (result == 'Error') {
+                                    $.notify("Please select file", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                                    $("#createInvoiceModal").modal('hide');
+                                }
+                                else {
+
+                                    $("#createInvoiceModal").modal('hide');
+                                    $('#InvoiceGrid').data('kendoGrid').dataSource.read();
+                                    $('#InvoiceGrid').data('kendoGrid').refresh();
+                                    $.notify(result, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                                }
+
+                            }
+                        });
+                    GetTotalInvoice();
+                }
+            });
+        });
+
+        function BindOnChangeEvent() {
+            NumberPasteValidation();
+            $("#ProjectId").change(function () {
+                var dID = $("#ProjectId").val();
+                $.get("/InvoicePayment/GetPackageUnderProject", { id: dID },
+                    function (data) {
+                        $("#PackageId").html('');
+                        $("#PackageId").append($('<option></option>').val(0).html("Select Package"));
+                        $.each(data, function (i, item) {
+                            $("#PackageId").append($('<option></option>').val(item.PackageId).html(item.PackageName));
+                        });
+                    });
+            });
+            //$("#PackageId").change(function () {
+            //    var dID = $("#PackageId").val();
+            //    $.get("/InvoicePayment/GetInvoiceCode", { id: dID },
+            //        function (data) {
+            //            $("#InvoiceNo").val(data);
+            //        });
+            //});
+        }
+
+        function OnInvoiceSuccess(response) {
+            GetTotalInvoice();
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Already Exists") {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+
+            else {
+
+                $('#createInvoiceContainer').html(response);
+                BindOnChangeEvent();
+                return;
+            }
+        }
+
+        $("#btnDeleteConfirmInvoice").on("click", function () {
+            var id = $("#hiddenId").val();
+            //alert(id);
+            $.ajax({
+                url: '/InvoicePayment/InvoiceDelete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response == "2") {
+                        $.notify('Entities are added to this section.You cannot delete this.', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                    }
+                    else if (response == "1") {
+
+                        $("#modalDelete").modal('hide');
+                        $('#InvoiceGrid').data('kendoGrid').dataSource.read();
+                        $('#InvoiceGrid').data('kendoGrid').refresh();
+                        //$.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+            //GetTotalInvoice();
+        });
+
+        $("#btnDeletePaymnetDetails").on("click", function () {
+            var id = $("#hiddenId").val();
+            $.ajax({
+                url: '/InvoicePayment/PaymentDelete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response == "2") {
+                        $.notify('Entities are added to this section.You cannot delete this.', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                    }
+                    else if (response == "1") {
+
+                        $("#hiddenId").val("0");
+                        $("#modalDeletePayment").modal('hide');
+                        $('#InvoiceGrid').data('kendoGrid').dataSource.read();
+                        $('#InvoiceGrid').data('kendoGrid').refresh();
+                        //$.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+            //GetTotalInvoice();
+        });
+
+
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Invoice-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+            var grid = $("#InvoiceGrid").data("kendoGrid");
+            grid.hideColumn(3);
+            grid.hideColumn(7);
+
+            grid.options.pdf.fileName = "Invoice - " + kendo.toString(new Date, "dd-MMM-yyyy");
+            e.promise.done(function () {
+                grid.showColumn(7);
+                grid.showColumn(3);
+            });
+        }
+
+        function dataBoundInvoice() {
+            NumberPasteValidation();
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
+            rowNumber = 0;
+            $(".EditInvoice").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //  $('#InvoiceForms').html(data);
+                    $('#createInvoiceContainer').html(data);
+                    $('#createInvoiceModal').modal('show');
+                    setTimeout(function () {
+                        NumberPasteValidation();
+                    }, 500);
+                });
+            });
+            $(".InvoicePaymentInfo").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //  $('#InvoiceForms').html(data);
+                    $('#AddInvoiceContainer').html(data);
+                    $('#AddInvoiceModal').modal('show');
+                    setTimeout(function () {
+                        BindClickEvent();
+                        NumberPasteValidation();
+                        //$("#btnAddInvoicePaymentSubmit").show();
+                        // bs_input_file();
+                    }, 500);
+                });
+            });
+            $(".DeleteInvoice").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+        }
+
+        function dataBound() {
+            NumberPasteValidation();
+            rowNumber = 0;
+            $(".EditInvoicePaymentInfo").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //  $('#InvoiceForms').html(data);
+                    $('#AddInvoiceContainer').html(data);
+                    $('#AddInvoiceModal').modal('show');
+                    setTimeout(function () {
+                        BindClickEvent();
+                        NumberPasteValidation();
+                        // $("#btnAddInvoicePaymentSubmit").show();
+                        // bs_input_file();
+                    }, 500);
+                });
+            });
+            $(".DeletePaymnetDetails").on("click", function () {
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDeletePayment").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+        }
+
+        function ClearViewAndGrid() {
+            $('#createInvoiceModal').modal('hide');
+            $('#createInvoiceContainer').html("");
+
+            $('#AddInvoiceModal').modal('hide');
+            $('#AddInvoiceContainer').html("");
+
+
+            $("#InvoiceId").val(0);
+            var $id = $("#PackageId");
+            if ($id.find('option').length > 1) {
+                $("#PackageId").val(null);
+                $("#InvoiceNo").val("");
+            }
+            $('#InvoiceGrid').data('kendoGrid').dataSource.read();
+            $('#InvoiceGrid').data('kendoGrid').refresh();
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#InvoiceGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "InvoiceNo", operator: "contains", value: v1 },
+                                    { field: "ProjectName", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+        function OnInvoicePaymentSuccess(response) {
+
+            if (response == "Added Successfully") {
+
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Already Exists") {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+                $('#AddInvoiceContainer').html(response);
+                NumberPasteValidation();
+            }
+            GetTotalInvoice();
+        }
+
+        function BindClickEvent() {
+            bs_input_file();
+            $('#btnAddInvoicePaymentSubmit').unbind('click').bind('click', function (e) {
+                var data = new FormData($('#InvoicePaymentAddUpdate')[0]);
+                console.log(data);
+                $.ajax({
+                    url: '/InvoicePayment/AddInvoicePaymentDetails',
+                    type: "POST",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.includes("Added Successfully")) {
+                            ClearViewAndGrid();
+                            $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        }
+                        else if (response == "Updated Successfully") {
+                            ClearViewAndGrid();
+                            $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        }
+                        else if (response == "Already Exists") {
+                            $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else if (response == "0") {
+                            //$.notify("File Extension Is InValid - Only Upload jpeg/png/jpg File", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                            $("#errFile").css("display", "block");
+                        }
+                        else if (response == "3") {
+                            $.notify("File Extension Is InValid - Only Upload jpeg/png/jpg File", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                        }
+                        else if (response == "Paid Value Not Valid") {
+                            $.notify("Paid value can not be greater than Balance value", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else {
+                            $('#AddInvoiceContainer').html(response);
+                            NumberPasteValidation();
+                            BindClickEvent();
+
+                            // $("#btnAddInvoicePaymentSubmit").show();
+                        } GetTotalInvoice();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.error);
+                    }
+                });
+            });
+        }
+
+        function NumberPasteValidation() {
+            //$(".allow_decimal").on("input", function (evt) {
+            //    var self = $(this);
+            //    self.val(self.val().replace(/[^0-9\.]/g, ''));
+            //    console.log("dsd "+evt.which);
+            //    if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+            //        evt.preventDefault();
+            //    }
+            //    var money = this.value;
+            //    var length = money.length;
+            //    if (length < 15) {
+            //        $(this).closest('.form-group').find('.spnWord').text(price_in_words(this.value));
+            //    } else {
+            //        var moneys = money.replace(new RegExp(',', 'g'), '');
+            //        var lacvalue = moneys.substring(moneys.length - 7, moneys.length);
+            //        var croreValue = moneys.substr(0, moneys.length - 7);
+
+            //        $(this).closest('.form-group').find('.spnWord').text(price_in_words(croreValue) + ' Crore ' + price_in_words(lacvalue));
+            //    }
+            //});
+            $('.allow_decimal').keyup(function (event) {
+                var input = $(this).val().replaceAll(',', '');
+                if (input.length < 1)
+                    $(this).val('');
+                else {
+                    if (input.split('.').length<3) {
+                        var val = parseFloat(input);
+                        var formatted = inrFormat(input);
+                        if (formatted.indexOf('.') > 0) {
+                            var split = formatted.split('.');
+                            formatted = split[0] + '.' + split[1].substring(0, 2);
+                        }
+                        console.log(formatted);
+                        $(this).val(formatted);
+
+
+                        var money = this.value;
+                        if (money.split('.'.length>1)) {
+                            var splitter = money.split('.');
+                            money = splitter[0];
+                        }
+                        var length = money.length;
+                        if (length < 15) {
+                            $(this).closest('.form-group').find('.spnWord').text(price_in_words(this.value));
+                        } else {
+                            var moneys = money.replace(new RegExp(',', 'g'), '');
+                            var lacvalue = moneys.substring(moneys.length - 7, moneys.length);
+                            var croreValue = moneys.substr(0, moneys.length - 7);
+
+                            $(this).closest('.form-group').find('.spnWord').text(price_in_words(croreValue) + ' Crore ' + price_in_words(lacvalue));
+                        }
+                    }
+                    else {
+                        event.preventDefault();
+                    }
+                }
+
+            });
+        }
+
+        String.prototype.replaceAll = function (search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+        };
+
+        $("input.ncgha").keyup(function () {
+            var input = $(this).val().replaceAll(',', '');
+            if (input.length < 1)
+                $(this).val('');
+            else {
+                var val = parseFloat(input);
+                var formatted = inrFormat(input);
+                if (formatted.indexOf('.') > 0) {
+                    var split = formatted.split('.');
+                    formatted = split[0] + '.' + split[1].substring(0, 2);
+                }
+                console.log(formatted);
+                $(this).val(formatted);
+            }
+        });
+
+        function inrFormat(val) {
+            var x = val;
+            x = x.toString();
+            var afterPoint = '';
+            if (x.indexOf('.') > 0)
+                afterPoint = x.substring(x.indexOf('.'), x.length);
+            x = Math.floor(x);
+            x = x.toString();
+            var lastThree = x.substring(x.length - 3);
+            var otherNumbers = x.substring(0, x.length - 3);
+            if (otherNumbers != '')
+                lastThree = ',' + lastThree;
+            var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+            return res;
+        }
+
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='AttachmentFile' name='AttachmentFile' class='input-ghost' style='visibility:hidden; height:0'>");
+                        // element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $("#errFile").css("display", "none");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+        function price_in_words(price1) {
+
+            price1 = price1.split('.')[0];
+            console.log(price1);
+            // Just remove commas and periods - regex can do any chars
+            price = price1.replace(/([,€])+/g, '');
+            var sglDigit = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"],
+                dblDigit = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"],
+                tensPlace = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"],
+                handle_tens = function (dgt, prevDgt) {
+                    return 0 == dgt ? "" : " " + (1 == dgt ? dblDigit[prevDgt] : tensPlace[dgt])
+                },
+                handle_utlc = function (dgt, nxtDgt, denom) {
+                    return (0 != dgt && 1 != nxtDgt ? " " + sglDigit[dgt] : "") + (0 != nxtDgt || dgt > 0 ? " " + denom : "")
+                };
+            var str = "",
+                digitIdx = 0,
+                digit = 0,
+                nxtDigit = 0,
+                words = [];
+            if (price += "", isNaN(parseInt(price))) str = "";
+            else if (parseInt(price) > 0 && price.length <= 10) {
+                for (digitIdx = price.length - 1; digitIdx >= 0; digitIdx--) switch (digit = price[digitIdx] - 0, nxtDigit = digitIdx > 0 ? price[digitIdx - 1] - 0 : 0, price.length - digitIdx - 1) {
+                    case 0:
+                        words.push(handle_utlc(digit, nxtDigit, ""));
+                        break;
+                    case 1:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 2:
+                        words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] && 0 != price[digitIdx + 2] ? " and" : "") : "");
+                        break;
+                    case 3:
+                        words.push(handle_utlc(digit, nxtDigit, "Thousand"));
+                        break;
+                    case 4:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 5:
+                        words.push(handle_utlc(digit, nxtDigit, "Lakh"));
+                        break;
+                    case 6:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 7:
+                        words.push(handle_utlc(digit, nxtDigit, "Crore"));
+                        break;
+                    case 8:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 9:
+                        words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] || 0 != price[digitIdx + 2] ? " and" : " Crore") : "")
+                }
+                str = words.reverse().join("")
+            }
+
+
+
+            console.log(str);
+            return str
+
+        }
+    </script>
+}

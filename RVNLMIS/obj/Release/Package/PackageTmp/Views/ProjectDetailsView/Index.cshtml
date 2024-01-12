@@ -1,0 +1,148 @@
+﻿@model RVNLMIS.Models.ProjectModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .new-cust-card .align-middle .status {
+        position: absolute;
+        right: 0;
+        top: 6px !important;
+        font-size: 13px;
+    }
+</style>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+        </div>*@
+        <!-- subscribe start -->
+        <div class="row">
+            <div class="col-md-6 order-md-1 pr-1">
+                <div class="card new-cust-card">
+                    <div class="card-header">
+
+                        @*<img src="~/Content/assets/images/pages/interview.svg" alt="image" class="img-fluid wid-100 mb-2">*@
+                        <h5>Project Details</h5><br />
+
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary" onclick="history.go(-1);"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="table-responsive" id="projectId">
+                        <table class='table table-sm mb-0'>
+                            <tbody>
+
+                                <tr><td>Project Name</td><td>: @Model.ProjectName</td></tr>
+
+                                <tr><td>Project Code</td><td>: @Model.ProjectCode</td></tr>
+
+                                <tr><td>Project Full Name</td><td>: @Model.ProjectFullName</td></tr>
+
+                                <tr><td>Project Length</td><td>: @Model.ProjectLength KM</td></tr>
+
+                                <tr><td>Project Type Name</td><td>: @Model.ProjectTypeName</td></tr>
+
+                                <tr><td>ED Name</td><td>: @Model.EDName</td></tr>
+
+                                <tr><td>PIU Name</td><td>: @Model.PIUName</td></tr>
+
+                                <tr><td>Railway Code</td><td>: @Model.RailwayCode</td></tr>
+
+                                <tr><td>Date Of Transfer</td><td>: @Model.DateOfTransfers</td></tr>
+
+                                <tr><td>Anticipated Value</td><td>: @String.Format("{0:c}", Model.AnticipatedValue / 10000000) Crore </td></tr>
+
+                                <tr><td>ValueTill Date</td><td>: @String.Format("{0:c}", Model.ValueTillDate / 10000000) Crore</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    @*<div class="modal-footer">
+                            <button class="btn btn-success btn-xs delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check"></i>&nbsp;Ok</button>
+
+                        </div>*@
+                </div>
+            </div>
+
+            <div class="col-md-6 order-md-1 pl-1" id="package">
+                <div class="card new-cust-card">
+                    <div class="card-header">
+                        <h5>Package list</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                @*<button type="button" id="btnPackageDetails" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                                            </button>*@
+                                @*<ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cust-scroll " style="overflow-y: scroll;height:100%">
+                        <div class="card-body p-b-0 pl-1 pr-1" id="divPackage">
+                            @Html.Raw(ViewBag.PackageDetails)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- subscribe end -->
+</div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).on('click', '#backLink', function () {
+            history.go(-1);
+        });
+    </script>
+    <script>
+
+        $(".new-cust-card").css("height", $(window).height() - 130);
+        $(window).resize(function () {
+            $(".new-cust-card").css("height", $(window).height() - 130);
+        })
+
+//$(document).ready(function () {
+//    var dID = 378;
+//    $.get("/ProjectDetailsView/GetProjectDetailsById", { id: dID },
+//        function (data) {  // success callback
+//            $("#projectId").html(data);
+//            $.get("/ProjectDetailsView/PackageDetails", { projectId: dID },
+//                function (data) {  // success callback
+//                    $("#divPackage").html(data);
+
+//                });
+//        });
+
+
+//    $("#btnPackageDetails").on("click", function () {
+//        alert("Url" + url);
+//        var url = $(this).data("url");
+
+//        $.get(url, function (data) {
+//            $('#createPackagesContainer').html(data);
+//            $('#createPackagesModal').modal('show');
+//        });
+//    });
+//});
+
+//$("#Project").change(function () {
+
+//    $.get("/DataMissingReport/Project_Details", { id: dID },
+//        function (data) {  // success callback
+//            $("#divReportHtml").html(data);
+
+//        });
+
+
+</script>
+
+}

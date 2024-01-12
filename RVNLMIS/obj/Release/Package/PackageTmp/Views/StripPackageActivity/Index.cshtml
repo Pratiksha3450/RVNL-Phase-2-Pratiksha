@@ -1,0 +1,410 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+
+    .divMag {
+        margin-left: 64px !important;
+    }
+
+    #Card1 {
+        overflow: auto;
+        overflow-x: hidden;
+    }
+</style>
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnId">
+                <p class="success-message">Are you sure you wish to delete ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-4 pr-1">
+                <div id="UpdateChartform">
+                    @Html.Partial("_PartialAddUpdate", new RVNLMIS.Models.StripPackageActivityModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-8 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <h5>Strip Package Activity Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="input-group input-group-sm">
+                                    @*<input type="search" id="searching" class="form-control" placeholder="Search by keywords " aria-label="Small" aria-describedby="inputGroup-sizing-sm" />*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.StripPackageActivityModel>()
+                                .Name("UsersGrid")
+                                .Columns(columns =>
+                                {
+
+                                columns.Bound(c => c.ActivityName).HtmlAttributes(new { style = "text-align:left", title = "#= ActivityName #" })
+                                                            .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                columns.Bound(c => c.DisciplineName).HtmlAttributes(new { style = "text-align:left", title = "#= DisciplineName #" })
+                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("15%");
+                                columns.Template(@<text></text>).Title("Color").ClientTemplate("<input type='color' id='body' name='body' value='#=Color#' class='ChangeColor' data-url='#=StripActId#' >")
+                                                             .HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%");
+                                columns.Bound(c => c.Sequence).HtmlAttributes(new { style = "text-align:center", title = "#= Sequence #" }).Width("10%").Visible(false)
+                                                        .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Seq No");
+                                columns.Template(@<text></text>).Width("10%").Title("Seq No").HtmlAttributes(new { style = "text-align:center" }).ClientTemplate(""
+                                                             + "#if(Sequence!='1'){# <button data-url='/StripPackageActivity/MoveUp/#=StripActId#' class='MoveUp btn btn-xs btn-circle text-success' title='Move Up'><b><i class='fa fa-angle-up'></i></b></button> #} else {# <button disabled readonly class='MoveUp btn btn-xs  text-success'><b><i class='fa fa-angle-up'></i></b></button> #}#"
+                                                             + "&nbsp;<b> #=Sequence# </b>&nbsp;"
+                                                                                  + "<button data-url='/StripPackageActivity/MoveDown/#=StripActId#' class='MoveDown btn btn-xs btn-circle text-warning' title='Move down'><b><i class='fa fa-angle-down'></i></b></button>"
+                                                             ).HeaderHtmlAttributes(new { style = "text-align:center" });
+                                columns.Template(@<text></text>).Width("7%").Title("Action").ClientTemplate(""
+                                //+"<button  data-url='/StripPackageActivity/EditData/#=StripActId#' class='EditData btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>"
+                                + "&nbsp;" +
+                                "<button type='button' id='btnDeleteUser' class='btn btn-xs btn-danger has-ripple DeleteUser' data-key='#=StripActId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+                                }).Scrollable(scr => scr.Height(400))
+                                .ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+                                .Pageable()
+                                .Sortable()
+                                .Pageable(pageable => pageable
+                                .Refresh(true)
+                                .PageSizes(true)
+                                .ButtonCount(5)
+                                .PageSizes(new List<object>
+                                { 50, 80, 100, "all" }).Refresh(true))
+                                .PersistSelection(true)
+                                .DataSource(dataSource => dataSource
+                                .Ajax().Group(g => g.Add(c => c.PackageName))
+                                .Model(model => model.Id(u => u.StripActId))
+                                .Read(read => read.Action("GetStripPackageActivityGrid", "StripPackageActivity").Data("GetPackageAndType"))
+                                .PageSize(40)).Groupable().Resizable(resize => resize.Columns(true))
+                                .Events(events => events.DataBound("dataBound"))
+
+                            )
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#UsersGrid').height($(window).height() - 198);
+            //$('#CardHeight').height($(window).height() - 170);
+            //document.getElementById("CardHeight").style.height = "585px";
+        });
+        $(window).trigger('resize');
+
+        function dataBound() {
+            $(".EditData").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#UpdateChartform').html(data);
+                    setTimeout(function () {
+                    }, 500);
+                });
+            });
+
+            $(".ChangeColor").on("change", function (e) {
+                e.preventDefault();
+                var clr = $(this).val();
+                $('<div class="k-loading-mask" style="width: 100%; height: 100%; top: 0px; left: 0px;"><span class="k-loading-text">Loading...</span><div class="k-loading-image"></div><div class="k-loading-color"></div></div>').appendTo('#UsersGrid .k-grid-content');
+                var url = $(this).data("url");
+                console.log(url);
+                var data = JSON.stringify({
+                    'SId': url,
+                    'NewClr': clr
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: '/StripPackageActivity/ChangeColor',
+                    contentType: 'application/json; charset=utf-8',
+                    data: data,
+                    dataType: 'json',
+                    success: function () {
+                        $('#UsersGrid').data('kendoGrid').dataSource.read();
+                        $('#UsersGrid').data('kendoGrid').refresh();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $('#UsersGrid').data('kendoGrid').dataSource.read();
+                        $('#UsersGrid').data('kendoGrid').refresh();
+                    }
+                });
+            });
+
+            $(".MoveUp").on("click", function (e) {
+                e.preventDefault();
+                $('<div class="k-loading-mask" style="width: 100%; height: 100%; top: 0px; left: 0px;"><span class="k-loading-text">Loading...</span><div class="k-loading-image"></div><div class="k-loading-color"></div></div>').appendTo('#UsersGrid .k-grid-content');
+                var url = $(this).data("url");
+                $.post(url, function (data) {
+                    $('#UsersGrid').data('kendoGrid').dataSource.read();
+                    $('#UsersGrid').data('kendoGrid').refresh();
+                    setTimeout(function () {
+                    }, 500);
+                });
+            });
+
+            $(".MoveDown").on("click", function (e) {
+                e.preventDefault();
+                $('<div class="k-loading-mask" style="width: 100%; height: 100%; top: 0px; left: 0px;"><span class="k-loading-text">Loading...</span><div class="k-loading-image"></div><div class="k-loading-color"></div></div>').appendTo('#UsersGrid .k-grid-content');
+                var url = $(this).data("url");
+
+                //alert(url);
+                $.post(url, function (data) {
+                    $('#UsersGrid').data('kendoGrid').dataSource.read();
+                    $('#UsersGrid').data('kendoGrid').refresh();
+                    setTimeout(function () {
+                    }, 500);
+                });
+            });
+
+            $(".DeleteUser").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hdnId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+        function GetPackageAndType() {
+            return { packageId: $("#PackageId").data("kendoDropDownList").value(), DispId: $("#DispId").val() };
+        }
+
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hdnId").val();
+
+            $.ajax({
+                url: '/StripPackageActivity/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+
+                    $("#modalDelete").modal('hide');
+                    // ShowSuccessMessage('Deleted Successfully');
+                    
+                    $('#UsersGrid').data('kendoGrid').dataSource.read();
+                    $('#UsersGrid').data('kendoGrid').refresh();
+                    getSeq();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        function getPkgId() {
+            var pID = $("#PackageId").data("kendoDropDownList").value();
+            return { id: pID };
+        }
+
+        function getSeq() {
+            var _PackageId = $("#PackageId").data("kendoDropDownList").value();
+            var dispId = $("#DispId").data("kendoDropDownList").value();
+
+            $.get("/StripPackageActivity/Get_NextSeqNumber?id=" + _PackageId + "&dispId=" + dispId, function (data) {
+                if (isNaN(data)) {
+                    $.notify(data, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    $("#Sequence").val("1");
+                    $("#Sequence").text("1");
+                }
+                else {
+                    $("#Sequence").val(data);
+                    $("#Sequence").text(data);
+                }
+            });
+        }
+
+
+        function RefreshGrid() {
+            //$('#PackageId').data("kendoDropDownList").select(0);
+            $('#ConsActId').data("kendoDropDownList").select(0);
+            $("#Color").val("");
+            $("#StripActId").val("0");
+            $('#UsersGrid').data('kendoGrid').dataSource.read();
+            $('#UsersGrid').data('kendoGrid').refresh();
+        }
+
+        function UpdateSuccess(data) {
+
+            if (data == "2") {
+                $.notify('Data Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                RefreshGrid();
+                getSeq();
+
+            } else if (data == "1") {
+                $.notify('Data Added Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                RefreshGrid();
+                getSeq();
+
+            } else if (data == "3") {
+                $.notify('Sequence number already assigned to other activity of selected package!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+            } else if (data == "4") {
+                $.notify('Activity is already present in selected package!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+            } else if (data == "5") {
+                $.notify('Activity is already present in selected package!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                $('#UpdateChartform').html(data);
+                getSeq();
+                //  $.notify(data , { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+        }
+
+        $(document).ready(function () {
+            DocumentReadyFunctions();
+
+        });
+
+        function DocumentReadyFunctions() {
+
+            $("#PackageId").change(function () {
+                var _PackageId = $("#PackageId").data("kendoDropDownList").value();
+                $('#DispId').data("kendoDropDownList").select(0);
+                $("#Sequence").val("");
+                $("#Sequence").text("");
+                @*$.get("/StripPackageActivity/Get_NextSeqNumber?id=" + _PackageId, function (data) {
+                    if (isNaN(data)) {
+                        // $.notify(data, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                        $("#Sequence").val("1");
+                        $("#Sequence").text("1");
+                    }
+                    else {
+                        $("#Sequence").val(data);
+                        $("#Sequence").text(data);
+                    }
+                });*@
+                $('#UsersGrid').data('kendoGrid').dataSource.read();
+                $('#UsersGrid').data('kendoGrid').refresh();
+
+            });
+
+            $("#DispId").change(function () {
+                var _PackageId = $("#PackageId").data("kendoDropDownList").value();
+                var dispId = $("#DispId").data("kendoDropDownList").value();
+
+                $.get("/StripPackageActivity/Get_NextSeqNumber?id=" + _PackageId + "&dispId=" + dispId, function (data) {
+                    if (isNaN(data)) {
+                        // $.notify(data, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                        $("#Sequence").val("1");
+                        $("#Sequence").text("1");
+                    }
+                    else {
+                        $("#Sequence").val(data);
+                        $("#Sequence").text(data);
+                    }
+                });
+                $('#UsersGrid').data('kendoGrid').dataSource.read();
+                $('#UsersGrid').data('kendoGrid').refresh();
+
+            });
+
+
+        }
+        function NumberOnly(obj, e) {
+
+
+            var unicode = e.charCode ? e.charCode : e.keyCode
+            if (unicode != 8) {
+                if ((unicode < 48 || unicode > 57)) {
+                    return false;
+                }
+                else {
+
+                    return true;
+                }
+            }
+        }
+
+        $("#searching").keyup(function () {
+            var selecteditem = $('#searching').val();
+            var kgrid = $("#UsersGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "PackageCode", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 },
+                                    { field: "ActivityName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+    </script>
+
+
+}
+
+
+

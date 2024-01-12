@@ -1,0 +1,126 @@
+﻿@model RVNLMIS.Models.SectionModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .new-cust-card .align-middle .status {
+        position: absolute;
+        right: 0;
+        top: 6px !important;
+        font-size: 13px;
+    }
+
+    .modal-body {
+        position: relative;
+        flex: 1 1 auto;
+        padding: 5px 0px;
+    }
+    .content_wrapper {
+        overflow: hidden;
+        padding: 0.5%;
+    }
+</style>
+<div class="modal fade" id="createEntityModal" tabindex="-1" role="dialog" aria-labelledby="createEntityModal" aria-hidden="true" data-backdrop="static">
+    <div id="createEntityContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        
+        <!-- subscribe start -->
+        <div class="row">
+            <div class="col-md-6 pr-1">
+                <div class="card new-cust-card">
+                    <div class="card-header">
+                        <h5>Section Details</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary" onclick="history.go(-1);"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body table-responsive" id="Section">
+                        <table class='table table-sm mb-0 '>
+                            <tbody>
+                                <tr><td>Section Name</td><td>: @Model.SectionName </td></tr>
+                                <tr><td>Section Code</td><td>: @Model.SectionCode </td></tr>
+                                <tr><td>Project Name</td><td>: @Model.ProjectName </td></tr>
+                                <tr><td>Package Name</td><td>: @Model.PackageName </td></tr>
+                                <tr><td>Section Start</td><td>: @String.Format("{0:dd MMM yyyy}", Model.SectionStart) </td></tr>
+                                <tr><td>Section Finish</td><td>: @String.Format("{0:dd MMM yyyy}", Model.SectionFinish) </td></tr>
+                                <tr><td>Start Chainage</td><td>: @Model.StartChaining </td></tr>
+                                <tr><td>End Chainage</td><td>: @Model.EndChaining </td></tr>
+                                <tr><td>Section Length</td><td>: @Model.SectionLength </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 order-md-1 pl-1" id="Section">
+                <div class="card new-cust-card">
+                    <div class="card-header">
+                        <h5>Entity list</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cust-scroll" style="  overflow-y: scroll; height:100%">
+                        <div class="card-body p-b-0 pl-3 pr-1" id="divSection">
+                            @Html.Raw(ViewBag.SectionDetails)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- subscribe end -->
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).on('click', '#backLink', function () {
+            history.go(-1);
+        });
+    </script>
+
+    <script>
+
+        $(".new-cust-card").css("height", $(window).height() - 130);
+        $(window).resize(function () {
+            $(".new-cust-card").css("height", $(window).height() - 130);
+        })
+
+        $(document).ready(function () {
+            $(".btnViewDetails").on("click", function () {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createEntityContainer').html(data);
+                    $('#createEntityModal').modal('show');
+                    setTimeout(function () {
+                    }, 500);
+                });
+            });
+
+            $(".btnEditEntity").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createEntityContainer').html(data);
+                    $('#createEntityModal').modal('show');
+                    setTimeout(function () {
+                    }, 500);
+                });
+            });
+        });
+    </script>
+
+}
+

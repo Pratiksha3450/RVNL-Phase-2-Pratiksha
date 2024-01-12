@@ -1,0 +1,132 @@
+﻿@model RVNLMIS.Models.StripPackageActivityModel
+@{
+    Layout = null;
+}
+    <div class="card">
+        <div class="card-header pb-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                    <h5>Strip Package Activity</h5>
+                </div>
+
+            </div>
+
+        </div>
+        @*@using (Html.BeginForm("AddUserDetails", "Users", FormMethod.Post, new { @class = "form", @id = "Usersform" }))*@
+        @using (Ajax.BeginForm("AddUpdateActivity", "StripPackageActivity", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "UpdateSuccess" }, new { @class = "form", Page = "UpdateChartform" }))
+
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.StripActId)            
+            <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50 mt-2" for="txtPackage">
+                                Select Package @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                            </label>
+                            <div class="input-group input-group-sm mt-3" id="pkgContainer">
+                                @(Html.Kendo().DropDownListFor(m => m.PackageId).Popup(p => p.AppendTo("#pkgContainer")).HtmlAttributes(new { data_value_primitive = "true" })
+                                                                                .Name("PackageId")
+                                                                                .DataTextField("PackageName")
+                                                                                .DataValueField("PackageId")
+                                                                                .HtmlAttributes(new { style = "", @class = "form-control" })
+                                                                                .Filter("contains").OptionLabel("Select Package")
+                                                                                .DataSource(source =>
+                                                                                {
+                                                                                    source.Read(read =>
+                                                                                {
+                                                                                    read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                                                })
+                                                                                    .ServerFiltering(true);
+                                                                                })
+                                    )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50 mt-2" for="txtPackage">
+                                Select Discipline @Html.ValidationMessageFor(model => model.DispId, "", new { @class = "text-danger" })
+                            </label>
+                            <div class="input-group input-group-sm mt-3" id="dispContainer">
+                                @(Html.Kendo().DropDownListFor(m => m.DispId).Popup(p => p.AppendTo("#dispContainer")).HtmlAttributes(new { data_value_primitive = "true" })
+                                                                                .Name("DispId")
+                                                                                .DataTextField("DisciplineName")
+                                                                                .DataValueField("DispId")
+                                                                                .HtmlAttributes(new { style = "", @class = "form-control" })
+                                                                                .Filter("contains").OptionLabel("Select Discipline")
+                                                                                .DataSource(source =>
+                                                                                {
+                                                                                    source.Read(read =>
+                                                                                {
+                                                                                    read.Action("Get_Discipline", "StripPackageActivity");
+                                                                                })
+                                                                                    .ServerFiltering(true);
+                                                                                })
+                                    )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="actCotainer">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50">
+                                Activity
+                                @Html.ValidationMessageFor(model => model.ConsActId, "", new { @class = "text-danger" })
+                            </label>
+                            <div class="input-group input-group-sm mt-3" id="actCotainer">
+                                @(Html.Kendo().DropDownListFor(model => model.ConsActId).Popup(p => p.AppendTo("#actCotainer")).HtmlAttributes(new { data_value_primitive = "true" })
+                                 .Name("ConsActId")
+                                 .DataTextField("ActivityName")
+                                 .DataValueField("ConsActID")
+                                 .HtmlAttributes(new { style = "width:100%" })
+                                 .Filter("contains").OptionLabel("Select Activity")
+                                 .DataSource(source =>
+                                 {
+                                     source.Read(read =>
+                                     {
+                                         read.Action("Get_PackageConstActivity", "StripPackageActivity");
+                                     })
+                                          .ServerFiltering(true);
+                                 })
+                        )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 mb-2">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtlenth">
+                                Sequence @Html.ValidationMessageFor(model => model.Sequence, "", new { @class = "text-danger" })
+                            </label>
+                            @Html.EditorFor(model => model.Sequence, new { htmlAttributes = new { @class = "mb-1 form-control lenght", @type = "text", @maxlength = "2", @placeholder = "Ex:  1", onpaste = "return false", onkeypress = "return NumberOnly(this,event)", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 mb-2">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtlenth">
+                                Color @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                            </label>
+                            @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control colorpicker", @type = "color" } })
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-sm btn-theme pull-right" id="btnUploadChanges" value="Save">Save</button>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 257);
+    });
+    $(window).trigger('resize');
+</script>
+

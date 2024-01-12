@@ -1,0 +1,103 @@
+﻿
+@model RVNLMIS.Models.DisciplineUserModel
+@{
+    Layout = null;
+}
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <h5>User Information</h5>
+            </div>
+
+        </div>
+
+    </div>
+    @*@using (Html.BeginForm("AddUserDetails", "Users", FormMethod.Post, new { @class = "form", @id = "Usersform" }))*@
+    @using (Ajax.BeginForm("AddDisciplineUser", "DisciplineUser", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "DisciplineUserSuccess" }, new { @class = "form", Page = "Usersform" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.Password)
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Name  @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })</label>
+                        @*<input type="text" class="mb-3 form-control form-control-sm" id="txtName" placeholder="Ex: Your Full Name">*@
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Your Full Name" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">User Name @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })</label>
+                        @*<input type="text" class="mb-3 form-control form-control-sm" id="txtUserName" placeholder="Ex: User Name">*@
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Your login User Name" } })
+                    </div>
+                </div>
+                @*<div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtPassword">Password @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })</label>
+                       <input type="password" class="mb-3 form-control form-control-sm" id="txtPassword" placeholder="Ex: *******">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "Password", @placeholder = "Ex: ******" } })
+                        </div>
+                        </div>*@
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEmail">Email @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })</label>
+                        @*<input type="text" class="mb-3 form-control form-control-sm" id="txtEmail" placeholder="Ex: Emai@gmail.com">*@
+                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Email@gmail.com" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">MobileNo @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })</label>
+                        @*<input type="text" class="mb-3 form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "mb-3 form-control OnlyNumDec", @type = "text", @placeholder = "Ex: 9876543210", @maxlength = "10" } })
+                    </div>
+                </div>
+
+                @*<div class="col-md-12">
+                        <div class="form-group mb-1">
+
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Role</label>
+                            @Html.DropDownListFor(model => model.RoleId, ViewBag.RolesList as SelectList, "Select Role", new { @class = "mb-3 form-control form-control-sm" })
+                        </div>
+                    </div>*@
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Discipline @Html.ValidationMessageFor(model => model.DisciplineId, "", new { @class = "text-danger" })</label>
+                        @Html.DropDownListFor(model => model.DisciplineId, ViewBag.DisciplineList as SelectList, "Select Discipline", new { @class = "mb-3 form-control form-control-sm" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Package @Html.ValidationMessageFor(model => model.RoleTableId, "", new { @class = "text-danger" })</label>
+
+                        @*@Html.DropDownListFor(model => model.RoleTableId, new SelectList(Enumerable.Empty<SelectListItem>()), "Select Role Table", new { @class = "mb-3 form-control form-control-sm" })*@
+                        @Html.DropDownListFor(model => model.RoleTableId, ViewBag.RoleTableList as SelectList, new { @class = "mb-3 form-control form-control-sm" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 248);
+    });
+    $(window).trigger('resize');
+</script>

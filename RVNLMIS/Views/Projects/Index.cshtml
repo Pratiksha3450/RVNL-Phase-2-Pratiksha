@@ -1,0 +1,427 @@
+﻿@using RVNLMIS.Models
+@model RVNLMIS.Models.ProjectModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+<div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="createProjectModal" aria-hidden="true" data-backdrop="static">
+    <div id="createProjectContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected Project ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>Projects Details</h5>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="full-width">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="category" class="form-control divMag mr-4" placeholder="Search by Project Name or Project Code" aria-label="Small"
+                                               aria-describedby="inputGroup-sizing-sm" width="30%" />
+
+                                        @if (roleCode == "SAD")
+                                        {
+                                            <button type="button" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" data-url="@Url.Action("Create", "Projects" )" value="Save"
+                                                    id="btnCreateProject">
+                                                <i class="fas fa-plus"></i> Add
+                                            </button>
+                                        }
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    @*<div class="row">
+                            <div class="col-sm-12 col-md-9">
+                            </div>
+                            <div class="col-sm-12 col-md-3 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="category" class="form-control" placeholder="Search by Project Name or Project Code" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                </div>
+
+                            </div>
+                        </div>*@
+                    <div class="card-body">
+
+                        <div class="">
+                            <div class="" id="KendoHeight">
+                                <div class="table table-condensed">
+
+                                    @(Html.Kendo().Grid<RVNLMIS.Models.ProjectModel>()
+                                                                                                                                                                                                                                                                                                        .Name("ProjectGrid")
+                                                                                                                                                                                                                                                                                                        .Columns(columns =>
+                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                            columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.ProjectCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("5%").Title("Code");
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.ProjectName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("25%").HtmlAttributes(new { title = "#= ProjectName #" });
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.ProjectTypeName).HtmlAttributes(new { style = "text-align:left" }).Title("Project Type")
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.EDName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.PIUCode).HtmlAttributes(new { style = "text-align:left", title = "#= PIUCode #" }).Title("CPM Name")
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.RailwayCode).HtmlAttributes(new { style = "text-align:left", title = "#= RailwayCode #" })
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.AnticipatedValues).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:right" });
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.ValueTillDates).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:right" });
+                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.ProjectLengths).HtmlAttributes(new { style = "text-align:right", title = "#= ProjectLengths #" }).Title("Project Length")
+                                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:right" });
+                                                                                                                                                                                                                                                                                                                                // columns.Bound(c => c.ProjectId).ClientTemplate(@Html.Action("GetProjectDetailsById", "ProjectDetailsView", new { ID = "#=ProjectId#" }).ToHtmlString());
+
+
+                                                                                                                                                                                                                                                                                                                                //columns.Bound(c => c.RoleTableName).HtmlAttributes(new { style = "text-align:left" }).Title("Table Name")
+                                                                                                                                                                                                                                                                                                                                //   .HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+                                                                                                                                                                                                                                                                                                                                columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/Projects/EditProjectByProjectId/#=ProjectId#' class='EditProject btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" + "<button id='btnDeleteProject' class='btn btn-xs btn-danger has-ripple DeleteProject' data-key='#=ProjectId#' title='Delete' data-toggle='modal'><i class='feather icon-trash'></i></button>" + "&nbsp;" + "<a class='btn btn-xs btn-info has-ripple'  href='/ProjectDetailsView/Index/#=ProjectId#'> <i class='fa fa-eye'></i></a>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%")
+;
+
+
+                                                                                                                                                                                                                                                                                                    }).Scrollable(scr => scr.Height(400))
+//.Editable(editable => editable.Mode(GridEditMode.InCell))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Sortable()
+.Pageable(pageable => pageable.Refresh(true).PageSizes(true).ButtonCount(5).PageSizes(new List<object>
+{ 10, 40, 60, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.EDName))
+.Group(g => g.Add(p => p.PIUName))
+.Model(model => model.Id(u => u.ProjectId))
+.Read(read => read.Action("Project_Details", "Projects"))
+.PageSize(10))
+
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("ProjectGridExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("ProjectPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                                    )
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+@section scripts{
+
+
+    <script>
+        function NumberPasteValidation() {
+            $(".allow_decimal").on("input", function (evt) {
+                var self = $(this);
+                self.val(self.val().replace(/[^0-9\.]/g, ''));
+                if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                    evt.preventDefault();
+                }
+            });
+        }
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#ProjectGrid').height($(window).height() - 195);
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        function ValidateNumber(event) {
+            var theEvent = event || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.preventDefault ? theEvent.preventDefault() : (theEvent.returnValue = false);
+            }
+        }
+
+        function getEd() {
+            var dID = $("#EDId").data("kendoDropDownList").value();
+            return { id: dID };
+        }
+
+        function GetCPMListByEdID() {
+            var projectDataSource;
+            $(".ddlEDId").change(function () {
+                //var dID = $(".ddlEDId").val();
+                var dID = $("#EDId").data("kendoDropDownList").value()
+                // alert(dID);
+                $.get("/Projects/GetCPMDetails", { id: dID },
+                    function (data) {
+                        console.log(data);
+                        $("#PIUId").html('');
+                        //$("#PIUId").append($('<option></option>').val(0).html("Select CPM"));
+                        //$.each(data, function (i, item) {
+                        //    $("#PIUId").append($('<option></option>').val(item.PIUId).html(item.PIUName));
+                        //});
+                        // $("#PIUId").data("kendoDropDownList").dataSource.data(data);
+                        //Update DataSource of 2nd dropdown
+                        projectDataSource = data;
+                        $("#PIUId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: projectDataSource }));
+                    });
+            });
+        }
+
+        function dataBound() {
+            rowNumber = 0;
+            $(".EditProject").on("click", function (e) {
+                var projectDataSource;
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //$('#ProjectForms').html(data);
+                    $('#createProjectContainer').html(data);
+                    $('#createProjectModal').modal('show');
+                    setTimeout(function () {
+                        NumberPasteValidation();
+                        GetCPMListByEdID();
+                    }, 500);
+                });
+            });
+            $(".DeleteProject").on("click", function () {
+                console.info('DeleteProject called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Project - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#ProjectGrid").data("kendoGrid");
+            grid.hideColumn(10);
+            grid.options.pdf.fileName = "Project - " + kendo.toString(new Date, "dd-MMM-yyyy");
+            e.promise.done(function () {
+                grid.showColumn(10);
+            });
+        }
+
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            $.ajax({
+                url: '/Projects/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    // ShowSuccessMessage('Deleted Successfully');
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    $('#ProjectGrid').data('kendoGrid').dataSource.read();
+                    $('#ProjectGrid').data('kendoGrid').refresh();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        function CreateProjectSuccess(data) {
+            if (data == "0")// already exists
+            {
+                $.notify('Project Name already Exist!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (data == "1")//success
+            {
+                $('#createProjectModal').modal('hide');
+                $('#createProjectContainer').html("");
+                $.notify('Project Created Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#ProjectGrid').data('kendoGrid').dataSource.read();
+                $('#ProjectGrid').data('kendoGrid').refresh();
+            } else if (data == "-1") {
+                $.notify('Technical Error Please Try Again Later', { align: "right", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+            }
+            else {
+
+                $('#createProjectContainer').html(data);
+                GetCPMListByEdID()
+                return;
+            }
+        }
+
+        function UpdateProjectSuccess(data) {
+            if (data == "0")// already exists
+            {
+                $.notify('Project Name already Exist!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (data == "2") {
+                $('#createProjectModal').modal('hide');
+                $('#createProjectContainer').html("");
+                $.notify('Project Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#ProjectGrid').data('kendoGrid').dataSource.read();
+                $('#ProjectGrid').data('kendoGrid').refresh();
+                ClearFormGrid();
+            } else if (data == "-1") {
+                $.notify('Technical Error Please Try Again Later', { align: "right", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+            }
+        }
+
+        function ClearFormGrid() {
+            $("#ProjectId").val(0);
+            $("#EDId").val("0");
+            $("#PIUId").val("0");
+            $("#ProjectCode").val("");
+            $("#ProjectName").val("");
+            $("#ProjectFullName").val("");
+            $("#DateOfTransfer").val("");
+            $("#ProjectLength").val("");
+            $("#RailwayId").val("0");
+            $("#ProjectTypeId").val("0");
+            $("#AnticipatedValue").val("");
+            $("#ValueTillDate").val("");
+        }
+
+        $("#btnCreateProject").on("click", function () {
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#createProjectContainer').html(data);
+                $('#createProjectModal').modal('show');
+                GetCPMListByEdID();
+                setTimeout(function () {
+                    NumberPasteValidation();
+                }, 500);
+            });
+        });
+
+        $("#category").keyup(function () {
+            var selecteditem = $('#category').val();
+            var kgrid = $("#ProjectGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "ProjectCode", operator: "contains", value: v1 },
+                                    { field: "ProjectName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+    </script>
+    <script>
+        //script to highlight current parent menu
+        $(document).ready(function () {
+
+            //Highlight parent menu : nav-item
+            $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+
+
+            //highlight parent menu by overriding pcoded-trigger script
+            $(".nav-item").hover(
+                function () {
+                    $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+                }, function () {
+                    $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+                }
+            );
+
+
+            //remove active class from other parent menus
+            $('#liKpi').removeClass('active');
+
+
+
+        });
+    </script>
+}
+

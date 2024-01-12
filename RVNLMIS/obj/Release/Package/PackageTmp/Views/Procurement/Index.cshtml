@@ -1,0 +1,273 @@
+﻿@using RVNLMIS.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+
+<style>
+    .k-webkit .k-webkit80 {
+        overflow: hidden !important;
+    }
+</style>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="">
+            <!-- [ horizontal-layout ] start -->
+            <div class="">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Procurement</h5>
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-md-4 pr-4 pl-5">
+                                <div class="form-group row" id="container">
+                                    <label for="SelectPackage" class="col-4 col-form-label-sm pl-2"><b>Select Package</b></label>
+                                    @if (ViewBag.PackageList.Items.Count == 1)
+                                    {
+                                        @Html.DropDownList("drpPackages", ViewBag.PackageList as SelectList, new { @class = "col-8 form-control form-control-sm mt-1" })
+                                    }
+                                    else
+                                    {
+                                        // @Html.DropDownList("drpPackages", ViewBag.PackageList as SelectList, "Select Package", new { @class = "col-8 form-control form-control-sm" })
+
+                                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#container"))
+.Name("drpPackages")
+.DataTextField("PackageName")
+.DataValueField("PackageId")
+.HtmlAttributes(new { style = "width:100%", @class = "col-8 form-control form-control-sm mt-1" })
+.Filter("contains").OptionLabel("Select Package")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                               {
+                                                                                                                                                           read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                                                                                                                       })
+                                                                                                                                                                               .ServerFiltering(true);
+})
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-4 pr-4">
+                                <div class="form-group row" id="divDispContainer">
+                                    <label for="SelectDiscipline" class="col-5 col-form-label-sm text-right"><b>Select Discipline</b></label>
+
+
+                                    @if (ViewBag.PackageList.Items.Count == 1)
+                                    {
+                                        //foreach (var appointment in ViewBag.PackageList)
+                                        //{
+                                        @Html.DropDownList("drpDisciplines", ViewBag.DisciplineList as SelectList, new { @class = "col-7 form-control form-control-sm mt-1" })
+                                        //}
+                                    }
+                                    else
+                                    {
+                                        // @Html.DropDownList("drpDisciplines", ViewBag.DisciplineList as SelectList, "Select Discipline", new { @class = "col-7 form-control form-control-sm" })
+                                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#divDispContainer"))
+.Name("drpDisciplines")
+.DataTextField("DispCode")
+.DataValueField("DispId")
+.HtmlAttributes(new { style = "width:100%", @class = "col-7 form-control form-control-sm mt-1" })
+//.Filter("contains")
+.OptionLabel("Select Discipline")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                {
+                                                                            read.Action("ServerFiltering_GetDiscipline", "Procurement");
+                                                                        });
+                                // .ServerFiltering(true);
+})
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label for="Select" class="col-3 col-form-label-sm text-right"><b>Search</b></label>
+                                    <input class="mb-3 col-8 form-control form-control-sm" id="btnSearchMaterial" type="text" placeholder="Type here for search">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-condensed" id="KendoHeight">
+                                    @(Html.Kendo().Grid<RVNLMIS.Models.ProcurementViewModel>()
+                                                        .Name("ProcurementGrid")
+                                                        .Columns(columns =>
+                                                        {
+                                                            columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                            columns.Bound(c => c.MaterialName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                            columns.Bound(c => c.MaterialUnit).HtmlAttributes(new { style = "text-align:left" })
+                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                            columns.Bound(c => c.RatePerUnit).HtmlAttributes(new { style = "text-align:right" })
+                                                                                            .HeaderHtmlAttributes(new { style = "text-align:right" });
+
+                                                            columns.Bound(c => c.OriginalQty).HtmlAttributes(new { style = "text-align:right" })
+                                                                                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width(150);
+                                                            columns.Bound(c => c.RevisedQty).HtmlAttributes(new { style = "text-align:right" })
+                                                                                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width(150);
+                                                            columns.Bound(c => c.CumOrderdQty).HtmlAttributes(new { style = "text-align:right" })
+                                                                                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Ordered Qty ToDate");
+                                                            columns.Bound(c => c.CumDeliveredQty).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Delivered Qty ToDate");
+                                                            columns.Bound(c => c.PackMatId).Visible(false);
+                                                            columns.Bound(c => c.DispId).Visible(false);
+                                                            columns.Template(@<text></text>).Title("Action").ClientTemplate("<a href='/Procurement/GetId/#=PackMatId#'><button type='button' class='btn btn-xs btn-warning has-ripple btnEditProc' Title='Edit Procurement'><i class='feather icon-edit'></i></button></a>&nbsp;").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%");
+                                }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object> { 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(d => d.Discipline))
+.Model(model => model.Id(u => u.PackMatId))
+.Read(read => read.Action("Procurement_Read", "Procurement").Data("GetPackageAndDispDrp"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound"))
+.Excel(excel => excel
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                                    )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+        <!-- [ Main Content ] end -->
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Procurement - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#ProcurementGrid").data("kendoGrid");
+            grid.hideColumn(6);
+
+            grid.options.pdf.fileName = "Procurement - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(6);
+            });
+        }
+
+        function dataBound() { resetRowNumber(); }
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 225);
+            $('#ProcurementGrid').height($(window).height() - 225);
+           
+            //$('#ExistingProcGrid').height($(window).height() - 245);
+
+
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        function GetPackageAndDispDrp() {
+
+            return { package: $("#drpPackages").val(), disp: $("#drpDisciplines").val() };
+        }
+
+        $(document).ready(function () {
+            $('#btnSearchMaterial').val('');
+
+            $("#btnSearchMaterial").keyup(function () {
+                var selecteditem = $('#btnSearchMaterial').val();
+                selecteditem = selecteditem.toUpperCase();
+                var kgrid = $("#ProcurementGrid").data("kendoGrid");
+                var selectedArray = selecteditem.split(" ");
+                if (selecteditem) {
+                    var orfilter = { logic: "or", filters: [] };
+                    var andfilter = { logic: "and", filters: [] };
+                    $.each(selectedArray, function (i, v) {
+                        if (v.trim() == "") {
+                        }
+                        else {
+                            $.each(selectedArray, function (i, v1) {
+                                if (v1.trim() == "") {
+                                }
+                                else {
+                                    orfilter.filters.push({ field: "MaterialName", operator: "contains", value: v1 }
+                                    );
+                                    andfilter.filters.push(orfilter);
+                                    orfilter = { logic: "or", filters: [] };
+                                }
+
+                            });
+                        }
+                    });
+                    kgrid.dataSource.filter(andfilter);
+                }
+                else {
+                    kgrid.dataSource.filter({});
+                }
+
+            });
+
+            //filter grid on package selection
+            $("#drpPackages").change(function () {
+                RefreshKendoGrid();
+            });
+
+            //filter grid on discipline selection
+            $("#drpDisciplines").change(function () {
+                RefreshKendoGrid();
+            });
+        });
+
+        function RefreshKendoGrid() {
+            ////Refresh Kendo Grid
+            $('#ProcurementGrid').data('kendoGrid').dataSource.read();
+            $('#ProcurementGrid').data('kendoGrid').refresh();
+        }
+    </script>
+}

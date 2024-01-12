@@ -1,0 +1,137 @@
+﻿@model IEnumerable<RVNLMIS.Models.AllUsersModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- [ Main Content ] start -->
+<style>
+    .content_wrapper {
+        overflow: hidden;
+        padding: 0.5%;
+    }
+    .cardview{
+        padding:3%;
+    }
+    .cardview .card-header {
+        padding: 0.4rem 0.4rem;
+    }
+    .card.user-card2 {
+        border-top: 2px solid #00BCD4;
+    }
+</style>
+
+<div class="content_wrapper">
+
+
+    <div id="maincardheight">
+        <div class="card">
+            <div class="card-header ml-3">
+                
+                <div class="row">
+                  Package:  <div class="col-md-4" id="container">
+                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#container"))
+                            .Name("ddlPackage")
+                            .DataTextField("PackageName")
+                            .DataValueField("PackageId")
+                            .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                            .Filter("contains").OptionLabel("Select Package")
+                            .DataSource(source =>
+                            {
+                            source.Read(read =>
+                            {
+                            read.Action("ServerFiltering_GetProducts", "Procurement");
+                            })
+                            .ServerFiltering(true);
+                            })
+                       )
+
+
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="card-body">
+                <div class="cardview">
+                    <div class="row" id="DivListing">
+
+
+
+                        @* ------------------------------------------------------------------------------------- *@
+
+                        @if (Model != null)
+                        {
+
+                            foreach (var item in Model)
+                            {
+
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card user-card2">
+                                        <div class="card-body text-center mt-2">
+                                            <i class="feather icon-user text-c-blue d-block f-40"></i>
+                                            <h6 class="m-b-10 m-t-10">@Html.DisplayFor(modelItem => item.Name)</h6>
+                                            <a href="#!" class="text-c-green b-b-success"><span class="badge badge-light-info">@Html.DisplayFor(modelItem => item.Designation)</span></a>
+                                            <div class="row justify-content-center m-t-10 b-t-default m-l-0 m-r-0">
+                                                <div class="col m-t-15 b-r-default">
+                                                    <h6>@Html.DisplayFor(modelItem => item.PackageName)</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="badge badge-light-info btn-block">@Html.DisplayFor(modelItem => item.Organisation)</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+
+                                @* ------------------------------------------------------------------------------------- *@
+
+                              
+
+
+                            </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    
+</div>
+
+
+@section scripts{
+
+    <script>
+        $(window).resize(function () {
+            $('#maincardheight').height($(window).height() - 95);
+        });
+        $(window).trigger('resize');
+
+        $(document).ready(function () {
+            $("#ddlPackage").change(function () {
+                var id = $("#ddlPackage").val();        
+                $.ajax({
+                    url: '/AllPackageUser/UserListing/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        $("#DivListing").html(response);
+                  
+                    }
+         
+
+                });
+            });
+      
+        });
+    </script>
+}
+
+
+

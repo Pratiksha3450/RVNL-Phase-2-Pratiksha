@@ -1,0 +1,75 @@
+﻿@model RVNLMIS.Models.ConstActivityViewModel
+@{
+    Layout = null;
+}
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>Construction Activity Information</h5>
+        </div>
+        <div class="card-body pl-3 pr-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="mr-5 col-form-label-sm"> <b>Package Name</b></label>
+                        <label class="ml-4 col-form-label-sm"> @Model.PackageName</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> <b>Entity Name</b></label>
+                        <label class="col-sm-8 col-form-label-sm"> @Model.EntityName</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> <b>Activity Name</b></label>
+                        <label class="col-sm-8 col-form-label-sm">@Model.ActivityName</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"><b> Activity Unit</b></label>
+                        <label class="col-sm-8 col-form-label-sm">@Model.ActivityUnit</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-4 col-form-label-sm"><b>Budgeted Quantity</b></label>
+                        <div class="col-sm-8">
+                            <label class="col-sm-4 col-form-label-sm text-right">@Model.BudgetedQty</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-4 col-form-label-sm"><b>Revised Quantity</b></label>
+                        <div class="col-sm-8">
+                            <label class="col-sm-4 col-form-label-sm text-right">@Model.RevisedQty</label>
+                        </div>
+                        @*<a href="#" data-toggle="tooltip" data-placement="bottom" title="Hooray!">Bottom</a>*@
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-4 col-form-label-sm"><b>Completed Quantity</b></label>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label-sm">@Model.CompletedQty</label>
+                                <label class="col-sm-5 col-form-label-sm text-right pull-right text-danger">Balance </label>
+                                <label class="col-sm-4 col-form-label-sm text-right pull-right text-danger" title="Balance Complete" id="lblBalComp">
+                                    @((@Convert.ToDouble(@Model.RevisedQty) - @Convert.ToDouble(Model.CompletedQty)).ToString("0.00"))
+                                </label>
+                            </div>
+                            <input type="hidden" id="hdnBalComp" value="@((@Convert.ToDouble(@Model.RevisedQty) - @Convert.ToDouble(Model.CompletedQty)).ToString("0.00"))" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model RVNLMIS.Models.ScPkgCrossSectionModel
+@{
+    /**/
+
+    Layout = null;
+}
+
+
+@using (Ajax.BeginForm("SubmitPkgCrossSection", "CrossSection", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "PkgCsSuccess" }, new { @class = "form-horizontal", Page = "form" }))
+{
+    @Html.HiddenFor(model => model.CSPackageId)
+    @Html.HiddenFor(model => model.CsID)
+<div class="row mb-1 mt-1">
+    <label class="col-sm-4 col-lg-4 col-form-label pr-1">Cross Section Name</label>
+    <div class="col-sm-8 col-lg-4 mt-1 pl-0 pr-0">
+        <div class="input-group input-group-sm">
+            @*<input type="text" class="form-control" placeholder="Cross Section Name">*@
+            @Html.EditorFor(model => model.CSName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Cross Section Name" } })
+        </div>
+        @Html.ValidationMessageFor(model => model.CSName, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-sm-12 col-lg-4 mt-1 text-right pl-0 pr-1">
+        <button class="btn btn-outline-primary btn-sm "><i class="fa fa-plus"></i>  Add</button>
+        <button onclick="ResetScPkgForm()" type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-sync"></i>  Reset</button>
+    </div>
+</div>
+}
+
+
+<script>
+    $(window).resize(function () {
+        //$('#CrossSectionGrid').height($(window).height() - 195);
+        //$('#ScActGrid').height($(window).height() - 395);
+        
+    });
+    $(window).trigger('resize');
+</script>

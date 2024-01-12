@@ -1,0 +1,9 @@
+﻿
+@{
+    Layout = null;
+}
+
+@if (TempData["Embed"] != null)
+{
+    MvcHtmlString.Create(TempData["Embed"].ToString());
+}

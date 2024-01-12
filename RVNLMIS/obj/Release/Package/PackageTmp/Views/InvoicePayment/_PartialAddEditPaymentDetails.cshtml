@@ -1,0 +1,144 @@
+﻿
+@model RVNLMIS.Models.InvoicePayment
+@{
+    Layout = null;
+}
+<style>
+    .customtooltip b {
+        display: none;
+    }
+
+    .customtooltip b {
+        position: absolute;
+        z-index: 999999;
+        width: 100%;
+        background: #fff;
+        padding: 2px 10px 10px 8px;
+        border-radius: 2px;
+        margin-top: -3px;
+        margin-left: 0px;
+        font-size: 12px;
+        box-shadow: 0px 3px 25px 0px rgba(95, 94, 94, 0.25);
+        border-top: solid 4px #F44336;
+    }
+
+        .customtooltip b::before {
+            content: "";
+            width: 0;
+            height: 0;
+            position: relative;
+            top: -27px;
+            left: 0;
+            font-size: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid #ff3723;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+        }
+
+    .spnWord {
+        padding: 2% !important;
+    }
+</style>
+<script>
+
+    $("p").focusin(function () {
+        $(this).find("b").fadeIn().css("display", "block");
+    });
+    $("p").focusout(function () {
+        $(this).find("b").css("display", "none");
+    });
+
+</script>
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title">Add / Update Invoice Payment Details </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+
+    </div>
+
+    @using (Html.BeginForm("AddInvoicePaymentDetails", "InvoicePayment", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "InvoicePaymentAddUpdate" }))
+
+    {
+
+        <div class="modal-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(mode => Model.InvoiceId)
+            @Html.HiddenFor(mode => Model.PaymentId)
+            <div class="row">
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3 customtooltip">
+                        <p>
+                            <label class="col-form-label-sm-user text-black-50" for="txtSectionName">Paid Amount @Html.ValidationMessageFor(model => model.PaidAmountString, "", new { @class = "text-danger" })</label>
+                            @Html.EditorFor(model => model.PaidAmountString, new { htmlAttributes = new { @class = "mb-3 form-control allow_decimal", @type = "text", @placeholder = "Enter Paid Amount", @maxlength = "19", onkeypress = "return Numbers1DotOnly(this,event)" } })
+                            <b><span class="spnWord"></span></b>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionCode">Payment Date @Html.ValidationMessageFor(model => model.PaymentDates, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.PaymentDates, new 
+                        { htmlAttributes = new 
+                            { 
+                                @class = "mb-3 form-control", 
+                                //onkeydown = "return false", 
+                                @type = "Date", 
+                                @placeholder = "Ex: DD/MM/YYYY" 
+                            } 
+                        })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionCode">
+                            Select File
+                            <a id="openAttach" href="@Model.AttachFilePath" target='_blank' title="" style="font-size: x-small;">@Model.AttachFileName</a>
+                        </label>
+                        <div class="input-group input-file" name="Fichier1">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-choose" type="button"
+                                        style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                    Browse File
+                                </button>
+                            </span>
+                            @*@Html.TextBoxFor(model => model.AttachmentFile, new { @class = "form-control pl-3", @placeholder = "Choose a file...", type = "text" })*@
+                            <input type="text" class="form-control pl-3" placeholder='Choose a file...' />
+                        </div>
+                        <span id="errFile" style="color:red;display:none">Upload only .pdf file.</span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtRemark">Remark @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })</label>
+                        @if (Model.IsPaid != true)
+                        {
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Remark" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Remark", @readonly = "readonly" } })
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <input type="button" id="btnAddInvoicePaymentSubmit" class="btn btn-sm btn-theme pull-right" value="Save" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+

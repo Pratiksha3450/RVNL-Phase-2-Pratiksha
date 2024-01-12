@@ -1,0 +1,448 @@
+﻿@using RVNLMIS.Models;
+
+@{
+    //UserModel user = (UserModel)HttpContext.Current.Session["UserData"];
+    BreadCrumbModel breadc = (BreadCrumbModel)HttpContext.Current.Session["SessBreadCrumb"];
+    var homeUrl = "#";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .disableCN {
+            pointer-events: none;
+            background-color: #e0d7d7;
+        }
+    </style>
+    <title>RVNL MIS</title>
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 11]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Phoenixcoded" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Content/assets/images/favicon.ico" type="image/x-icon">
+
+    <!-- Kendo css and js -->
+    <link href="~/Content/web/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.mobile.min.css" rel="stylesheet" />
+    <script src="~/Content/assetsNew/js/vendor-all.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+    <script src="~/Scripts/pako.min.js"></script>
+
+
+
+    <!-- prism css -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/plugins/prism-coy.css">
+    <!-- ekko-lightbox css -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/plugins/ekko-lightbox.css">
+    <link rel="stylesheet" href="~/Content/assetsNew/css/plugins/lightbox.min.css">
+    <link rel="stylesheet" href="~/Content/assetsNew/css/plugins/trumbowyg.min.css">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/style.css">
+
+    <!-- select2 css -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/plugins/select2.min.css">
+    <!-- datepicker -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/plugins/daterangepicker.css">
+    <!-- Custom.css -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/custom.css">
+
+    <link href="~/Content/JQueryNotify/css/notify.css" rel="stylesheet" />
+    @* LOADER *@
+    <link href="~/Content/assets/css/loader.css" rel="stylesheet" />
+    @* /LOADER *@
+
+    <!-- rvnl_theme.css -->
+    <link href="~/Content/assetsNew/css/rvnl_theme.css" rel="stylesheet" />
+
+
+</head>
+
+
+
+<body>
+    <!-- Paste this code after body tag -->
+    <div style="display:none" class="se-pre-con"></div>
+    <!-- Ends -->
+    <!-- [ Pre-loader ] start -->
+    @*<div class="loader-bg">
+            <div class="loader-track">
+                <div class="loader-fill"></div>
+            </div>
+        </div>*@
+    <!-- [ Pre-loader ] End -->
+    <!-- [ navigation menu ] start -->
+
+    <nav class="pcoded-navbar menu-light theme-horizontal brand-blue">
+        <div class="navbar-wrapper">
+            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
+                <ul class="nav pcoded-inner-navbar sidenav-inner">
+                    @Html.Action("GetMenuList", "Login", new { area = "" })
+
+                    @*@if (Convert.ToString(Html.Encode(User.Identity.Name.Split('|')[4])) == "PKG" || Convert.ToString(Html.Encode(User.Identity.Name.Split('|')[4])) == "SAD")
+                        {
+                            var uId = Convert.ToInt32(Html.Encode(User.Identity.Name.Split('|')[1]));
+                            <li class="nav-item">
+                                <a href="/RFI/GenerateRFI/Index/@uId" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span class="pcoded-mtext">Go To RFI</span></a>
+                            </li>
+                        }*@
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+    <!-- [ Header ] start -->
+    <header class="navbar pcoded-header navbar-expand-lg">
+        <div class="m-header">
+            <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+            <a href="#!" class="b-brand">
+                <!-- ========   change your logo here   ============ -->
+                <img src="~/Content/assetsNew/images/logo.png" alt="" class="logo" width="200px">
+                <img src="~/Content/assetsNew/images/logo-icon.png" alt="" class="logo-thumb">
+            </a>
+            <a href="#!" class="mob-toggler">
+                <i class="feather icon-more-vertical"></i>
+            </a>
+        </div>
+
+        @if (breadc != null)
+        {
+            <div class="ml-5 pt-2" id="divBindBC">
+                <ul class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                        @{
+                            homeUrl = "/DashboardReports/Index/?id=" + HttpUtility.UrlEncode(Convert.ToString("?id=1"));
+                        }
+                        <a href="@homeUrl">
+                            <i class="feather icon-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    @if (!string.IsNullOrEmpty(@breadc.MainParent))
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="#">@breadc.MainParent</a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(@breadc.SubParent))
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="#">@breadc.SubParent</a>
+                        </li>
+                    }
+                    <li class="breadcrumb-item">
+                        <a href="#">@breadc.MenuName</a>
+                    </li>
+                </ul>
+            </div>
+        }
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="navbar-nav ml-auto">
+
+                <li>
+                    @if (Convert.ToBoolean(Html.Encode(User.Identity.Name.Split('|')[3])))
+                    {
+                        <a href="/DataIssueReport" title="Click here to view your active Data issue(s)"><div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></a>
+                    }
+                    &nbsp; &nbsp;<a class="has-ripple" href="/Help"><i class="icon feather icon-help-circle"></i> Help &nbsp;</a>
+                </li>
+                <li class="header-notification" style="display:none">
+                    <div class="dropdown mr-3">
+                        <!-- <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell p-2"></i></a> -->
+
+                        <div id="divNotificationClick" style="cursor:pointer" data-key="@(Html.Encode(User.Identity.Name.Split('|')[1]))" class="dropdown-toggle" data-toggle="dropdown">
+                            <b> <i class="feather icon-bell "></i></b>
+                            <sup id="spnNotBadge" class="badge bg-c-red"></sup>
+                        </div>
+
+                        <div class="notificationDrp dropdown-menu dropdown-menu-right notification">
+                            <div class="noti-head">
+                                <h6 class="d-inline-block m-b-0">Notifications</h6>
+                            </div>
+                            <ul class="noti-body">
+                                <li class="notification alert alert-warning">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <p><strong>No Notifications Found</strong></p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown drp-user">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @*<i class="feather icon-user"></i>*@
+                            <img src="~/Content/assets/images/ProfilePic.png" alt="" class="wid-20 rounded mr-1 img-fluid">  Welcome @(Html.Encode(User.Identity.Name.Split('|')[2])) &nbsp;&nbsp;&nbsp;
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-notification">
+                            <div class="pro-head">
+                                <img src="~/Content/assets/images/ProfilePic.png" class="img-radius" alt="User-Profile-Image" />
+                                <span>@(Html.Encode(User.Identity.Name.Split('|')[2]))</span>
+                                @*<a href="#" class="dud-logout" title="Logout">
+                                        <i class="feather icon-log-out"></i>
+                                    </a>*@
+                            </div>
+                            <ul class="pro-body">
+                                <li><a href="/ChangePassword/Index" class="dropdown-item"><i class="fa fa-key"></i> Change Password </a></li>
+                                <li><a href="/UserSetting/Index" class="dropdown-item"><i class="feather icon-settings mr-2"></i> Settings </a></li>
+                                <li><a href="/Login/LogOut" class="dropdown-item"><i class="feather icon-lock"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <div class="page-wrapper" id="dashboard">
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                @*<div class="page-header-title">
+                                        <h5 class="ml-2"> <b> RFI Dashboard </b> </h5>
+                                    </div>*@
+                            </div>
+                            @*<div class="col-md-6 text-right">
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="#!">Page Layout</a></li>
+                                        <li class="breadcrumb-item"><a href="#!">Horizontal Layout</a></li>
+                                    </ul>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                @RenderBody()
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+    <!--  -->
+    <!-- /addrfi modal -->
+
+    <div class="modal fade" id="NotifyModalCenter" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="NotifyModalCenterTitle" aria-hidden="true">
+        <div id="NotifyModelContainer" class="modal-dialog modal-lg">
+
+        </div>
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("~/Views/Shared/_KeepAlive.cshtml")
+    }
+    <!-- Required Js -->
+
+    <script src="~/Content/assetsNew/js/plugins/bootstrap.min.js"></script>
+    <script src="~/Content/assetsNew/js/ripple.js"></script>
+    <script src="~/Content/assetsNew/js/pcoded.min.js"></script>
+    <script src="~/Content/assetsNew/js/menu-setting.min.js"></script>
+    <!-- /Required Js -->
+    <!-- prism Js -->
+    <script src="~/Content/assetsNew/js/plugins/prism.js"></script>
+    <!-- Lightbox Js -->
+    <script src="~/Content/assetsNew/js/plugins/ekko-lightbox.min.js"></script>
+    <script src="~/Content/assetsNew/js/plugins/lightbox.min.js"></script>
+    <script src="~/Content/assetsNew/js/pages/ac-lightbox.js"></script>
+
+    <script src="~/Content/assetsNew/js/plugins/trumbowyg.min.js"></script>
+
+
+    <!-- select2 Js -->
+    <script src="~/Content/assetsNew/js/plugins/select2.full.min.js"></script>
+    <!-- form-select-custom Js -->
+    <script src="~/Content/assetsNew/js/pages/form-select-custom.js"></script>
+
+    <!-- datepicker js -->
+    <script src="~/Content/assetsNew/js/plugins/moment.min.js"></script>
+    <script src="~/Content/assetsNew/js/plugins/daterangepicker.js"></script>
+    <script src="~/Content/assetsNew/js/pages/ac-datepicker.js"></script>
+
+
+    <!-- Horizontal Menu -->
+
+    <script src="~/Content/assetsNew/js/horizontal-menu.js"></script>
+    <script src="~/Content/JQueryNotify/js/notify.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+
+    <script>
+        (function () {
+            if ($('#layout-sidenav').hasClass('sidenav-horizontal') || window.layoutHelpers.isSmallScreen()) {
+                return;
+            }
+            try {
+                window.layoutHelpers._getSetting("Rtl")
+                window.layoutHelpers.setCollapsed(
+                    localStorage.getItem('layoutCollapsed') === 'true',
+                    false
+                );
+            } catch (e) { }
+        })();
+
+        (function () {
+           if (@(TempData["AfterLogin"] == null ? "null" : @TempData["AfterLogin"]) != null) {
+               var url = "/LayoutFunctions/CheckUnReadNotification";
+                $.get(url, function (data) {
+                    if (data.message == "1") {
+                        $('#NotifyModelContainer').html(data.viewHtml);
+                        $('#NotifyModalCenter').modal('show');
+
+                        $(".clsDivNot").click(function () {
+                            var notiId = $(this).data('key');
+                            $.get("/LayoutFunctions/MarkNotiAsRead", { notiId}, function (data) {
+
+                            });
+
+                            $(this).removeClass('alert-danger');
+                            $(this).addClass('alert-warning');
+                        });
+                    }
+                });
+            }
+        })();
+
+        $(function () {
+            $('#layout-sidenav').each(function () {
+                new SideNav(this, {
+                    orientation: $(this).hasClass('sidenav-horizontal') ? 'horizontal' : 'vertical'
+                });
+            });
+            $('body').on('click', '.layout-sidenav-toggle', function (e) {
+                e.preventDefault();
+                window.layoutHelpers.toggleCollapsed();
+                if (!window.layoutHelpers.isSmallScreen()) {
+                    try {
+                        localStorage.setItem('layoutCollapsed', String(window.layoutHelpers.isCollapsed()));
+                    } catch (e) { }
+                }
+            });
+        });
+
+        window.setInterval(function () {
+            $.get("/LayoutFunctions/GetNotBadgeCount", function (data) {
+                if (data == 0) {
+                    $('#spnNotBadge').hide();
+                }
+                else {
+                    $('#spnNotBadge').show();
+                    $('#spnNotBadge').html(data);
+                }
+            });
+        }, 5000);
+
+        $(document).ready(function () {
+            $("#divNotificationClick").click(function (e) {
+                e.preventDefault();
+                var userId = $(this).data('key');
+                var url = "/LayoutFunctions/GetNotifications/" + userId;
+                $.get(url, function (data) {
+                    $('.notificationDrp').html(data);
+                    $(".notificationDrp").show();
+                });
+
+            });
+
+
+            $("#pcoded").pcodedmenu({
+                themelayout: 'horizontal',
+                MenuTrigger: 'hover',
+                SubMenuTrigger: 'hover',
+            });
+        });
+    </script>
+
+    <!-- /Horizontal Menu -->
+    <!--  -->
+    <script>
+        $(window).on('load', function () {
+            $('#tinymce-editor').trumbowyg({
+                svgPath: '~/Content/assetsNew/css/plugins/icons.svg',
+                btns: [
+                    ['viewHTML'],
+                    ['undo', 'redo'],
+                    ['formatting'],
+                    ['strong', 'em', 'del'],
+                    ['superscript', 'subscript'],
+                    ['link'],
+                    ['insertImage'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                    ['removeformat'],
+                    ['fullscreen']
+                ]
+            });
+        });
+        //$(document).ready(function () {
+        //    $(".show-timeline").click(function () {
+        //        $(".q-view").addClass("active");
+        //    });
+        //    $(".overlay").click(function () {
+        //        $(".q-view").removeClass("active");
+        //    });
+        //});
+
+        //$(document).ready(function () {
+        //    $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+        //        event.preventDefault();
+        //        $(this).ekkoLightbox();
+        //    });
+        //});
+
+        function GetBreadCrums(menuName, mainParent, subParent) {
+            //$(".currentMenu").text(menuName);
+            //$("#mainParent").text(mainParent);
+            var url = "/LayoutFunctions/GetBreadCrumbsModel";
+            $.get(url, { menuName, mainParent, subParent }, function (data) {
+                $("#divBindBC").html(data);
+
+                console.log(data);
+            });
+        }
+    </script>
+    <!-- / -->
+    <script src="~/Content/assetsNew/js/analytics.js"></script>
+    @* LOADER *@
+    <script src="~/Content/assets/js/loader.js"></script>
+    @* /LOADER *@
+
+</body>
+@RenderSection("scripts")
+</html>

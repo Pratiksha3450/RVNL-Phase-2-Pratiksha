@@ -1,0 +1,323 @@
+﻿@model RVNLMIS.Models.ConsActivityModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .demo-section label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    #employees {
+        width: 270px;
+    }
+
+    #example .demo-section {
+        max-width: none;
+        width: 515px;
+    }
+
+    #example .k-listbox {
+        width: 236px;
+        height: 310px;
+    }
+
+        #example .k-listbox:first-of-type {
+            width: 270px;
+            margin-right: 1px;
+        }
+    .checkbox-group label {
+        display: inline-block;
+        position: relative;
+        padding-left: 25px;
+        cursor: pointer;
+        font-weight: 500!important;
+    }
+</style>
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+
+@*<link href="~/Content/assets/icon_font/css/icon_font.css" rel="stylesheet" />
+<link href="~/Content/assets/css/jquery.transfer.css?v=0.0.2" rel="stylesheet" />
+<script src="~/Content/assets/js/jquery.transfer.js"></script>*@
+
+
+<div class="pcoded-content">
+    <div class="page-wrapper">
+        <div class="page-header">
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5>Assign Activities</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-3 ">
+                            @if (ViewBag.ProjectPackageList != null)
+                            {
+
+                                @Html.DropDownList("ddlPackage", (IEnumerable<SelectListItem>)ViewBag.ProjectPackageList, htmlAttributes: new { @class = "form-control" })
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            @if (ViewBag.SectionList != null)
+                            {
+                                @Html.DropDownList("SectionID", (IEnumerable<SelectListItem>)ViewBag.SectionList, "Select Section", htmlAttributes: new { @id= "SectionID",  @class = "form-control" })
+                            }
+                           
+                        </div>
+
+                        <div class="col-md-3"> 
+                            <table width="100%">
+                                <tr>
+                                    
+                                    <td style="width:250px">
+                                        @if (ViewBag.SectionList != null)
+                                        {
+                                            @Html.DropDownList("EntityID", (IEnumerable<SelectListItem>)ViewBag.EntityList, "Select Entity", htmlAttributes: new { @id = "EntityID", @class = "form-control" })
+                                        }
+                                    </td>
+                                    <td style="width:200px; padding-left:15px">
+                                        <input type="checkbox" name="selected" id="chkSelected" value="checked"> Show Selected<br>
+                                    </td>   
+                                    <td>
+                                        <div style="text-align:right"><button type="submit" class="btn btn-xs btn-primary pull-right" id="btnSave" value="Save"><i class="m-r-5 feather icon-check"></i>Save</button></div>
+                                    </td>
+                                    <input type="hidden" id="hdnChecked" />
+                                </tr>
+                            </table>
+
+
+                        </div>                       
+                        <div class="col-md-3 ">
+                            <input type="search" id="txtSearch" class="form-control" placeholder="Search by  Activity Code or Activity Name" aria-label="Small"  aria-describedby="inputGroup-sizing-sm" />
+                        </div>
+                       
+                    </div>
+
+                    <div class="row">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="height: 650px;">
+                            <div id="example" role="application">
+                                <div class="k-content wide">
+                                    <div class="card-body table-responsive">
+                                        <div class="col-sm-12" id="KendoHeight">
+                                            @(Html.Kendo().Grid<RVNLMIS.Models.ConsActivityModel>()
+                                                                                                                                    .Name("ActivityGrid")
+                                                                                                                                    .Columns(columns =>
+                                                                                                                                    {
+                                                                                                                                        columns.Select().Width(20);
+                                                                                                                                        columns.Bound(c => c.Selected).Visible(false);
+
+                                                                                                                                        columns.Bound(c => c.ActivityCode).HtmlAttributes(new { style = "text-align:left" }).Title("Activity Code").Width(100)
+                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                        columns.Bound(c => c.ActivityName).HtmlAttributes(new { style = "text-align:left" }).Width(350)
+                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(200);
+                                                                                                                                        columns.Bound(c => c.ActivityGroup).HtmlAttributes(new { style = "text-align:left" }).Title("Activity Group").Width(350)
+                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+
+                                                                                                                                    }).Scrollable(scr => scr.Height(400))
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+                                                    { 10, 20, 50, "all" }).Refresh(false))
+.PersistSelection(false)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.ActivityGroup))
+.Model(model => model.Id(u => u.ConsActID))
+.Read(read => read.Action("Activity_Details", "AssignActivities").Data("GetEntityId"))
+.PageSize(350)).Groupable()
+                                            //.Events(ev => ev.Change("onChange").DataBound("dataBound"))
+                                            .Events(events => events.DataBound("dataBound"))
+                                            )
+                                        </div>
+                                        <div class="col-sm-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        var ActIDs;
+        bindDropdownList();      
+        function bindDropdownList() {           
+            $("#ddlPackage").change(function () {
+                var dID = $("#ddlPackage").val();
+                $.get("/AssignActivities/GetSectionsUnderPackage", { id: dID },
+                    function (data) {
+                        $("#SectionID").html('');
+                        $("#SectionID").append($('<option></option>').val(0).html("Select Section"));
+                        $.each(data, function (i, item) {
+                            $("#SectionID").append($('<option></option>').val(item.SectionID).html(item.SectionName));
+                        });
+                    });
+            });        
+            $("#SectionID").change(function () {
+                var SectionID = $("#SectionID option:selected").val();                
+             
+                $.get("/AssignActivities/GetEventsUnderSection", { id: SectionID },
+                    function (data) {
+                        $("#EntityID").html('');
+                        $("#EntityID").append($('<option></option>').val(0).html("Select Section"));
+                        $.each(data, function (i, item) {
+                            $("#EntityID").append($('<option></option>').val(item.EntityId).html(item.EntityName));
+                        });
+                    });
+            }); 
+        }
+
+
+        function dataBound() {
+            var grid = this;
+            var rows = grid.items();
+            // console.log(rows);
+            $(rows).each(function (e) {
+                var row = this;
+                var dataItem = grid.dataItem(row);
+                // console.log("hh", dataItem);
+
+                if (dataItem.Selected == '1') {
+                    grid.select(row);
+                }
+            });
+        }
+        function GetEntityId() {
+            return {
+                entityID: $("#EntityID").val(),
+                Checked: $("#hdnChecked").val()
+
+            };
+        }
+
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#ActivityGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "ActivityCode", operator: "contains", value: v1 },
+                                    { field: "ActivityName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+        $("#EntityID").change(function () {
+            $('#ActivityGrid').data('kendoGrid').dataSource.read();
+            $('#ActivityGrid').data('kendoGrid').refresh();
+        });
+        $("body").off().on("click", "#btnSave", function (e) {
+            debugger;
+            var grid = $('#ActivityGrid').data('kendoGrid');
+            var sel = $("input:checked", grid.tbody).closest("tr");
+            var items = [];
+            $.each(sel, function (idx, row) {
+                var item = grid.dataItem(row);
+                items.push(item.ConsActID);
+            });
+
+            var ConsActIds = items.toString();
+
+            console.log(ConsActIds);
+
+            var EntityID = $("#EntityID").val();
+
+            if ((EntityID == '' || EntityID == null || EntityID == 'Undefined')) {
+                $.notify("Select Entity", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else if ((ConsActIds == '' || ConsActIds == null || ConsActIds == 'Undefined')) {
+                $.notify("Select Contruction Activity", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+
+                $.ajax({
+                    url: '/AssignActivities/AddEntityActivity',
+                    type: "POST",
+                    data: { "ActivityIDs": ConsActIds, "EntityID": EntityID },
+                    dataType: 'json',
+                    success: function (data) {
+                        //alert(data);
+                        if (data <= 0) {
+                            return;
+                        }
+                        else {
+                            $.notify('Contruction Activities are assign to Entities successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        }
+                        RefreshKendo();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.error);
+                    }
+                });
+
+            }
+
+        });
+
+
+
+        $('#chkSelected').change(function () {
+
+            if (this.checked) {
+                $("#hdnChecked").val(1);
+            }
+            else {
+                $("#hdnChecked").val(0);
+            }            
+            $('#ActivityGrid').data('kendoGrid').dataSource.read();
+            $('#ActivityGrid').data('kendoGrid').refresh();
+      
+        });
+
+        
+    </script>
+}

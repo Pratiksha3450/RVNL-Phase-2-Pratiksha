@@ -1,0 +1,1034 @@
+﻿/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/desktop_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+    .login-wrapper {
+        width: 29vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+    .full-width {
+        width: 100% !important;
+    }
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/desktop_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 30vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 20px 40px;
+    }
+    .full-width {
+        width: 100% !important;
+    }
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/desktop_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+    .login-wrapper {
+        width: 29vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+    .full-width {
+        width: 100% !important;
+    }
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/desktop_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+    .login-wrapper {
+        width: 29vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+    .full-width {
+        width: 100% !important;
+    }
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/desktop_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+    .login-wrapper {
+        width: 29vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+    .full-width {
+        width: 100% !important;
+    }
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/ipad_portrait_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 0%;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        min-height: 100%;
+        /* border: 2px solid red; */
+    }
+
+    .login-wrapper {
+        width: 60vw;
+        position: absolute;
+        right: 20vw;
+        top: 50vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 36px 40px;
+    }
+    .full-width {
+        width: 100% !important;
+    }
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+/* iPad pro (landscape) ----------- */
+@media (min-device-width : 2732px) and (max-device-width : 2048px) {
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/ipad_landscape_login.jpg') no-repeat center center fixed #000!important;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 29vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    ..login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-device-width: 1024px ) and (max-device-width: 1366px) {
+    .loginwrapper {
+        overflow: hidden;
+        background: url(../images/background/ipad_landscape_login.jpg) no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 0%;
+        right: 0;
+        top: 20vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 35vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+@media only screen and (min-device-width: 1366px ) and (max-device-width: 1024px) {
+    .loginwrapper {
+        overflow: hidden;
+        background: url(../images/background/ipad_landscape_login.jpg) no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 0%;
+        right: 0;
+        top: 20vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 35vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/*
+@media only screen and (min-width : 1224px) {
+
+    .loginwrapper {
+        overflow: hidden;
+        background: url(../images/background/ipad_landscape_login.jpg) no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 0%;
+        right: 0;
+        top: 20vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 35vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #898989;
+        float: left;
+        margin: 0px;
+        padding-left: 10px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    .login-forgot {
+        color: #00c18d;
+    }
+}
+
+*/
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url(../images/background/ipad_landscape_login.jpg) no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 0%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 35vw;
+        position: absolute;
+        right: 10vw;
+        top: 18vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 75px 40px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/* iPhone 4 - 5s ----------- */
+
+/* iPhone 6 ----------- */
+@media only screen and (max-device-width: 667px) only screen and (-webkit-device-pixel-ratio: 2) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/desktop_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 29vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/* iPhone 6+ ----------- */
+@media only screen and (min-device-width : 414px) only screen and (-webkit-device-pixel-ratio: 3) {
+    /*** You've spent way too much on a phone ***/
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/desktop_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        right: 0;
+        top: 11vw;
+        bottom: 0;
+        min-height: 100%;
+    }
+
+    .login-wrapper {
+        width: 29vw;
+        position: absolute;
+        right: 10vw;
+        top: 0vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+/* Samsung Galaxy S7 Edge ----------- */
+@media only screen and (-webkit-min-device-pixel-ratio: 3), and (min-resolution: 192dpi)and (max-width:640px) {
+    /* Styles */
+    .loginwrapper {
+        overflow: hidden;
+        background: url('../images/background/ipad_portrait_login.jpg') no-repeat center center fixed #000;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login-container {
+        position: absolute;
+        background: transparent;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        min-height: 100%;
+        /*border: 2px solid red;*/
+    }
+
+    .login-wrapper {
+        width: 90vw;
+        position: absolute;
+        right: 5vw;
+        top: 72vw;
+        transform: translateY(-15%);
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 27px 60px 0px;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .login-title.active {
+        font-weight: 600;
+        color: #363636;
+        border-bottom: 3px solid #5757c5;
+        display: inline;
+        font-size: 20px;
+    }
+
+    .login-label {
+        font-size: 13px;
+        color: #5d5c5c;
+        float: left;
+        margin: 0px;
+        padding-bottom: 7px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 7px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #7d7d7d;
+        background-color: #ffffff;
+        padding: 0 10px;
+    }
+
+    .login-forgot {
+        color: #00c18d;
+        display: inline-block;
+        float: right;
+    }
+
+    .rememberme {
+        display: inline-block;
+        float: left;
+    }
+}
+
+

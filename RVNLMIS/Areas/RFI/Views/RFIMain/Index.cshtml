@@ -1,0 +1,746 @@
+﻿@model RVNLMIS.Areas.RFI.Models.RFIMainModel
+@using RVNLMIS.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/RFI/Views/Shared/_RFILayout.cshtml";
+    var org = ((UserModel)Session["RFIUserSession"]).RoleCode;
+}
+<link href="~/Content/assets/css/datetime/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+<style>
+    .datetimepicker.datetimepicker-dropdown-bottom-left.dropdown-menu {
+        transform: inherit;
+        opacity: 1;
+        transform-origin: inherit;
+        top: 100%;
+        top: calc(370px - -109px) !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+
+    .pdf-page {
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+
+    .subsection {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    ul.material_list {
+        display: block;
+        width: 100%;
+        /* border: 1px solid; */
+        padding: 0;
+        margin: 0;
+    }
+
+        ul.material_list li {
+            text-align: center;
+            list-style: none;
+            display: inline-block;
+            width: 10.82%;
+            border: 0.1px solid #ccc;
+            padding: 4px 0;
+            font-weight: bold;
+        }
+</style>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnId">
+                <p class="success-message">Are you sure you wish to delete selected User ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        <div class="row">
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-12 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <h5>RFI Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="category" class="form-control" placeholder="Search by Workgroup Or Activity" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                    @if (org != "PMC")
+                                    {
+                                        <button class="btn btn-sm waves-effect waves-light btn-outline-primary ml-2" href="javascript:void()" data-url="/RFI/RFIMain/AddEditRFI/0"
+                                                id="btnCreateRFI">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Areas.RFI.Models.RFIMainModel>()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .Name("RFIMainGrid")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .Columns(columns =>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("3%");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.InspStatus).ClientTemplate("#= LineItems_Databound(data)#").HtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.RFICode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Code").Width("7%");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.Workgroup).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.WorkSide).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("6%");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.ActivityName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("15%").Title("Activity");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.StartChainage).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Start Chainage").Width("8%");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.EndChainage).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("End Chainage").Width("8%");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.EntityName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Entity Name");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.OtherWorkLocation).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Other Work Location");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.Layer).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Layer No");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.AssignToPMCName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Assigned To");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.RFIOpenDate).HtmlAttributes(new { style = "text-align:left" }).Format("{0:dd-MMM-yyyy}")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Open Date");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //columns.Template(t => { }).Title("Action").ClientTemplate("#= GetActionButtons(data) #").Width("12%");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "#if('" + @org + "'!='PMC'){#<button data-url='/RFI/RFIMain/AddEditRFI/#=RFIId#' title='Update' class='btnEditRFI btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "<button type='button' class='btn btn-xs btn-danger has-ripple DeleteRFI' data-key='#=RFIId#' Title='Delete'><i class='feather icon-trash'></i></button>" + "&nbsp;"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        + "<button type='button' class='btn btn-xs btn-success has-ripple btnAddEnclosure' data-url='/RFI/RFIMain/GetEnclAttachModel/#=RFIId#' Title='Add Enclosure'><i class='feather icon-plus'></i></button>#}# &nbsp;" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "<button data-url='/RFI/RFIMain/GetRFIWithStatus' title='View Update RFI Inspection Status' data-key='#=RFIId#' class='btnViewUpdate btn btn-xs btn-warning has-ripple'><i class='feather icon-eye'></i></button> &nbsp;" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "<a href='/RFI/RFIDocument/Index/#=RFIId#' class='btn btn-xs btn-success has-ripple' Title='Download RFI'><i class='feather icon-download'></i></a>"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ).HeaderHtmlAttributes(new { style = "text -align:left" }).Width("12%");
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 15, 50, 100, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.PackageName))
+.Model(model => model.Id(u => u.RFIId))
+.Read(read => read.Action("Read_RFIMainDetails", "RFIMain"))
+.PageSize(13)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound"))
+.Excel(excel => excel
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createRFIMainModal" tabindex="-1" role="dialog" aria-labelledby="createRFIMainModal" aria-hidden="true" data-backdrop="static">
+    <div id="createRFIMainContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade layered_popup" id="enclosureModal" tabindex="-1" role="dialog" aria-labelledby="enclosureModalLabel" aria-hidden="true">
+    <div id="enclosureContainer" class="modal-dialog modal-lg" role="document">
+
+    </div>
+</div>
+
+<script src="~/Content/assets/js/datetime/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script src="~/Content/assets/js/datetime/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#RFIMainGrid').height($(window).height() - 198);
+        });
+
+        $(window).trigger('resize');
+
+        var rowNumber = 0;
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function dataBound() {
+            rowNumber = 0;
+
+            $(".btnEditRFI").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+                    BindOnChangeEvent();
+
+                    var inputValue = $("input[name='LocationType']:checked").val();
+                    var targetBox = $("." + inputValue);
+                    $(".selectt").not(targetBox).hide();
+                    $(targetBox).show();
+                });
+            });
+
+            $(".btnViewUpdate").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                var rfiId = $(this).data("key");
+                $.get(url, { rfiId: rfiId }, function (data) {
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+
+                    BindInspModelEvent();
+                });
+            });
+
+            $(".DeleteRFI").on("click", function () {
+                var Id = $(this).data("key");
+                $("#hdnId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+            $(".btnAddEnclosure").click(function () {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#enclosureContainer').html(data);
+                    $('#enclosureModal').modal('show');
+                    bs_input_file();
+                });
+            });
+        }
+
+        @*function GetActionButtons(data) {
+            console.log()
+            var _Date = data.InspDate;
+
+            alert(_Date);
+            if ('@org'== "Contractor") {
+                if (_Date == "Open") {
+                   // return "<button data-url='/RFI/RFIMain/AddEditRFI/#=RFIId#' title='Update' class='btnEditRFI btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;";
+                }
+                else {
+
+                }
+            }
+            else {
+
+            }
+
+            //else if (_Status == "Approved") {
+            //    return "<button class='btn btn-xs btn-success'>" + _Status + "</button>";
+            //}
+            //else if (_Status == "Revise & Resubmit") {
+            //    return "<button class='btn btn-xs btn-warning'>" + _Status + "</button>";
+            //}
+            //else if (_Status == "Rejected") {
+            //    return "<button class='btn btn-xs btn-danger'>" + _Status + "</button>";
+            //}
+        }*@
+
+        function AllowNumbersOnly(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        function RFIMainAddEditSuccess(data) {
+            BindOnChangeEvent();
+            if (data == "2") {
+                $.notify('RFI details updated successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#createRFIMainModal').modal('hide');
+                RefreshRFIMainGrid();
+                ClearFormGrid();
+                $(".se-pre-con").hide();
+            } else if (data == "1") {
+                $.notify('RFI details added successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#createRFIMainModal').modal('hide');
+                RefreshRFIMainGrid();
+                ClearFormGrid();
+                $(".se-pre-con").hide();
+            } else if (data == "3") {
+                $.notify('Email already exist!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                $(".se-pre-con").hide();
+            }
+            else if (data == "4") {
+                $.notify('Mobile number already exist!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                $(".se-pre-con").hide();
+            }
+            else {
+                $('#createRFIMainContainer').html(data);
+                $('#createRFIMainModal').modal('show');
+                $(".se-pre-con").hide();
+                BindOnChangeEvent();
+            }
+        }
+
+        function RefreshRFIMainGrid() {
+            $('#RFIMainGrid').data('kendoGrid').dataSource.read();
+            $('#RFIMainGrid').data('kendoGrid').refresh();
+        }
+
+        function ClearFormGrid() {
+            $("#RFIId").val("0");
+            //$("#FullName").val("");
+            //$("#Email").val("");
+            //$("#Mobile").val("");
+            //$("#Organisation").data("kendoDropDownList").value("");
+            //$("#DesignationId").data("kendoDropDownList").value("");
+            //$("#Password").val("");
+            //$("#ReportingTo").data("kendoDropDownList").value("");
+        }
+
+        $(document).ready(function () {
+            $("#btnCreateRFI").on("click", function () {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+                    BindOnChangeEvent();
+                });
+            });
+
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $("#hdnId").val();
+
+                $.ajax({
+                    url: '/RFI/RFIMain/DeleteRFI/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        //Refresh Kendo Grid
+
+                        $("#modalDelete").modal('hide');
+                        // ShowSuccessMessage('Deleted Successfully');
+                        $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                        $('#RFIMainGrid').data('kendoGrid').dataSource.read();
+                        $('#RFIMainGrid').data('kendoGrid').refresh();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+
+            $("#enclosureModal").on("click", ".btnDeleteAttach", function () {
+                var url = $(this).data("url");
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {},
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        $.notify(response.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                        $('#enclosureContainer').html(response.viewHtml);
+                        $('#enclosureModal').modal('show');
+                        bs_input_file();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+
+            $("#enclosureModal").on("click", "#btnAddEnclAttach", function () {
+                var enclType = $("#EnclId").val();
+                if (enclType == "" | enclType == null) {
+                    $.notify("Please select Enclosure Type.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                }
+                else {
+                    var data = new FormData($('#EnclosureAttachFrm')[0]);
+                    $.ajax({
+                        url: '/RFI/RFIMain/SubmitEnclAttach',
+                        type: "POST",
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+
+                            if (response.message == "1") {
+                                $.notify("Data added successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                                $('#enclosureContainer').html(response.viewHtml);
+                                $('#enclosureModal').modal('show');
+                                $("#EnclId").data("kendoDropDownList").value(null);
+                            }
+                            else if (response.message == "0") {
+                                $("#errFile").css("display", "block");
+                            }
+                            else if (response.message == "error") {
+                                $.notify("Error! Please try again", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+
+                                $('#enclosureContainer').html(response.viewHtml);
+                                $('#enclosureModal').modal('show');
+                            }
+                            else if (response.message == "2") {
+                                $.notify("Please select file!", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                            }
+                            bs_input_file();
+                        }
+                    });
+                }
+            });
+
+            $("#category").keyup(function () {
+                var selecteditem = $('#category').val();
+                var kgrid = $("#RFIMainGrid").data("kendoGrid");
+                selecteditem = selecteditem.toUpperCase();
+                var selectedArray = selecteditem.split(" ");
+                if (selecteditem) {
+                    //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                    var orfilter = { logic: "or", filters: [] };
+                    var andfilter = { logic: "and", filters: [] };
+                    $.each(selectedArray, function (i, v) {
+                        if (v.trim() == "") {
+                        }
+                        else {
+                            $.each(selectedArray, function (i, v1) {
+                                if (v1.trim() == "") {
+                                }
+                                else {
+                                    orfilter.filters.push({ field: "ActivityName", operator: "contains", value: v1 },
+                                        { field: "Workgroup", operator: "contains", value: v1 },
+                                    );
+                                    andfilter.filters.push(orfilter);
+                                    orfilter = { logic: "or", filters: [] };
+                                }
+
+                            });
+                        }
+                    });
+                    kgrid.dataSource.filter(andfilter);
+                }
+                else {
+                    kgrid.dataSource.filter({});
+                }
+
+            });
+        });
+
+        function BindOnChangeEvent() {
+            bs_input_file();
+
+            $('input[type="radio"]').click(function () {
+                var inputValue = $(this).attr("value");
+                //$("#LocationType").val(inputValue);
+                var targetBox = $("." + inputValue);
+                $(".selectt").not(targetBox).hide();
+                $(targetBox).show();
+            });
+
+            $("#WorkgroupId").change(function () {
+                //Generate code
+                var workGrpId = $("#WorkgroupId").data("kendoDropDownList").value();
+                var url = "/RFI/RFIMain/GenerateRFICode";
+                $.get(url, { workGrpId }, function (data) {
+                    $("#RFICode").val(data);
+                });
+
+                $("#RFIActivityId").data('kendoDropDownList').dataSource.read();
+            });
+
+            $("#PackageId").change(function () {
+                $("#EntityId").data('kendoDropDownList').dataSource.read();
+                $("#AssignToPMC").data('kendoDropDownList').dataSource.read();
+            });
+
+            $("#btnAddEnclAttach").click(function () {
+                var url = $(this).data("url");
+                //var rfiId = $(this).data("key");
+                $.get(url, function (data) {
+                    // console.log(data);
+                    $('#enclosureContainer').html(data);
+                    $('#enclosureModal').modal('show');
+                    // BindOnChangeEvent();
+                    bs_input_file();
+                });
+            });
+
+            $("#StartChainage").change(function () {
+                var value = $(this).val();
+                if (value == "") {
+
+                }
+                else if (value.includes('+')) {
+                    $('#StartChainage').val(value);
+                }
+                else {
+                    if (value.length < 3) {
+                        value = padString(value, 3, '0');
+
+                    }
+                    var newVal = ([value.slice(0, value.length - 3), '+', value.slice(value.length - 3)].join(''));
+
+                    if (newVal.charAt(0) == '+') {
+                        newVal = "0" + newVal;
+                    }
+                    $('#StartChainage').val(newVal);
+                }
+            });
+
+            $("#EndChainage").change(function () {
+                var value = $(this).val();
+
+                if (value == "") {
+
+                }
+                else if (value.includes('+')) {
+                    $('#EndChainage').val(value);
+                }
+                else {
+                    if (value.length < 3) {
+                        value = padString(value, 3, '0');
+
+                    }
+                    var newVal = ([value.slice(0, value.length - 3), '+', value.slice(value.length - 3)].join(''));
+
+                    if (newVal.charAt(0) == '+') {
+                        newVal = "0" + newVal;
+                    }
+                    $('#EndChainage').val(newVal);
+                }
+
+            });
+        }
+
+        function BindInspModelEvent() {
+            InspectionModel_BrowseFile();
+
+            var d = new Date();
+
+            var month = d.getMonth() + 1;
+            var day = d.getDate();
+
+            var output = d.getFullYear() + '-' +
+                (month < 10 ? '0' : '') + month + '-' +
+                (day < 10 ? '0' : '') + day;
+            console.log(output);
+
+            $(".form_datetime").datetimepicker({
+                format: 'yyyy-mm-dd HH:mm P',
+                autoclose: true,
+                todayBtn: true,
+                startDate: output + " 10:00",
+                minuteStep: 10,
+                showMeridian: true,
+                autoclose: true,
+                todayBtn: true
+            });
+            $('.form_datetime').datetimepicker({
+                //language:  'fr',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 1
+            });
+
+            $("#InspId").change(function () {
+                var inspStatusName = $(this).data("kendoDropDownList").text();
+                $("#InspStatus").val(inspStatusName);
+
+                //if (inspStatusName == "Revise & Resubmit") {
+                //    $("#divNote").css("display", "block");
+                //}
+                //else {
+                //    $("#divNote").css("display", "none");
+                //}
+            });
+
+            $("#btnAssignedToOther").click(function () {
+                $(".divAssignedToOther").toggle();
+            });
+
+            $("#btnSubmitInspStatus").click(function () {
+                var data = new FormData($('#InspStatusFrm')[0]);
+                $.ajax({
+                    url: '/RFI/RFIMain/UpdateRFIDateAndStatus',
+                    type: "POST",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response == "1") {
+                            $.notify("Data updated successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        }
+                        else if (response == "3") {
+                            $.notify("RFI Revision submitted successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        }
+                        $('#createRFIMainModal').modal('hide');
+                        RefreshRFIMainGrid();
+                    }
+                });
+            });
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "RFIMain - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xlsx";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#RFIMainGrid").data("kendoGrid");
+            grid.hideColumn(11);
+
+            grid.options.pdf.fileName = "RFIMain - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(11);
+            });
+        }
+
+        function GetPakgId() {
+            return { pkgId: $("#PackageId").data("kendoDropDownList").value() };
+        }
+
+        function GetWorkgroup() {
+            return { wrkgrpId: $("#WorkgroupId").data("kendoDropDownList").value() };
+        }
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='AttachmentFile' name='AttachmentFile' class='input-ghost' style='visibility:hidden; height:0'>");
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $("#errFile").css("display", "none");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+        function LineItems_Databound(data) {
+            var _Status = data.InspStatus;
+            console.log(_Status);
+            if (_Status == "Open") {
+                return "<button class='btn btn-xs btn-primary'>" + _Status + "</button>";
+            }
+            else if (_Status == "Approved") {
+                return "<button class='btn btn-xs btn-success'>" + _Status + "</button>";
+            }
+            else if (_Status == "Revise & Resubmit") {
+                return "<button class='btn btn-xs btn-warning'>" + _Status + "</button>";
+            }
+            else if (_Status == "Rejected") {
+                return "<button class='btn btn-xs btn-danger'>" + _Status + "</button>";
+            }
+            else if (_Status == "Scheduled") {
+                return "<button class='btn btn-xs btn-info'>" + _Status + "</button>";
+            }
+        }
+
+        function InspectionModel_BrowseFile() {
+            $(".insp-file").before(
+                function () {
+                    var inputName = $(this).data("key");
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='" + inputName + "' name='" + inputName + "' class='input-ghost' style='visibility:hidden; height:0'>");
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $(this).closest(".errPicture").css("display", "none");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".insp-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.insp-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+    </script>
+}
+
+

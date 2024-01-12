@@ -1,0 +1,128 @@
+﻿@model IEnumerable<RVNLMIS.Models.MenuModel>
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content_wrapper">
+
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Partial("_AddEditRoleMenu", Model)
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#cust-full-height').height($(window).height() - 125);
+        });
+        $(window).trigger('resize');
+    </script>
+    <script>
+        function toggleIcon(e) {
+            $(e.target)
+                .prev('.collapse-heading')
+                .find(".more-less")
+                .toggleClass('fa-plus fa-minus');
+        }
+        $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+        $('.panel-group').on('shown.bs.collapse', toggleIcon);
+    </script>
+    <script>
+        $('input[type="checkbox"]').change(function (e) {
+
+            var checked = $(this).prop("checked"),
+                container = $(this).parent(),
+                siblings = container.siblings();
+
+            container.find('input[type="checkbox"]').prop({
+               // indeterminate: false,
+                checked: checked
+            });
+
+            function checkSiblings(el) {
+
+                var parent = el.parent().parent(),
+                    all = true;
+
+                el.siblings().each(function () {
+                    let returnValue = all = ($(this).children('input[type="checkbox"]').prop("checked") === checked);
+                    return returnValue;
+                });
+
+                if (all && checked) {
+
+                    parent.children('input[type="checkbox"]').prop({
+                        //indeterminate: false,
+                        checked: checked
+                    });
+
+                    checkSiblings(parent);
+
+                } else if (all && !checked) {
+
+                    parent.children('input[type="checkbox"]').prop("checked", checked);
+                    parent.children('input[type="checkbox"]').prop("checked", (parent.find('input[type="checkbox"]:checked').length > 0));
+                    checkSiblings(parent);
+
+                } else {
+
+                    el.parents("li").children('input[type="checkbox"]').prop({
+                        //indeterminate: true,
+                        checked: true
+                    });
+
+                }
+
+            }
+
+            checkSiblings(container);
+        });
+
+        // var values = ['15', '16', '17', '31', '18', '33', '19', '23', '35', '20', '36', '37', '41'];
+
+
+        $("#btnSaveRoleMenu").click(function () {
+            var Marray = [];
+            $.each($("input[name='MenuCHK']:checked"), function () {
+                Marray.push($(this).val());
+               // Marray.push($(this).data('key'));
+            });
+            console.log(Marray);
+            var _MenuString = Marray.join(", ");
+            var selectedRole = $("#RoleId").val();
+
+            if (selectedRole == "" || selectedRole == null) {
+                $.notify("Please select role.", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                $.ajax({
+                    url: '/RoleMenu/AddEditRoleAccess',
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ 'roleId': selectedRole, 'selectedMenus': _MenuString }),
+                    dataType: "json",
+                    success: function (response) {
+                        $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            }
+        });
+
+        $("#RoleId").change(function () {
+            $('input[type="checkbox"]').prop('checked', false);
+            var role = $("#RoleId").val();
+            var url = "/RoleMenu/GetPrevAssignedMenus/" + role
+            $.get(url, function (data) {
+                console.log(data);
+                // var values = JSON.parse(data);
+                $("#menuCheckboxes").find('[value=' + data.join('], [value=') + ']').prop("checked", true);
+            });
+        });
+    </script>
+}

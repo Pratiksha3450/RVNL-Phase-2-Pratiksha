@@ -1,0 +1,49 @@
+﻿@model RVNLMIS.Models.ResourceModel
+
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Resource Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddResourceDetails", "Resource", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnResourceSuccess" }, new { @class = "form", @id = "Resourceform" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(mode => Model.ResourceId)
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txxPackageName">
+                            Select Package  @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                        </label>
+                        @Html.DropDownListFor(model => model.PackageId, ViewBag.PackageList as SelectList, "Select Package", new { @class = "mb-3 form-control ddlEDId" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtResourceName">Resource Name @Html.ValidationMessageFor(model => model.ResourceName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.ResourceName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter resource name" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtResourceUnit">Resource Unit @Html.ValidationMessageFor(model => model.ResourceUnit, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.ResourceUnit, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter resource unit" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-xs btn-primary pull-right" value="Save"><i class="m-r-5 feather icon-check"></i>Save</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

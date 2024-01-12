@@ -1,0 +1,586 @@
+﻿@using RVNLMIS.Models;
+
+@{
+    //UserModel user = (UserModel)HttpContext.Current.Session["UserData"];
+    BreadCrumbModel breadc = (BreadCrumbModel)HttpContext.Current.Session["SessBreadCrumb"];
+    var homeUrl = "#";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="PrimaBI" />
+
+    <title>RVNL MIS</title>
+    <!-- One signal web push setup-->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    @*<script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: '@System.Configuration.ConfigurationManager.AppSettings["webPushAppId"]',
+            });
+        });
+    </script>*@
+
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Content/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Required Fremwork -->
+    @*<link rel="stylesheet" type="text/css" href="../files/bower_components/bootstrap/css/bootstrap.min.css">*@
+    <link href="~/Content/assets/css/plugins/bootstrap.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="~/Content/files/bower_components/bootstrap/css/bootstrap.min.css">*@
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link href="~/Content/web/kendo.common-bootstrap.core.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.mobile.min.css" rel="stylesheet" />
+    <link href="~/Content/JQueryNotify/css/notify.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/plugins/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/chosen.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/theme.css" rel="stylesheet" />
+    @*<link href="~/Content/assets/css/LoaderStyle.css" rel="stylesheet" />*@
+    @*<link href="~/Content/assets/css/font-awesome.min.css" rel="stylesheet" />*@
+
+
+    <script src="~/Content/assets/js/vendor-all.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>*@
+    <script src="~/Scripts/pako.min.js"></script>
+
+
+
+
+
+
+
+
+    <style>
+        .fullscreenDIV {
+            text-align: left;
+            background-color: #FFFFFF;
+            cursor: grab;
+            padding-left: 20px;
+        }
+
+
+        .disableCN {
+            pointer-events: none;
+            background-color: #e0d7d7;
+        }
+
+        .table thead th {
+            background: #f5f5f5 !important;
+            text-transform: inherit !important;
+        }
+
+        .k-grid td.k-state-selected:hover, .k-grid tr:hover {
+            color: #fff;
+            background-color: #4680ff;
+        }
+
+        .k-draghandle.k-state-selected:hover, .k-ghost-splitbar-horizontal, .k-ghost-splitbar-vertical, .k-list > .k-state-highlight, .k-list > .k-state-selected, .k-marquee-color, .k-panel > .k-state-selected, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-state-selected, .k-state-selected:link, .k-state-selected:visited {
+            color: #fff;
+            background-color: #4680ff !important;
+            border-color: #4680ff !important;
+        }
+
+        /*.k-button.k-state-focused, .k-button.k-state-hover, .k-button:focus, .k-button:hover, .k-draghandle:hover, .k-listbox .k-item:hover:not(.k-state-disabled), .k-other-month.k-state-hover .k-link, .k-pager-wrap .k-link:hover, .k-split-button:focus, .k-state-hover, .k-state-hover:hover, .k-textbox:hover, div.k-filebrowser-dropzone em {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-gradient(linear,left top,left bottom,from(#8ebc00),to(#8ebc00));
+            background-image: none,-webkit-linear-gradient(top,#8ebc00 0,#8ebc00 100%);
+            background-image: none,linear-gradient(to bottom,#4680ff 0,#4680ff 100%) !important;
+        }*/
+
+        /*.k-dropdown .k-state-focused, .k-filebrowser-dropzone, .k-list > .k-state-hover, .k-mobile-list .k-edit-label.k-check:active, .k-mobile-list .k-item > .k-label:active, .k-mobile-list .k-item > .k-link:active, .k-mobile-list .k-recur-view .k-check:active, .k-pager-wrap .k-link:hover, .k-scheduler .k-scheduler-toolbar ul li.k-state-hover, .k-splitbar-horizontal-hover:hover, .k-splitbar-vertical-hover:hover, .k-state-hover, .k-state-hover:hover {
+                color: #fff;
+                background-color: #4680ff !important;
+                border-color: #4680ff !important;
+            }*/
+
+        .k-editor, .k-grid, .k-menu, .k-scheduler {
+            border-radius: 0px !important;
+        }
+
+        /*.divMag {
+            margin-left: -32px;
+            margin-top: -4px;
+        }*/
+
+        /*----breadcrumbs-----*/
+        .breadcrumb {
+            background-color: transparent;
+            color: #fff !important;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            color: #fff;
+        }
+
+        .breadcrumb a {
+            color: #fff !important;
+        }
+        /*----/breadcrumbs---*/
+        .pcoded-header .navbar-nav > li:last-child {
+            padding-right: 0;
+        }
+    </style>
+
+    @* LOADER *@
+    <link href="~/Content/assets/css/loader.css" rel="stylesheet" />
+    @* /LOADER *@
+</head>
+<body>
+    <!-- Paste this code after body tag -->
+    <div style="display:none" class="se-pre-con"></div>
+    <!-- Ends -->
+    @*<form>*@
+
+    <!-- [ Pre-loader ] start -->
+    @*<div class="loader-bg">
+            <div class="loader-track">
+                <div class="loader-fill"></div>
+            </div>
+        </div>*@
+    <!-- [ Pre-loader ] End -->
+    @*<div class="loading" id="loadingDiv">
+            <div class="intro-stars"></div>
+            <div class="ufo light"></div>
+            <div class="ufo">
+                <div class="loading-small-cloud"></div>
+                <div class="loading-small-cloud reverse"></div>
+                <div class="small-ghost"></div>
+            </div>
+            <div class="loading-text" style="color:red"><h1>Loading...</h1></div>
+        </div>*@
+
+    <!-- [ navigation menu ] start -->
+    <nav class="pcoded-navbar theme-horizontal menu-light brand-blue">
+        <div class="navbar-wrapper">
+            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
+                <ul class="nav pcoded-inner-navbar sidenav-inner" id="partialMenu">
+                    <li class="nav-item pcoded-hasmenu" id="lipaginatedDashboard">
+                        <a class="has-ripple">
+                            <span class="pcoded-micon">
+                                <i class="fas fa-train"></i>
+                            </span><span class="pcoded-mtext">
+                                Paginated
+                            </span>
+                            <span class="ripple ripple-animate" style="height: 154px; width: 154px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -58px; left: 5px;"></span>
+                        </a>
+                        <ul class="pcoded-submenu">
+                            <li class="">
+                                <a href="/DashboardReports/Index/?id=%3fid%3d494">
+                                    Supervisor Names
+                                </a>
+                                <ul class="pcoded-submenu">
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    @Html.Action("GetMenuList", "Login", new { area = "" })
+
+                    @*@if (Convert.ToString(Html.Encode(User.Identity.Name.Split('|')[4])) == "PKG" || Convert.ToString(Html.Encode(User.Identity.Name.Split('|')[4])) == "SAD")
+                        {
+                            var uId = Convert.ToInt32(Html.Encode(User.Identity.Name.Split('|')[1]));
+                            <li class="nav-item">
+                                <a href="/RFI/GenerateRFI/Index/@uId" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span class="pcoded-mtext">Go To RFI</span></a>
+                            </li>
+                        }*@
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+    <!-- [ Header ] start -->
+    <header class="navbar pcoded-header navbar-expand-lg header-blue navbar-light">
+        <div class="m-header">
+            <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+            <a href="#!" class="b-brand">
+                <!-- ========   change your logo hear   ============ -->
+                <img src="~/Content/assets/images/logo/RVNL_logo_white.png" alt="" class="logo" width="200px">
+                <img src="~/Content/assets/images/logo-icon.png" alt="" class="logo-thumb">
+            </a>
+            <a href="#!" class="mob-toggler">
+                <i class="feather icon-more-vertical"></i>
+            </a>
+        </div>
+
+        @if (breadc != null)
+        {
+            <div class="ml-5" id="divBindBC">
+                <ul class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                        @{
+                            homeUrl = "/DashboardReports/Index/?id=" + HttpUtility.UrlEncode(Convert.ToString("?id=1"));
+                        }
+                        <a href="@homeUrl">
+                            <i class="feather icon-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    @if (!string.IsNullOrEmpty(@breadc.MainParent))
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="#">@breadc.MainParent</a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(@breadc.SubParent))
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="#">@breadc.SubParent</a>
+                        </li>
+                    }
+                    <li class="breadcrumb-item">
+                        <a href="#">@breadc.MenuName</a>
+                    </li>
+                </ul>
+            </div>
+        }
+
+        <div class="collapse navbar-collapse">
+            @*<ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="#!" class="pop-search"><i class="feather icon-search"></i></a>
+                        <div class="search-bar">
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Search hear">
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>*@
+            <ul class="navbar-nav ml-auto">
+                @*<li>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right notification">
+                                <div class="noti-head">
+                                    <h6 class="d-inline-block m-b-0">Notifications</h6>
+                                    <div class="float-right">
+                                        <a href="#!" class="m-r-10">mark as read</a>
+                                        <a href="#!">clear all</a>
+                                    </div>
+                                </div>
+                                <ul class="noti-body">
+                                    <li class="n-title">
+                                        <p class="m-b-0">NEW</p>
+                                    </li>
+
+                                    <li class="n-title">
+                                        <p class="m-b-0">EARLIER</p>
+                                    </li>
+
+                                </ul>
+                                <div class="noti-footer">
+                                    <a href="#!">show all</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>*@
+                <li>
+                    @if (Convert.ToBoolean(Html.Encode(User.Identity.Name.Split('|')[3])))
+                    {
+                        <a href="/DataIssueReport" title="Click here to view your active Data issue(s)"><div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></a>
+                    }
+                    &nbsp; &nbsp;<a class="has-ripple" href="/Help"><i class="icon feather icon-help-circle"></i> Help &nbsp;</a>
+                </li>
+                <li class="header-notification" style="display:none">
+                    <div class="dropdown mr-3">
+                        <!-- <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell p-2"></i></a> -->
+
+                        <div id="divNotificationClick" style="cursor:pointer" data-key="@(Html.Encode(User.Identity.Name.Split('|')[1]))" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="feather icon-bell"></i>
+                            <sup id="spnNotBadge" class="badge bg-c-red"></sup>
+                        </div>
+
+                        <div class="notificationDrp dropdown-menu dropdown-menu-right notification">
+                            <div class="noti-head">
+                                <h6 class="d-inline-block m-b-0">Notifications</h6>
+                            </div>
+                            <ul class="noti-body">
+                                <li class="notification alert alert-warning">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <p><strong>No Notifications Found</strong></p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown drp-user">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @*<i class="feather icon-user"></i>*@
+                            <img src="~/Content/assets/images/ProfilePic.png" alt="" class="wid-20 rounded mr-1 img-fluid">  Welcome @(Html.Encode(User.Identity.Name.Split('|')[2])) &nbsp;&nbsp;&nbsp;
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-notification">
+                            <div class="pro-head">
+                                <img src="~/Content/assets/images/ProfilePic.png" class="img-radius" alt="User-Profile-Image" />
+                                <span>@(Html.Encode(User.Identity.Name.Split('|')[2]))</span>
+                                @*<a href="#" class="dud-logout" title="Logout">
+                                        <i class="feather icon-log-out"></i>
+                                    </a>*@
+                            </div>
+                            <ul class="pro-body">
+                                <li><a href="/ChangePassword/Index" class="dropdown-item"><i class="fa fa-key"></i> Change Password </a></li>
+                                <li><a href="/UserSetting/Index" class="dropdown-item"><i class="feather icon-settings mr-2"></i> Settings </a></li>
+                                <li><a href="/Login/LogOut" class="dropdown-item"><i class="feather icon-lock"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        @*@if (breadc != null)
+            {
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row" id="divBindBC">
+                            <div class="col-md-8">
+                                <div class="page-header-title">
+                                    <h4>@breadc.MenuName</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="breadcrumb pull-right">
+                                    <li class="breadcrumb-item">
+                                        <a href="#">
+                                            <i class="feather icon-home"></i>
+                                            Home
+                                        </a>
+                                    </li>
+                                    @if (!string.IsNullOrEmpty(@breadc.MainParent))
+                                    {
+                                        <li class="breadcrumb-item">
+                                            <a href="#">@breadc.MainParent</a>
+                                        </li>
+                                    }
+                                    @if (!string.IsNullOrEmpty(@breadc.SubParent))
+                                    {
+                                        <li class="breadcrumb-item">
+                                            <a href="#">@breadc.SubParent</a>
+                                        </li>
+                                    }
+                                    <li class="breadcrumb-item">
+                                        <a href="#">@breadc.MenuName</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }*@
+        @RenderBody()
+    </div>
+
+    @*</form>*@
+    <!-- Warning Section start -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 11]>
+        <div class="ie-warning">
+            <h1>Warning!!</h1>
+            <p>You are using an outdated version of Internet Explorer, please upgrade
+               <br/>to any of the following web browsers to access this website.
+            </p>
+            <div class="iew-container">
+                <ul class="iew-download">
+                    <li>
+                        <a href="http://www.google.com/chrome/">
+                            <img src="assets/images/browser/chrome.png" alt="Chrome">
+                            <div>Chrome</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/">
+                            <img src="assets/images/browser/firefox.png" alt="Firefox">
+                            <div>Firefox</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.opera.com">
+                            <img src="assets/images/browser/opera.png" alt="Opera">
+                            <div>Opera</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.apple.com/safari/">
+                            <img src="assets/images/browser/safari.png" alt="Safari">
+                            <div>Safari</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                            <img src="assets/images/browser/ie.png" alt="">
+                            <div>IE (11 & above)</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Sorry for the inconvenience!</p>
+        </div>
+    <![endif]-->
+    <!-- Warning Section Ends -->
+    <!-- Required Js -->
+
+    <div class="modal fade" id="NotifyModalCenter" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="NotifyModalCenterTitle" aria-hidden="true">
+        <div id="NotifyModelContainer" class="modal-dialog modal-lg">
+
+        </div>
+    </div>
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("~/Views/Shared/_KeepAlive.cshtml")
+    }
+
+    <script src="~/Content/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/ripple.js"></script>
+    @*<script src="~/Content/assets/js/pcoded.min.js"></script>*@
+    <script src="~/Content/assets/js/pcoded.js"></script>
+    @*<script src="~/Content/assets/js/menu-setting.min.js"></script>*@
+
+    <!-- prism Js -->
+    <script src="~/Content/assets/js/plugins/prism.js"></script>
+    <script src="~/Content/assets/js/horizontal-menu.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    <script src="~/Content/assets/js/uikit.js"></script>
+    <script src="~/Content/assets/js/analytics.js"></script>
+    @*<script src="~/Content/assets/js/plugins/daterangepicker.js"></script>*@
+    <!-- MDB core JavaScript -->
+    @*<script type="text/javascript" src="~/Content/assets/js/mdb.min.js"></script>*@
+    <script>
+        (function () {
+            if ($('#layout-sidenav').hasClass('sidenav-horizontal') || window.layoutHelpers.isSmallScreen()) {
+                return;
+            }
+            try {
+                window.layoutHelpers._getSetting("Rtl")
+                window.layoutHelpers.setCollapsed(
+                    localStorage.getItem('layoutCollapsed') === 'true',
+                    false
+                );
+            } catch (e) { }
+        })();
+
+        (function () {
+           if (@(TempData["AfterLogin"] == null ? "null" : @TempData["AfterLogin"]) != null) {
+               var url = "/LayoutFunctions/CheckUnReadNotification";
+                $.get(url, function (data) {
+                    if (data.message == "1") {
+                        $('#NotifyModelContainer').html(data.viewHtml);
+                        $('#NotifyModalCenter').modal('show');
+
+                        $(".clsDivNot").click(function () {
+                            var notiId = $(this).data('key');
+                            $.get("/LayoutFunctions/MarkNotiAsRead", { notiId}, function (data) {
+
+                            });
+
+                            $(this).removeClass('alert-danger');
+                            $(this).addClass('alert-warning');
+                        });
+                    }
+                });
+            }
+        })();
+
+        $(function () {
+            $('#layout-sidenav').each(function () {
+                new SideNav(this, {
+                    orientation: $(this).hasClass('sidenav-horizontal') ? 'horizontal' : 'vertical'
+                });
+            });
+            $('body').on('click', '.layout-sidenav-toggle', function (e) {
+                e.preventDefault();
+                window.layoutHelpers.toggleCollapsed();
+                if (!window.layoutHelpers.isSmallScreen()) {
+                    try {
+                        localStorage.setItem('layoutCollapsed', String(window.layoutHelpers.isCollapsed()));
+                    } catch (e) { }
+                }
+            });
+        });
+
+        window.setInterval(function () {
+            $.get("/LayoutFunctions/GetNotBadgeCount", function (data) {
+                if (data == 0) {
+                    $('#spnNotBadge').hide();
+                }
+                else {
+                    $('#spnNotBadge').show();
+                    $('#spnNotBadge').html(data);
+                }
+            });
+        }, 5000);
+
+        $(document).ready(function () {
+            $("#divNotificationClick").click(function (e) {
+                e.preventDefault();
+                var userId = $(this).data('key');
+                var url = "/LayoutFunctions/GetNotifications/" + userId;
+                $.get(url, function (data) {
+                    $('.notificationDrp').html(data);
+                    $(".notificationDrp").show();
+                });
+
+            });
+
+            $("#pcoded").pcodedmenu({
+                themelayout: 'horizontal',
+                MenuTrigger: 'hover',
+                SubMenuTrigger: 'hover',
+            });
+
+        });
+
+        function GetBreadCrums(menuName, mainParent, subParent) {
+            //$(".currentMenu").text(menuName);
+            //$("#mainParent").text(mainParent);
+            var url = "/LayoutFunctions/GetBreadCrumbsModel";
+            $.get(url, { menuName, mainParent, subParent }, function (data) {
+                $("#divBindBC").html(data);
+
+                console.log(data);
+            });
+        }
+
+    </script>
+
+    @* LOADER *@
+    <script src="~/Content/assets/js/loader.js"></script>
+    @* /LOADER *@
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Content/JQueryNotify/js/notify.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+
+
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

@@ -1,0 +1,488 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /*#Material {
+        width: 50%;
+    }
+
+    #PMaterial {
+        width: 44%;
+    }*/
+
+    .demo-section label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    #example .demo-section {
+        
+        max-width: none;
+        width: 100%;
+    }
+
+    #example .k-listbox {
+        width: 49% !important;
+        height: 370px;
+    }
+
+        #example .k-listbox:first-of-type {
+            margin-right: 1px;
+        }
+
+        #example .k-listbox .k-item {
+            cursor: move;
+        }
+
+    #example .arrow {
+        padding: 8px 0 5px 238px;
+    }
+
+    #button {
+        float: right;
+        margin-top: 20px;
+    }
+
+    .content_wrapper {
+        overflow: hidden;
+        padding: 0.5%;
+    }
+
+    .k-listbox .k-list-scroller {
+        min-height: 100%;
+        height: 110%;
+    }
+</style>
+
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<input type="hidden" id="hdnMaterialID" />
+<div class="modal fade" id="createSectionModal" tabindex="-1" role="dialog" aria-labelledby="createSectionModal" aria-hidden="true" data-backdrop="static">
+    <div id="createSectionContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <div class="row">
+
+            <div class="col-sm-5 pr-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6" id="container">
+                                @*<h5>Package Name</h5>*@
+                                @if (ViewBag.ProjectPackageList != null)
+                                {
+                                    // @Html.DropDownList("ddlFilterProjects", (IEnumerable<SelectListItem>)ViewBag.ProjectPackageList, htmlAttributes: new { @class = "form-control form-control-sm " })
+                                    @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#container"))
+.Name("ddlFilterProjects")
+.DataTextField("PackageName")
+.DataValueField("PackageId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Package")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                           {
+                                                           read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                       })
+                                                                           .ServerFiltering(true);
+})
+                                    )
+                                }
+
+                            </div>
+                            <div class="col-md-6 divMag">
+                                @if (ViewBag.ProjectPackageList != null)
+                                {
+                                    // @Html.DropDownList("drpDisciplines", ViewBag.DisciplineList as SelectList, "Select Discipline", new { @class = "form-control form-control-sm" })
+                                    @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#container"))
+.Name("drpDisciplines")
+.DataTextField("DispCode")
+.DataValueField("DispId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+//.Filter("contains")
+.OptionLabel("Select Discipline")
+.DataSource(source =>
+{
+    source.Read(read =>
+    {
+        read.Action("ServerFiltering_GetDiscipline", "Procurement");
+    });
+    // .ServerFiltering(true);
+})
+                                    )
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="card-body pl-3 pr-" id="Card1">
+                        <div class="">
+                            <div class="" id="KendoHeight">
+                                <div id="example" role="application">
+                                    <div class="demo-section k-content wide">
+
+                                        <div class="row mt-2 mb-1">
+                                            <div class="col-md-6">
+                                                <label for="optional" id="Material">Material List</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="selected" id="PMaterial"> Package Material List</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-xs btn-primary btn-savelist" id="submit-form" title="Save List"
+                                                        style="">
+                                                    <i class="fa fa-save"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        @(Html.Kendo().ListBox()
+.Name("listbox")
+.Toolbar(toolbar => toolbar.Tools(
+tools => tools
+.MoveUp()
+.MoveDown()
+.TransferTo()
+.TransferAllTo()
+.Remove()
+)).ConnectWith("listView")
+.Selectable(ListBoxSelectable.Multiple)
+.Draggable(true)
+.DropSources("listView")
+.DataTextField("MaterialName")
+.DataValueField("MaterialID")
+.DataSource(source => source
+
+.Read(read => read.Action("Material_Details", "PackageMaterials").Data("GetPackageAndDispDrp"))
+)
+                                        )
+
+
+
+                                        @(Html.Kendo().ListBox()
+                                                                                                                                                                    .Name("listView")
+                                                                                                                                                                    .ConnectWith("listbox")
+                                                                                                                                                                    .Selectable(ListBoxSelectable.Multiple)
+                                                                                                                                                                    .DataSource(source => source.Read(read => read.Action("Material_DetailsByPackageId", "PackageMaterials").Data("GetPackageAndDispDrp")))
+                                                                                                                                                                    .DataTextField("MaterialName")
+                                                                                                                                                                    .DataValueField("MaterialID")
+                                                                                                                                                                    .Toolbar(toolbar =>
+                                                                                                                                                                            {
+                                                                                                                                                                                toolbar.Position(Kendo.Mvc.UI.Fluent.ListBoxToolbarPosition.Right);
+                                                                                                                                                                                toolbar.Tools(tools => tools
+                                                                                                                                                                                                        .MoveUp()
+                                                                                                                                                                                                        .MoveDown()
+                                                                                                                                                                                                        .Remove()
+                                                                                                                                                                                                        );
+                                                                                                                                                                            })
+                                        )
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-7 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>Package Material Details</h5>
+                            </div>
+                            <div class="col-md-4 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="category" class="form-control" placeholder="Search by Material Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+
+                                </div>
+                            </div>
+                            @*<div class="col-md-4">
+                                 <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" value="Save" id="btnImport" title="Add Section"><i class="fas fa-upload"></i> Import</button>
+                                 <button class="btn btn-sm waves-effect waves-light btn-outline-success" id="btnDownloadExcel"><i class="fa fa-file-export"></i> Download Template </button>
+                                @Html.ActionLink("Download Template", "ExportExcel", "PackageMaterials", null, new { @class = "" })
+                                                </div>*@
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <div class="customtoolbar" id="KendoHeight">
+                                @(Html.Kendo().Grid<RVNLMIS.Models.PackageMaterialDetailsModel>()
+.Name("MaterialGrid")
+.Columns(columns =>
+{
+    columns.Bound(c => c.MaterialId).HtmlAttributes(new { style = "text-align:left" }).Title("MaterialId").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("0%").Hidden();
+columns.Bound(c => c.MaterialCode).HtmlAttributes(new { style = "text-align:left" }).Title("Code")
+ .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("15%");
+columns.Bound(c => c.MaterialName).HtmlAttributes(new { style = "text-align:left" })
+ .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("60%");
+columns.Bound(c => c.RatePerUnit).HtmlAttributes(new { style = "text-align:right" }).Title("Rate Per Unit")
+.HeaderHtmlAttributes(new { style = "text-align:right" }).Width("20%");
+
+    columns.Bound(c => c.DisciplineName).HtmlAttributes(new { style = "text-align:right" }).Title("Discipline").Hidden()
+.HeaderHtmlAttributes(new { style = "text-align:right" }).Width("0%");
+    columns.Bound(c => c.Unit).HtmlAttributes(new { style = "text-align:right" }).Title("Unit")
+.HeaderHtmlAttributes(new { style = "text-align:right" }).Width("10%");
+columns.Bound(c => c.OriginalQty).HtmlAttributes(new { style = "text-align:right" }).Title("Original Qty")
+                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("15%");
+}).Scrollable(scr => scr.Height(500))
+.Pageable()
+.ToolBar(toolBar =>
+{
+toolBar.Save();
+toolBar.Pdf();
+toolBar.Excel();
+
+})
+.Pdf(pdf => pdf
+            .AllPages()
+            .AvoidLinks()
+            .PaperSize("A4")
+            .Scale(0.8)
+            .Margin("2cm", "1cm", "1cm", "1cm")
+            .Landscape()
+            .RepeatHeaders()
+            .TemplateId("page-template")
+            .FileName("PackageMaterials.pdf")
+            .ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+        )
+.Editable(editable => editable.Mode(GridEditMode.InCell))
+
+.Sortable()
+//.Navigatable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(false))
+
+// .PersistSelection(false)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.DisciplineName))
+.Batch(true)
+.ServerOperation(false)
+.Update(update => update.Action("EditingCustom_Update", "PackageMaterials"))
+.Model(model =>
+                            {
+                                model.Id(p => p.PkgMatId);
+                                model.Field(p => p.MaterialName).Editable(false);
+                                model.Field(p => p.MaterialCode).Editable(false);
+                                model.Field(p => p.DisciplineName).Editable(false);
+
+                            })
+
+
+
+.Read(read => read.Action("Material_Details_PackageId", "PackageMaterials").Data("GetPackageAndDispDrp"))
+.PageSize(15)).Groupable()
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound"))
+
+                                )
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script>
+
+
+
+
+        function onSuccess(e) {
+
+           $('#MaterialGrid').data('kendoGrid').dataSource.read();
+            $('#MaterialGrid').data('kendoGrid').refresh();
+              $.notify("Data Successfully Import" , { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+              $('#createSectionModal').modal('hide');
+            $('#createSectionContainer').html("");
+        }
+
+
+        function dataBound() { }
+        function GetPackageId() {
+            return {packageId: $("#ddlFilterProjects").val(), disp: $("#drpDisciplines").val()};
+        }
+        function GetPackageAndDispDrp() {
+            return { packageId: $("#ddlFilterProjects").val(), disp: $("#drpDisciplines").val() };
+        }
+        //filter grid on package selection
+        $("#ddlFilterProjects").change(function () {
+            RefreshKendoGrid();
+        });
+        $("#drpDisciplines").change(function () {
+            RefreshKendoGridDisciplines();
+        });
+
+        function RefreshKendoGrid() {
+            ////Refresh Kendo Grid
+            $('#MaterialGrid').data('kendoGrid').dataSource.read();
+            $('#MaterialGrid').data('kendoGrid').refresh();
+
+            ////Refresh Kendo Grid
+            $('#listbox').data('kendoListBox').dataSource.read();
+            $('#listbox').data('kendoListBox').refresh();
+
+            ////Refresh Kendo Grid
+            $('#listView').data('kendoListBox').dataSource.read();
+            $('#listView').data('kendoListBox').refresh();
+        }
+
+        function RefreshKendoGridDisciplines() {
+             ////Refresh Kendo Grid
+            $('#MaterialGrid').data('kendoGrid').dataSource.read();
+            $('#MaterialGrid').data('kendoGrid').refresh();
+
+            ////Refresh Kendo Grid
+            $('#listbox').data('kendoListBox').dataSource.read();
+            $('#listbox').data('kendoListBox').refresh();
+
+            ////Refresh Kendo Grid
+            $('#listView').data('kendoListBox').dataSource.read();
+            $('#listView').data('kendoListBox').refresh();
+
+        }
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#MaterialGrid').height($(window).height() - 198);
+            $('#Card1').height($(window).height() - 196);
+            $('#listbox').height($(window).height() - 315);
+            $('#listView').height($(window).height() - 315);
+
+        });
+        $(window).trigger('resize');
+
+        $("#category").on("input", function (e) {
+            var listBox = $("#listbox").getKendoListBox();
+            var sarchString = $(this).val();
+            listBox.dataSource.filter({ field: "MaterialName", operator: "contains", value: sarchString });
+
+             var listView = $("#listView").getKendoListBox();
+            var sarchString = $(this).val();
+            listView.dataSource.filter({ field: "MaterialName", operator: "contains", value: sarchString });
+
+            var value = $("#category").val();
+            grid = $("#MaterialGrid").data("kendoGrid");
+            if (value) {
+                grid.dataSource.filter({ field: "MaterialName", operator: "contains", value: value });
+            } else {
+                grid.dataSource.filter({});
+            }
+
+        });
+        var exportFlag = false;
+        function ExportExcel(e) {
+            e.workbook.sheets.forEach(function (sheet) {
+                sheet.rows = sheet.rows.filter(r => r.type != "group-header");
+
+
+            });
+
+            if (!exportFlag) {
+                e.preventDefault();
+                e.sender.showColumn("MaterialId");
+                exportFlag = true;
+                setTimeout(() => {
+                    e.sender.saveAsExcel();
+                });
+            } else {
+                exportFlag = false;
+            }
+
+            e.workbook.fileName = "MaterialList_" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xlsx";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        $("#btnImport").on("click", function () {
+            $.get("/PackageMaterials/GetImortModal", function (data) {
+                $('#createSectionContainer').html(data);
+                $('#createSectionModal').modal('show');
+            });
+        });
+
+        $("#btnDownloadExcel").on("click", function () {
+            var packageId = $("#ddlFilterProjects").val();
+            location.href = '@Url.Action("ExportExcel", "PackageMaterials")?packageId=' + packageId;
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/PackageMaterials/ExportExcel",
+            //    contentType: "application/json; charset=utf-8",
+            //    data: JSON.stringify({ "packageId": packageId }),
+            //    dataType: "json",
+            //    success: function (result) {
+            //        $.notify(result, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            //        RefreshKendoGrid();
+            //    }
+            //});
+        });
+
+        function HideColumn(e) {
+            var grid = $("#MaterialGrid").data("kendoGrid");
+            grid.hideColumn(3);
+            grid.options.pdf.fileName = "Material_" + kendo.toString(new Date, "dd-MMM-yyyy");
+            e.promise.done(function () {
+                grid.showColumn(3);
+            });
+        }
+        $(function () {
+            $('#submit-form').on('click', function () {
+                var packageId = $("#ddlFilterProjects").val();
+                var disp = $("#drpDisciplines").val();
+                if (packageId == null || packageId == '' || packageId == 'undefined') {
+                    $.notify("Select Package", { align: "right", verticalAlign: "top", type: "warning", background: "#e67e00", color: "white" });
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/PackageMaterials/Create",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ "selectedItems": $('#listView').data('kendoListBox').dataItems(), "packageId": packageId, "disp": disp }),
+                        dataType: "json",
+                        success: function (result) {
+                            $.notify(result, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            RefreshKendoGrid();
+                        }
+                    });
+                }
+
+       
+            })
+        })
+    </script>
+}

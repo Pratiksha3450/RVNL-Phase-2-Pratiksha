@@ -1,0 +1,165 @@
+﻿@model RVNLMIS.Areas.RFI.Models.EnclosureAttachModel
+@{
+    Layout = null;
+}
+
+<style>
+    .form-control {
+        height: auto!important;
+        padding: 0.25rem!important;
+    }
+    
+    .layered_popup :after {
+        position: fixed;
+        content: "";
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        /*background: rgba(0, 0, 0, 0.05);*/
+        z-index: -2;
+    }
+
+    .layered_popup {
+        top: 17%;
+    }
+
+    .layered_popup .modal-header {
+        background: linear-gradient(45deg, #08b792, #4f60c0);
+    }
+
+    .layered_popup button.close {
+        padding: 0 1%;
+        background-color: transparent;
+        color: #fff;
+        opacity: 1;
+    }
+
+    .left_icon {
+        font-size: xxx-large;
+        padding: 5px 10px;
+    }
+
+    .right_icons {
+        margin: 1px;
+        padding: 1px;
+    }
+
+    .layered_popup .card {
+        padding: 2px;
+        height: 75px;
+    }
+    .k-animation-container{
+        background:#fff;
+    }
+    .k-list-container {
+        background: #fff;
+        transform: initial!important;
+    }
+</style>
+ 
+@*<div class="modal-dialog modal-lg" role="document">*@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">RFI Enclosure</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        @using (Html.BeginForm("SubmitEnclAttach", "RFIMain", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "EnclosureAttachFrm" }))
+        {
+        @Html.HiddenFor(model => model.RFIId)
+        <div class="row">
+
+            <div class="col-md-5 mb-3">
+                <div class="form-group" id="Encltypecontainer">
+                    <label class="col-form-label-sm-user text-black-50">Type Of Enclosure <span style="color:red">*</span></label>
+                    @(Html.Kendo().DropDownListFor(model => model.EnclId).Popup(p => p.AppendTo("#Encltypecontainer"))
+                    .Name("EnclId")
+                    .DataTextField("Name")
+                    .DataValueField("ID")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-primary fill" })
+                    .Filter("contains").OptionLabel("Select Enclosure Type")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("Get_EnclosureType", "RFIMain");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="col-form-label-sm-user text-black-50">Select file <span style="color:red">*</span></label>
+                    <div class="input-group input-file" name="Fichier1">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-sm btn-choose" type="button">
+                                Browse File
+                            </button>
+                        </span>
+                        <input type="text" id="txtFileinput" class="form-control" placeholder='Choose a file...' />
+                    </div>
+                    <span id="errFile" style="color:red;display:none">Upload only .pdf, .xls, .xlsx, .doc, .docx files.</span>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <button type="button" id="btnAddEnclAttach" class="btn btn-sm btn-info mt-3">
+                    <i class="fa fa-plus mr-1"></i> Add Enclosure
+                </button>
+            </div>
+        </div>
+        }
+        <div class="row">
+
+            <div class="col-md-12 mb-3">
+                <h5>Existing Enclosures</h5>
+            </div>
+
+            @if (Model.objAttachDetail != null)
+            {
+            foreach (var item in Model.objAttachDetail)
+            {
+            <div class="col-md-6 mb-3">
+                <div class="img-preview">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <i class="@item.Icon text-danger left_icon"></i>
+                            </div>
+                            <div class="col-md-7">
+                                <b>@item.FileName</b>
+                                <p>@item.EnclType</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="right_icons pull-right">
+                                    <button data-url="/RFI/RFIMain/DeleteEnclAttach/@item.RFIEnclId" class="btnDeleteAttach btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    @*@if (item.Icon == "fa fa-file-pdf")
+                                    {
+                                    <button title="View File" data-url="/RFI/RFIMain/ViewEnclAttach/@item.RFIEnclId" class="btnDownload btn btn-sm btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    }
+                                    else
+                                    {*@
+                                    <a title="View File" href="@Url.Content(item.Path)" target='_blank' class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>
+                                    @*}*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+            }
+        </div>
+
+    </div>
+</div>
+@*</div>*@

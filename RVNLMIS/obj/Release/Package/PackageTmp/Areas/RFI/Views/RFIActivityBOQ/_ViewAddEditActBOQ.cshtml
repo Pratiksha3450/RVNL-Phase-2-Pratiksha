@@ -1,0 +1,105 @@
+﻿
+@model RVNLMIS.Areas.RFI.Models.RFIActivityBOQModel
+@{
+    Layout = null;
+}
+    
+    <div class="card">
+        <div class="card-header">
+            <h5>Activity BOQ Master</h5>
+        </div>
+        @using (Ajax.BeginForm("SubmitRFIBOQ", "RFIActivityBOQ", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnActBOQSuccess" }, new { @class = "form", @id = "frmGroup" }))
+        {
+            @Html.HiddenFor(model => model.RFIActBOQId)
+
+            <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+                <div class="row mb-1">
+                    @* Boq Code *@
+                    <div class="col-md-12">
+                        <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                            Activity
+                           
+
+                        </label>
+
+                        <div class="form-group" id="ActivityContainer">
+                            @Html.ValidationMessageFor(model => model.RFIActId, "", new { @class = "text-danger" })
+                            @(Html.Kendo().DropDownListFor(model => model.RFIActId).Popup(p => p.AppendTo("#ActivityContainer"))
+                    .Name("RFIActId")
+                    .DataTextField("RFIActName")
+                    .DataValueField("RFIActId")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                    .Filter("contains").OptionLabel("Select Activity")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("BindActivityDrpValues", "RFIActivityBOQ");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    @* Boq Code *@
+                    <div class="col-md-12">
+                        <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                            RFI BOQ
+                           
+                        </label>
+
+                        <div class="form-group" id="BOQContainer">
+                            @Html.ValidationMessageFor(model => model.RFIBOQId, "", new { @class = "text-danger" })
+                            @(Html.Kendo().DropDownListFor(model => model.RFIBOQId).Popup(p => p.AppendTo("#BOQContainer"))
+                    .Name("RFIBOQId")
+                    .DataTextField("BOQName")
+                    .DataValueField("RFIBOQId")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                    .Filter("contains").OptionLabel("Select RFI BOQ")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("BindRFIBOQDrpValues", "RFIActivityBOQ");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    @* Boq Name *@
+                    <div class="col-md-12">
+                        <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                            BOQ Code
+                           
+                            @Html.ValidationMessageFor(model => model.RFIBOQCode, "", new { @class = "text-danger" })
+                        </label>
+
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.RFIBOQCode, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter RFI BOQ Code" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="text-right mt-2">
+                            <button type="submit" class="btn btn-sm btn_theme pull-right">Save</button>
+                            @*<button type="button" class="btn btn-sm btn-theme "><i class="fa fa-eye"></i> &nbsp; Reset</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 205);
+    });
+    $(window).trigger('resize');
+</script>

@@ -1,0 +1,1202 @@
+﻿@model IEnumerable<RVNLMIS.Areas.RFI.Models.RFIMainModel>
+@using RVNLMIS.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/RFI/Views/Shared/_RFIFilteredLayout.cshtml";
+    var org = ((UserModel)Session["RFIUserSession"]).RoleCode;
+}
+<style>
+    .modal {
+        top: -10px !important;
+    }
+
+    div#modalDeletePic {
+        z-index: 1073;
+        background: #0000008c;
+    }
+</style>
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body p-4" id="noscroll">
+                <input type="hidden" id="hdnId">
+                <p class="success-message">Are you sure you wish to delete ?</p>
+            </div>
+            <div class="modal-footer p-2">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDeletePic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("DeleteRFIPicture", "GenerateRFI", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnPicDeleteSuccess" }, new { @class = "form" }))
+            {
+                @Html.Hidden("hdnrfiId")
+                @Html.Hidden("hdnPicIdToDelete")
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                    <button type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body p-4" id="noscroll">
+                    <p class="success-message">Are you sure you wish to delete ?</p>
+                </div>
+                <div class="modal-footer p-2">
+                    <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirmPic"><i class="fa fa-check mr-2"></i>Ok</button>
+                    <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- [ Main Content ] start -->
+<div class="row help-desk">
+
+    <div class="col-xl-12 col-lg-12">
+
+        <nav class="navbar justify-content-between align-items-center">
+            <h5 class="float-left">
+                @if (org == "Contractor")
+                {
+
+                    <button class="btn btn-sm btn-info has-ripple add-btn" data-url="/RFI/GenerateRFI/AddEditRFI/0" id="btnCreateRFI">
+                        <i class="feather icon-plus"></i>  Generate New RFI
+                    </button>
+
+                }
+            </h5>
+
+
+
+            <div class="btn-group btn-group-toggle filter_btns float-right">
+                <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" value="Save" id="btnImport" title="Import RFI"><i class="fas fa-upload"></i> Import</button>
+                &nbsp; &nbsp; &nbsp;
+                <button type="button" class="btn btn-sm btn-info has-ripple add-btn mr-2" id="btnRefreshRFI">
+                    <i class="feather icon-refresh-ccw"></i>  Refresh
+                </button>
+                @*<img src="~/Content/assetsNew/images/refresh.png" width="37px" id="btnRefreshRFI" title="Refresh" />*@
+
+                @if (Model.Count() != 0)
+                {
+                    @* ------------------------------------------- *@
+
+                    <div class="dropdown1 text-center">
+                        <a href="#" class="btn btn-sm btn-primary toggle" title="Date Filter"><i class="fas fa-tags"></i></a>
+                        @using (Ajax.BeginForm("FilterRFIList", "GenerateRFI", null, new AjaxOptions { HttpMethod = "Post", OnBegin = "StatusFilterBegin", OnSuccess = "FilterRFISuccess" }, new { @class = "form", Page = "Usersform" }))
+                        {
+                            <ul class="dropdown-menu list-group card card-body" id="abc">
+                                <li class="ApprovedbyPMC-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" value="Approved by PMC" name="Approved by PMC" class="custom-control-input" id="check_approved">
+                                        <label class="custom-control-label" for="check_approved">Approved by PMC </label>
+                                    </div>
+                                </li>
+                                <li class="Open-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" value="Open" name="Open" class="custom-control-input" id="check_open">
+                                        <label class="custom-control-label" for="check_open">Open </label>
+                                    </div>
+                                </li>
+                                <li class="Rejected-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" class="custom-control-input" value="Rejected" name="Rejected" id="check_Rejected-tic">
+                                        <label class="custom-control-label" for="check_Rejected-tic">Rejected </label>
+                                    </div>
+                                </li>
+                                <li class="Scheduled-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" class="custom-control-input" value="Scheduled" name="Scheduled" id="check_Scheduled-tic">
+                                        <label class="custom-control-label" for="check_Scheduled-tic">Scheduled </label>
+                                    </div>
+                                </li>
+                                <li class="Rescheduled-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" value="Rescheduled" name="Rescheduled" class="custom-control-input" id="check_Rescheduled-tic">
+                                        <label class="custom-control-label" for="check_Rescheduled-tic">Rescheduled </label>
+                                    </div>
+                                </li>
+                                <li class="ReviseResubmit-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" class="custom-control-input" id="check_ReviseResubmit" value="Revise and Resubmit" name="Revise and Resubmit">
+                                        <label class="custom-control-label" for="check_ReviseResubmit">Revise and Resubmit </label>
+                                    </div>
+                                </li>
+                                <li class="PartiallyApproved-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" class="custom-control-input" id="check_PartiallyApproved-tic" value="Partially Approved" name="Partially Approved">
+                                        <label class="custom-control-label" for="check_PartiallyApproved-tic">Partially Approved </label>
+                                    </div>
+                                </li>
+                                @*<li class="PartiallyApproved-tic">
+                            <div class="custom-checkbox dropdown-item">
+                                <input type="checkbox" class="custom-control-input" id="check_PartiallyApproved-tic" value="Partially Approved" name="Partially Approved">
+                                <label class="custom-control-label" for="check_PartiallyApproved-tic">Partially Approved </label>
+                            </div>
+                        </li>*@
+                                <li class="ApprovedbyRVNL-tic">
+                                    <div class="custom-checkbox dropdown-item">
+                                        <input type="checkbox" class="custom-control-input" id="check_ApprovedbyRVNL-tic" value="Approved by RVNL" name="Approved by RVNL">
+                                        <label class="custom-control-label" for="check_ApprovedbyRVNL-tic">Approved by RVNL </label>
+                                    </div>
+                                </li>
+                                <li class=" ">
+                                    <button class="btn btn-sm btn_theme full-width mt-2" type="submit">Filter</button>
+                                </li>
+
+                            </ul>
+                        }
+                    </div>
+
+                    @* ------------------------------------------- *@
+
+                    @*<div id="show-hidden-daterangefilter">
+                <button type="button" class="btn btn-sm btn-primary" title="Date Filter" data-toggle="toggleCollapsed"><i class="fas fa-calendar-alt"></i></button>
+            </div>*@
+                    <div class="hidden-status-daterangefilter" style="display: none;">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Select Date Range</label>
+                                    <input type="text" name="daterange" class="form-control" value="01/01/2018 - 01/15/2018" />
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn_theme full-width mt-2" type="submit">Filter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-toggle no-gutters" data-toggle="buttons">
+
+                        <label onclick="$('.help-desk').removeClass('md-view').removeClass('large-view').addClass('sm-view')" class="btn btn-sm waves-effect waves-light btn-primary">
+                            <input type="radio" name="options" id="option1" checked> <i class="feather icon-grid m-0"></i>
+                        </label>
+                        <label onclick="$('.help-desk').removeClass('md-view').removeClass('sm-view').addClass('large-view')" class="btn btn-sm waves-effect waves-light btn-primary active">
+                            <input type="radio" name="options" id="option3"> <i class="feather icon-menu m-0"></i>
+                        </label>
+
+                    </div>
+                }
+            </div>
+
+        </nav>
+    </div>
+
+    <div class="col-xl-12 col-lg-12">
+        <div class="divlstrfi">
+            @Html.Partial("_PartialListRFIWithOrdering", Model)
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <div class="q-view">
+    </div>
+
+    <div class="modal fade" id="createRFIMainModal" tabindex="-1" role="dialog" aria-labelledby="createRFIMainModal" aria-hidden="true" data-backdrop="static">
+        <div id="createRFIMainContainer" class="modal-dialog modal-lg">
+
+        </div>
+    </div>
+
+    <!-- rescheduleRFI modal -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="rescheduleRFIModel" tabindex="-1" role="dialog" aria-labelledby="rescheduleRFIModel" aria-hidden="true">
+        <div id="rescheduleModelContainer" class="modal-dialog modal-lg">
+
+        </div>
+    </div>
+    <!-- /rescheduleRFI modal -->
+    <!-- Modal -->
+    <div class="modal fade img_preview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <button type="button" class="close btn-xs " onclick="$('.img_preview').modal('hide');" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <div class="text-center">
+                        <img class="imgShow" src="" alt="your image" width="100%" height="auto" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="NotifyModalCenter" tabindex="-1" role="dialog" aria-labelledby="NotifyModalCenterTitle" aria-hidden="true">
+        <div id="NotifyModelContainer" class="modal-dialog modal-lg">
+
+        </div>
+    </div>
+    <div class="modal fade" id="createRFIModal" tabindex="-1" role="dialog" aria-labelledby="createRFIModal" aria-hidden="true" data-backdrop="static">
+        <div id="createRFIContainer" class="modal-dialog modal-lg">
+
+        </div>
+    </div>
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#RFIMainGrid').height($(window).height() - 198);
+        });
+
+        $(window).trigger('resize');
+
+        var rowNumber = 0;
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function AllowNumbersOnly(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        function OnPicDeleteSuccess(response) {
+            $.notify("Picture deleted successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            $("#editPicture").html(response);
+            $("#editPicture").css('display', 'block');
+            $(".notEdit").css('display', 'block');
+
+            $("#modalDeletePic").modal("hide");
+            var prePicount = $("#CountPictures").val();
+            $("#CountPictures").val(parseInt(prePicount)-1);
+           // $(".changeSinglePicture").css('display', 'none');
+            //$(".btnSubmitInspStatus").css('display', 'block');
+
+            BindUpdateSingleImgEvent();
+        }
+
+        function RFIMainAddEditSuccess(data) {
+            BindOnChangeEvent();
+           // console.log(data);
+            if (data.message == "2") {
+                $.notify('RFI details updated successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#createRFIMainModal').modal('hide');
+
+                $(".divlstrfi").html(data.viewHtml);
+                ClearFormGrid();
+                $(".se-pre-con").hide();
+            } else if (data.message == "1") {
+                $.notify('RFI details added successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#createRFIMainModal').modal('hide');
+
+                $(".divlstrfi").html(data.viewHtml);
+                ClearFormGrid();
+                $(".se-pre-con").hide();
+            }
+            else if (data.message == "3") {
+                $.notify(data.viewHtml, { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                $(".se-pre-con").hide();
+                $("#addEditRfi").find(':submit').prop("disabled", false);
+            }
+            else if (data.message == "4") {
+                $.notify("Something went wrong! Please try again.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $(".se-pre-con").hide();
+                $("#addEditRfi").find(':submit').prop("disabled", false);
+            }
+            else if (data.message == "5") {
+                $.notify(data.viewHtml, { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                $(".se-pre-con").hide();
+                $("#addEditRfi").find(':submit').prop("disabled", false);
+            }
+            else {
+                $('#createRFIMainContainer').html(data);
+                $('#createRFIMainModal').modal('show');
+                $(".se-pre-con").hide();
+                BindOnChangeEvent();
+
+                var inputValue = $("input[name='LocationType']:checked").val();
+                console.log(inputValue);
+                var targetBox = $("." + inputValue);
+                console.log(targetBox);
+                $(".selectt").not(targetBox).hide();
+                $(targetBox).show();
+            }
+        }
+
+        function ClearFormGrid() {
+            $("#RFIId").val("0");
+        }
+
+        function ShowHideTimeline() {
+            $(".divlstrfi").on("click", ".show-timeline", function (e) {
+                var rfiId = $(this).data("key");
+                var url = "/RFI/GenerateRFI/GetRFITimeline";
+                $.get(url, { rfiId }, function (data) {
+                    $(".q-view").html(data);
+                    $(".q-view").addClass("active");
+                });
+            });
+
+            $(".q-view").on("click", ".overlay", function (e) {
+                $(".q-view").removeClass("active");
+            });
+        }
+
+        $(document).ready(function () {
+            $(".se-pre-con").show();
+            if (@(TempData["AfterLogin"] == null ? "null" : @TempData["AfterLogin"]) != null) {
+                var url = "/RFI/GenerateRFI/CheckUnReadNotification";
+                $.get(url, function (data) {
+                    if (data.message == "1") {
+                        $('#NotifyModelContainer').html(data.viewHtml);
+                        $('#NotifyModalCenter').modal('show');
+
+                        $(".clsDivNot").click(function () {
+                            var notiId = $(this).data('key');
+                            $.get("/RFI/GenerateRFI/MarkNotiAsRead", { notiId}, function (data) {
+
+                            });
+
+                            $(this).removeClass('alert-danger');
+                            $(this).addClass('alert-warning');
+                        });
+                    }
+                });
+            }
+
+            ShowHideTimeline();
+
+            $(".divlstrfi").on("click", ".btnEditRFI", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+                    BindOnChangeEvent();
+
+                    var inputValue = $("input[name='LocationType']:checked").val();
+                    var targetBox = $("." + inputValue);
+                    $(".selectt").not(targetBox).hide();
+                    $(targetBox).show();
+                });
+            });
+
+            $(".divlstrfi").on("click", ".approveRFI", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $(".se-pre-con").show();
+                console.log(url);
+                $.get(url, function (data) {
+                    $(".se-pre-con").hide();
+
+                    if (data.message == "1") {
+                        $('.divlstrfi').html(data.viewHtml);
+                        $.notify('RFI marked as Approved successfully.', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                        BindOnChangeEvent();
+                    }
+                    else {
+                        $.notify('Error!', { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                    }
+                });
+            });
+
+            $(".divlstrfi").on("click", ".rescheduleRFI", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#rescheduleModelContainer').html(data);
+                    $('#rescheduleRFIModel').modal('show');
+                   // BindOnChangeEvent();
+                    BidDatePicker('NewInspDate');
+
+                    $('#rescheduleRfifrm').submit(function () {
+                        var newdate = $("#NewInspDate").val();
+                        console.log(newdate);
+
+                        if (newdate == null || newdate == "") {
+                            $.notify("Please select Date if you want to Reschedule RFI.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                        }
+                        if ($(this).find('.input-validation-error').length == 0) {
+                            $(this).find(':submit').attr('disabled', 'disabled');
+                        }
+                    });
+
+                    $('#customswitch1').change(function () {
+                        $("#inspectorlist").toggle();
+                    });
+                });
+            });
+
+            $(".divlstrfi").on("click", ".DeleteRFI", function (e) {
+                var Id = $(this).data("key");
+                $("#hdnId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+            $(".divlstrfi").on("click", ".btnAddEnclosure", function (e) {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+                    bs_input_file();
+                });
+            });
+
+            $(".divlstrfi").on("click", ".btnViewUpdate", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                var rfiId = $(this).data("key");
+                $.get(url, { rfiId: rfiId }, function (data) {
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+
+                    BindInspModelEvent();
+                    BindUpdateSingleImgEvent();
+                    if (parseInt($("#CountPictures").val()) < 3) {
+                        $(".notEdit").css('display', 'block');
+                    }
+                    else {
+                        $(".notEdit").css('display', 'none');
+                    }
+                });
+            });
+
+            $("#btnCreateRFI").on("click", function () {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+                    BindOnChangeEvent();
+                });
+            });
+
+            $("#btnRefreshRFI").on("click", function () {
+                $(".se-pre-con").show();
+                var url = "/RFI/GenerateRFI/RefreshRFIList";
+                $.get(url, function (data) {
+                    $('.divlstrfi').html(data);
+                    $(".se-pre-con").hide();
+                });
+            });
+
+            $("#btnDeleteConfirm").on("click", function () {
+                $(".DeleteRFI").addClass('close-card');
+                var id = $("#hdnId").val();
+
+                $.ajax({
+                    url: '/RFI/GenerateRFI/DeleteRFI/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "1") {
+                            $.notify('Error!', { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                        }
+                        else {
+                            $("#modalDelete").modal('hide');
+                            $(".divlstrfi").html(response);
+                            $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+
+            //$("#btnDeleteConfirmPic").on("click", function () {
+            //    var id = $("#hdnPicIdToDelete").val();
+
+            //    $.ajax({
+            //        url: '/RFI/GenerateRFI/DeleteRFIPicture/' + id,
+            //        type: "POST",
+            //        contentType: "application/json; charset=utf-8",
+            //        dataType: "json",
+            //        success: function (response) {
+            //            console.log(response);
+            //            if (response == "1") {
+            //                $.notify('Error!', { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            //            }
+            //            else {
+            //                $("#modalDeletePic").modal('hide');
+            //                $("#editPicture").html(response);
+            //                $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+            //            }
+            //        },
+            //        error: function (xhr, ajaxOptions, thrownError) {
+            //            //ShowErrorMessage('Error deleting Project!');
+            //        }
+            //    });
+            //});
+
+            $("#createRFIMainModal").on("click", ".btnDeleteAttach", function () {
+                var url = $(this).data("url");
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {},
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        $.notify(response.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                        $('#createRFIMainContainer').html(response.viewHtml);
+                        $('#createRFIMainModal').modal('show');
+                        bs_input_file();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+            $("#btnImport").on("click", function () {
+                $.get("/RFI/GenerateRFI/GetImortModal", function (data) {
+                    $('#createRFIContainer').html(data);
+                    $('#createRFIModal').modal('show');
+                    bs_input_file();
+                });
+            });
+
+            $("#createRFIMainModal").on("click", ".btnSubmitEnclAttach", function () {
+
+                var enclType = $("#EnclId").data("kendoDropDownList").value();
+
+                if (enclType == "" | enclType == null) {
+                    console.log(enclType);
+                    $.notify("Please select Enclosure Type.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                }
+                else {
+                    var data = new FormData($('#EnclosureAttachFrm')[0]);
+                    console.log(data);
+                    $(".se-pre-con").show();
+                    $.ajax({
+                        url: '/RFI/GenerateRFI/SubmitEnclAttach',
+                        type: "POST",
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+
+                            if (response.message == "1") {
+                                $.notify("Data added successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                                $('#createRFIMainContainer').html(response.viewHtml);
+                                $('#createRFIMainModal').modal('show');
+                                $("#EnclId").data("kendoDropDownList").value(null);
+                            }
+                            else if (response.message == "0") {
+                                $("#errFile").css("display", "block");
+                            }
+                            else if (response.message == "error") {
+                                $.notify("Error! Please try again", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+
+                                $('#createRFIMainContainer').html(response.viewHtml);
+                                $('#createRFIMainModal').modal('show');
+                            }
+                            else if (response.message == "2") {
+                                $.notify("Please select file!", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                            }
+                            bs_input_file();
+                            $(".se-pre-con").hide();
+                        }
+                    });
+                }
+            });
+
+            //$('#show-hidden-daterangefilter').click(function () {
+            //    $('.hidden-status-daterangefilter').slideToggle("slow");
+            //});
+
+            //$('#show-hidden-statusmenu').click(function () {
+            //    $('.hidden-status-submenu').slideToggle("slow");
+            //});
+
+
+            $("#createRFIContainer").on("click", "#btnExcelImport", function () {
+                $(".se-pre-con").show();
+                var formdata = new FormData();
+              //  var file = document.getElementById("fileUpload").files[0];               
+                var file = document.getElementById('AttachmentFile').files[0];
+
+
+                var packId = $("#packageId").val();
+
+                if (packId == '' || packId == null || packId == 'undefined') {
+                    $.notify("Please select Package", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                if (file == 'undefined' || file == '' || file == null) {
+                    $.notify("Please select file", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                else {
+                    formdata.append("AttachmentFile", file);
+                    formdata.append("packageId", $("#packageId").val());
+
+                    $.ajax
+                        ({
+                            url: '/RFI/GenerateRFI/ImportExcel',
+                            type: 'POST',
+                            data: formdata,
+                            // datatype: 'json',
+                            processData: false,
+                            contentType: false,
+                            success: function (result) {
+                                if (result == 'Error') {
+                                    $.notify("Please select file", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                                    $("#createRFIModal").modal('hide');
+                                    $(".se-pre-con").hide();
+                                }
+                                else {
+                                    $("#createRFIModal").modal('hide');                                   
+                                    $.notify(result, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                                    $(".se-pre-con").hide();
+                                }
+                                $(".se-pre-con").hide();
+                            }
+                        });
+                }
+            });
+        });
+
+        function RescheduleSuccess(response) {
+            if (response.message == "1") {
+                $.notify('Appointment rescheduled successfully.', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $("#rescheduleRFIModel").modal('hide');
+                $(".divlstrfi").html(response.viewHtml);
+            }
+            else {
+                $.notify('Something went wrong! Please try again later.', { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                $("#rescheduleRfifrm").find(':submit').prop("disabled", false);
+            }
+        }
+
+        function BindOnChangeEvent() {
+            bs_input_file();
+
+            $('#addEditRfi').submit(function () {
+                if ($(this).find('.input-validation-error').length == 0) {
+                    $(this).find(':submit').attr('disabled', 'disabled');
+                }
+            });
+
+            $('input[type="radio"]').click(function () {
+                var inputValue = $(this).attr("value");
+                //$("#LocationType").val(inputValue);
+                var targetBox = $("." + inputValue);
+                $(".selectt").not(targetBox).hide();
+                $(targetBox).show();
+
+                if (inputValue == 'Chainage') {
+                    $("#StartChainage").val("");
+                    $("#EndChainage").val("");
+                }
+            });
+
+            $("#WorkgroupId").change(function () {
+                //Generate code
+                var workGrpId = $("#WorkgroupId").data("kendoDropDownList").value();
+                var url = "/RFI/GenerateRFI/GenerateRFICode";
+                $.get(url, { workGrpId }, function (data) {
+                    $("#RFICode").val(data);
+                });
+
+                $("#RFIActivityId").data('kendoDropDownList').dataSource.read();
+            });
+
+            $("#PackageId").change(function () {
+                $("#EntityId").data('kendoDropDownList').dataSource.read();
+                $("#AssignToPMC").data('kendoDropDownList').dataSource.read();
+            });
+
+            $("#AssignToPMC").change(function () {
+                var assignneName = $("#AssignToPMC").data('kendoDropDownList').text();
+                $("#AssignToPMCName").val(assignneName);
+            });
+
+            $("#btnAddEnclAttach").click(function () {
+                var url = $(this).data("url");
+                //var rfiId = $(this).data("key");
+                $.get(url, function (data) {
+                    // console.log(data);
+                    $('#createRFIMainContainer').html(data);
+                    $('#createRFIMainModal').modal('show');
+                    // BindOnChangeEvent();
+                    bs_input_file();
+                });
+            });
+
+            $("#StartChainage").change(function () {
+                ChainageWithPlus('StartChainage');
+            });
+
+            $("#EndChainage").change(function () {
+                ChainageWithPlus('EndChainage');
+            });
+        }
+
+        function ChainageWithPlus(ChainageId) {
+            var value = $("#" + ChainageId).val();
+
+            if (value == "") {
+
+            }
+            else if (value.includes('+')) {
+                $('#' + ChainageId).val(value);
+            }
+            else {
+                if (value.length < 3) {
+                    value = padString(value, 3, '0');
+
+                }
+                var newVal = ([value.slice(0, value.length - 3), '+', value.slice(value.length - 3)].join(''));
+
+                if (newVal.charAt(0) == '+') {
+                    newVal = "0" + newVal;
+                }
+                $('#' + ChainageId).val(newVal);
+            }
+        }
+
+        function BindInspModelEvent() {
+            $("#InspId").change(function () {
+                $(".changeSinglePicture").css('display', 'none');
+
+                var inspStatusName = $(this).data("kendoDropDownList").text();
+                $("#InspStatus").val(inspStatusName);
+
+                if (inspStatusName == "Partially Approved") {
+                    $("#PartiallyAppChainage").css("display", "block");
+                }
+                else {
+                    $("#PartiallyAppChainage").css("display", "none");
+                }
+
+                if ($("#InitialInspStatus").val() != inspStatusName) {
+                    $("#Note").val("");
+                    $("#editPicture").css("display", "none");
+                    $(".notEdit").css("display", "block");
+                }
+                else {
+                    $("#Note").val($("#InitialNote").val());
+                    $("#editPicture").css("display", "block");
+
+                    var prePicturesCnt = $("#CountPictures").val();
+                    var count = $("#items input[type=file]").size();
+                    //$('.wrapper').children('div')
+
+                    console.log("prePicturesCnt:  "+prePicturesCnt);
+                    console.log("count: " + count);
+                    console.log("(parseInt(prePicturesCnt) + parseInt(count): " + (parseInt(prePicturesCnt) + parseInt(count)));
+
+                    if ((parseInt(prePicturesCnt) + parseInt(count))>=3) {
+                        $(".notEdit").css("display", "none");
+                    }
+                    else {
+                        $(".notEdit").css("display", "block");
+                    }
+                }
+            });
+
+            $("#btnAssignedToOther").click(function () {
+                $(".divAssignedToOther").toggle();
+            });
+
+            $(".imgLarge").click(function () {
+                var imgUrl = $(this).data('key');
+
+                $(".img_preview").modal('show');
+                $('.img_preview').find('.imgShow').attr('src', imgUrl);
+            });
+
+            BidDatePicker('InspDate');
+
+            $(".btnSubmitInspStatus").click(function () {
+                if ('@org'!= "Contractor") {
+                    if ($("#hdnInspStatus").val() != "Open") {
+                        ///Inspection status required validation
+                        var statusDrpVal = $("#InspId").data("kendoDropDownList").value();
+                        if (statusDrpVal == "" || statusDrpVal == null) {
+                            $.notify("Please select Inspection Status to update.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                            return false;
+                        }
+
+                        ///Note is required validation
+                        var note = $("#Note").val();
+                        if (note == "" || note == null) {
+                            $.notify("Note is required.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                            return false;
+                        }
+                    }
+                }
+                 if ('@org'== "Contractor") {
+                     var contrComment = $("#ContrComment").val();
+                     if (contrComment == "" || contrComment == null) {
+                            $.notify("Comment is required.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                            return false;
+                        }
+                }
+
+                var data = new FormData($('#InspStatusFrm')[0]);
+                console.log(data);
+                $(".se-pre-con").show();
+                $.ajax({
+                    url: '/RFI/GenerateRFI/UpdateRFIDateAndStatus',
+                    type: "POST",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                        $(".se-pre-con").hide();
+                        if (response.message == "1") {
+                            $.notify("Inspection date assigned successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            $('#createRFIMainModal').modal('hide');
+                            $(".divlstrfi").html(response.viewHtml);
+                        }
+                        if (response.message == "2") {
+                            $.notify("Data updated successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            $('#createRFIMainModal').modal('hide');
+                            $(".divlstrfi").html(response.viewHtml);
+                        }
+                        else if (response.message == "3") {
+                            $.notify("RFI Revision submitted successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            $('#createRFIMainModal').modal('hide');
+                            $(".divlstrfi").html(response.viewHtml);
+                        }
+                        else if (response.message == "4") {
+                            $.notify(response.viewHtml, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        }
+
+                    }
+                });
+            });
+
+
+
+            $(".btnSubmitSinglePic").click(function () {
+                var formdata = new FormData();
+                var data = $('#PictureSingle')[0].files;
+                var picId = $("#hdnPicId").val();
+                var remark = $("#remark").val();
+                formdata.append("picture", data[0]);
+                formdata.append("picId", picId);
+                formdata.append("remark", remark);
+                formdata.append("rfiId", $("#RFIId").val());
+                formdata.append("revisionId", $("#RevisionId").val());
+
+                console.log(formdata);
+
+                if (data[0] != null) {
+                    var url = "/RFI/GenerateRFI/UpdateSingleImage";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            console.log(response);
+                            $.notify("Picture updated successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            $("#editPicture").html(response);
+                            $("#editPicture").css('display', 'block');
+                            $(".notEdit").css('display', 'block');
+                            $(".changeSinglePicture").css('display', 'none');
+                            $(".btnSubmitInspStatus").css('display', 'block');
+
+                            var prePicturesCnt = $("#CountPictures").val();
+                            var count = $("#items input[type=file]").size();
+                            //$('.wrapper').children('div')
+
+                            if ((parseInt(prePicturesCnt) + parseInt(count)) >= 3) {
+                                $(".notEdit").css("display", "none");
+                            }
+                            else {
+                                $(".notEdit").css("display", "block");
+                            }
+
+                            BindUpdateSingleImgEvent();
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+            });
+
+            $(".btnAddMorePicture").click(function (e) {
+                var prePicturesCnt = $("#CountPictures").val();
+                var count = $("#items input[type=file]").size();
+                //$('.wrapper').children('div')
+
+                var inspStatusName = $("#InspId").data("kendoDropDownList").text();
+
+                if ($("#InitialInspStatus").val() != inspStatusName) {
+                    count = count;
+                }
+                else {
+                   count= (parseInt(prePicturesCnt) + parseInt(count));
+                }
+
+                if (parseInt(count) >= 3) {
+                    $.notify("You can upload only 3 pictures.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                }
+                else {
+                    e.preventDefault();
+                    var template = $("#items").find(".uploadImages").first();
+                    var newRow = template.clone();
+                    newRow.find("input[type=file]").val("");
+                    newRow.find("textarea").val("");
+                    newRow.find("img").prop("src", "http://placehold.it/180");
+                    newRow.find("input[type=file]").prop("id", "Picture" + (parseInt(count) + parseInt(1)));
+                    newRow.find("input[type=file]").prop("name", "Picture" + (parseInt(count) + parseInt(1)));
+
+                    newRow.find("textarea").prop("id", "Remark" + (parseInt(count) + parseInt(1)));
+                    newRow.find("textarea").prop("name", "Remark" + (parseInt(count) + parseInt(1)));
+
+                    newRow.find("img").prop("id", "imgview" + (parseInt(count) + parseInt(1)));
+                    $("#items").append(newRow);
+                }
+            });
+
+            $("#AprrovedStartChainage").change(function () {
+                ChainageWithPlus('AprrovedStartChainage');
+            });
+
+            $("#AprrovedFinishChainage").change(function () {
+                ChainageWithPlus('AprrovedFinishChainage');
+            });
+        }
+
+        function BindUpdateSingleImgEvent(){
+            $(".btnChangeSingleImg").click(function () {
+                var picId = $(this).data('key');
+                $("#editPicture").css('display', 'none');
+                $(".notEdit").css('display', 'none');
+                $(".changeSinglePicture").css('display', 'block');
+                $(".btnSubmitInspStatus").css('display', 'none');
+                $("#hdnPicId").val(picId);
+
+                $("#PictureSingle").val('');
+                $("#imgviewSingle").attr(src, 'http://placehold.it/180');
+                $("#remark").val("");
+            });
+
+            $(".btnDeleteImg").click(function () {
+                var picId = $(this).data('key');
+                $("#modalDeletePic").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+                $("#hdnPicIdToDelete").val(picId);
+                $("#hdnrfiId").val($("#RFIId").val());
+            });
+
+            $(".btnCancelSubmitSinglePic").click(function () {
+                $("#editPicture").css('display', 'block');
+                $(".notEdit").css('display', 'block');
+                $(".changeSinglePicture").css('display', 'none');
+                $(".btnSubmitInspStatus").css('display', 'block');
+
+                var prePicturesCnt = $("#CountPictures").val();
+               // var count = $("#items input[type=file]").size();
+
+                //if ((parseInt(prePicturesCnt) + parseInt(count)) >= 3) {
+                if (parseInt(prePicturesCnt) >= 3) {
+                    $(".notEdit").css("display", "none");
+                }
+                else {
+                    $(".notEdit").css("display", "block");
+                }
+            });
+        }
+
+        function BidDatePicker(controlName) {
+            $('input[name="' + controlName+'"]').daterangepicker({
+                autoUpdateInput: false,
+                minDate: new Date(),
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1991,
+                maxYear: parseInt(new Date().getFullYear()) + parseInt(10),
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $('input[name="' + controlName +'"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY HH:mm'));
+            });
+
+            $('input[name="' + controlName +'"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "RFIMain - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xlsx";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#RFIMainGrid").data("kendoGrid");
+            grid.hideColumn(11);
+
+            grid.options.pdf.fileName = "RFIMain - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(11);
+            });
+        }
+
+        function GetPakgId() {
+            return { pkgId: $("#PackageId").data("kendoDropDownList").value() };
+        }
+
+        function GetWorkgroup() {
+            return { wrkgrpId: $("#WorkgroupId").data("kendoDropDownList").value() };
+        }
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='AttachmentFile' name='AttachmentFile' class='input-ghost' style='display:none; height:0'>");
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $("#errFile").css("display", "none");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+        function StatusFilterBegin() {
+            $(".se-pre-con").show();
+        }
+
+        function FilterRFISuccess(response) {
+            $(".se-pre-con").hide();
+            $(".divlstrfi").html(response);
+            //$(".dropdown1").css("display", "none");
+            $(".dropdown1").removeClass('is-active');
+        }
+
+    function showImgPreview(input) {
+        $(".errPic").css('display', 'none');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                var pictureId = input.id;
+                console.log(pictureId);
+                var imgId = pictureId.substr(7, pictureId.length)
+
+                console.log(imgId);
+
+                //if (input.files[0].size > 528385) {
+                //    alert("Image Size should not be greater than 500Kb");
+                //    $("#menu_image").attr("src", "blank");
+                //    $("#menu_image").hide();
+                //    $('#menu_images').wrap('<form>').closest('form').get(0).reset();
+                //    $('#menu_images').unwrap();
+                //    return false;
+                //}
+                if (input.files[0].type.indexOf("image") == -1) {
+                    $(".errPic").css('display', 'block');
+                    $("#imgview" + imgId).attr("src", "http://placehold.it/180");
+                    //$("#imgview" + imgId).hide();
+                    $('#' + pictureId).wrap('<form>').closest('form').get(0).reset();
+                    $('#' + pictureId).unwrap();
+                    return false;
+                }
+
+                reader.onload = function (e) {
+                    $('#imgview' + imgId)
+                        .attr('src', e.target.result)
+                        //.width(100)
+                        //.height(100);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function ShowSingleImgPreview(input) {
+            $(".errPic").css('display', 'none');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                if (input.files[0].type.indexOf("image") == -1) {
+                    $(".errPic").css('display', 'block');
+                    $("#imgviewSingle").attr("src", "http://placehold.it/180");
+                    $('#' + pictureId).wrap('<form>').closest('form').get(0).reset();
+                    $('#' + pictureId).unwrap();
+                    return false;
+                }
+
+                reader.onload = function (e) {
+                    $('#imgviewSingle')
+                        .attr('src', e.target.result)
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
+
+
+    @* /*custon auto hide Buttons for Filters */  *@
+
+    <script>
+        const $menu = $('.dropdown1');
+
+        $(document).mouseup(e => {
+            if (!$menu.is(e.target) // if the target of the click isn't the container...
+                && $menu.has(e.target).length === 0) // ... nor a descendant of the container
+            {
+                $menu.removeClass('is-active');
+            }
+        });
+
+        $('.toggle').on('click', () => {
+            $menu.toggleClass('is-active');
+        });
+
+    </script>
+
+
+
+

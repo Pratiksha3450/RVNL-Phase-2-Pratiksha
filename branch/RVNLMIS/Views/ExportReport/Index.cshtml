@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>RVNL MIS - Powered by PrimaBI</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="PrimaBI" />
+    <!-- Font Awesome -->
+    <link rel="icon" href="~/Content/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Font Awesome -->
+    @* Required Css Files *@
+    @* LOADER *@
+    <link href="~/Content/assets/css/loader.css" rel="stylesheet" />
+    @* /LOADER *@
+
+    <style>
+        #loading {
+            position: fixed;
+            left: 1px;
+            top: 1px;
+            width: 100%;
+            opacity: 0.8;
+            height: 100%;
+            z-index: 10000000;
+            background: url('../../Content/assets/images/giphy.gif') 50% 50% no-repeat rgb(249,249,249);
+        }
+    </style>
+</head>
+<body class="loginbody">
+    <div style="display:none" id="loading"></div>
+    <input id="hdnMenuId" type="hidden" value="@ViewBag.MenuId" />
+    <input type="hidden" id="returnResp" value="@ViewBag.Resp" />
+    <div style="margin-top:40px;text-align:center" id="divMsg">
+        <h3>
+            You've been patient so far, and this should take just another minute.
+        </h3>
+    </div>
+
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+    @* LOADER *@
+    <script src="~/Content/assets/js/loader.js"></script>
+    @* /LOADER *@
+
+    <script>
+        $(document).ready(function () {
+            
+            var id = $("#hdnMenuId").val();
+            $("#loading").css('display', 'block');
+            $.ajax({
+                type: 'GET',
+                url: "/ExportReport/AjaxExportReport/" + id,
+                data: {},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $(".showProcessing").hide();
+                    console.log('success called');
+                    $("#loading").hide();
+                    if (data.code == "Error") {
+                        $("#divMsg").html("");
+                        $("#divMsg").append("<h3>Error while exporting report. Please try again after some time!</h3>");
+                    }
+                    else if (data.code == "success") {
+            $("#divMsg").html("");
+            $("#divMsg").append("<h3>Thank you for downloading report!</h3>");
+                        window.location.href = "/ExportReport/Download?file=" + data.fileName;
+                    }
+                }, error: function () {
+                    // alert(1);
+                }
+
+            });
+        });
+    </script>
+</body>
+</html>
+

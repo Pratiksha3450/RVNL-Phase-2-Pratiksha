@@ -1,0 +1,49 @@
+body {
+    font-size: 12.5px !important;
+}
+/*===============================
+NAVBAR
+===============================*/
+.pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li.pcoded-hasmenu.active > .pcoded-submenu, .pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li.pcoded-hasmenu.pcoded-trigger > .pcoded-submenu {
+    margin-top: 15.5px !important;
+}
+
+
+.pcoded-navbar.menu-light.theme-horizontal .pcoded-inner-navbar > li.active {
+    color: #fff !important;
+    /* box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.25); */
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+.pcoded-inner-navbar > li.active > a {
+    color: #fff !important;
+}
+.pcoded-navbar.theme-horizontal .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu li.active > a {
+    color: #fff !important;
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+.pcoded-submenu li:hover, .nav-item li:hover {
+    color: #fff !important;
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+.pcoded-submenu li:hover > a, .nav-item li:hover > a {
+    color: #fff !important;
+}
+
+
+/*------------logo--------------*/
+.pcoded-header .m-header {
+    width: 250px;
+    height: 57.3px;
+    box-shadow: -1px 0px 9px #ccc;
+}
+
+
+/*-----------------------------*/
+.pcoded-header .dropdown .profile-notification .pro-head {
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+.pcoded-header .dropdown .profile-notification .pro-body li:active,
+.pcoded-header .dropdown .profile-notification .pro-body li:hover {
+    color: #fff !important;
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}

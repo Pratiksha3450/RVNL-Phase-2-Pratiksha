@@ -1,0 +1,289 @@
+﻿@model RVNLMIS.Areas.RFI.Models.RFIWorkgroupModel
+@{
+    ViewBag.Title = "index";
+    //Layout = "~/Areas/RFI/Views/Shared/_RFILayout.cshtml";
+    Layout = "~/Areas/RFI/Views/Shared/_RFIFilteredLayout.cshtml";
+}
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-sm " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body" id="noscroll">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDeleteAfter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Notification</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-sm " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Activities are assigned to this workgroup. You cannot delete this.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" data-dismiss="modal"><i class="fa fa-check mr-2"></i>Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper ">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-4 pr-1" id="WGForms">
+                @Html.Partial("_AddEditRFIWGroup", new RVNLMIS.Areas.RFI.Models.RFIWorkgroupModel())
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-8 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-9">
+                                <h5>Existing Records</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control divMag" title="Search by Workgroup Name and Prefix" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by Workgroup Name and Prefix" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body pl-3 pr-3 pb-1 pt-2" style="height:80vh">
+                        <div class="" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Areas.RFI.Models.RFIWorkgroupModel>()
+                                                                                                                                                                                                                                                                                                                  .Name("WorkGroupMasterGrid")
+                                                                                                                                                                                                                                                                                                                  .Columns(columns =>
+                                                                                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                                                                                      columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                                                                                                                                                                                                                                                                                      columns.Bound(c => c.WorkgroupName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                                                                      columns.Bound(c => c.WorkgroupPrefix).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                          .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+                                                                                                                                                                                                                                                                                                                      columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/RFI/RFIWorkgroupMaster/EditWorkGroup/#=WorkgroupId#' class='btnEditWG btn btn-sm btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + " <button type='button' class='btn btn-sm btn-danger has-ripple DeleteWG' data-key='#=WorkgroupId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                                                                                                                                                                                                                                                                                }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(d => d.Discipline))
+.Model(model => model.Id(u => u.WorkgroupId))
+.Read(read => read.Action("WorkGroup_Details", "RFIWorkGroupMaster"))
+.PageSize(10))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("GroupMasterExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("GroupMasterPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 204);
+    });
+    $(window).trigger('resize');
+
+    var rowNumber = 0;
+
+    function resetRowNumber(e) {
+        rowNumber = 0;
+    }
+
+    function renderNumber(data) {
+        return ++rowNumber;
+    }
+
+    function ExportExcel(e) {
+        e.workbook.fileName = "WorkGroupMaster-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+    }
+
+    function HideColumn(e) {
+
+        var grid = $("#WorkGroupMasterGrid").data("kendoGrid");
+        grid.hideColumn(3);
+
+        grid.options.pdf.fileName = "WorkGroupMaster - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+        e.promise.done(function () {
+            grid.showColumn(3);
+        });
+    }
+
+    function OnWorkGroupSuccess(response) {
+        if (response == "1") {
+            ClearViewAndGrid();
+            $.notify("Added Successfully", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+        }
+        else if (response == "2") {
+            ClearViewAndGrid();
+            $.notify("Updated Successfully", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+        }
+        else if (response == "3") {
+            $.notify("Already Exists", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+        }
+        else if (response == "0") {
+            $.notify("Error!", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+        }
+        else {
+            $('#WGForms').html(response);
+        }
+    }
+
+    function dataBound() {
+        resetRowNumber();
+        $(".btnEditWG").on("click", function (e) {
+            e.preventDefault();
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#WGForms').html(data);
+                setTimeout(function () {
+
+                }, 500);
+            });
+        });
+
+        $(".DeleteWG").on("click", function () {
+            console.info('DeleteUser called');
+            var Id = $(this).data("key");
+            $("#hiddenId").val(Id);
+            $("#btnDeleteConfirm").attr('data-id', Id);
+            $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+        });
+    }
+    $("#btnDeleteConfirm").on("click", function () {
+        var id = $("#hiddenId").val();
+        //alert(id);
+        $.ajax({
+            url: '/RFI/RFIWorkgroupMaster/Delete/' + id,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if (res == "1") {
+                    //Refresh Kendo Grid
+                    ClearViewAndGrid();
+                    $("#modalDelete").modal('hide');
+                    $('#WorkGroupMasterGrid').data('kendoGrid').dataSource.read();
+                    $('#WorkGroupMasterGrid').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                }
+                else if (res == "2") {
+                    $("#modalDelete").modal('hide'); 
+                    $("#modalDeleteAfter").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+                }
+                else if (res == "-1") {
+
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //ShowErrorMessage('Error deleting Project!');
+            }
+        });
+    });
+    function ClearViewAndGrid() {
+        $("#WorkgroupId").val(0);
+        $("#WorkgroupName").val("");
+        $("#DispId").val("");
+        $("#DispId").data("kendoDropDownList").value(null);
+        $("#WorkgroupPrefix").val("");
+
+        $('#WorkGroupMasterGrid').data('kendoGrid').dataSource.read();
+        $('#WorkGroupMasterGrid').data('kendoGrid').refresh();
+        //  $("#GroupCode").removeClass('disableCN');
+    }
+    $("#txtSearch").keyup(function () {
+        var selecteditem = $('#txtSearch').val();
+        var kgrid = $("#WorkGroupMasterGrid").data("kendoGrid");
+        selecteditem = selecteditem.toUpperCase();
+        var selectedArray = selecteditem.split(" ");
+        if (selecteditem) {
+            var orfilter = { logic: "or", filters: [] };
+            var andfilter = { logic: "and", filters: [] };
+            $.each(selectedArray, function (i, v) {
+                if (v.trim() == "") {
+                }
+                else {
+                    $.each(selectedArray, function (i, v1) {
+                        if (v1.trim() == "") {
+                        }
+                        else {
+                            orfilter.filters.push({ field: "WorkgroupName", operator: "contains", value: v1 },
+                                { field: "WorkgroupPrefix", operator: "contains", value: v1 }
+                            );
+                            andfilter.filters.push(orfilter);
+                            orfilter = { logic: "or", filters: [] };
+                        }
+
+                    });
+                }
+            });
+            kgrid.dataSource.filter(andfilter);
+        }
+        else {
+            kgrid.dataSource.filter({});
+        }
+
+    });
+
+</script>

@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("SendPackageStatusMail", "PackageStatus", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSendMailSuccess" }, new { @class = "form" }))
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Send Mail</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+        </div>
+    
+        <div class="modal-body">
+            <div class="row mb-3">
+                <div class="col-md-9">
+                    <div class="form-group ml-4">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionName">To:</label>
+                        <input type="text" class="form-control" placeholder="Enter Email Ids" id="txtMail" name="txtMail" />
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <button type="submit" id="btnEmailSubmit" class="btn btn-sm btn-theme pull-right mt-4">Send</button>
+                </div>
+            </div>
+        </div>
+        @*<div class="modal-footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" id="btnEmailSubmit" class="btn btn-sm btn-theme pull-right">Send</button>
+                </div>
+            </div>
+        </div>*@
+    </div>
+}

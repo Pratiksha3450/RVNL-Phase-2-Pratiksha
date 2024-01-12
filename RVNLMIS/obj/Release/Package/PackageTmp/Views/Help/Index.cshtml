@@ -1,0 +1,329 @@
+﻿@using RVNLMIS.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+
+<link rel="stylesheet" href="../../Content/assets/css/plugins/ekko-lightbox.css">
+<link rel="stylesheet" href="../../Content/assets/css/plugins/lightbox.min.css">
+<style>
+
+    .lb-nav a.lb-next {
+        background: url(../../Content/assets/images/next.png) right 48% no-repeat;
+    }
+
+    .lb-nav a.lb-prev {
+        background: url(../../Content/assets/images/prev.png) left 48% no-repeat;
+    }
+    .card {
+        margin-bottom: 6px !important;
+    }
+</style>
+<div class="col-sm-12 p-10">
+    <div class="col-sm-12">
+        <div class="card card-border-c-blue">
+            <div class="card-header text-white">
+                @if (roleCode != "PKG")
+                {
+                    <h5>RVNL - PrimaBi Application Guide for (Project, Package, Section & Entity use)</h5>
+                }
+                else
+                {
+                    <h5>RVNL - PrimaBi Application Guide for (Package, Section & Entity use)</h5>
+                }
+            </div>
+        </div>
+    </div>
+    @if (roleCode != "PKG")
+    {
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>RVNL- Project Form</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Form mainly consists of information related project details.</li>
+                        <li>Project form provides facility to add, update, delete and view projects present in system.</li>
+                        <li>User can filter project view by grouping it using available column for better visibility.</li>
+                        <li>Important notice- while removing project from system make sure, user selected right project to remove as there are many dependency present against it.</li>
+                    </ul>
+                    <div class="row text-center p-l-20">
+                        <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                            <a href="~/Content/Help/project_menu.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Project Form 1/5"><img src="~/Content/Help/project_menu.png" class="img-fluid m-b-10" alt=""></a>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                            <a href="~/Content/Help/project1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Project Form 2/5"><img src="~/Content/Help/project1.png" class="img-fluid m-b-10" alt=""></a>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                            <a href="~/Content/Help/project2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Project Form 3/5"><img src="~/Content/Help/project2.png" class="img-fluid m-b-10" alt=""></a>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                            <a href="~/Content/Help/Project3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Project Form 4/5"><img src="~/Content/Help/project3.png" class="img-fluid m-b-10" alt=""></a>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                            <a href="~/Content/Help/project4.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Project Form 5/5"><img src="~/Content/Help/project4.png" class="img-fluid m-b-10" alt=""></a>
+                        </div>
+
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Package Form</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related project package details.</li>
+                    <li>Package form provides facility to add, update, delete and view Packages present in system.</li>
+                    <li>User can filter Package view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/Package1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Package Form 1/3"><img src="~/Content/Help/Package1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/package2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Package Form 2/3"><img src="~/Content/Help/package2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/package3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Package Form 3/3"><img src="~/Content/Help/package3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Section Form</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related package Section details.</li>
+                    <li>Section form provides facility to add, update, delete and view section present in system.</li>
+                    <li>User can filter section view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/section1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Section Form 1/3"><img src="~/Content/Help/section1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/section2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Section Form 2/3"><img src="~/Content/Help/section2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/section3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Section Form 3/3"><img src="~/Content/Help/section3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Entity (Yard/Block) Form</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related Entity details.</li>
+                    <li>Entity form provides facility to add, update, delete and view entity present in system.</li>
+                    <li>User can filter Entity view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/entity1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Entity (Yard/Block) Form 1/3"><img src="~/Content/Help/entity1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/entity2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Entity (Yard/Block) Form 2/3"><img src="~/Content/Help/entity2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/entity3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="RVNL- Entity (Yard/Block) Form 3/3"><img src="~/Content/Help/entity3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Plan and Drawing - Update data</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related Plan and Drawing</li>
+                    <li>Update data provides facility to add, update, delete and view drawing data present in system.</li>
+                    <li>User can filter view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pd1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Plan and Drawing - Update data 1/4"><img src="~/Content/Help/pd1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pd2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Plan and Drawing - Update data 2/4"><img src="~/Content/Help/pd2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pd3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Plan and Drawing - Update data 3/4"><img src="~/Content/Help/pd3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pd4.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Plan and Drawing - Update data 4/4"><img src="~/Content/Help/pd4.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Procurement - Assign Material</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related Procurement - Assign Material</li>
+                    <li>Assign Material provides facility to add, update, delete and view Procurement data present in system.</li>
+                    <li>User can filter view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pr1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Assign Material 1/4"><img src="~/Content/Help/pr1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pr2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Assign Material 2/4"><img src="~/Content/Help/pr2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pr3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Assign Material 3/4"><img src="~/Content/Help/pr3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pr4.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Assign Material 4/4"><img src="~/Content/Help/pr4.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Procurement - Update data</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related Procurement - Assign Material</li>
+                    <li>Update data provides facility to add, update, delete and view Procurement data present in system.</li>
+                    <li>User can filter view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pru1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Update data 1/5"><img src="~/Content/Help/pru1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pru2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Update data 2/5"><img src="~/Content/Help/pru2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pru3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Update data 3/5"><img src="~/Content/Help/pru3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pru4.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Update data 4/5"><img src="~/Content/Help/pru4.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/pru5.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Procurement - Update data 5/5"><img src="~/Content/Help/pru5.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Construction - Assign Cons. Activities</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related Construction - Assign Cons. Activities</li>
+                    <li> Assign Cons. Activities provides facility to add, update, delete and view Construction data present in system.</li>
+                    <li>User can filter view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/ca1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Assign Cons. Activities 1/4"><img src="~/Content/Help/ca1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/ca2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Assign Cons. Activities 2/4"><img src="~/Content/Help/ca2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/ca3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Assign Cons. Activities 3/4"><img src="~/Content/Help/ca3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/ca4.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Assign Cons. Activities 4/4"><img src="~/Content/Help/ca4.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>RVNL- Construction - Update data</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Form mainly consists of information related Construction - Update data</li>
+                    <li>Update data provides facility to add, update, delete and view Construction data present in system.</li>
+                    <li>User can filter view by grouping it using available column for better visibility.</li>
+                </ul>
+                <div class="row text-center p-l-20">
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/cu1.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Update data 1/4"><img src="~/Content/Help/cu1.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/cu2.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Update data 2/4"><img src="~/Content/Help/cu2.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/cu3.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Update data 3/4"><img src="~/Content/Help/cu3.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-sm-4 col-xs-12">
+                        <a href="~/Content/Help/cu4.png" data-toggle="lightbox" data-gallery="example-gallery" data-title="Construction - Update data 4/4"><img src="~/Content/Help/cu4.png" class="img-fluid m-b-10" alt=""></a>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+
+<script src="../../Content/assets/js/plugins/ekko-lightbox.min.js"></script>
+<script src="../../Content/assets/js/plugins/lightbox.min.js"></script>
+<script src="../../Content/assets/js/pages/ac-lightbox.js"></script>
+
+
+<script>
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/5dcb9c7ad96992700fc72cda/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>

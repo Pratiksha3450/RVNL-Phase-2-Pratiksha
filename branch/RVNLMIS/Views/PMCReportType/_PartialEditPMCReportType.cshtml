@@ -1,0 +1,38 @@
+﻿@model RVNLMIS.Models.PMCReportType
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>PMC Report Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddPMCReportTypes", "PMCReportType", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnPMCReportTypeSuccess" }, new { @class = "form", @id = "PMCReportTypeForms" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(mode => Model.PRId)
+
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user" for="txtPMCReportTypeName"><h6>PMC Report Type @Html.ValidationMessageFor(model => model.PMCReportTypeName, "", new { @class = "text-danger" })</h6> </label>
+                        @Html.EditorFor(model => model.PMCReportTypeName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter PMC Report Type Name" } })
+                    </div>
+                </div>
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                </div>
+            </div>
+        </div>
+
+       
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 195);
+    });
+    $(window).trigger('resize');
+</script>

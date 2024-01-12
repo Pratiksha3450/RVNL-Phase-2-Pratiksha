@@ -1,0 +1,157 @@
+﻿@model RVNLMIS.Areas.RFI.Models.RFIUserModel
+@{
+    Layout = null;
+}
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 id="modalTitle" class="modal-title">Add/Edit User</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    @using (Ajax.BeginForm("AddEditRFIUser", "RFIUser", null, new AjaxOptions { HttpMethod = "Post", OnBegin = "onFormBegin", OnSuccess = "RFIUserFormSuccess" }, new { @class = "form", Page = "Usersform" }))
+    {
+        @Html.HiddenFor(model => model.RFIUserId)
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mb-3" id="pkgcontainer">
+                        <label class="col-form-label-sm-user text-black-50" for="PackgeId">Package Name</label>
+                        @(Html.Kendo().DropDownListFor(model => model.PackgeId).Name("PackgeId").Filter("contains").Popup(p => p.AppendTo("#pkgcontainer")).HtmlAttributes(new { @class = "form-control" }).BindTo(ViewBag.PackageList as SelectList)
+                        )
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="FullName">Full Name  @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Your Full Name" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="Email">Email @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Test@abc.Com" } })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="Mobile">Mobile @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: 9876543210", @maxlength = "10", onkeypress = "return AllowNumbersOnly(event)" } })
+                    </div>
+                </div>
+
+                @*@if (Model.RFIUserId == 0)
+                    {
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                <label class="col-form-label-sm-user text-black-50" for="txtPassword">Password </label>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "Password", @placeholder = "Ex: ******" } })
+                                <span onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" class="input-group-append">
+                                    <i class="fa fa-eye input-group-text"></i>
+                                </span>
+
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(model => model.Password)
+                    }*@
+
+                @if (Model.RFIUserId == 0)
+                {
+                    <div class="col-md-4">
+                        <label class="col-form-label-sm-user text-black-50" for="Password">Password</label>
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "Password", @placeholder = "Ex: ******" } })
+                            <span class="input-group-append" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="basic-addon3">
+                                <i class="fa fa-eye input-group-text"></i>
+                            </span>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.HiddenFor(model => model.Password)
+                }
+
+                <div class="col-md-4">
+                    <div class="form-group mb-3" id="orgcontainer">
+                        <label class="col-form-label-sm-user text-black-50" for="Organisation">Organisation @Html.ValidationMessageFor(model => model.Organisation, "", new { @class = "text-danger" })</label>
+                        @(Html.Kendo().DropDownListFor(model => model.Organisation).Name("Organisation").Popup(p => p.AppendTo("#orgcontainer")).OptionLabel("Select Organisation").HtmlAttributes(new { @class = "form-control" }).BindTo(ViewBag.OrgList as SelectList)
+                        )
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group mb-3" id="degcontainer">
+                        <label class="col-form-label-sm-user text-black-50" for="Designation">Designation @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })</label>
+                        @(Html.Kendo().DropDownListFor(model => model.DesignationId).Popup(p => p.AppendTo("#degcontainer"))
+.Name("DesignationId")
+.DataTextField("Name")
+.DataValueField("ID")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+.Filter("contains").OptionLabel("Select Designation")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                                                                                                                            read.Action("Get_Designation", "RFIUser").Data("GetOrgId");
+                                                                                                                                                                                                                                                                                                                                                                                        })
+                                                                                                                                                                                                                                                                                                                                                                                                .ServerFiltering(true);
+})
+                        )
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group mb-3" id="repcontainer">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Reporting To @Html.ValidationMessageFor(model => model.ReportingTo, "", new { @class = "text-danger" })</label>
+                        @(Html.Kendo().DropDownListFor(model => model.ReportingTo).Popup(p => p.AppendTo("#repcontainer"))
+.Name("ReportingTo")
+.DataTextField("Name")
+.DataValueField("ID")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+.Filter("contains").OptionLabel("Select Reporter")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                                                                                                                                                read.Action("Get_ReportingToList", "RFIUser").Data("GetOrgId");
+                                                                                                                                                                                                                                                                                                                                                                                                            })
+                                                                                                                                                                                                                                                                                                                                                                                                                    .ServerFiltering(true);
+})
+                        )
+                    </div>
+                </div>
+
+                @if (Model.RFIUserId == 0)
+                {
+                    <div class="col-md-4">
+                        <div class="form-group mb-3">
+                            @Html.CheckBoxFor(model => model.SendNotification)
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Send Notification</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right">Save</button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 257);
+    });
+    $(window).trigger('resize');
+</script>

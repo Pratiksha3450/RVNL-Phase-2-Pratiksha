@@ -1,0 +1,408 @@
+﻿@model RVNLMIS.Models.EntityMasterModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- [ Main Content ] start -->
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+</style>
+
+<div class="content_wrapper">
+    <div class=" ">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="">
+            <!-- [ horizontal-layout ] start -->
+            <div class="">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>Entity Details</h5>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="full-width">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="searching" class="form-control divMag  mr-4" placeholder="Search by Entity Code, Entity Name" aria-label="Small"
+                                               aria-describedby="inputGroup-sizing-sm" width="30%" />
+
+                                        <button class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" data-url="/EntityMaster/AddEditEntity/0"
+                                                id="btnCreateEntity">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive">
+                        <div class="table table-condensed" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.EntityMasterModel>()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .Name("EntityGrid")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .Columns(columns =>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("3%");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.EntityCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Code").Width("5%");
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.EntityTypeId).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Entity Type").Width("15%");
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.EntityName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("37%"); 
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.Lat).HtmlAttributes(new { style = "text-align:right" }).Title("Latitude")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("5%").Hidden();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.Long).HtmlAttributes(new { style = "text-align:right" }).Title("Longitude")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("6%").Hidden();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.StartChainage).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("8%");
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.EndChainage).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("8%");
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.ProjectName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             .HeaderHtmlAttributes(new { style = "text-align:left" }).Hidden();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%").Hidden();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Bound(c => c.SectionName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              .HeaderHtmlAttributes(new { style = "text-align:left" }).Hidden();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+        "<button  data-url='/EntityMaster/AddEditEntity/#=EntityID#' class='btnEditEntity btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;"
+        + "<button class='btn btn-xs btn-danger has-ripple btnDeleteEntity'data-key='#=EntityID#' title='Delete' data-toggle='modal'  ><i class='feather icon-trash'></i></button>"
+        ).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 20, 40, 60, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.PackageName))
+.Group(g => g.Add(c => c.SectionName))
+.Model(model => model.Id(u => u.EntityID))
+.Read(read => read.Action("EntityMaster_Read", "EntityMaster"))
+//.Sort(s =>
+//{
+//s.Add(c => c.StartChainage).Ascending();
+//s.Add(c => c.EndChainage).Ascending();
+//})
+.PageSize(15))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("Entity(Yard_Block)Excel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("Entity(Yard_Block)Pdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <input type="hidden" id="hdnDeleteId">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createEntityModal" tabindex="-1" role="dialog" aria-labelledby="createEntityModal" aria-hidden="true" data-backdrop="static">
+    <div id="createEntityContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#EntityGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        function ExportExcel(e) {
+            e.workbook.fileName = "Entity(Yard_Block) - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function getPrjId() {
+            var dID = $("#ProjectId").data("kendoDropDownList").value();
+            return { id: dID };
+        }
+
+        function getPkgId() {
+            var dID = $("#PackageId").data("kendoDropDownList").value();
+            return { id: dID };
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#EntityGrid").data("kendoGrid");
+            grid.hideColumn(11);
+
+            grid.options.pdf.fileName = "Entity(Yard_Block) - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(11);
+            });
+        }
+        function dataBound() {
+            resetRowNumber();
+            $(".btnEditEntity").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createEntityContainer').html(data);
+                    $('#createEntityModal').modal('show');
+                    setTimeout(function () {
+                        BindOnChangeEvent();
+                    }, 500);
+                });
+            });
+
+            $(".btnDeleteEntity").on("click", function () {
+                var Id = $(this).data("key");
+                // $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#hdnDeleteId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+
+
+
+        $(document).ready(function () {
+            var dataSource = $("#EntityGrid").data("kendoGrid").dataSource,
+                total = dataSource.total();
+
+            dataSource.pageSize(total);
+
+            $("#btnCreateEntity").on("click", function () {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createEntityContainer').html(data);
+                    $('#createEntityModal').modal('show');
+                    setTimeout(function () {
+                        BindOnChangeEvent();
+
+                        //var keyDown = false, ctrl = 17, vKey = 86, Vkey = 118;
+
+                        //$(document).keydown(function (e) {
+                        //    if (e.keyCode == ctrl) keyDown = true;
+                        //}).keyup(function (e) {
+                        //    if (e.keyCode == ctrl) keyDown = false;
+                        //});
+
+                        //$('#Lat').on('keypress', function (e) {
+                        //    if (!e) var e = window.event;
+                        //    if (e.keyCode > 0 && e.which == 0) return true;
+                        //    if (e.keyCode) code = e.keyCode;
+                        //    else if (e.which) code = e.which;
+                        //    var character = String.fromCharCode(code);
+                        //    if (character == '\b' || character == ' ' || character == '\t') return true;
+                        //    if (keyDown && (code == vKey || code == Vkey)) return (character);
+                        //    else return (/[0-9\.\d+]$/.test(character));
+                        //}).on('focusout', function (e) {
+                        //    var $this = $(this);
+                        //    $this.val($this.val().replace(/[^0-9\.\d+]/g, ''));
+                        //}).on('paste', function (e) {
+                        //    var $this = $(this);
+                        //    setTimeout(function () {
+                        //        $this.val($this.val().replace(/[^0-9\.\d+]/g, ''));
+                        //    }, 5);
+                        //});
+
+                    }, 500);
+                });
+            });
+
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $("#hdnDeleteId").val();
+
+                $.ajax({
+                    url: '/EntityMaster/Delete/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        //Refresh Kendo Grid
+                        $("#modalDelete").modal('hide');
+                        $.notify('Data deleted successfully.', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        $('#EntityGrid').data('kendoGrid').dataSource.read();
+                        $('#EntityGrid').data('kendoGrid').refresh();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+
+            $("#searching").keyup(function () {
+                var selecteditem = $('#searching').val();
+                var kgrid = $("#EntityGrid").data("kendoGrid");
+                selecteditem = selecteditem.toUpperCase();
+                var selectedArray = selecteditem.split(" ");
+                if (selecteditem) {
+                    //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                    var orfilter = { logic: "or", filters: [] };
+                    var andfilter = { logic: "and", filters: [] };
+                    $.each(selectedArray, function (i, v) {
+                        if (v.trim() == "") {
+                        }
+                        else {
+                            $.each(selectedArray, function (i, v1) {
+                                if (v1.trim() == "") {
+                                }
+                                else {
+                                    orfilter.filters.push({ field: "EntityCode", operator: "contains", value: v1 },
+                                        { field: "EntityName", operator: "contains", value: v1 },
+                                        { field: "PackageName", operator: "contains", value: v1 },
+                                        { field: "PackageCode", operator: "contains", value: v1 }
+                                    );
+                                    andfilter.filters.push(orfilter);
+                                    orfilter = { logic: "or", filters: [] };
+                                }
+
+                            });
+                        }
+                    });
+                    kgrid.dataSource.filter(andfilter);
+                }
+                else {
+                    kgrid.dataSource.filter({});
+                }
+
+            });
+        });
+
+        function EntityMasterSuccess(response) {
+            if (response.includes("successfully")) {
+                $("#createEntityModal").modal('hide');
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#EntityGrid').data('kendoGrid').dataSource.read();
+                $('#EntityGrid').data('kendoGrid').refresh();
+            }
+            else if (response == "2") {
+                $.notify("Entity Name already exists.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response.startsWith("Entity Start and End Chainage")) {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                $('#createEntityContainer').html(response);
+                $('#createEntityModal').modal('show');
+                setTimeout(function () {
+                    BindOnChangeEvent();
+                }, 500);
+            }
+        }
+
+        function BindOnChangeEvent() {
+            $("#EntityTypeId").change(function () {
+                $("#EntityTypeName").val($("#EntityTypeId option:selected").text());
+            });
+
+            $("#ProjectId").change(function () {
+                var projectDataSource;
+                $("#SectionID").html('');
+
+                var dID = $("#ProjectId").data("kendoDropDownList").value()
+                $.get("/Section/Get_PackageByProject", { id: dID },
+                    function (data) {
+                        $("#PackageId").html('');
+                        projectDataSource = data;
+                        $("#PackageId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: projectDataSource }));
+                    });
+            });
+
+            $("#PackageId").change(function () {
+                var sectionDataSource;
+                var dID = $("#PackageId").data("kendoDropDownList").value()
+                $.get("/EntityMaster/Get_SectionsByPackage", { id: dID },
+                    function (data) {
+                        $("#SectionID").html('');
+                        sectionDataSource = data;
+                        $("#SectionID").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: sectionDataSource }));
+                    });
+            });
+        }
+    </script>
+}
+

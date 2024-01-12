@@ -1,0 +1,290 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/assets/css/pages.css" rel="stylesheet">
+<style>
+
+    .pcoded-main-container {
+        background: url(../../Content/images/screen2.jpg) center top / cover no-repeat !important;
+        position: relative;
+        margin: 0 auto;
+        padding-top: 0;
+        display: block;
+        clear: both;
+        float: unset;
+        right: 0;
+        top: 0;
+        margin-left: 230px;
+        min-height: 100vh;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .login-block {
+        margin: 0;
+    }
+
+    .lockscreen .card .card-block, .card .card-body {
+        width: 100%;
+        position: absolute;
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 45px 60px;
+    }
+
+    .login-block .auth-box {
+        margin: 20px auto 0 auto;
+        max-width: 400px !important;
+    }
+</style>
+<div class="lockscreen">
+    <!-- Pre-loader start -->
+    <!-- Pre-loader end -->
+    <section class="login-block">
+        <!-- Container-fluid starts -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 m-t-40">
+                    <!-- Login card start -->
+                    <div class="md-float-material form-material">
+
+                        <div class="auth-box card" style="">
+                            <div class="card-block">
+                                <div>
+                                    <div class="text-center m-b-10">
+                                        <h5>
+                                            Change Password
+                                        </h5>
+                                    </div>
+                                    <div class="text-center">
+                                        <img src="~/Content/images/ProfilePic.png" alt="logo.png" style="max-width:40% !important">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3 class="text-center"><i class="icofont icofont-lock text-primary f-50"></i></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 m-b-10">
+                                            <h5 class="text-center"> @(Html.Encode(User.Identity.Name.Split('|')[0]))</h5>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="">
+                                        <div class="form-group mb-2">
+                                            <label class="col-form-label-sm-user text-black-50" for="txtUserName"> Old Password</label>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12">
+                                                    <input type="password" class=" form-control form-control-sm" id="txtOldPassword" placeholder="Ex:  *******">
+                                                    <span class="viewme" onmouseover="mouseoverOldPass();" onmouseout="mouseoutOldPass();"><i class="fa fa-eye"></i></span>
+                                                </div>
+                                                <div class="full-width">
+                                                    <span class="errorrequired text-danger" style="display:none;"> required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="form-group mb-2">
+                                            <label class="col-form-label-sm-user text-black-50" for="txtPassword">
+                                                New Password
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12">
+                                                    <input type="Password" class=" form-control form-control-sm" id="txtNewPassword" placeholder="Ex: *******">
+                                                    <span class="viewme" onmouseover="mouseoverNewPass();" onmouseout="mouseoutNewPass();"><i class="fa fa-eye"></i></span>
+                                                </div>
+                                                <div class="col-12">
+                                                    <span class="errorrequired text-danger" style="display:none;"> required</span>
+                                                    <span id="passlength" style="display:none;color:red;"> Password should have at least 8 characters.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="form-group mb-2">
+                                            <label class="col-form-label-sm-user text-black-50" for="txtPassword">
+                                                Confirm Password
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12">
+                                                    <input type="password" class="form-control form-control-sm" id="txtConfirmPassword" placeholder="Ex: *******">
+                                                    <span class="viewme" onmouseover="mouseoverRepPass();" onmouseout="mouseoutRepPass();"><i class="fa fa-eye"></i></span>
+                                                </div>
+                                                <div class="col-12">
+                                                    <span class="errorrequired text-danger" style="display:none;"> required</span> <span id="error" style="display:none;color:red;"> Password do not match</span>
+                                                    <span id="success" style="display:none;color:forestgreen;"> Password match</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 m-t-10">
+                                            <button type="submit" id="btn-SaveChangePassword" class="btn btn-sm full-width btn-theme btn-block waves-effect text-center m-b-20" value="Save" style="display:none;"><i class="m-r-5 feather icon-check"></i>Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Login card end -->
+                </div>
+                <!-- end of col-sm-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
+        <!-- end of container-fluid -->
+    </section>
+
+
+    <!-- i18next.min.js -->
+    <script src="~/Content/assets/js/i18next.min.js"></script>
+    <script src="~/Content/assets/js/i18nextXHRBackend.min.js"></script>
+    <script src="~/Content/assets/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="~/Content/assets/js/jquery-i18next.min.js"></script>
+
+</div>
+
+
+
+@section scripts{
+    <script>
+
+
+        $(document).ready(function () {
+
+            $("#btn-SaveChangePassword").on("click", function () {
+                var empty = 0;
+                if ($('#txtOldPassword').val() == "")
+                    $(".errorrequired").show('slow');
+                else if ($('#txtNewPassword').val() == "")
+                    $(".errorrequired").show('slow');
+                else if ($('#txtNewPassword').val() == "")
+                    $(".errorrequired").show('slow');
+                else {
+
+                    //var length = ($('#txtNewPassword').val()).length;
+                    //console.length(length);
+                    //if (length < 8) {
+                    //    $("#passlength").show();
+                    //}
+                    //else {
+                    //    $("#passlength").hide();
+                    //}
+
+                    $(".errorrequired").hide();
+                    var std = {};
+                    std.oldPassword = $("#txtOldPassword").val();
+                    std.newPassword = $("#txtNewPassword").val();
+                    $.ajax({
+                        //url: '/login/VerifyEmail/',
+                        url: '/ChangePassword/PasswordChange',
+                        //   data: '{oldPassword: "' + oldPassword + '" }',
+                        data: JSON.stringify(std),
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data == "2") {
+                                $.notify('Old PAssword is incorrect.', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                                ClearFormGrid();
+                            } else if (data == "1") {
+                                $.notify('Password Successfully Changed!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                                window.location.href= '@Url.Action("Index", "Login")';
+                               // ClearFormGrid();
+                            } else {
+                                $.notify('Technical Error Please Try Again Later', { align: "right", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            //ShowErrorMessage('Error deleting Project!');
+                        }
+                    });
+                }
+
+
+            });
+
+            $("#txtNewPassword").keyup(function () {
+                var length = ($('#txtNewPassword').val()).length;
+                console.log(length);
+                if (length < 8) {
+                    $("#passlength").show();
+                }
+                else {
+                    $("#passlength").hide();
+                }
+            });
+
+            $("#txtConfirmPassword").keyup(function () {
+                console.log("Handler for .keypress() called.");
+                var password = $("#txtNewPassword").val();
+                var confirmPassword = $("#txtConfirmPassword").val();
+                if (password != confirmPassword) {
+                    $('#error').show();
+                    $('#success').hide();
+                    $('#btn-SaveChangePassword').hide();
+                    return false;
+                } else {
+                    $('#success').show();
+                    $('#error').hide();
+                    $('#btn-SaveChangePassword').show();
+                }
+                return true;
+            });
+        });
+
+        function mouseoverOldPass(obj) {
+            console.log("mouse over");
+          var obj = document.getElementById('txtOldPassword');
+          obj.type = "text";
+        }
+        function mouseoutOldPass(obj) {
+            console.log("mouse out");
+          var obj = document.getElementById('txtOldPassword');
+          obj.type = "password";
+        }
+        function mouseoverNewPass(obj) {
+            console.log("mouse over");
+          var obj = document.getElementById('txtNewPassword');
+          obj.type = "text";
+        }
+        function mouseoutNewPass(obj) {
+            console.log("mouse out");
+          var obj = document.getElementById('txtNewPassword');
+          obj.type = "password";
+        }
+        function mouseoverRepPass(obj) {
+            console.log("mouse over");
+          var obj = document.getElementById('txtConfirmPassword');
+          obj.type = "text";
+        }
+        function mouseoutRepPass(obj) {
+            console.log("mouse out");
+          var obj = document.getElementById('txtConfirmPassword');
+          obj.type = "password";
+        }
+        function myFunction() {
+          var x = document.getElementById("txtOldPassword");
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
+        }
+
+        function ClearFormGrid() {
+            $("#txtConfirmPassword").val("");
+            $("#txtNewPassword").val("");
+            $("#txtOldPassword").val("");
+            $('#error').hide();
+            $('#success').hide();
+            $('#btn-SaveChangePassword').hide();
+        }
+
+    </script>
+}

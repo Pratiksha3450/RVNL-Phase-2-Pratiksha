@@ -1,0 +1,163 @@
+﻿@model RVNLMIS.Models.DroneSModel
+@{
+    Layout = null;
+}
+<div class="card">
+    <div class="card-header pb-4">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <h5>Drone Image/Video Details</h5>
+            </div>
+        </div>
+    </div>
+    @*@using (Html.BeginForm("AddUserDetails", "Users", FormMethod.Post, new { @class = "form", @id = "Usersform" }))*@
+    @using (Ajax.BeginForm("AddDroneImage_VideoDetails", "DroneSurveyDetail", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "AddDroneImageSuccess" }, new { enctype = "multipart/form-data", @id = "DroneImageform" }))
+
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="card-body pl-3 pr-3  pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12 " id="pkgcontainer">
+                    <div class="form-group mb-1">
+
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">
+                            Package List
+                            @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                        </label>
+                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#pkgcontainer"))
+.Name("PackageId")
+.DataTextField("PackageName")
+.DataValueField("PackageId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+.Filter("contains").OptionLabel("Select Package")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                {
+                                                                                                read.Action("ServerFiltering_GetProducts", "DroneSurveyDetail");
+                                                                                            })
+                                                                                                                .ServerFiltering(true);
+})
+                                    )
+                    </div>
+                </div>
+
+                <div class="col-md-12" id="Sectioncontainer">
+                    <div class="form-group mb-1">
+
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">
+                            Section List
+                        </label>
+                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#Sectioncontainer"))
+                                                                             .Name("SectionId")
+                                                                             .DataTextField("SectionName")
+                                                                             .DataValueField("SectionId")
+                                                                             .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                             .Filter("contains").OptionLabel("Select Section")
+                                                                             .DataSource(source =>
+                                                                             {
+                                                                                 source.Read(read =>
+                                                                                 {
+                                                                                     read.Action("Get_SectionsByPackage", "DroneSurveyDetail");//, new { id = 0 });
+                                                                                                 })
+                                                                                      .ServerFiltering(true);
+                                                                             })
+                                )
+                    </div>
+                </div>
+
+                <div class="col-md-12" id="Entitycontainer">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEntity">Entity List </label>
+                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#Entitycontainer"))
+                        .Name("EntityId")
+                        .DataTextField("EntityName")
+                        .DataValueField("EntityID")
+                        .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                        .Filter("contains").OptionLabel("Select Entity")
+                        .DataSource(source =>
+                        {
+                        source.Read(read =>
+                                                                                                                                                                                                                                                                                                                       {
+                                                                                                                                                                                                                                                                                                       read.Action("GetEntityBySection", "DroneSurveyDetail");
+                                                                                                                                                                                                                                                                                                   })
+                                                                                                                                                                                                                                                                                                                       .ServerFiltering(true);
+                        })
+                                                        )
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEntity">File Type</label>
+                        @(Html.Kendo().DropDownList()
+          .Name("FilteType")
+          .DataTextField("Text")
+          .DataValueField("Value")
+          .HtmlAttributes(new { style = "width: 100%" })
+          .BindTo(new List<SelectListItem>()
+          {
+
+              new SelectListItem() {
+                Text = "Image", Value ="0"
+              },
+              new SelectListItem() {
+                Text = "Video", Value ="1"
+              }
+          })
+    )
+                    </div>
+                </div>
+                <div id="DivImageUploader">
+                    <div class="col-md-12" id="Entitycontainer">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtEntity">Image Upload </label><br />
+                            <input id="fileInput" type="file" multiple>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <table class="table" id="FilesList" style="visibility:hidden">
+                                <tr>
+                                    <th>
+                                        Attachment(s)
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="DivVideoFile">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtEntity">Video File Name </label>
+                            @Html.EditorFor(model => model.FileName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex: xyz.mp4", style = "width: 350px" } })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+
+                    <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save" id="btnDroneDetails"> Save</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 257);
+    });
+    $(window).trigger('resize');
+</script>

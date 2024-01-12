@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="modal-dialog-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">
+                Import Material Details <span style="color:red;">
+                    @ViewBag.Message
+                </span>
+            </h6>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+        </div>
+        @*@using (Ajax.BeginForm("ImportExcel", "Section", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ImportSuccess" }, new { @class = "form-horizontal", Page = "form" }))*@
+        @using (Html.BeginForm("ImportExcel", " PackageMaterials", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="box-col">
+                            <h6>Import</h6>
+                            @(Html.Kendo().Upload()
+       .Name("files")
+       .Async(a => a
+           //.Save("Async_Save", "PackageMaterials")
+           .Remove("Async_Remove", "PackageMaterials")
+             .SaveUrl(@Url.Action("Async_Save", "PackageMaterials"))
+           .AutoUpload(true)
+
+       ).Events(e => e
+            .Upload(@<text>
+                        function(e) {
+                        e.data = { packageId: $("#ddlFilterProjects").val()};
+                        }
+            </text>)
+.Success("onSuccess").Error("onError")
+)
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

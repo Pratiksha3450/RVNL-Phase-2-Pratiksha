@@ -1,0 +1,267 @@
+﻿@model RVNLMIS.Models.ContrustionDropModel
+@using RVNLMIS.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+    }
+</style>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            @*<div class="col-sm-4" id="divConstActOperation">
+                    @Html.Partial("_ConstructionActivityAddEdit", new RVNLMIS.Models.ConstructionViewModel())
+                </div>*@
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Construction Activities</h5>
+                        @*<div class="row">
+                                <div class="col-sm-12 col-md-8">
+                                    <h5>Construction Activities</h5>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="Activitieslist" class="form-control" placeholder="Search by Entity Name or Entity Code" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                    </div>
+
+                                </div>
+                            </div>*@
+                    </div>
+
+
+
+
+                    <div class="card-body pl-3 pr-3">
+                        <div class="row">
+                            <div class="col-md-4 pr-4">
+                                <div class="form-group row" id="pkgcontainer">
+                                    <label for="SelectPackage" class="col-3 col-form-label-sm"><b>Select Package</b></label>
+                                    @if (roleCode == "PKG")
+                                    {
+                                        @Html.DropDownList("drpPackages", ViewBag.PackageList as SelectList, new { @class = "col-9 form-control form-control-sm" })
+                                    }
+                                    else
+                                    {
+                                        @(Html.Kendo().DropDownListFor(m => m.drpPackages).Popup(p => p.AppendTo("#pkgcontainer"))
+                                                .Name("drpPackages")
+                                                .DataTextField("PackageName")
+                                                .DataValueField("PackageId")
+                                                .HtmlAttributes(new { style = "width:100%", @class = "col-8 mt-2 form-control form-control-sm" })
+                                                .Filter("contains").OptionLabel("Select Package")
+                                                .DataSource(source =>
+                                                {
+                                                source.Read(read =>
+                                                            {
+                                                                    read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                            })
+                                                            .ServerFiltering(true);
+                                                })
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-4 pr-4">
+                                <div class="form-group row" id="entitycontainer">
+                                    <label for="SelectDiscipline" class="col-3 col-form-label-sm"><b>Select Entity</b></label>
+                                    @(Html.Kendo().DropDownListFor(m => m.drpEntities).Popup(p => p.AppendTo("#entitycontainer"))
+.Name("drpEntities")
+.DataTextField("Name")
+.DataValueField("Id")
+.HtmlAttributes(new { style = "width:100%", @class = "col-7 mt-2 form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Entity")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                               {
+ read.Action("GetEntityDrpValues", "Construction").Data("GetPackageId");
+                                                                                                                                                     })
+                                                                                                                                                                               .ServerFiltering(true);
+})
+                                    )
+                                    @*@Html.DropDownList("drpEntities", ViewBag.EntityList as SelectList, "Select Entity", new { @class = "col-7 form-control form-control-sm" })*@
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label for="Select" class="col-3 col-form-label-sm"><b>Search</b></label>
+                                    <input class="mb-3 col-8 form-control form-control-sm" id="btnSearchMaterial" type="text" placeholder="Search by Activity Name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <div class="" id="KendoHeight">
+                                    @(Html.Kendo().Grid<RVNLMIS.Models.ConstructionViewModel>()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .Name("ConstActGrid")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .Columns(columns =>
+                                                {
+                                                    columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+
+                                                    columns.Bound(c => c.EntityName).Width("20%").HtmlAttributes(new { style = "text-align:left" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                    columns.Bound(c => c.ActivityName).Width("22%").HtmlAttributes(new { style = "text-align:left" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                    columns.Bound(c => c.ActivityUnit).Width("10%").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:right" });
+                                                    columns.Bound(c => c.BudgetedQty).Width("15%").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" });
+                                                    columns.Bound(c => c.RevisedQty).Width("15%").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:right" });
+                                                    columns.Bound(c => c.CompleteQtyToDate).Title("Complete Qty").Width("15%").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Completed Qty ToDate");
+                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("<a class='btn btn-xs btn-info has-ripple' href='/ConstructionActivity/GetId/#=AutoId#'><i class='feather icon-plus'></i></a>").HtmlAttributes(new { style = "text-align:left" }).Width("15%");
+
+                        }).Scrollable(scr => scr.Height(400))
+                        .NoRecords("No Data Found.")
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object> { 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(e => e.EntityName))
+//.Group(g => g.Add(e => e.ActivityName))
+.Model(model => model.Id(u => u.AutoId))
+.Read(read => read.Action("ConstructionActivity_Read", "Construction").Data("GetSelectedEntity"))
+.PageSize(10))
+.Events(events => events.DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true)))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ horizontal-layout ] end -->
+    </div>
+
+
+    @section scripts{
+        <script>
+            $(window).resize(function () {
+                $('#KendoHeight').height($(window).height() - 225);
+                $('#ConstActGrid').height($(window).height() - 228);
+            });
+            $(window).trigger('resize');
+            var rowNumber = 0;
+
+            function resetRowNumber(e) {
+                rowNumber = 0;
+            }
+
+            function renderNumber(data) {
+                return ++rowNumber;
+            }
+
+            function GetPackageId() {
+                var filterText = $("#drpEntities").getKendoDropDownList().filterInput.val();
+                var selectedPackageId = @Session["PKGID"].ToString();
+                console.log("selectedPackageId" + selectedPackageId);
+                return { pkgId: selectedPackageId, text: filterText }
+            }
+
+            $(document).ready(function () {
+                console.log(@Session["ENTID"]);
+               
+                $("#drpPackages").change(function () {
+                    var entityDataSource;
+                    var selectedPackageId = $("#drpPackages").data("kendoDropDownList").value();
+                    $.post('/Construction/SetPkgSession',
+                        { key: "PKGID", value: selectedPackageId }, function (data) {
+                        });
+                    RefreshKendoGrid();
+
+                    $.get("/EnggDrawing/BindEntityDrpValues?pkgId=" + selectedPackageId, function (data) {
+                        console.log(data);
+
+                        $("#drpEntities").html('');
+                        entityDataSource = data;
+                        $("#drpEntities").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: entityDataSource }));
+                    });
+                });
+
+                $("#drpEntities").change(function () {
+                    var selectedEntityId = $("#drpEntities").data("kendoDropDownList").value();
+                    $.post('/Construction/SetPkgSession',
+                        { key: "ENTID", value: selectedEntityId }, function (data) {
+                        });
+                    RefreshKendoGrid();
+                });
+
+                //$("#drpPackages").change(function () {
+                //    RefreshKendoGrid();
+                //});
+
+                $('#btnSearchMaterial').val('');
+
+                $("#btnSearchMaterial").keyup(function () {
+                    var selecteditem = $('#btnSearchMaterial').val();
+                    selecteditem = selecteditem.toUpperCase();
+                    var kgrid = $("#ConstActGrid").data("kendoGrid");
+                    var selectedArray = selecteditem.split(" ");
+                    if (selecteditem) {
+                        var orfilter = { logic: "or", filters: [] };
+                        var andfilter = { logic: "and", filters: [] };
+                        $.each(selectedArray, function (i, v) {
+                            if (v.trim() == "") {
+                            }
+                            else {
+                                $.each(selectedArray, function (i, v1) {
+                                    if (v1.trim() == "") {
+                                    }
+                                    else {
+                                        orfilter.filters.push({ field: "ActivityName", operator: "contains", value: v1 }
+                                        );
+                                        andfilter.filters.push(orfilter);
+                                        orfilter = { logic: "or", filters: [] };
+                                    }
+
+                                });
+                            }
+                        });
+                        kgrid.dataSource.filter(andfilter);
+                    }
+                    else {
+                        kgrid.dataSource.filter({});
+                    }
+
+                });
+            });
+            function dataBound() {
+
+            }
+
+            function GetSelectedEntity() {
+                rowNumber = 0;
+                // return { entityId: $("#drpEntities").val() }
+                return { packageId: $("#drpPackages").val(), entityId: $("#drpEntities").val() };
+            }
+
+
+            function RefreshKendoGrid() {
+                ////Refresh Kendo Grid
+                $('#ConstActGrid').data('kendoGrid').dataSource.read();
+                $('#ConstActGrid').data('kendoGrid').refresh();
+            }
+
+        </script>
+    }

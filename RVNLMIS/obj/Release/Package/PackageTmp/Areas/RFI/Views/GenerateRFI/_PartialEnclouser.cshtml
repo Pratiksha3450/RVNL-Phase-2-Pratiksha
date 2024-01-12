@@ -1,0 +1,91 @@
+﻿@model RVNLMIS.Areas.RFI.Models.EnclosureAttachModel
+@{
+    Layout = null;
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">RFI Enclosure</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" id="noscroll">
+        @using (Html.BeginForm("SubmitEnclAttach", "GenerateRFI", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "EnclosureAttachFrm" }))
+        {
+            @Html.HiddenFor(model => model.RFIId)
+            <div class="page-content mt-3">
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <div class="form-group fill" id="Encltypecontainer">
+                            <label>Type Of Enclosure <span style="color:red">*</span></label>
+                            @(Html.Kendo().DropDownListFor(model => model.EnclId).Popup(p => p.AppendTo("#Encltypecontainer"))
+                                                                                                                                    .Name("EnclId")
+                                                                                                                                    .DataTextField("Name")
+                                                                                                                                    .DataValueField("ID")
+                                                                                                                                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-primary fill" })
+                                                                                                                                    .Filter("contains").OptionLabel("Select Enclosure Type")
+                                                                                                                                    .DataSource(source =>
+                                                                                                                                    {
+                                                                                                                                        source.Read(read =>
+                                                                                                                                        {
+                                                                                                                                            read.Action("Get_EnclosureType", "GenerateRFI");
+                                                                                                                                        })
+                                                                                                                                        .ServerFiltering(true);
+                                                                                                                                    })
+                            )
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fill">
+                            <label>Select file <span style="color:red">*</span></label>
+                            <div class="input-group input-file" name="Fichier1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-sm btn-choose" type="button">
+                                        Browse File
+                                    </button>
+                                </span>
+                                <input type="text" id="txtFileinput" class="form-control" placeholder='Choose a file...' />
+                            </div>
+                            <span id="errFile" style="color:red;display:none">Upload only .pdf, .xls, .xlsx, .doc, .docx files.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btnSubmitEnclAttach btn btn-sm btn-outline-primary has-ripple mt-4"><i class="fa fa-plus"></i> Add Enclosure </button>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <h5 class="mb-1 ml-2"> Existing Enclosures </h5>
+                        <hr>
+                    </div>
+
+                    @if (Model.objAttachDetail != null)
+                    {
+                        foreach (var item in Model.objAttachDetail)
+                        {
+                            <div class="col-sm-6 enclosurecard">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <label class="badge badge-light-danger"><i class="@item.Icon"></i></label>
+                                        </div>
+                                        <div class="col-9">
+                                            <h6>@item.FileName </h6>
+                                            <p class="text-muted m-b-10"><i class="fa fa-play-circle-o"></i> @item.EnclType</p>
+                                        </div>
+                                        <div class="col-2">
+                                            <a title="View File" href="@Url.Content(item.Path)" target='_blank'><i class="icon feather icon-eye f-16 text-skyblue"></i></a>
+                                            <a href="javascript:void(0)" data-url="/RFI/GenerateRFI/DeleteEnclAttach/@item.RFIEnclId" class="btnDeleteAttach"><i class="feather icon-trash-2 f-16 text-c-red close-card"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

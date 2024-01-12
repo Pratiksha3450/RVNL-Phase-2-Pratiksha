@@ -1,0 +1,935 @@
+﻿@using RVNLMIS.Models
+@model RVNLMIS.Models.PackageModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+<style>
+    /*Dataissuereport dashboard*/
+    #dataissuereport .no-gutters .card .card-body {
+        padding: 5px 10px;
+    }
+    /*Dataissuereport-3 dashboard*/
+    .fullcard_content {
+        display: table-cell;
+    }
+</style>
+
+
+<!-- SECTION 1 -->
+@*<div id="divPkgInfo">*@
+<div id="divPkgInfo" class="card fullcard_content pb-0 pt-2" style="width: 45%;">
+
+    @Html.Partial("_PartialPkgInfo", Model)
+
+</div>
+@*</div>*@
+<!-- /SECTION 1 -->
+<!-- SECTION 1 -->
+<div class="card fullcard_content pb-0 pl-1 pt-2" style="width: 55%;">
+    @*<div class="card card-body mb-1"> 
+        <h5 class="text-left">Dashboard </h5>
+    </div>*@
+    <div class="card-header">
+        <h5 class="text-left">Dashboard </h5>
+    </div>
+    <div class="pt-2">
+        @* -------------------------------------------NEW CODE-------------------------------------------------------------- *@
+        <div class="card-body mb-0">
+                       
+
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Package Details </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row card-body p-1">
+                            <div class="col-xl-4 col-md-4 pr-1">
+                                <div class="left bg-light-red text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-red"> @Model.SectionCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Sections</h6>
+                                    <a href="/Section/index" title="Go to Sections" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>
+                                <a class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        @* ----- *@
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-green text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-green"> @Model.EntityCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Entity</h6>
+                                    <a href="/EntityMaster/index" title="Go to Entity" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>*@
+                                </div>
+                            </div>
+                        </div>
+                        @* ----- *@
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Procurement </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-magenta  text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-magenta "> @Model.ProcMatAssignCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Assigned Material </h6>
+                                    <a href="/PackageMaterials/index" title="Go to Assign Material page" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>*@
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-orange  text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-orange "> @Model.ProcMatDataCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Material Data Updated </h6>
+                                    <a href="/Procurement/index" target="_blank" title="Go to Material Data Update page" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>*@
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Construction </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-brown text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-brown"> @Model.ConsActivityCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Assigned Activities</h6>
+                                    <a href="/AssignActivities/Index" title="Go to Assign Activity" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>*@
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-skyblue text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-skyblue"> @Model.ConsActDataUpdateCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Activity Data Update</h6>
+                                    <a href="/Construction/index" title="Go to Activity Data Update page" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>*@
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-xl-6 col-md-6">
+                <div class="card">
+                    <div class="row no-gutters card-body p-1">
+                        <div class="col-xl-4 col-md-4">
+                            <div class="left bg-light-purple text-center pt-3 pb-3 pl-1 pr-1">
+                                <h5 class=" text-purple"> 254 </h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-md-8">
+                            <div class="right">
+                                <h6 class="mb-3">Updated Activities</h6>
+                                <button class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></button>
+                                <button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                <div class="btn-group card-option float-right">
+                                    <a type="button" class="f-15 dropdown-toggle pr-2" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false"></a>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-md-6">
+
+                    <h6 class="pl-2"> Engineering </h6>
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-pink text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-pink"> @Model.EnggDrawingCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Engineering Drawings</h6>
+                                    <a href="/EnggDrawing/index" title="Go to Engineering drawing" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>*@
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h6 class="pl-2"> Invoice </h6>
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-yellow text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-yellow"> @Model.InvoiceCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Invoices</h6>
+                                    <a href="/InvoicePayment/index" title="Go to Invoice" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>*@
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Manage Users </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-cream text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class="text-dark-red"> @Model.RFIUsersCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">RFI Users</h6>
+                                    <a href="/RFI/RFIUser/Index" title="Go to RFI users" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-purple text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-purple"> @Model.DispUsersCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Discipline Users</h6>
+                                    <a href="/DisciplineUser/index" title="Go to Manage Discipline users" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Other </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-blue text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-blue"> @Model.RFICount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">RFI's</h6>
+                                    <a href="/RFI/GenerateRFI/index/@Model.UserId" title="Go to RFI" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    @*<button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>*@
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-orange text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-orange"> @Model.UpdateScore </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Data Updated Score</h6>
+                                    @*<button class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></button>
+                                <button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                <div class="btn-group card-option float-right">
+                                    <a type="button" class="f-15 dropdown-toggle pr-2" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false"></a>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>
+                                </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        @* -------------------------------------------OLD CODE-------------------------------------------------------------- *@
+
+        @*<div class="card card-body mb-2">
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Package Details </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row card-body p-1">
+                            <div class="col-xl-4 col-md-4 pr-1">
+                                <div class="left bg-light-red text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-red"> @Model.SectionCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Sections</h6>
+                                    <a href="/Section/index" title="Go to Sections" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                         <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-green text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-green"> @Model.EntityCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Entity</h6>
+                                    <a href="/EntityMaster/index" title="Go to Entity" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                     
+                                </div>
+                            </div>
+                        </div>
+ 
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card card-body mb-2">
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Procurement </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-magenta  text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-magenta "> @Model.ProcMatAssignCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Assigned Material </h6>
+                                    <a href="/PackageMaterials/index" title="Go to Assign Material page" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-orange  text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-orange "> @Model.ProcMatDataCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Material Data Updated </h6>
+                                    <a href="/Procurement/index" target="_blank" title="Go to Material Data Update page" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                     
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-body mb-2">
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Construction </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-brown text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-brown"> @Model.ConsActivityCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Assigned Activities</h6>
+                                    <a href="/AssignActivities/Index" title="Go to Assign Activity" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                     
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-skyblue text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-skyblue"> @Model.ConsActDataUpdateCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Activity Data Update</h6>
+                                    <a href="/Construction/index" title="Go to Activity Data Update page" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-purple text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-purple"> 254 </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class="mb-3">Updated Activities</h6>
+                                    <button class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger f-10"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-outline-warning f-10"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                    <div class="btn-group card-option float-right">
+                                        <a type="button" class="f-15 dropdown-toggle pr-2" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false"></a>
+                                        <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                            <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                            <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row no-gutters">
+            <div class="col-md-6">
+                <div class="card card-body mb-2">
+                    <h6 class="pl-2"> Engineering </h6>
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-pink text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-pink"> @Model.EnggDrawingCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Engineering Drawings</h6>
+                                    <a href="/EnggDrawing/index" title="Go to Engineering drawing" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card card-body mb-2">
+                    <h6 class="pl-2"> Invoice </h6>
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-yellow text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-yellow"> @Model.InvoiceCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Invoices</h6>
+                                    <a href="/InvoicePayment/index" title="Go to Invoice" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-body mb-2">
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Manage Users </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-cream text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class="text-dark-red"> @Model.RFIUsersCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">RFI Users</h6>
+                                    <a href="/RFI/RFIUser/Index" title="Go to RFI users" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-purple text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-purple"> @Model.DispUsersCount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Discipline Users</h6>
+                                    <a href="/DisciplineUser/index" title="Go to Manage Discipline users" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card card-body mb-2">
+            <div class="row no-gutters">
+                <div class="col-xl-12 col-md-12">
+                    <h6 class="pl-2"> Other </h6>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-blue text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-blue"> @Model.RFICount </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">RFI's</h6>
+                                    <a href="/RFI/GenerateRFI/index/@Model.UserId" title="Go to RFI" target="_blank" class="btn btn-sm btn-outline-info f-10"><i class="fa fa-eye"></i></a>
+                                    
+                                    <button class="btn btn-sm btn-outline-primary f-10"><i class="fas fa-chart-bar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="row no-gutters card-body p-1">
+                            <div class="col-xl-4 col-md-4">
+                                <div class="left bg-light-orange text-center pt-3 pb-3 pl-1 pr-1">
+                                    <h5 class=" text-orange"> @Model.UpdateScore </h5>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="right">
+                                    <h6 class=" ">Data Updated Score</h6>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    </div>
+</div>
+<!-- /SECTION 1 -->
+<div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModal" aria-hidden="true" data-backdrop="static">
+    <div id="createPackageContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        function Validate(event) {
+            var regex = new RegExp(/[0-9]|\+/);
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+
+            }
+        }
+    </script>
+
+    <script>
+        //function CommaValidation() {
+
+        //}
+        function price_in_words(price1) {
+            console.log(price1);
+            // Just remove commas and periods - regex can do any chars
+            price = price1.replace(/([,€])+/g, '');
+            var sglDigit = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"],
+                dblDigit = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"],
+                tensPlace = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"],
+                handle_tens = function (dgt, prevDgt) {
+                    return 0 == dgt ? "" : " " + (1 == dgt ? dblDigit[prevDgt] : tensPlace[dgt])
+                },
+                handle_utlc = function (dgt, nxtDgt, denom) {
+                    return (0 != dgt && 1 != nxtDgt ? " " + sglDigit[dgt] : "") + (0 != nxtDgt || dgt > 0 ? " " + denom : "")
+                };
+            var str = "",
+                digitIdx = 0,
+                digit = 0,
+                nxtDigit = 0,
+                words = [];
+            if (price += "", isNaN(parseInt(price))) str = "";
+            else if (parseInt(price) > 0 && price.length <= 10) {
+                for (digitIdx = price.length - 1; digitIdx >= 0; digitIdx--) switch (digit = price[digitIdx] - 0, nxtDigit = digitIdx > 0 ? price[digitIdx - 1] - 0 : 0, price.length - digitIdx - 1) {
+                    case 0:
+                        words.push(handle_utlc(digit, nxtDigit, ""));
+                        break;
+                    case 1:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 2:
+                        words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] && 0 != price[digitIdx + 2] ? " and" : "") : "");
+                        break;
+                    case 3:
+                        words.push(handle_utlc(digit, nxtDigit, "Thousand"));
+                        break;
+                    case 4:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 5:
+                        words.push(handle_utlc(digit, nxtDigit, "Lakh"));
+                        break;
+                    case 6:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 7:
+                        words.push(handle_utlc(digit, nxtDigit, "Crore"));
+                        break;
+                    case 8:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 9:
+                        words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] || 0 != price[digitIdx + 2] ? " and" : " Crore") : "")
+                }
+                str = words.reverse().join("")
+            }
+
+
+
+            console.log(str);
+            return str
+
+        }
+        function NumberPasteValidation() {
+            $(".allow_decimal").on("input", function (evt) {
+                var self = $(this);
+                self.val(self.val().replace(/[^0-9\.]/g, ''));
+                if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                    evt.preventDefault();
+                    // Just remove commas and periods - regex can do any chars
+                }
+                //$("#spnWord").text(price_in_words(this.value));
+                var money = this.value;
+                var length = money.length;
+                if (length < 15) {
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(this.value));
+                } else {
+                    var moneys = money.replace(new RegExp(',', 'g'), '');
+                    var lacvalue = moneys.substring(moneys.length - 7, moneys.length);
+                    var croreValue = moneys.substr(0, moneys.length - 7);
+
+                    console.log(croreValue + " crore");
+                    console.log(lacvalue + " lac");
+
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(croreValue) + ' Crore ' + price_in_words(lacvalue));
+                }
+            });
+
+            $('.allow_decimal').keyup(function (event) {
+                $(this).val(function (index, value) {
+
+                    return value
+                        .replace(/\D/g, '')
+                        .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,")
+                        ;
+                });
+
+                // $("#spnWord").text(price_in_words(this.value));
+                var money = this.value;
+                var length = money.length;
+                if (length < 15) {
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(this.value));
+                } else {
+                    var moneys = money.replace(new RegExp(',', 'g'), '');
+                    var lacvalue = moneys.substring(moneys.length - 7, moneys.length);
+                    var croreValue = moneys.substr(0, moneys.length - 7);
+
+                    console.log(croreValue + " crore");
+                    console.log(lacvalue + " lac");
+
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(croreValue) + ' Crore ' + price_in_words(lacvalue));
+                }
+            });
+        }
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#PackageGrid').height($(window).height() - 198);
+
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+
+
+        function UpdatePackageSuccess(data) {
+            console.log(data);
+            if (data.message == "0")// already exists
+            {
+                $.notify('Package Name already Exist!', { align: "right", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+            }
+            else if (data.message == "2") {
+
+                $('#createPackageModal').modal('hide');
+                // $('#createPackageContainer').html("");
+                $("#divPkgInfo").html(data.viewHtml);
+                $.notify('Package Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                setTimeout(function () {
+                    $(".EditPackages").on("click", function (e) {
+                        e.preventDefault();
+                        var url = $(this).data("url");
+                        console.log(url);
+                        $.get(url, function (data) {
+                            //$('#form').html(data);
+                            console.log('success');
+                            $('#createPackageContainer').html(data);
+                            $('#createPackageModal').modal('show');
+                            setTimeout(function () {
+                                NumberPasteValidation();
+
+                                //Package value onload
+                                $("#PackageValues").closest('.form-group').find('.spnWord').text(price_in_words($("#PackageValues").val()));
+
+                                //Revised Package value onload
+                                $("#RevisedPackageValues").closest('.form-group').find('.spnWord').text(price_in_words($("#RevisedPackageValues").val()));
+
+
+                                //Completed  value onload
+                                $("#CompletedValues").closest('.form-group').find('.spnWord').text(price_in_words($("#CompletedValues").val()));
+
+                                //balanced value onload
+                                $("#BalanceValues").closest('.form-group').find('.spnWord').text(price_in_words($("#BalanceValues").val()));
+
+                            }, 500);
+                        });
+                    });
+                }, 500);
+            }
+            else if (data.message == "3") {
+
+                $.notify('Revised value cannot be less than Completed value', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data.message == "4")// package value not less than completed
+            {
+                $.notify('Package value cannot be less than Completed value', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data.message == "5")// End Chainage cannot be greater than Start Chainage.
+            {
+                $.notify('End Chainage cannot be greater than Start Chainage.', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                $('#createPackageContainer').html(data);
+                NumberPasteValidation()
+                return;
+            }
+        }
+
+        $(document).ready(function () {
+            $(".EditPackages").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                console.log(url);
+                $.get(url, function (data) {
+                    //$('#form').html(data);
+                    console.log('success');
+                    $('#createPackageContainer').html(data);
+                    $('#createPackageModal').modal('show');
+                    setTimeout(function () {
+                        NumberPasteValidation();
+
+                        //Package value onload
+                        $("#PackageValues").closest('.form-group').find('.spnWord').text(price_in_words($("#PackageValues").val()));
+
+                        //Revised Package value onload
+                        $("#RevisedPackageValues").closest('.form-group').find('.spnWord').text(price_in_words($("#RevisedPackageValues").val()));
+
+
+                        //Completed  value onload
+                        $("#CompletedValues").closest('.form-group').find('.spnWord').text(price_in_words($("#CompletedValues").val()));
+
+                        //balanced value onload
+                        $("#BalanceValues").closest('.form-group').find('.spnWord').text(price_in_words($("#BalanceValues").val()));
+
+                    }, 500);
+                });
+            });
+
+        });
+
+    </script>
+
+    <script>
+        //script to highlight current parent menu
+        $(document).ready(function () {
+
+            //Highlight parent menu : nav-item
+            $('#liDataUpdate').addClass('nav-item pcoded-hasmenu active');
+
+
+            //highlight parent menu by overriding pcoded-trigger script
+            $(".nav-item").hover(
+                function () {
+                    $('#liDataUpdate').addClass('nav-item pcoded-hasmenu active');
+                }, function () {
+                    $('#liDataUpdate').addClass('nav-item pcoded-hasmenu active');
+                }
+            );
+
+
+            //remove active class from other parent menus
+            $('#liKpi').removeClass('active');
+        });
+    </script>
+}
+

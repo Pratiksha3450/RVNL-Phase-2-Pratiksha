@@ -1,0 +1,270 @@
+﻿@model RVNLMIS.Models.IssueRegModel
+@{
+    Layout = null;
+
+}
+
+@using (Html.BeginForm("AddEditIssue", "Issue", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "IssueFrm" }))
+{
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.Location, htmlAttributes: new { id = "hdnLocationID" })
+   
+    <div class="card">
+        <div class="card-header pb-4">
+            <h5>Issue Register  </h5>
+        </div>
+        <div class="card-body p-b-0 pl-3 pr-1" id="Card1">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm">Package</label>
+                        <div class="col-sm-8" id="pkgContainer">
+                            @*@Html.DropDownListFor(model => model.DisplineId,  ViewBag.DisplineList as SelectList, "Select Displine", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.PackageId).Popup(p => p.AppendTo("#pkgContainer"))
+.Name("PackageId")
+.DataTextField("Name")
+.DataValueField("ID")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select package")
+.DataSource(source =>
+{
+    source.Read(read =>
+    {
+
+        read.Action("Get_Packages","RFIMain");
+}).ServerFiltering(true);
+})
+                            )
+
+
+                            @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Issue Reg No</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.IssueRegNo, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            @*@Html.LabelFor(model => model.IssueRegNo, new { @class = "form-control form-control-sm Code", @readonly = "readonly"  })*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm" for="txtfile">Issue Date</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.Date, new { @class = "form-control form-control-sm", type = "date", @placeholder = "Date", })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm">Issue Subject</label>
+                        <div class="col-sm-8">
+                            @Html.TextAreaFor(model => model.IssueSubject, new { @class = "form-control form-control-sm" })
+                            @Html.ValidationMessageFor(model => model.IssueSubject, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm">Description</label>
+                        <div class="col-sm-8">
+                            @Html.TextAreaFor(model => model.IssueDescription, new { @class = "form-control form-control-sm" })
+                            @Html.ValidationMessageFor(model => model.IssueDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Discipline</label>
+                        <div class="col-sm-8" id="Discontainer">
+                            @*@Html.DropDownListFor(model => model.DisplineId,  ViewBag.DisplineList as SelectList, "Select Displine", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.DisplineId).Popup(p => p.AppendTo("#Discontainer"))
+.Name("DisplineId")
+.DataTextField("DisciplineName")
+.DataValueField("DispId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Discipline")
+.DataSource(source =>
+{
+    source.Read(read =>
+    {
+
+        read.Action("BindDispline", "Issue");
+}).ServerFiltering(true);
+})
+                            )
+
+                            @Html.ValidationMessageFor(model => model.DisplineId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm" for="txtLocation">
+                            Location
+                            @*<span class="text-danger"><b>*</b></span>*@
+                        </label>
+
+                        <div class="radio radio-inline col-sm-3">
+                            <label>
+                                @*<input type="radio" name="rdLocation" checked="checked" id="rbC" value="1">*@
+                                @Html.RadioButtonFor(model => model.LocationType, "Chainage", new { id = "rbChainage" })
+                                <i class="helper"></i>Chainage
+                            </label>
+                        </div>
+                        <div class="radio radio-inline col-sm-3">
+                            <label>
+                                @*<input type="radio" name="rdLocation" id="rbE" value="2">*@
+                                @Html.RadioButtonFor(model => model.LocationType, "Entity", new { id = "rbEntity" })
+                                <i class="helper"></i>Entity
+                            </label>
+                        </div>
+                        <div class="radio radio-inline col-sm-2">
+                            <label>
+                                @Html.RadioButtonFor(model => model.LocationType, "Other", new { id = "rbOther" })
+                                @*<input type="radio" name="rdLocation" id="rbO" value="3">*@
+                                <i class="helper"></i>Other
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class=" Chainage selectt form-group row" id="ChainageDiv">
+                        <label class="col-sm-4 col-form-label-sm" for="txtremark">
+                            Start chainage @Html.ValidationMessageFor(model => model.StartChainage, "", new { @class = "text-danger" })
+
+                        </label>
+
+                        <div class="col-md-8">
+
+                            @Html.EditorFor(model => model.StartChainage, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex : 00+11",onkeypress = "return Validate(event);" } })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 " >
+                    <div class=" Chainage selectt form-group row" id="ChainagesDiv" >
+                        <label class="col-sm-4 col-form-label-sm" for="txtremark">
+                            End chainage @Html.ValidationMessageFor(model => model.EndChainage, "", new { @class = "text-danger" })
+
+                        </label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EndChainage, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Ex : 00+11",onkeypress = "return Validate(event);" } })
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12" >
+                    <div class=" Entity selectt form-group row" id="EntityDiv" style="display:none">
+                        <label class="col-sm-4 col-form-label-sm"> Entity</label>
+                        <div class="col-sm-8" id="entitycontainer">
+                            @*@Html.DropDownListFor(model => model.EntityID, ViewBag.EntityList as SelectList, "Select Entity", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.EntityID).Popup(p => p.AppendTo("#entitycontainer"))
+        .Name("EntityID")
+        .DataTextField("Name")
+        .DataValueField("Id")
+        .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+        .Filter("contains").OptionLabel("Select Entity")
+        .DataSource(source =>
+        {
+        source.Read(read =>
+        {
+        read.Action("BindEntityDrpValues", "Issue").Data("GetPackageId");
+        })
+           .ServerFiltering(true);
+        })
+                            )
+                            @*@Html.ValidationMessageFor(model => model.EntityID, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" >
+                    <div class=" Other selectt form-group row" id="DivOther" style="display:none">
+                        <label class="col-sm-4 col-form-label-sm" for="txtfile">Other</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.OtherLocation, new { @class = "form-control form-control-sm", type = "text", @placeholder = "Other", })
+                            @Html.ValidationMessageFor(model => model.OtherLocation, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    @*<div class="form-group row">
+                            <label class="col-sm-4 col-form-label-sm" for="txtfile">Attachment</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.AttachmentFile, new { @class = "form-control form-control-sm", type = "file", name = "postedFiles", id = "txtFile" })
+
+                                @Html.ValidationMessageFor(model => model.AttachmentFile, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-4 col-form-label-sm"> Attachment <br /> <span class="col-form-label-sm text-muted"></span> </label>
+                        <div class="col-sm-12 col-md-8">
+                            <div class="input-group input-file" name="Fichier1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-choose" type="button"
+                                            style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                        Browse File
+                                    </button>
+                                </span>
+                                <input type="text" id="txtFileinput" class="form-control pl-3" placeholder='Choose a file...' />
+                            </div>
+                            <br />
+                            @*<span class="mt-1">Note: If you have multiple file then upload it in .zip format</span>*@
+                            <div class="mt-1 progress" style="display:none">
+                                <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
+                            </div>
+                            <div class="msg"></div>
+                            <span id="errFile" style="color:red;display:none">Upload only .pdf, .xls, .xlsx, .png, .jpg, .jpeg .zip files.</span>
+                            <p class="mt-2">
+                                <a id="openAttach" href="@Model.AttachFilePath" target='_blank' title="">@Model.AttachFileName</a>
+                            </p>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <div class="col-md-12 text-right">
+                    <hr>
+                    <button type="button" id="btnPartialSubmit" class="btn btn-sm btn-theme pull-right mt-3">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+
+    $(window).resize(function () {
+        $('#Card1').height($(window).height() - 190);
+    });
+    $(window).trigger('resize');
+</script>

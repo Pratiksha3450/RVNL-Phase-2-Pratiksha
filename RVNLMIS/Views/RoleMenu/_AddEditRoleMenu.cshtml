@@ -1,0 +1,157 @@
+﻿@model IEnumerable<RVNLMIS.Models.MenuModel>
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header">
+      <h5>  Role Menu Access</h5>
+    </div>
+    <div class="card-body pl-3 pr-3" id="cust-full-height">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 " for="txtRole"> Select Role </label>
+                    <div class="btn-group bootstrap-select w-30 ml-1">
+                        @Html.DropDownList("RoleId", ViewBag.RoleList as SelectList, "Select Role", new { @class = "form-control form-control-sm " })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-12" id="menuCheckboxes">
+
+                    <ul class="customlisting mt-3 section-preview">
+                        <h5 class="mb-4"><b>Menu List</b></h5>
+
+                        @foreach (var item in Model.Where(s => s.MenuParentID == 0).GroupBy(Obj => new { Obj.MenuID }).Distinct().ToList())
+                        {
+                            var hrefCollapseId = string.Concat("#collapse", @item.FirstOrDefault().MenuID);
+                            var divCollapseId = string.Concat("collapse", @item.FirstOrDefault().MenuID);
+
+                            <li>
+                                <input class="inline-elements-left" type="checkbox" id="chk_@item.FirstOrDefault().MenuID" name="MenuCHK" value="@item.FirstOrDefault().MenuID">
+                                <div class="inline-elements-right collapse-heading" role="tab" id="heading1">
+
+                                    @if (Model.Where(s => s.MenuParentID == item.FirstOrDefault().MenuID).ToList().Count() != 0)
+                                    {
+                                        <p role="button" data-toggle="collapse" data-parent="#accordion" href="@hrefCollapseId" aria-expanded="true" aria-controls="collapse1">
+                                            <i class="more-less fa fa-plus"></i>
+                                            <label for="tall">@item.FirstOrDefault().MenuName</label>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <label for="tall">@item.FirstOrDefault().MenuName</label>
+                                    }
+
+
+                                </div>
+                                @{foreach (var firstItem in (Model.Where(s => s.MenuParentID == item.FirstOrDefault().MenuID).ToList()))
+                                    {
+                                        <div id="@divCollapseId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+
+                                            <ul>
+
+                                                @* ------------------colapsible section for inner hierarchy------------------------- *@
+
+                                                @if (Model.Where(s => s.MenuParentID == firstItem.MenuID).ToList().Count() != 0)
+                                                {
+                                                    var subhrefCId = string.Concat("#collapse", @firstItem.MenuID);
+                                                    var subdivCId = string.Concat("collapse", @firstItem.MenuID);
+
+                                                    <li>
+                                                        <input class="inline-elements-left" id="chk_@item.FirstOrDefault().MenuID" type="checkbox" name="MenuCHK" value="@firstItem.MenuID">
+                                                        <div class="inline-elements-right collapse-heading" role="tab" id="heading111">
+
+                                                            @if (Model.Where(s => s.MenuParentID == firstItem.MenuID).ToList().Count() != 0)
+                                                            {
+
+                                                                <p role="button" data-toggle="collapse" data-parent="#accordion" href="@subhrefCId" aria-expanded="true" aria-controls="collapse111">
+                                                                    <i class="more-less fa fa-plus"></i>
+
+                                                                      <label for="tall-2">@firstItem.MenuName</label>
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <label for="tall-2">@firstItem.MenuName</label>
+                                                            }
+                                                        </div>
+
+
+                                                        <div id="@subdivCId" class="panel-collapse collapse" role="tabpane11l" aria-labelledby="heading111">
+                                                            <ul>
+                                                                @foreach (var secondItem in (Model.Where(s => s.MenuParentID == firstItem.MenuID).ToList()))
+                                                                {
+                                                                    <li>
+                                                                        <input class="inline-elements-left" id="chk_@item.FirstOrDefault().MenuID" type="checkbox" name="MenuCHK" value="@secondItem.MenuID">
+                                                                        <label class="inline-elements-right" for="tall-2-1">@secondItem.MenuName</label>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+
+
+                                                    </li>
+                                                    @* -------------------/colapsible section for inner hierarchy------------------------- *@
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <input class="inline-elements-left" id="chk_@item.FirstOrDefault().MenuID" type="checkbox" name="MenuCHK" value="@firstItem.MenuID">
+                                                        <label class="inline-elements-right" for="tall-1">@firstItem.MenuName</label>
+                                                    </li>
+                                                }
+                                            </ul>
+
+                                        </div>
+                                    }
+                                }
+                            </li>
+                            @*<li>
+                                    <input class="inline-elements-left" type="checkbox" name="short" id="short">
+                                    <div class="inline-elements-right collapse-heading" role="tab" id="heading2">
+                                        <p role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                            <i class="more-less fa fa-plus"></i>
+                                            <label for="short">Short Things</label>
+                                        </p>
+                                    </div>
+
+
+                                    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                                        <ul>
+                                            <li>
+                                                <input class="inline-elements-left" type="checkbox" name="short-1" id="short-1">
+                                                <label class="inline-elements-right" for="short-1">Smurfs</label>
+                                            </li>
+                                            <li>
+                                                <input class="inline-elements-left" type="checkbox" name="short-2" id="short-2">
+                                                <label class="inline-elements-right" for="short-2">Mushrooms</label>
+                                            </li>
+                                            <li>
+                                                <input class="inline-elements-left" type="checkbox" name="short-3" id="short-3">
+                                                <label class="inline-elements-right" for="short-3">One Sandwich</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </li>*@
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <button type="button" class="btn btn-sm btn-theme has-ripple ml-3" id="btnSaveRoleMenu">Submit</button>
+
+        </div>
+        @* /panel-group *@
+    </div>
+    @* /card-body*@
+</div>

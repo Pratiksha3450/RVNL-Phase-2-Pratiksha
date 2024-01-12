@@ -1,0 +1,155 @@
+﻿@model IEnumerable<RVNLMIS.Models.PushNotifyModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<style>
+        /*===============================
+      COMMON : Right Alignment
+    ===============================*/
+        .pull-right {
+            float: right;
+        }
+        /*===============================
+      COMMON : Modal - xl
+    ===============================*/
+        .modal-xl {
+            width: 95% !important;
+        }
+
+        /*===============================
+      COMMON : Notify Modal
+    ===============================*/
+        .notify_count .badge {
+            background-color: #ff5252;
+            color: #fff;
+            font-size: 10px;
+            border-radius: 50%;
+            text-align: center;
+            border-radius: 50%;
+            right: auto;
+            position: absolute;
+            top: 5px;
+            padding: 4px;
+            width: 19px;
+            -webkit-animation: not-blink 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+            animation: not-blink 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+        }
+</style>
+
+<!-- page contents -->
+
+<div class="row no-gutters">
+    <div class="col-md-4">
+        <!-- left content -->
+        <div class="row no-gutters">
+            <div class="col-md-12">
+                <div class="card text-center pb-3">
+                    <h3 class="mt-3">
+                        <div class="u-img notify_count">
+                            <img src="~/Content/assetsNew/images/notify/notification.png" alt="notify image" class="wid-100">
+                            @if (Model.Where(w => w.IsRead == false).ToList().Count() != 0)
+                            {
+                                var count = @Model.Where(w => w.IsRead == false).ToList().Count();
+                                <span class="badge bg-c-red">@count</span>
+                            }
+                        </div>
+                    </h3>
+                    <h3>Notification Log</h3>
+                    <div class="saperator_multiple_centered"><div class="divider_multiple"></div><div class="divider_green"></div></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Unread Notifications</h5>
+                                @if (Model.Where(w => w.IsRead == false).ToList().Count() != 0)
+                                {
+                                    <button type="button" class="btnReadAll  btn pull-right badge badge-light-magenta"><i class="fa fa-ticket-alt mr-2"></i>Mark all as Read</button>
+                                }
+                            </div>
+                            <div class="card-body">
+                                @if (Model.Where(w => w.IsRead == false).ToList().Count() == 0)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        <b>No Unread Notifications Found</b>
+                                    </div>
+                                }
+                                else
+                                {
+                                    foreach (var item in Model.Where(w => w.IsRead == false).ToList().OrderByDescending(o => o.SentOn))
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            <b>@item.Title<span class="n-time pull-right text-muted"><i class="icon feather icon-clock m-r-10 text-magenta"></i>@item.SentOn.Value.ToString("dd MMM yyyy hh:mm tt")</span></b>
+                                            <p>@item.Message</p>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /left content -->
+    </div>
+    <div class="col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Earlier Notifications</h5>
+            </div>
+            <div class="card-body">
+                <!-- cards -->
+                <div class="row no-gutters">
+                    @if (Model.Where(w => w.IsRead == true).ToList().Count() == 0)
+                    {
+                        <div class="col-md-6">
+                            <div class="alert alert-warning" role="alert">
+                                <b>No Other Notifications Found</b>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Where(w => w.IsRead == true).ToList().OrderByDescending(o => o.SentOn))
+                        {
+                            <div class="col-md-6">
+                                <div class="alert alert-warning" role="alert">
+                                    <b>@item.Title <span class="n-time text-muted pull-right"><i class="icon feather icon-clock m-r-10 text-magenta"></i>@item.SentOn.Value.ToString("dd MMM yyyy hh:mm tt")</span></b>
+                                    <p>@item.Message</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <!-- /cards -->
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!--  -->
+@section scripts{
+    <script>
+        (function () {
+            $(".btnReadAll").click(function () {
+                $.get("/NotificationLog/MarkAllRead", function (data) {
+                    if (data == 0) {
+                        $.notify('Something went wrong! Please try after some time.', { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                    }
+                    else {
+                        location.reload(true);
+                    }
+                });
+            });
+        })();
+    </script>
+}

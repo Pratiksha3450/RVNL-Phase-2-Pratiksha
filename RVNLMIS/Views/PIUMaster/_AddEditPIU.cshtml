@@ -1,0 +1,85 @@
+﻿@model RVNLMIS.Models.PIUMasterModel
+@{
+    Layout = null;
+}
+
+<div class="card" >
+    <div class="card-header pb-4">
+        <h5>PIU Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddPIUDetails", "PIUMaster", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnPIUSuccess" }, new { @class = "form", @id = "frmPIU" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PIUId)
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtPIUCode">PIU Code @Html.ValidationMessageFor(model => model.PIUCode, "", new { @class = "text-danger" })</label>
+                        @if (Model.EDId != 0)
+                        {
+                            @Html.EditorFor(model => model.PIUCode, new { htmlAttributes = new { @class = "mb-3 form-control disableCN", @id = "txPIUCode", @type = "text", @placeholder = "Enter PIU Code" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.PIUCode, new { htmlAttributes = new { @class = "mb-3 form-control", @id = "txPIUCode", @type = "text", @placeholder = "Enter PIU Code" } })
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtPIUCode">Executive Director @Html.ValidationMessageFor(model => model.EDId, "", new { @class = "text-danger" })</label>
+                        @if (ViewBag.EDList != null)
+                        {
+                            @Html.DropDownListFor(model => model.EDId, ViewBag.EDList as SelectList, "Select ED", new { @class = "mb-3 form-control form-control-sm" })
+                        }
+
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtPIUName">PIU Name @Html.ValidationMessageFor(model => model.PIUName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.PIUName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter PIU Name" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txLatitude">Latitude @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Latitude" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-5">
+                        <label class="col-form-label-sm-user text-black-50" for="txtLogitude">Longitude @Html.ValidationMessageFor(model => model.Logitude, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Logitude, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Longitude" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @*@if (Model.PIUId != 0)
+                        {
+                            <button type="submit" class="btn btn-xs btn-primary has-ripple  btnSubmit" value="Update">Update</button>
+                        }
+                        else
+                        {*@
+                    <button type="submit" class="btn btn-sm btn-theme pull-right  btnSubmit">Save</button>
+                    @*}*@
+                    @*<button type="button" id="btnReset" class="btn btn-sm btn-danger pull-right btn-xs" onclick="ClearViewAndGrid()"><i class="fa fa-refresh"></i> Reset</button>*@
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 260);
+    });
+    $(window).trigger('resize');
+</script>

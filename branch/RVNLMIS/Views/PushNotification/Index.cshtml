@@ -1,0 +1,106 @@
+﻿@model RVNLMIS.Models.PushNotifyModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content_wrapper">
+    <div class=" ">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Broadcast Message</h5>
+                            </div>
+                        </div>
+                    </div>
+                    @using (Ajax.BeginForm("SendNotification", "PushNotification", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "NotificationSuccess" }, new { @class = "form", Page = "Usersform" }))
+                    {
+                        <div class="card-body pl-3 pr-3">
+
+                            <div class="row">
+                                <div class="col-md-5 row">
+                                    <div class="col-2 mt-3">
+                                        <h6>Title :</h6>
+                                    </div>
+                                    <div class="col-10">
+                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text" } })
+                                        <div class="full-width col-12">
+                                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-5 row">
+                                    <div class="col-3 mt-3">
+                                        <h6>Message :</h6>
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text" } })
+                                        <div class="full-width col-12">
+                                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-sm btn-theme pull-right mt-3" value="Save">Send</button>
+                                </div>
+
+                            </div>
+
+
+                            @*<div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group mb-3">
+                                            <label class="col-form-label-sm-user text-black-50" for="txtEmail">Title @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })</label>
+                                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group mb-3">
+                                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Message @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })</label>
+                                            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text" } })
+                                        </div>
+                                    </div>
+                                </div>*@
+                        </div>
+
+                        @*<div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="submit" class="btn btn-sm btn-primary pull-right" value="Save"><i class="m-r-5 feather icon-check"></i>Send</button>
+                                    </div>
+                                </div>
+                            </div>*@
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    
+    <script>
+        function NotificationSuccess(data) {
+            $.notify(data, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            $("#Title").val("");
+            $("#Message").val("");
+        }
+    </script>
+}
+
+

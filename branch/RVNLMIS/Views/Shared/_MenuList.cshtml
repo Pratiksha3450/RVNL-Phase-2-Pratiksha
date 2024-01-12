@@ -1,0 +1,94 @@
+﻿@{
+    /**/
+
+    Layout = null;
+    var classname = "";
+    var nestedLiClassname = "";
+    var newUrl = "";
+}
+
+@model IEnumerable<RVNLMIS.Models.MenuModel>
+
+@{foreach (var item in Model.Where(s => s.MenuParentID == 0).GroupBy(Obj => new { Obj.MenuID }).Distinct().ToList())
+    {
+        if (Model.Where(s => s.MenuParentID == item.FirstOrDefault().MenuID).ToList().Count() != 0)
+        {
+            classname = "nav-item pcoded-hasmenu";
+        }
+        else
+        {
+            classname = "nav-item";
+        }
+        <li class="@classname" id="@item.FirstOrDefault().ListId">
+            @if (item.FirstOrDefault().IsReportMenu == 1)
+            {
+                newUrl = @item.FirstOrDefault().Url + "/?id="+HttpUtility.UrlEncode(Convert.ToString("?id="+@item.FirstOrDefault().MenuID));
+                /*newUrl = @item.FirstOrDefault().Url + "/" + @item.FirstOrDefault().MenuID;*/
+            }
+            else
+            {
+                newUrl = @item.FirstOrDefault().Url;
+            }
+            <a href="@newUrl" onclick="GetBreadCrums('@item.FirstOrDefault().MenuName','','')">
+                <span class="pcoded-micon">
+                    <i class="@item.FirstOrDefault().Icon"></i>
+                </span><span class="pcoded-mtext">
+                    @item.FirstOrDefault().MenuName
+                </span>
+            </a>
+            @if (Model.Where(s => s.MenuParentID == item.FirstOrDefault().MenuID).ToList().Count() != 0)
+            {
+                <ul class="pcoded-submenu">
+                    @{foreach (var firstItem in (Model.Where(s => s.MenuParentID == item.FirstOrDefault().MenuID).ToList()))
+                        {
+                            if (Model.Where(s => s.MenuParentID == firstItem.MenuID).ToList().Count() != 0)
+                            {
+                                nestedLiClassname = "pcoded-hasmenu";
+                            }
+                            else
+                            {
+                                nestedLiClassname = "";
+                            }
+                            <li class="@nestedLiClassname" id="@firstItem.ListId">
+                                @if (firstItem.IsReportMenu == 1)
+                                {
+                                    newUrl = @firstItem.Url + "/?id=" + HttpUtility.UrlEncode(Convert.ToString("?id=" + firstItem.MenuID));
+                                }
+                                else
+                                {
+                                    newUrl = @firstItem.Url;
+                                }
+                                <a href="@newUrl" onclick="GetBreadCrums('@firstItem.MenuName','@item.FirstOrDefault().MenuName','')">
+                                    @firstItem.MenuName
+                                </a>
+
+                                @*@if (Model.Where(s => s.MenuParentID == firstItem.MenuID).ToList().Count() != 0)
+                                    {*@
+                                <ul class="pcoded-submenu">
+                                    @foreach (var secondItem in (Model.Where(s => s.MenuParentID == firstItem.MenuID).ToList()))
+                                    {
+                                        <li>
+                                            @if (secondItem.IsReportMenu == 1)
+                                            {
+                                                newUrl = secondItem.Url + "/?id=" + HttpUtility.UrlEncode(Convert.ToString("?id=" + secondItem.MenuID));
+                                            }
+                                            else
+                                            {
+                                                newUrl = @secondItem.Url;
+                                            }
+                                            <a href="@newUrl" onclick="GetBreadCrums('@secondItem.MenuName','@item.FirstOrDefault().MenuName','@firstItem.MenuName')">
+                                                @secondItem.MenuName
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                                @*}*@
+                            </li>
+                        }
+                    }
+                </ul>
+            }
+        </li>
+    }
+}
+

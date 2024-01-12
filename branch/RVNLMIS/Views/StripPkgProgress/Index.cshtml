@@ -1,0 +1,477 @@
+﻿@model RVNLMIS.Models.StripProgressModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+
+    .divMag {
+        margin-left: 64px !important;
+    }
+
+    #Card1 {
+        overflow: auto;
+        overflow-x: hidden;
+    }
+</style>
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnId">
+                <p class="success-message">This will delete the record permanently, Do you want to continue?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-3 pr-1">
+                <div id="UpdateChartform">
+                    @Html.Partial("_PartialUpdateProgress", new RVNLMIS.Models.StripProgressModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <h5>Strip Package Progress Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="searching" class="form-control" placeholder="Search by keywords " aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.StripProgressModel>()
+                                .Name("UsersGrid")
+                                .Columns(columns =>
+                                {
+                                columns.Bound(c => c.DataDate).HtmlAttributes(new { style = "text-align:left", title = "#= DataDate #" }).Format("{0: dd-MMM-yyyy}")
+                                                            .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                columns.Bound(c => c.DisciplineName).HtmlAttributes(new { style = "text-align:left", title = "#= DisciplineName #" }).Width("20%")
+                                                            .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                columns.Bound(c => c.ActivityName).HtmlAttributes(new { style = "text-align:left", title = "#= ActivityName #" }).Width("30%")
+                                                            .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                columns.Bound(c => c.StartChainage).HtmlAttributes(new { style = "text-align:left", title = "#= StartChainage #" })
+                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                columns.Bound(c => c.EndChainage).HtmlAttributes(new { style = "text-align:left", title = "#= EndChainage #" })
+                                                        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                columns.Bound(c => c.Status).HtmlAttributes(new { style = "text-align:left", title = "#= Status #" })
+                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Status");
+                                columns.Template(@<text></text>).Title("Action").ClientTemplate(""
+                                //+"<button  data-url='/StripPkgProgress/EditData/#=ActProgressId#' class='EditData btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" 
+                                +"<button type='button' id='btnDeleteUser' class='btn btn-xs btn-danger has-ripple DeleteUser' data-key='#=ActProgressId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+                                }).Scrollable(scr => scr.Height(400))
+                                .ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+                                .Pageable()
+                                .Sortable()
+                                .Pageable(pageable => pageable
+                                .Refresh(true)
+                                .PageSizes(true)
+                                .ButtonCount(5)
+                                .PageSizes(new List<object>
+                                { 50, 80, 100, "all" }).Refresh(true))
+                                .PersistSelection(true)
+                                .DataSource(dataSource => dataSource
+                                .Ajax().Group(g => g.Add(c => c.PackageName)).Group(g => g.Add(c => c.ActivityName))
+                                .Model(model => model.Id(u => u.ActProgressId))
+                                .Read(read => read.Action("GetUpdateChartDetailList", "StripPkgProgress").Data("GetPackageAndType"))
+                                .PageSize(1000)).Groupable().Resizable(resize => resize.Columns(true))
+                                .Events(events => events.DataBound("dataBound"))
+
+                            )
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#UsersGrid').height($(window).height() - 198);
+            //$('#CardHeight').height($(window).height() - 170);
+            //document.getElementById("CardHeight").style.height = "585px";
+        });
+        $(window).trigger('resize');
+
+        function dataBound() {
+            $(".EditData").on("click", function (e) {
+                e.preventDefault();
+                EnableSubmit();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#UpdateChartform').html(data);
+                    $('#btnUploadChanges').removeAttr('disabled');
+                    setTimeout(function () {
+                    }, 500);
+                });
+            });
+
+            $(".DeleteUser").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hdnId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+
+        }
+        function GetPackageAndType() {
+            return { packageId: $("#PackageId").data("kendoDropDownList").value(), DispId: $("#DispId").val() };
+        }
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hdnId").val();
+
+            $.ajax({
+                url: '/StripPkgProgress/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    ClearFormGrid();
+                    $("#modalDelete").modal('hide');
+                    // ShowSuccessMessage('Deleted Successfully');
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    $('#UsersGrid').data('kendoGrid').dataSource.read();
+                    $('#UsersGrid').data('kendoGrid').refresh();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        function getPkgId() {
+            var pID = $("#PackageId").data("kendoDropDownList").value();
+            var dID = $("#PackageId").data("kendoDropDownList").value();
+            return { id: pID,did: dID };
+        }
+
+        var CheckLoad = function () {
+            var _PackageId = @Model.PackageId;
+            //alert(_PackageId);
+            if (_PackageId != 0) {
+                GetPackageActivities();
+            }
+        };
+
+        var addTodaysDate = function () {
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+            $('#DataDate').val(today);
+        };
+
+        function ClearFormGrid() {
+           // $('#PackageId').data("kendoDropDownList").select(0);
+            $('#StripActId').data("kendoDropDownList").select(0);
+            $('#Sid').data("kendoDropDownList").select(0);
+            $("#StartChainage").val("");
+            $("#EndChainage").val("");
+            $("#Lenght").val("");
+            $("#DataDate").val("");
+            $("#ActProgressId").val("0");
+            GetPackageActivities();
+            //$('#UpdateChartform').load('/StripPkgProgress/LoadPartialView');
+            disableSubmit();
+            addTodaysDate();
+            DocumentReadyFunctions();
+
+        }
+
+        function EnableSubmit() {
+            $('#btnUploadChanges').removeAttr('disabled');
+        }
+
+        function disableSubmit() {
+            $('#btnUploadChanges').attr('disabled', 'disabled');
+        }
+
+        function RefreshGrid() {
+            $('#UsersGrid').data('kendoGrid').dataSource.read();
+            $('#UsersGrid').data('kendoGrid').refresh();
+        }
+
+        function CalculateLenght() {
+            var first = $('#EndChainage').val();
+            var second = $('#StartChainage').val();
+
+             first = (first.length >= 0) ? first : 0;
+             second = (second.length >= 0) ? second : 0;
+            first = first.replace("+", "");
+            second = second.replace("+", "");
+            var len;
+            console.log("endchainage +" + first);
+            console.log("startChainage " + second);
+
+            if (parseInt(first) >= parseInt(second)) {
+                console.log('1');
+                len = first - second;
+            }
+            else {
+                console.log('2');
+                len = second - first;
+            }
+            console.log(len);
+            if (len < 0) {
+                len = len * (-1);
+                console.log(len);
+            }
+            $('#Lenght').val(len);
+        }
+
+        function GetPackageActivities() {
+            var _PackageId = $("#PackageId").data("kendoDropDownList").value();
+            var _DispId = $("#DispId").data("kendoDropDownList").value();
+            var actSource;
+            $.get("/StripPkgProgress/Get_PackageActivity?id=" + _PackageId + "&did=" + _DispId, function (data) {
+                $("#StripActId").html('');
+                actSource = data;
+                $("#StripActId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: actSource }));
+            });
+        }
+
+        function UpdateSuccess(data) {
+            console.log(data);
+            if (data == "2") {
+                $.notify('Data Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                RefreshGrid();
+                ClearFormGrid();
+            } else if (data == "1") {
+                $.notify('Data Added Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                RefreshGrid();
+                ClearFormGrid();
+            } else if (data == "0") {
+                $.notify('Please select Package/activity/status!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+            }
+            else if (data == "22") {
+                $.notify('Zero length progress cannot be updates. length shall be > 0', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+            }else if (data == "-1") {
+                $.notify('Start and end chainage both can not be zero!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+            }
+            else if (data == "-2") {
+                $.notify('Invalid Chainage! Chainage must be within package chainage', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+            }
+            else if (data.indexOf("Warning") > -1){
+                $.notify(data , { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                console.log(data);
+                $('#UpdateChartform').html(data);
+            }
+        }
+
+        $(document).ready(function () {
+            DocumentReadyFunctions();
+
+        });
+
+        function DocumentReadyFunctions() {
+            addTodaysDate();
+            CheckLoad();
+            disableSubmit();
+
+
+            $("#PackageId").change(function () {
+                $('#DispId').data("kendoDropDownList").select(0);
+                RefreshGrid();               
+            });
+
+            $("#DispId").change(function () {
+                RefreshGrid();
+                var _PackageId = $("#PackageId").data("kendoDropDownList").value();
+                var _DispId = $("#DispId").data("kendoDropDownList").value();
+                var actSource;
+                $.get("/StripPkgProgress/Get_PackageActivity?id=" + _PackageId+"&did="+_DispId, function (data) {
+                    $("#StripActId").html('');
+                    actSource = data;
+                    console.log(data);
+                    $("#StripActId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: actSource }));
+                });
+            });
+
+
+            $("#StripActId").change(function () {
+                var StripActId = $("#StripActId").data("kendoDropDownList").value();
+                var actSource;
+                $.get("/StripPkgProgress/CheckIfActivitySequenseIsfollowed?id=" + StripActId, function (data) {
+                    actSource = data;
+                    if (actSource != "1") {
+                        disableSubmit();
+                        $.notify("'" + actSource + "'", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    }
+                    else {
+                        console.log(actSource);
+                        EnableSubmit();
+                    }
+                });
+
+            });
+
+
+            //$("#StartChainage").change(function () {
+            $("#UpdateChartform").on("change", "#StartChainage", function (event) {
+                var value = $(this).val();
+                if (value == "") {
+
+                }
+                else if (value.includes('+')) {
+                    $('#StartChainage').val(value);
+                }
+                else {
+                    if (value.length < 3) {
+                        value = padString(value, 3, '0');
+
+                    }
+                    var newVal = ([value.slice(0, value.length - 3), '+', value.slice(value.length - 3)].join(''));
+
+                    if (newVal.charAt(0) == '+') {
+                        newVal = "0" + newVal;
+                    }
+                    $('#StartChainage').val(newVal);
+                }
+            });
+
+            $("#UpdateChartform").on("change", "#EndChainage", function (event) {
+           // $("#EndChainage").change(function () {
+                var value = $(this).val();
+
+                if (value == "") {
+
+                }
+                else if (value.includes('+')) {
+                    $('#EndChainage').val(value);
+                }
+                else {
+                    if (value.length < 3) {
+                        value = padString(value, 3, '0');
+
+                    }
+                    var newVal = ([value.slice(0, value.length - 3), '+', value.slice(value.length - 3)].join(''));
+
+                    if (newVal.charAt(0) == '+') {
+                        newVal = "0" + newVal;
+                    }
+                    $('#EndChainage').val(newVal);
+                }
+
+            });
+
+            $('#Lenght').on('focus', function () {
+                CalculateLenght();
+            });
+
+            
+            $("#UpdateChartform").on("keyup", "#StartChainage", function (event) {
+            //$(".strtC").keyup(function () {
+                console.log("start");
+                CalculateLenght();
+            });
+            $("#UpdateChartform").on("keyup", "#EndChainage", function (event) {
+            //$(".endC").keyup(function () {
+                console.log("end");
+                CalculateLenght();
+            });
+
+            function padString(str, len, padWith) {
+                var padLength = len - str.length;
+                return padLength < 1 ? str : Array(padLength + 1).join(padWith) + str;
+            }
+        }
+
+        $("#searching").keyup(function () {
+            var selecteditem = $('#searching').val();
+            var kgrid = $("#UsersGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push(
+                                    { field: "PackageName", operator: "contains", value: v1 },
+                                    { field: "ActivityName", operator: "contains", value: v1 },
+                                    { field: "StartChainage", operator: "contains", value: v1 },
+                                    { field: "EndChainage", operator: "contains", value: v1 },
+                                    { field: "Status", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+    </script>
+
+
+}
+
+
+
+
+

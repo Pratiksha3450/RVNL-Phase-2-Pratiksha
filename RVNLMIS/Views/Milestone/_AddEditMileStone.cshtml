@@ -1,0 +1,123 @@
+﻿@model RVNLMIS.Models.MilestoneModel
+@{
+    ViewBag.Title = "_AddEditMilestone";
+    Layout = null;
+}
+
+<div class="modal-content" style="width:800px;position:center;">
+    <div class="modal-header">
+        <h6 class="modal-title">Add / Update Milestone Details</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        @using (Ajax.BeginForm("AddEditMileDetails", "Milestone", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnMileSuccess" }, new { @class = "form-horizontal", Page = "form" }))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(mode => Model.MilestoneId)
+        <div class="row">
+            <div class="col-md-6" id="prjContainer">
+                <div class="form-group mb-3">
+                    <label class="col-form-label-sm-user text-black-50" for="txtUserName">Project   @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })</label>
+                    @(Html.Kendo().DropDownListFor(model => model.ProjectId).OptionLabel("Select Project").Popup(p => p.AppendTo("#prjContainer")).Filter("contains").HtmlAttributes(new { @class = "form-control form-control-sm" }).BindTo(ViewBag.ProjectList as SelectList)
+                        )
+                </div>
+            </div>
+            <div class="col-md-6" id="Pkgcontainer">
+                <div class="form-group mb-3">
+                    <label class="col-form-label-sm-user text-black-50">
+                        Package
+                        @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                    </label>
+                    @(Html.Kendo().DropDownListFor(model => model.PackageId).Popup(p => p.AppendTo("#Pkgcontainer"))
+                                 .Name("PackageId")
+                                 .DataTextField("PackageName")
+                                 .DataValueField("PackageId")
+                                 .HtmlAttributes(new { style = "width:100%" })
+                                 .Filter("contains").OptionLabel("Select Package")
+                                 .DataSource(source =>
+                                 {
+                                 source.Read(read =>
+                                 {
+                                 read.Action("Get_PackageByProject", "Milestone").Data("getPrjId"); 
+                                     })
+                                          .ServerFiltering(true);
+                                 })
+                        )
+                    </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="Achievement" class="col-form-label fw-bold">Prima Mile Code</label>
+                    @Html.TextBoxFor(Model => Model.PrimaMileCode, new { @class = "form-control text-box single-line", @placeholder = "Prima Mile Code", @required = "required", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.PrimaMileCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="Achievement" class="col-form-label fw-bold">Mile Name</label>
+                    @Html.TextBoxFor(Model => Model.MileName, new { @class = "form-control text-box single-line", @placeholder = "Mile Name", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.MileName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="mb-3 form-group">
+                    <label for="Due-Date" class="col-form-label fw-bold">Mile Plan Date</label>
+
+                    @Html.TextBoxFor(m => Model.MilePlanDate, new { @type = "date", @class = "form-control", @placeholder = "DD-MMM-YYYY", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.MilePlanDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="Achievement-Qty" class="col-form-label fw-bold">Revision</label>
+                    @Html.TextBoxFor(Model => Model.Revision, new { @class = "form-control text-box single-line numericInput", @placeholder = "Revision", @type = "number", @required = "required", })
+                    @Html.ValidationMessageFor(model => model.Revision, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="Achievement-Qty" class="col-form-label fw-bold">Contract Monitor</label>
+                    @Html.TextBoxFor(Model => Model.ContractMonitor, new { @class = "form-control text-box single-line numericInput", @placeholder = "Contract Monitor", @type = "text", @required = "required", })
+                    @Html.ValidationMessageFor(model => model.ContractMonitor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            
+                <div class="col-md-6 mt-2">
+                    <div class="form-group mb-3">
+                        @Html.CheckBoxFor(model => model.ProjCompFlag) Project Completed Flag
+                    </div>
+               
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        @Html.CheckBoxFor(model => model.isActive) Is Active
+                    </div>
+                </div>
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <button type="submit" class="btn btn-sm btn-theme pull-right">Save</button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+
+   
+
+
+
+

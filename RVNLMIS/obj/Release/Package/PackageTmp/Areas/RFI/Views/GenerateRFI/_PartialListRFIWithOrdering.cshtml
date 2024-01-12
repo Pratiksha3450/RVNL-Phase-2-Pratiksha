@@ -1,0 +1,33 @@
+﻿@model IEnumerable<RVNLMIS.Areas.RFI.Models.RFIMainModel>
+@using RVNLMIS.Models;
+
+@{
+    Layout = null;
+}
+
+@if (Model.ToList().Count() != 0)
+{
+    if (Model.Where(r => r.InspStatus == "Open").ToList().Count() != 0)
+    {
+        <div class="ticket-block">
+            @Html.Partial("_PartialListRFI", Model.Where(r => r.InspStatus == "Open").ToList())
+        </div>
+    }
+
+    if (Model.Where(w => !w.InspStatus.Contains("Open")).ToList().Count() != 0)
+    {
+        <div class="ticket-block">
+            @if (Model.Where(r => r.InspStatus == "Open").ToList().Count() != 0)
+            {
+                <h5 class="p-3"> Other RFI's </h5>
+            }
+            @Html.Partial("_PartialListRFI", Model.Where(w => !w.InspStatus.Contains("Open")).ToList())
+        </div>
+    }
+}
+else
+{
+    <div class="ticket-block">
+        @Html.Partial("_PartialListRFI", Model)
+    </div>
+}

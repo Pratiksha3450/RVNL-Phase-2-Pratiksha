@@ -1,0 +1,271 @@
+﻿@model RVNLMIS.Models.DrawingUpdateModel
+@{
+    Layout = null;
+    if (string.IsNullOrEmpty(@Model.OperationType))
+    {
+        Model.OperationType = "Add";
+    }
+}
+<style></style>
+@using (Html.BeginForm("SubmitDrawing", "EnggDrawing", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "dwgUpdateFrm" }))
+{
+    @Html.HiddenFor(model => model.AutoId)
+    <div class="card">
+        <div class="card-header pb-4">
+            <h5>Drawing Update</h5>
+        </div>
+        <div class="card-body p-b-0 pl-3 pr-1" id="Card1">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Package</label>
+                        <div class="col-sm-8 mt-1" id="Pkgcontainer">
+                            @if (ViewBag.PackageList.Items.Count == 1)
+                            {
+                                foreach (var appointment in ViewBag.PackageList)
+                                {
+                                    <label class="col-sm-9 col-form-label-sm">  @appointment.Text</label>
+                                    @Html.HiddenFor(model => model.PackageId,
+                                    new
+                                   {
+                                       Value = appointment.Value
+                                   })
+                                }
+                            }
+                            else
+                            {
+                                @(Html.Kendo().DropDownListFor(model => model.PackageId).Popup(p => p.AppendTo("#Pkgcontainer"))
+.Name("PackageId")
+.DataTextField("PackageName")
+.DataValueField("PackageId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Package")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                        {
+                                                                                                                                read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                                                                                            })
+                                                                                                                                        .ServerFiltering(true);
+})
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Entity</label>
+                        <div class="col-sm-8" id="entitycontainer">
+                            @*@Html.DropDownListFor(model => model.EntityId, ViewBag.EntityList as SelectList, "Select Entity", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.EntityId).Popup(p => p.AppendTo("#entitycontainer"))
+.Name("EntityId")
+.DataTextField("Name")
+.DataValueField("Id")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Entity")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                                                                                                               {
+                                                                                                                                                                                                                                                       read.Action("BindEntityDrpValues", "EnggDrawing").Data("GetPackageId");
+                                                                                                                                                                                                                                                   })
+                                                                                                                                                                                                                                                               .ServerFiltering(true);
+})
+                            )
+                            @Html.ValidationMessageFor(model => model.EntityId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Drawing Type</label>
+                        <div class="col-sm-8" id="Dwgcontainer">
+                            @*@Html.DropDownListFor(model => model.DrawingTypeId, ViewBag.DrawingList as SelectList, "Select Drawing Type", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.DrawingTypeId).Popup(p => p.AppendTo("#Dwgcontainer"))
+.Name("DrawingTypeId")
+.DataTextField("Name")
+.DataValueField("ID")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Drawing Type")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                            {
+                                                                                                                                                    read.Action("Get_DrawingList", "EnggDrawing");
+                                                                                                                                                })
+                                                                                                                                                            .ServerFiltering(true);
+})
+                            )
+                            @Html.ValidationMessageFor(model => model.DrawingTypeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Drawing Name</label>
+                        <div class="col-sm-8">
+                            @*@(Html.Kendo().DropDownListFor(model => model.DrawingName).Popup(p => p.AppendTo("#dwgName"))
+        .Name("DrawingName")
+        .DataTextField("Name")
+        .DataValueField("ID")
+        .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+        .Filter("contains")
+        .DataSource(source =>
+        {
+        source.Read(read =>
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                        read.Action("Get_DrawingNameList", "EnggDrawing");
+                                                                                                                                                                                                                    })
+                                                                                                                                                                                                                                .ServerFiltering(true);
+        })
+                                    )*@
+                            @*@(Html.HiddenFor(model=>model.HdnDrawingName))
+        <input id="txtdwgName" name="txtdwgName" style="width: 100%;" />*@
+                            @Html.TextBoxFor(model => model.DrawingName, new { @class = "form-control form-control-sm" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Approval By</label>
+                        <div class="col-sm-8" id="Apprcontainer">
+                            @*@Html.DropDownListFor(model => model.ApprovedById, ViewBag.ApproverList as SelectList, "Select Approver", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.ApprovedById).Popup(p => p.AppendTo("#Apprcontainer"))
+.Name("ApprovedById")
+.DataTextField("Name")
+.DataValueField("ID")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Approver")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                                {
+                                                                                                                                                                        read.Action("Get_ApproverList", "EnggDrawing");
+                                                                                                                                                                    })
+                                                                                                                                                                                .ServerFiltering(true);
+})
+                            )
+                            @Html.ValidationMessageFor(model => model.ApprovedById, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Status</label>
+                        <div class="col-sm-8">
+                            @*@Html.DropDownListFor(model => model.ActionId, ViewBag.ActionList as SelectList, "Select Status", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.ActionId).Popup(p => p.AppendTo("#Apprcontainer"))
+.Name("ActionId")
+.DataTextField("Name")
+.DataValueField("Id")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+.Filter("contains").OptionLabel("Select Status")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                                                                                                    {
+                                                                                                                                                                                            read.Action("BindActionsDrp", "EnggDrawing").Data("GetApprId");
+                                                                                                                                                                                        })
+                                                                                                                                                                                                    .ServerFiltering(true);
+})
+                            )
+                            @Html.ValidationMessageFor(model => model.ActionId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Date</label>
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.StrDwgDate, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @class = "form-control form-control-sm",
+                               @placeholder = "Date",
+                               @type = "date",
+                               //onkeydown = "return false",
+                               @onchange = "CheckDate()"
+                           }
+                       })
+                            @Html.ValidationMessageFor(model => model.StrDwgDate, "", new { @class = "text-danger" })
+                            <span class="errMsg" style="color:red;display:none">This date cannot be greater than current date.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Revision</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(model => model.Revision, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }),
+                            "Select Revision", new { @class = "form-control form-control-sm" })
+                            @Html.ValidationMessageFor(model => model.Revision, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Remark</label>
+                        <div class="col-sm-8">
+                            @Html.TextAreaFor(model => model.Remark, new { @class = "form-control form-control-sm" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-4 col-form-label-sm"> Select file <br /> <span class="col-form-label-sm text-muted">(Optional)</span> </label>
+                        <div class="col-sm-12 col-md-8">
+                            <div class="input-group input-file" name="Fichier1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-choose" type="button"
+                                            style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                        Browse File
+                                    </button>
+                                </span>
+                                <input type="text" id="txtFileinput" class="form-control pl-3" placeholder='Choose a file...' />
+                            </div>
+                            <br />
+                            @*<span class="mt-1">Note: If you have multiple file then upload it in .zip format</span>*@
+                            <span class="mt-1 text-success">Note: Upload only .pdf, .xls, .xlsx, .png, .jpg, .jpeg files</span>
+                            <div class="mt-1 progress" style="display:none">
+                                <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
+                            </div>
+                            <div class="msg"></div>
+                            <span id="errFile" style="color:red;display:none">Upload only .pdf, .xls, .xlsx, .png, .jpg, .jpeg .zip files.</span>
+                            <p class="mt-2">
+                                <a id="openAttach" href="@Model.AttachFilePath" target='_blank' title="">@Model.AttachFileName</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                       
+                    </div>*@
+                </div>
+                <div class="col-md-12 text-right">
+                    <hr>
+                    <button type="button" id="btnPartialDUSubmit" class="btn btn-info btn-sm btn-theme pull-right mt-3">@Model.OperationType</button>
+                </div>
+            </div>
+        </div>
+        @*<div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" id="btnPartialDUSubmit" class="btn btn-sm btn-theme pull-right">@Model.OperationType</button>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+}
+
+
+
+<script>
+
+    $(window).resize(function () {
+        //$('#Card1').height($(window).height() - 190);
+    });
+    $(window).trigger('resize');
+</script>

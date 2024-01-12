@@ -1,0 +1,310 @@
+﻿@model RVNLMIS.Models.PIUMasterModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+</style>
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-sm-3 pr-1">
+                <div id="frmPIU">
+                    @Html.Partial("_AddEditPIU", new RVNLMIS.Models.PIUMasterModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>PIU Master Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by PIU Code or Name" placeholder="Search by PIU Code or Name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.PIUMasterModel>()
+                                                                                                                                                                                                                                                                        .Name("PIUMasterGrid")
+                                                                                                                                                                                                                                                                        .Columns(columns =>
+                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                        //columns.Bound(c => c.PIUId).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                        //        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                        columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.PIUCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.PIUName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.Latitude).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                     .HeaderHtmlAttributes(new { style = "text-align:right" });
+
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.Logitude).Title("longitude").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                               .HeaderHtmlAttributes(new { style = "text-align:right" });
+
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.EDName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                          .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+                                                                                                                                                                                                                                                                            columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/PIUMaster/EditbyPIUID/#=PIUId#' class='EditPIU btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + " <button type='button' id='btnDeletePIU' class='btn btn-xs btn-danger has-ripple DeletePIU' data-key='#=PIUId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                                                                                                                                                                                                                                        }).Scrollable(scr => scr.Height(400))
+                                                                                                                                                          .ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax().Group(g => g.Add(c => c.EDName))
+.Model(model => model.Id(u => u.PIUId))
+.Read(read => read.Action("PIU_Details", "PIUMaster"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable()
+.Excel(excel => excel
+.FileName("PIUMasterExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("PIUMasterPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#PIUMasterGrid').height($(window).height() - 198);
+            //$('#CardHeight').height($(window).height() - 385);
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        function OnPIUSuccess(response) {
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $(".btnSubmit").val('Save');
+            }
+            else if (response.includes("already exists")) {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+                //showNoty('warning', 'ED Add/Updated Failed!');
+            }
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "PIU Master - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#PIUMasterGrid").data("kendoGrid");
+            grid.hideColumn(6);
+
+            grid.options.pdf.fileName = "PIU Master - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(6);
+            });
+        }
+
+        function dataBound() {
+            resetRowNumber();
+            $(".EditPIU").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#frmPIU').html(data);
+                    setTimeout(function () {
+
+                    }, 500);
+                });
+            });
+
+            $("#btnReset").on("click", function (e) {
+                $(".btnSubmit").val('Save');
+            });
+
+            $(".DeletePIU").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            //alert(id);
+            $.ajax({
+                url: '/PIUMaster/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    $('#PIUMasterGrid').data('kendoGrid').dataSource.read();
+                    $('#PIUMasterGrid').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+        function ClearViewAndGrid() {
+            $("#txPIUCode").val("");
+            $("#PIUName").val("");
+            $("#EDId").prop('selectedIndex', 0);
+            $("#PIUId").val(0);
+            $("#Latitude").val("");
+            $("#Logitude").val("");
+            $('#PIUMasterGrid').data('kendoGrid').dataSource.read();
+            $('#PIUMasterGrid').data('kendoGrid').refresh();
+            $("#txPIUCode").removeClass('disableCN');
+        }
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#PIUMasterGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "PIUCode", operator: "contains", value: v1 },
+                                    { field: "PIUName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+    </script>
+
+    <script>
+        //script to highlight current parent menu
+        $(document).ready(function () {
+
+            //Highlight parent menu : nav-item
+            $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+
+
+            //highlight parent menu by overriding pcoded-trigger script
+            $(".nav-item").hover(
+                function () {
+                    $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+                }, function () {
+                    $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+                }
+            );
+
+
+            //remove active class from other parent menus
+            $('#liKpi').removeClass('active');
+
+
+
+        });
+    </script>
+}

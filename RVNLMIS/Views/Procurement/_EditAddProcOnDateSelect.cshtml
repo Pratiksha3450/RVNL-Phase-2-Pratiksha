@@ -1,0 +1,160 @@
+﻿@model RVNLMIS.Models.ExistingProcList
+@{
+    Layout = null;
+    //  Html.EnableClientValidation(true);
+}
+
+@*@using (Ajax.BeginForm("SubmitProc", "Procurement", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnPartialSuccess" }, new { Page = "form", enctype = "multipart/form-data", @id = "ProcAddUpdateFrm" }))*@
+
+@using (Html.BeginForm("SubmitProc", "Procurement", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "ProcAddUpdateFrm" }))
+{
+    @Html.HiddenFor(model => model.PackMatId)
+    @Html.HiddenFor(model => model.PackMatTransId)
+    <input type="hidden" id="tempOrdered" value="@Model.OrderedQty">
+    <div class="card" id="CardHeight">
+        <div class="card-header">
+            <h5>Edit Info</h5>
+        </div>
+        <div class="card-body pl-3 pr-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm">Transaction Date</label>
+                        @Html.EditorFor(model => model.StrTransDate, new
+                   {
+                       htmlAttributes = new
+                       {
+                           @class = "form-control form-control-sm col-sm-8",
+                           @placeholder = "Date",
+                           @type = "date",
+                           //onkeydown = "return false",
+                           onchange = "CheckTransDate(event);"
+                       }
+                   })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.StrTransDate, "", new { @class = "text-danger" })
+                    <span id="errTrans" class="errMsg" style="color:red;display:none">This date cannot be greater than current date.</span>
+                    <span id="errTransFormat" class="errMsg" style="color:red;display:none">Date format is not supported.</span>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm">Target Date</label>
+                        @Html.EditorFor(model => model.StrTargetDate, new 
+                            { htmlAttributes = new 
+                                { 
+                                    @class = "form-control form-control-sm col-sm-8", 
+                                    @placeholder = "Date", 
+                                    @type = "date", 
+                                    @onchange = "CheckTargetDate()", 
+                                    //onkeydown = "return false" 
+                                } 
+                            })
+                        <span id="errTarget" class="errMsg ml-3" style="color:red;display:none">This date cannot be less than current date.</span>
+                        <span id="errTargetFormat" class="errMsg ml-3" style="color:red;display:none">Date format is not supported.</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-6 col-form-label-sm">Revised Quantity</label>
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.RevisedQty, new { htmlAttributes = new { @class = "mb-3 form-control form-control-sm", onkeypress = "return Numbers1Dot1MinusOnly(this,event)", @placeholder = "Revised Qty", @maxlength = "9" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-3 col-form-label-sm">Supplier Name</label>
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.SupplierName, new { htmlAttributes = new { @class = "mb-3 form-control form-control-sm", @placeholder = "Supplier Name", @maxlength = "200" } })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-6 col-form-label-sm">Ordered Quantity</label>
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.OrderedQty, new { htmlAttributes = new { @class = "mb-3 form-control form-control-sm", onkeypress = "return Numbers1Dot1MinusOnly(this,event)", @placeholder = "Ordered Qty", @maxlength = "9" } })
+                        </div>
+                        <span id="errOrdQty" class="errMsg ml-3" style="color:red;display:none">Ordered Qty should not be greater than Balance Order.</span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-3 col-form-label-sm">PO Reference</label>
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.PORef, new { htmlAttributes = new { @class = "mb-3 form-control form-control-sm", @placeholder = "PO Reference", @maxlength = "400" } })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-6 col-form-label-sm">Delivered Quantity</label>
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.DeliveredQty, new { htmlAttributes = new { @class = "mb-3 form-control form-control-sm", onkeypress = "return Numbers1Dot1MinusOnly(this,event)", @placeholder = "Delivered Qty", @maxlength = "9" } })
+                        </div>
+                        <span id="errDelQty" class="errMsg ml-3" style="color:red;display:none">Delivered Qty should not be greater than Ordered Qty.</span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-3 col-form-label-sm">Remark</label>
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "mb-3 form-control form-control-sm", @placeholder = "Remark", @maxlength = "400" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4 mt-2">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            <label for="Select" class="col-form-label-sm">Select file</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group input-file" name="Fichier1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-sm btn-choose" type="button" style="margin-top: 16%;">
+                                        Browse File
+                                    </button>
+                                </span>
+                                <input type="text" id="txtFileinput" class="form-control pl-3" placeholder='Choose a file...' />
+                            </div>
+                            <span id="errFile" style="color:red;display:none">Upload only .pdf, .xls, .xlsx, .png, .jpg, .jpeg files.</span>
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.AttachmentFile, "", new { @class = "text-danger" })*@
+                       
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <span>
+                        <a id="openAttach" href="@Model.AttachFilePath" target='_blank' title="">@Model.AttachFileName</a>
+                    </span>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" id="btnPartialSubmit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary mr-2" onclick="history.go(-1);"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

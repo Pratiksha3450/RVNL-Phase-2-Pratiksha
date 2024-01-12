@@ -1,0 +1,90 @@
+﻿@model RVNLMIS.Models.ConstActivityViewModel
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("SubmitConstAct", "ConstructionActivity", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnPartialSuccess" }, new { Page = "form" }))
+{
+    <div class="card">
+        <div class="card-header">
+            <h5>Edit Info</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm">Transaction Date</label>
+                        <input type="date" class="form-control form-control-sm col-sm-8" id="" placeholder="Date">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm">Target Date</label>
+                        <input type="date" class="form-control form-control-sm col-sm-8" id="" placeholder="Date">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-6 col-form-label-sm">Revised Quantity</label>
+                        <div class="col-sm-6">
+                            <input class="mb-3 form-control form-control-sm" type="text" maxlength="9" placeholder="Revised Qty">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-3 col-form-label-sm">Supplier Name</label>
+                        <div class="col-sm-9">
+                            <input class="mb-3 form-control form-control-sm" maxlength="200" type="text" placeholder="Supplier Name">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-6 col-form-label-sm">Ordered Quantity</label>
+                        <div class="col-sm-6">
+                            <input class="mb-3 form-control form-control-sm" maxlength="9" type="text" placeholder="Ordered Qty">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-3 col-form-label-sm">PO Reference</label>
+                        <div class="col-sm-9">
+                            <input class="mb-3 form-control form-control-sm" maxlength="400" type="text" placeholder="PO Reference">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-6 col-form-label-sm">Delivered Quantity</label>
+                        <div class="col-sm-6">
+                            <input class="mb-3 form-control form-control-sm" maxlength="9" type="text" placeholder="Delivered Qty">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group row">
+                        <label for="Select" class="col-sm-3 col-form-label-sm">Remark</label>
+                        <div class="col-sm-9">
+                            <input class="mb-3 form-control form-control-sm" maxlength="400" type="text" placeholder="Remark">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+
+        </div>
+    </div>
+}

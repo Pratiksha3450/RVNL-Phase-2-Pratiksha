@@ -1,0 +1,91 @@
+﻿@model RVNLMIS.Models.TargetSectionModel
+@{
+    Layout = null;
+}
+
+    <div class="card">
+        <div class="card-header pb-4">
+            <h5>Target Section Information</h5>
+        </div>
+
+        @using (Ajax.BeginForm("AddEditTargetSection", "TargetSection", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess" }, new { @class = "form", @id = "frmTargetSection" }))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.TargetSectionId)
+            <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+                <div class="row">
+                    <div class="col-md-12 mb-1">
+                        <div class="form-group mb-3">
+                            <label class="col-form-label-sm-user text-black-50" for="PackageId">Package</label>
+                            @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                            @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#container"))
+                            .Name("PackageId")
+                            .DataTextField("PackageName")
+                            .DataValueField("PackageId")
+                            .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                            .Filter("contains").OptionLabel("Select Package")
+                            .DataSource(source =>
+                            {
+                            source.Read(read =>
+                            {
+                            read.Action("ServerFiltering_GetPackage", "TargetSection");
+                            })
+                            .ServerFiltering(true);
+                            })
+                       )
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-1" >
+                        <div class="form-group mb-3">
+                            <label class="col-form-label-sm-user text-black-50" for="SectionId">Section </label>
+                            @Html.ValidationMessageFor(model => model.SectionId, "", new { @class = "text-danger" })
+                            @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#Sectioncontainer"))
+                                                                             .Name("SectionID")
+                                                                             .DataTextField("SectionName")
+                                                                             .DataValueField("SectionId")
+                                                                             .HtmlAttributes(new { style = "width:100%", @class = "form-control-sm" })
+                                                                             .Filter("contains").OptionLabel("Select Section")
+
+                                                                             .DataSource(source =>
+                                                                             {
+                                                                                 source.Read(read =>
+                                                                                 {
+                                                                                     read.Action("Get_SectionsByPackage", "TargetSection").Data("getPkgId");//, new { id = 0 });
+                                                                                                 })
+                                                                                      .ServerFiltering(true);
+                                                                             })
+                                )
+                        </div>
+
+                        </div>
+                        <div class="col-md-12 mb-1">
+                            <div class="form-group mb-3">
+                                <label class="col-form-label-sm-user text-black-50" for="txtYear">Year @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })</label>
+                                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "mb-3 form-control validateYearTextBox", @type = "text", @placeholder = "Enter Year" } })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 text-right">
+                            <div class="form-group ">
+
+                                <button type="submit" id="submitBtn" class="btn btn-sm btn-theme pull-right btnSubmit" value="Save">Save</button>
+                                @*}*@
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+
+
+        }
+    </div>
+
+
+<script>
+
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 205);
+    });
+    $(window).trigger('resize');
+</script>

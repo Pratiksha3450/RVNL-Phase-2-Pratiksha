@@ -1,0 +1,88 @@
+﻿@model RVNLMIS.Areas.RFI.Models.RFIWorkgroupModel
+@{
+    Layout = null;
+}
+<div class="card">
+    <div class="card-header">
+        <h5>Workgroup Master</h5>
+    </div>
+    @using (Ajax.BeginForm("SubmitRFIWorkGrp", "RFIWorkgroupMaster", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnWorkGroupSuccess" }, new { @class = "form", @id = "frmGroup" }))
+    {
+        @Html.HiddenFor(model => model.WorkgroupId)
+
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row mb-1">
+                @* Boq Code *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                        Workgroup Name
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.WorkgroupName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Workgroup Name" } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                @* Boq Name *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                        Discipline
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group" id="divDispContainer">
+                        @(Html.Kendo().DropDownListFor(model=>model.DispId).Popup(p => p.AppendTo("#divDispContainer"))
+.Name("DispId")
+.DataTextField("DispCode")
+.DataValueField("DispId")
+.HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+//.Filter("contains")
+.OptionLabel("Select Discipline")
+.DataSource(source =>
+{
+source.Read(read =>
+                                                                                                                {
+                                                                                                            read.Action("Get_Discipline", "RFIWorkgroupMaster");
+                                                                                                        });
+                // .ServerFiltering(true);
+})
+                        )
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                @* Boq Name *@
+                <div class="col-md-12">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtcode">
+                        Workgroup Prefix
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.WorkgroupPrefix, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Workgroup Prefix" } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="text-right mt-2">
+                        <button type="submit" class="btn btn-sm btn_theme pull-right">Save</button>
+                        @*<button type="button" class="btn btn-sm btn-theme "><i class="fa fa-eye"></i> &nbsp; Reset</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 205);
+    });
+    $(window).trigger('resize');
+</script>

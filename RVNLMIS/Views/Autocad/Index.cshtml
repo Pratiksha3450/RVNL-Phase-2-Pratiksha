@@ -1,0 +1,71 @@
+﻿@model RVNLMIS.Models.EntityMasterModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- [ Main Content ] start -->
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+</style>
+
+<div class="content_wrapper">
+    <div class=" ">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="">
+            <!-- [ horizontal-layout ] start -->
+            <div class="">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>Entity Details</h5>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="full-width">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="searching" class="form-control divMag  mr-4" placeholder="Search by Entity Code, Entity Name" aria-label="Small"
+                                               aria-describedby="inputGroup-sizing-sm" width="30%" />
+
+                                        <button class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" data-url="/EntityMaster/AddEditEntity/0"
+                                                id="btnCreateEntity">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive">
+                        <div class="col-md-12" id="cadControl">
+                            <sg:CADControl runat="server" ID="CADControl1"  Service="./draw" BackColor="Black" Height="100%" Width="100%" DefaultSHXFont="simplex.shx" SHXSearchPaths="SHX\" UseSHXFonts="True"  SHXDefaultPath="SHX\" OnEntityClickEvent="CADControl1_EntityClickEvent"></sg:CADControl>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+<script>
+
+
+
+</script>
+
+ 

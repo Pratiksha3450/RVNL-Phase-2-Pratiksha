@@ -1,0 +1,492 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .k-webkit {
+        overflow: hidden !important;
+    }
+
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+</style>
+
+<!-- [ Main Content ] start -->
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<div class="modal fade" id="ActivityUploadModal" tabindex="-1" Deduction="dialog" aria-labelledby="ActivityUploadModal" aria-hidden="true" data-backdrop="true">
+    <div id="createPackageContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">You wish to delete selected PMC Report and attachment file ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="" style="overflow:hidden">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-6 pr-1">
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                @*<a class="btn btn-primary center" href="mailto:?Subject=test&body=test" target="_top">Send Mail</a>*@
+                                <div class="col-md-4">
+                                    <h5>Reports Details</h5>
+                                </div>
+                                <div class="col-md-8 divMag">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="category" class="form-control" placeholder="Search by Remark and Title" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body pl-3 pr-3 ">
+                            <div class="row mt-2">
+
+                                <div class="col-md-5">
+                                    <div class="form-group mb-3">
+                                        <label class="col-form-label-sm-user" for="txtPMCReportTypeName"> <b>Package Name</b> </label>
+                                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#container"))
+                                                                                                                    .Name("ddlFilterPackages")
+                                                                                                                    .DataTextField("PackageName")
+                                                                                                                    .DataValueField("PackageId")
+                                                                                                                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                                                                                                                    .Filter("contains").OptionLabel("Select Package")
+                                                                                                                    .DataSource(source =>
+                                                                                                                    {
+                                                                                                                        source.Read(read =>
+                                                                                                                                                {
+                                                                                                                                                    read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                                                                                                                })
+                                                                                                                                                .ServerFiltering(true);
+                                                                                                                    })
+                                        )
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="form-group mb-3">
+                                        <label class="col-form-label-sm-user" for="txtPMCReportTypeName"><b>Type</b></label>
+                                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#container"))
+                                                                                                                    .Name("ddlPMCReportType")
+                                                                                                                    .DataTextField("PMCReportType")
+                                                                                                                    .DataValueField("PRId")
+                                                                                                                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                                                                                                                    //.Filter("contains")
+                                                                                                                    .OptionLabel("Select PMC Report Type")
+                                                                                                                    .DataSource(source =>
+                                                                                                                    {
+                                                                                                                        source.Read(read =>
+                                                                                                                                                {
+                                                                                                                                                    read.Action("ServerFiltering_GetPMCReportsDetails", "PMCReportsDetails");
+                                                                                                                                                });
+                                                                                                                                                // .ServerFiltering(true);
+                                                                                                                                            })
+                                        )
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" style="top: 25px;">
+                                    @*<button id="AddReportDetails" type="submit" class="btn btn-sm btn-theme"><i class="feather icon-plus"></i></button>*@
+                                    @*<button id="AddReportDetails" type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" title="Add Package">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>*@
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" data-url="@Url.Action("AddPMCReportForm", "PMCReportsDetails")" value="Save" id="AddReportDetails" title="Add Package"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+
+                            </div>
+
+                            <label class="col-form-label-sm-user" for="txtPMCReportTypeName"> <b>Report List</b> </label>
+
+                            <div class="">
+                                <div class="table table-condensed" id="KendoHeight">
+                                    @(Html.Kendo().Grid<RVNLMIS.Models.PMCReportDetailsModel>()
+                                                                                                                .Name("PMCReportGrid")
+                                                                                                                .Columns(columns =>
+                                                                                                                {
+                                                                                                                                        //columns.Bound(c => c.ActivityGroupId).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                        //        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                        columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                                                                                    columns.Bound(c => c.ReportingDates).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                 .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Date").Width("15%");
+                                                                                                                    columns.Bound(c => c.Title).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("15%");
+                                                                                                                    columns.Bound(c => c.Remark).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                  .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Remark");
+                                                                                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button Id='btnViewPdf'  data-key='#=PMCReportId#' class='ViewPdf btn btn-xs btn-warning has-ripple' title='View'><i class='fas fa-file-pdf'></i></button>" + "&nbsp;" +
+"<button type='button' id='btnDeletePmcReport' class='btn btn-xs btn-danger has-ripple DeletePmcReport' data-key='#=PMCReportId#' Title='Delete'><i class='feather icon-trash'></i></button>&nbsp;" +
+"<button type='button' id='btnShareUrl1' class='btn btn-xs btn-warning has-ripple btnShareUrl' data-key='#=PMCReportId#' Title='Share'><i class='feather icon-share-2'></i></button>"
+).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("15%");
+}).Scrollable(scr => scr.Height(360))
+
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.Events(events => events.DataBound("dataBound"))
+.DataSource(dataSource => dataSource
+.Ajax()
+
+.Group(g => g.Add(c => c.PMCReportType))
+.Model(model => model.Id(u => u.PMCReportId))
+.Read(read => read.Action("PMCReport_Details", "PMCReportsDetails").Data("GetPackageAndType"))
+.PageSize(15)).Groupable().Resizable(resize => resize.Columns(true))
+                                    )
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 pl-1">
+                <div class="card" id="Card2">
+                    <div class="card-header">
+                        <h5>Report Viewer</h5>
+                    </div>
+                    <div class="card-body mt-2" style="overflow:hidden">
+                        <object id="media" class="col-md-12" height="550" data="~/Content/images/defult.pdf"></object>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script language="JavaScript">
+        var formOK = false;
+        function validatePDF(objFileControl) {
+            var file = objFileControl.value;
+            var len = file.length;
+            var ext = file.slice(len - 4, len);
+            if (ext.toUpperCase() == ".PDF") {
+                formOK = true;
+            }
+            else {
+                formOK = false;
+                alert("Only PDF files allowed.");
+            }
+        }
+    </script>
+    <script>
+
+        $("#category").keyup(function () {
+            var selecteditem = $('#category').val();
+            var kgrid = $("#PMCReportGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "Remark", operator: "contains", value: v1 },
+                                    { field: "Title", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+        function GetPackageAndType() {
+            return { packageId: $("#ddlFilterPackages").val(), typeId: $("#ddlPMCReportType").val() };
+        }
+        $("#ddlFilterPackages").change(function () {
+            $('#PMCReportGrid').data('kendoGrid').dataSource.read();
+            $('#PMCReportGrid').data('kendoGrid').refresh();
+        });
+        $("#ddlPMCReportType").change(function () {
+            $('#PMCReportGrid').data('kendoGrid').dataSource.read();
+            $('#PMCReportGrid').data('kendoGrid').refresh();
+
+        });
+        function dataBound() {
+            $(".DeletePmcReport").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $("#hiddenId").val();
+                //alert(id);
+                $.ajax({
+                    url: '/PMCReportsDetails/PMCReportDetail/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response == "2") {
+                            $.notify('Entities are added to this section.You cannot delete this.', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else if (response == "1") {
+                            $("#modalDelete").modal('hide');
+                            $('#PMCReportGrid').data('kendoGrid').dataSource.read();
+                            $('#PMCReportGrid').data('kendoGrid').refresh();
+                            $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+
+            $(".btnShareUrl").click(function () {
+                var id = $(this).data("key");
+
+                $.ajax({
+                    url: '/PMCReportsDetails/PMCReportShareUrl/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    success: function (data) {
+                        $('#createPackageContainer').html(data);
+                        $('#ActivityUploadModal').modal('show');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+
+                    }
+                });
+            });
+        }
+
+        bs_input_file();
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 285);
+            $('#PMCReportGrid').height($(window).height() - 298);
+            $('#Card2').height($(window).height() - 125);
+            $('#media').height($(window).height() - 195);
+        });
+
+        $(window).trigger('resize');
+
+        $(document).on('click', '#btnViewPdf', function (e) {
+
+            var url = $(this).data("key");
+            $.ajax({
+                type: "POST",
+                url: '/PMCReportsDetails/PdfViewPath?id=' + url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                ajax: true,
+                success: function (jsonResult) {
+                    console.log('GetReportRemarkResult : ', jsonResult);
+                    var str = '';
+                    if (jsonResult.AttachFilePath != null) {
+                        var http = new XMLHttpRequest();
+                        http.open('HEAD', jsonResult.AttachFilePath, false);
+                        http.send();
+                        if (http.status != 404) {
+                            $('#media').attr('data', jsonResult.AttachFilePath);
+                        } else {
+                            $.notify('No Data Found', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                            $('#media').attr('data', '../Content/images/defult.pdf');
+                        }
+                    } else {
+                        $.notify('No Data Found', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                        $('#media').attr('data', '../Content/images/defult.pdf');
+                    }
+                },
+                error: function (result) {
+                    console.log('result ; ', result);
+                }
+            });
+
+
+        });
+
+        $(document).on('click', '#AddReportDetails', function (e) {
+
+            if ($("#ddlFilterPackages").val() == "") {
+                $.notify('Select Package ', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if ($("#ddlPMCReportType").val() == "") {
+                $.notify(' Select Report Type ', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                e.preventDefault();
+                var obj = {}; $("#ddlPMCReportType").val()
+                obj.packagesID = $("#ddlFilterPackages").val();
+                obj.pmcID = $("#ddlPMCReportType").val();
+                var url = $(this).data("url");
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(obj),
+                    dataType: "text",
+                    success: function (data) {
+                        $('#createPackageContainer').html(data);
+                        $('#ActivityUploadModal').modal('show');
+                        setTimeout(function () {
+                            bs_input_file();
+                        }, 500);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+
+                    }
+                });
+            }
+        });
+
+        function ClearPartialView() {
+            $("#Title").val("");
+            $("#ReportingDate").val("");
+            $("#Remark").val("");
+            $("#AttachFilePath").val("");
+            $("#PackageId").val("0");
+            $("#PRId").val("0");
+            $('#PMCReportGrid').data('kendoGrid').dataSource.read();
+            $('#PMCReportGrid').data('kendoGrid').refresh();
+
+            //$("#btnPartialSubmit").css("display", "none");
+        }
+
+        $(document).on('click', '#btnAddInvoicePaymentSubmit', function (e) {
+
+            var formdata = new FormData($('form').get(0));
+            $.ajax({
+                url: '/PMCReportsDetails/AddPMCReportDetailsInformation',
+                type: "POST",
+                data: formdata,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response == "1") {
+                        $.notify('Record Added Succesfully !', { align: "right", verticalAlign: "top", type: "success", background: "#0eed73", color: "#fff" });
+                        $('#ActivityUploadModal').modal('hide');
+                        $('#createPackageContainer').html("");
+                        ClearPartialView();
+
+                    }
+                    else if (response == "0") {
+                        $.notify('Please upload only pdf format files !', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+                    } else if (response == "3") {
+                        $.notify('Title already exist!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+
+                    } else {
+                        $('#createPackageContainer').html(response);
+                        $('#ActivityUploadModal').modal('show');
+                        bs_input_file();
+
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                }
+            });
+
+
+
+        });
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='AttachmentFile' name='AttachmentFile' class='input-ghost' style='visibility:hidden; height:0'>");
+                        // element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+        function OnShareUrlSuccess(response) {
+            if (response == "1") {
+                $.notify('Succesfully sent an email !', { align: "right", verticalAlign: "top", type: "success", background: "#0eed73", color: "#fff" });
+            }
+            else {
+                $.notify('Error while sending email. Please try after some time. !', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+
+            $('#ActivityUploadModal').modal('hide');
+        }
+    </script>
+
+}

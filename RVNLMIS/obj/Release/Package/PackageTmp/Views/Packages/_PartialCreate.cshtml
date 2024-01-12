@@ -1,0 +1,253 @@
+﻿
+@model RVNLMIS.Models.PackageModel
+@{
+    Layout = null;
+}
+
+<style>
+    .customtooltip b {
+        display: none;
+    }
+
+    .customtooltip b {
+        position: absolute;
+        z-index: 999999;
+        width: 100%;
+        background: #fff;
+        padding: 2px 10px 10px 8px;
+        border-radius: 2px;
+        margin-top: -3px;
+        margin-left: 0px;
+        font-size: 12px;
+        box-shadow: 0px 3px 25px 0px rgba(95, 94, 94, 0.25);
+        border-top: solid 4px #F44336;
+    }
+
+        .customtooltip b::before {
+            content: "";
+            width: 0;
+            height: 0;
+            position: relative;
+            top: -27px;
+            left: 0;
+            font-size: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid #ff3723;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+        }
+
+    .spnWord {
+        padding: 2% !important;
+    }
+</style>
+<script>
+
+        $("p").focusin(function () {
+            $(this).find("b").fadeIn().css("display", "block");
+        });
+        $("p").focusout(function () {
+            $(this).find("b").css("display", "none");
+        });
+
+</script>
+
+
+
+<div class="modal-dialog-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Packages Details</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+        </div>
+        @using (Ajax.BeginForm("AddPackagesDetails", "Packages", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreatePackageSuccess" }, new { @class = "form-horizontal", Page = "form" }))
+        {
+
+            <div class="modal-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.PackageId)
+
+                <div class="row">
+
+
+
+                    <div class="col-md-12">
+                        <div class="form-group mb-3 demo-section k-content" id="container">
+                            <label class="col-form-label-sm-user text-black-50" for="txtUserName">
+                                Select Project  @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+                            </label>
+                            @(Html.Kendo().DropDownListFor(m => m.ProjectId).Popup(p => p.AppendTo("#container"))
+                                           .Name("ProjectId")
+                                           .DataTextField("ProjectName")
+                                           .DataValueField("ProjectId")
+                                           .HtmlAttributes(new { style = "width:100%" })
+                                           .Filter("contains").OptionLabel("Select Project")
+                                           .DataSource(source =>
+                                                   {
+                                                       source.Read(read =>
+                                                               {
+                                                                   read.Action("ServerFiltering_GetProducts", "Packages");
+                                                               })
+                                                               .ServerFiltering(true);
+                                                   })
+                            )
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+
+                            <label class="col-form-label-sm-user text-black-50" for="txtUserName">Packages Code  @Html.ValidationMessageFor(model => model.PackageCode, "", new { @class = "text-danger" })</label>
+                            @*<input type="text" class="form-control form-control-sm" id="txtName" placeholder="Ex: Your Full Name">*@
+                            @Html.EditorFor(model => model.PackageCode, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex: RVNL0001", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtPassword">Package Short Name @Html.ValidationMessageFor(model => model.PackageShortName, "", new { @class = "text-danger" })</label>
+                            @Html.EditorFor(model => model.PackageShortName, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: Package - 1" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtUserName">Package Name @Html.ValidationMessageFor(model => model.PackageName, "", new { @class = "text-danger" })</label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtUserName" placeholder="Ex: User Name">*@
+                            @Html.EditorFor(model => model.PackageName, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: Samakhiyali to Kidiyanagar" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtEmail">Description @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })</label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtEmail" placeholder="Ex: Emai@gmail.com">*@
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: Full Package Description", @maxlength = "200" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Client </label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                            @Html.EditorFor(model => model.Client, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: Client Name", @maxlength = "100" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Contractor @Html.ValidationMessageFor(model => model.Contractor, "", new { @class = "text-danger" })</label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                            @Html.EditorFor(model => model.Contractor, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: Contractor Name" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">PMC @Html.ValidationMessageFor(model => model.PMC, "", new { @class = "text-danger" })</label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                            @Html.EditorFor(model => model.PMC, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: PMC Name", @maxlength = "100" } })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">PCPM </label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                            @Html.EditorFor(model => model.PCPM, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: PCPM Name", @maxlength = "100" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtEmail">Package Start </label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtEmail" placeholder="Ex: Emai@gmail.com">*@
+                            @Html.EditorFor(model => model.PackageStarts, new { htmlAttributes = new { @class = " form-control", onkeydown = "return false",@type = "Date", @placeholder = "Ex: DD/MM/YYYY" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Package Finish </label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                            @Html.EditorFor(model => model.PackageFinishs, new { htmlAttributes = new { @class = " form-control", @type = "Date", onkeydown = "return false", @placeholder = "Ex: DD/MM/YYYY" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Forecast Completed Date </label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                            @Html.EditorFor(model => model.ForecastComplDates, new { htmlAttributes = new { @class = " form-control", @type = "date", @placeholder = "Ex: DD/MM/YYYY" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1 customtooltip">
+                            <p>
+                                <label class="col-form-label-sm-user text-black-50" for="txtEmail">Package Value (In Crore) @Html.ValidationMessageFor(model => model.PackageValues, "", new { @class = "text-danger" })</label>
+                                @*<input type="text" class=" form-control form-control-sm" id="txtEmail" placeholder="Ex: Emai@gmail.com">*@
+                                @Html.EditorFor(model => model.PackageValues, new { htmlAttributes = new { @class = " form-control allow_decimal", @type = "text", @placeholder = "Ex: 12000000", @maxlength = "16" } })
+                                <b><span class="spnWord"></span></b>
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1 customtooltip">
+                            <p>
+                                <label class="col-form-label-sm-user text-black-50" for="txtMobile">Revised Package Value (In Crore) </label>
+                                @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                                @Html.EditorFor(model => model.RevisedPackageValues, new { htmlAttributes = new { @class = " form-control allow_decimal", @type = "text", @placeholder = "Ex: 12000000", @maxlength = "16" } })
+                                <b><span class="spnWord"></span></b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group mb-1 customtooltip">
+                            <p>
+                                <label class="col-form-label-sm-user text-black-50" for="txtEmail">Completed Value (In Crore) </label>
+                                @*<input type="text" class=" form-control form-control-sm" id="txtEmail" placeholder="Ex: Emai@gmail.com">*@
+                                @Html.EditorFor(model => model.CompletedValues, new { htmlAttributes = new { @class = " form-control allow_decimal", @type = "text", @placeholder = "Ex: 12000000", @maxlength = "16" } })
+                                <b><span class="spnWord"></span></b>
+                            </p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-4" style="display:none;">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtMobile">Balance Value (In Crore) </label>
+                            @*<input type="text" class=" form-control form-control-sm" id="txtMobile" placeholder="Ex: 9876543210">*@
+                            @Html.EditorFor(model => model.BalanceValues, new { htmlAttributes = new { @class = " form-control allow_decimal", @type = "text", @placeholder = "Ex: 12000000", @maxlength = "12" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50">Start Chainage </label>
+                            @Html.EditorFor(model => model.StartChainage, new { htmlAttributes = new { @class = " form-control ", @type = "text", onkeypress = "return Validate(event);", @placeholder = "Ex: 00+11", @autocomplete = "false", @maxlength = "12", onpaste = "return false" } })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50">End Chainage  </label>
+                            @Html.EditorFor(model => model.EndChainage, new { htmlAttributes = new { @class = " form-control ", @type = "text", onkeypress = "return Validate(event);", @placeholder = "Ex: 00+11", @autocomplete = "false", @maxlength = "12", onpaste = "return false" } })
+
+                        </div>
+                    </div>
+                    @*<div class="col-md-4 ">
+                            <div class="form-group ">
+                                <label class="col-form-label-sm-user text-black-50">Total Length (In KM)  @Html.ValidationMessageFor(model => model.TotalKmLength, "", new { @class = "text-danger" })</label>
+                                @Html.EditorFor(model => model.TotalKmLength, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: 1000", @autocomplete = "false", @onkeypress = "ValidateNumber(event);" } })
+
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-sm btn-theme pull-right">Save</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+

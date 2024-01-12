@@ -1,0 +1,191 @@
+﻿@using RVNLMIS.Models;
+@model RVNLMIS.Areas.RFI.Models.RFIcountSummary
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+    var org = ((UserModel)Session["RFIUserSession"]).RoleCode;
+}
+
+<style>
+</style>
+
+<!-- page contents -->
+<div class="card card-body p-5">
+    <!-- contractor -->
+    @if (org != "PMC")
+    {
+        <div class="row border mt-4 p-3" id="contractor">
+            <div class="col-md-12 col-lg-12 mb-2"><h5> Contractor Details </h5></div>
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-magenta f-36">@Model.AddCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-magenta" style="width:@Model.AddCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-magenta border-0 text-center">
+                        <h6 class="m-b-0">New RFI's</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-orange f-36">@Model.ReOpenCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-orange" style="width:@Model.ReOpenCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-orange border-0 text-center">
+                        <h6 class="m-b-0">Resubmited</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!-- /contractor -->
+    <!-- PMC -->
+    @if (org != "Contractor")
+    {
+        <div class="row border mt-4 p-3" id="PMC">
+            <div class="col-md-12 col-lg-12 mb-2"><h5> PMC Details </h5></div>
+
+            <div  class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-pink f-36">@Model.AssignedCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" style="width:@Model.AssignedCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-info border-0 text-center">
+                        <h6 class="m-b-0">Open</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-pink f-36">@Model.ScheduledCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-purple" style="width:@Model.ScheduledCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-purple border-0 text-center">
+                        <h6 class="m-b-0">Scheduled</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-pink f-36">@Model.ReScheduledCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-yellow" style="width:@Model.ReScheduledCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-yellow border-0 text-center">
+                        <h6 class="m-b-0">Rescheduled</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-brown f-36">@Model.RevisedCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-brown" style="width:@Model.RevisedCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-brown border-0 text-center">
+                        <h6 class="m-b-0">Revised</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-c-red f-36">@Model.RejectedCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-red" style="width:@Model.RejectedCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-danger border-0 text-center">
+                        <h6 class="m-b-0">Rejected</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-cyan f-36">@Model.PartiallyAppCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-cyan" style="width:@Model.PartiallyAppCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-cyan border-0 text-center">
+                        <h6 class="m-b-0">Partially Approved</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-c-green f-36">@Model.ApprovedCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-green" style="width:@Model.ApprovedCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-green border-0 text-center">
+                        <h6 class="m-b-0">Approved</h6>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    }
+    <!-- /PMC -->
+    <!-- RVNL -->
+    @if (org == "RVNL")
+    {
+        <div class="row border mt-4 p-3" id="PMC">
+            <div class="col-md-12 col-lg-12 mb-2"><h5> RVNL Details </h5></div>
+
+            <div class="col-md-3 col-lg-3">
+                <div class="card statustic-card">
+                    <div class="card-body text-center">
+                        <span class="d-block text-c-gray f-36">@Model.ClosedCount</span>
+                        <p class="m-b-1">Total</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-gray" style="width:@Model.ClosedCount%"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer badge badge-light-gray border-0 text-center">
+                        <h6 class="m-b-0">Approved</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!-- /RVNL -->
+
+</div>
+

@@ -1,0 +1,166 @@
+﻿@using RVNLMIS.Common;
+@using RVNLMIS.Models;
+
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<style>
+    iframe {
+        border-width: 1px;
+        border-style: none !important;
+        border-color: initial;
+        border-image: initial;
+    }
+
+    .float {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        bottom: 40px;
+        left: 40px;
+        background-color: #0C9;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+    }
+
+    a#spnLRDT {
+        position: fixed;
+        width: auto;
+        background: crimson;
+        bottom: 2%;
+        padding: 0.4% 1% 1% 1%;
+        margin: 0;
+        text-align: center;
+        right: 1%;
+        left: auto;
+    }
+
+    .my-float {
+        margin-top: 9px;
+    }
+
+    .i-refresh {
+        bottom: 85px;
+    }
+
+    #btnExport {
+        bottom: 130px;
+    }
+</style>
+<style>
+    .clsBtnExport {
+        bottom: 130px;
+    }
+
+    #container {
+        width: 100%;
+        height: 700px;
+    }
+
+
+     #overlay {
+        position: absolute;
+        width: inherit;
+        height: inherit;
+    }
+
+        #overlay #spinner {
+            position: absolute;
+            top: calc(50% - 50px);
+            left: calc(50% - 50px);
+        }
+</style>
+
+
+<a href="#" class="float fullscreen" id="fullScreen" title="fullscreen">
+    <i class="fas fa-expand-arrows-alt my-float"></i>
+</a>
+<a href="#" class="float fullscreen i-refresh" id="btnRefresh" title="Refresh Report">
+    <i class="fas fa-sync my-float"></i>
+</a>
+
+<a href="#" class="float fullscreen i-refresh" style="display:none" id="spnLRDT" title="Refresh Report">
+
+</a>
+
+<a href="/ExportReport/Index/@Model.MenuId" class="clsBtnExport float fullscreen" target="_blank" title="Export to PDF">
+    <i class="fas fa-download my-float"></i>
+</a>
+@Html.EncodedActionLink("", "Index", "ExportReport", new { id = @Model.MenuId }, new { @class = "clsBtnExport float fullscreen", @title = "Export to PDF" })
+
+<input type="hidden" value="@Model.MenuId" id="hdnMenuId">
+<div id="container">
+    @*<div id="overlay">
+            <img id="spinner" src="~/Content/images/primabi.gif" />
+        </div>*@
+    <div id="embedContainer" class="iframeContainer active" />
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/powerbi.js"></script>
+<script>
+      $(document).ready(function () {
+      //  UpdateRefreshTime();
+        $('.iframeContainer').css('height', $(window).height());
+          $('#liKpi').removeClass('active');
+          $('#liConstrReport').removeClass('active');
+
+    });
+    $(window).resize(function () {
+        $('.iframeContainer').css('height', $(window).height());
+        // Comma, not colon ----^
+    });
+    // Get a reference to the embedded report HTML element
+    const reportContainer = $('#embedContainer')[0];
+
+    // Read embed application token from Model
+    const accessToken = "@Model.accessToken";
+
+      // Read report Id from Model
+    const embedReportId = "@Model.reportId";
+
+    // You can embed different reports as per your need by changing the index
+    // Read embed URL from Model
+    const embedUrl = "@Html.Raw(Model.embedUrl)";
+
+
+    // Use the token expiry to regenerate Embed token for seamless end user experience
+    // Refer https://aka.ms/RefreshEmbedToken
+
+    // Get models. models contains enums that can be used.
+    const models = window['powerbi-client'].models;
+
+    // Embed configuration used to describe the what and how to embed.
+    // This object is used when calling powerbi.embed.
+    // This also includes settings and options such as filters.
+    // You can find more information at https://github.com/Microsoft/PowerBI-JavaScript/wiki/Embed-Configuration-Details.
+    const config = {
+        type: 'report',
+        tokenType: models.TokenType.Embed,
+        accessToken: accessToken,
+        embedUrl: embedUrl,
+        id: embedReportId,
+        permissions: models.Permissions.All,
+        settings: {
+            // Enable this setting to remove gray shoulders from embedded report
+            // background: models.BackgroundType.Transparent,
+            filterPaneEnabled: true,
+            navContentPaneEnabled: true
+        }
+    };
+
+
+    // Embed the report and display it within the div container.
+    const report = powerbi.embed(reportContainer, config);
+    //$("#embedContainer").css("visibility", "hidden");
+    // Embed the report and display it within the div container.
+    //var report = powerbi.embed(reportContainer, config);
+    report.on("rendered", function (event) {
+        console.log("1");
+       // $("#overlay").hide();
+      //  $("#embedContainer").css("visibility", "visible");
+       // report.off("rendered");
+    })
+</script>

@@ -1,0 +1,84 @@
+﻿
+@model RVNLMIS.Models.TicketModel
+@{
+    Layout = null;
+}
+<style>
+    .disable {
+        background-color: lightgrey;
+        pointer-events: none;
+        font-weight: 600;
+    }
+</style>
+<div class="card">
+
+    @using (Html.BeginForm("SaveStatus", "TicketAdmin", FormMethod.Post, new { @class = "form", enctype = "multipart/form-data", @id = "frmTicket" }))
+    {
+        @Html.HiddenFor(model => model.TicketId)
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="feather icon-user mr-1"></i>Change Status
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-left pt-4" id="noscroll">
+                <div id="divLoader" style="display:none;"> <img src="~/Content/images/loader.gif" alt="Loader" /> </div>
+
+                <div class="form-group">
+                    <label class="col-form-label-sm-user text-black-50" for="txtEDCode">Ticket No @Html.ValidationMessageFor(model => model.TicketNo, "", new { @class = "text-danger" })</label>
+
+                    @if (Model.TicketId != 0)
+                    {
+
+                        @Html.EditorFor(model => model.TicketNo, new { htmlAttributes = new { @class = "mb-3 form-control disable", @type = "text", @placeholder = "Enter Ticket No", id = "TicketNo", onkeypress = "return false;" } })
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.TicketNo, new { htmlAttributes = new { @class = "mb-3 form-control disable", @type = "text", @placeholder = "Enter Ticket No", id = "TicketNo", onkeypress = "return false;" } })
+                    }
+                </div>
+
+                <div class="form-group">
+                    @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                    @if (ViewBag.Package != null)
+                    {
+                        @Html.DropDownListFor(model => model.PackageId, ViewBag.Package as SelectList, "Select Package", new { @class = "mb-3 form-control form-control-sm", id = "cmbPackageID" })
+                    }
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label-sm-user text-black-50" for="txtIssue">Issue @Html.ValidationMessageFor(model => model.Issue, "", new { @class = "text-danger" })</label>
+                    @Html.EditorFor(model => model.Issue, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Issue", id = "txtIssue" } })
+                </div>
+
+                <div class="form-group">
+                    <label class="col-form-label-sm-user text-black-50" for="txtPassword">Status @Html.ValidationMessageFor(model => model.StatusID, "", new { @class = "text-danger" })</label>
+                    @*@Html.DropDownListFor(model => model.StatusID, ViewBag.lstStatus as SelectList, "Select Status", new { @class = "form-control form-control-sm" })*@
+                    @Html.EnumDropDownListFor(x => x.StatusID, "Select Status",new { @class = "form-control", id="cmbStatus" })
+                </div>
+
+                <div class="form-group">
+                    <label class="col-form-label-sm-user text-black-50" for="txtIssue">Comment @Html.ValidationMessageFor(model => model.Issue, "", new { @class = "text-danger" })</label>
+                    @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Comment", id = "txtComment" } })
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSubmmit" class="btn btn-sm waves-effect waves-light btn_theme">Save</button>
+            </div>
+
+        </div>
+
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 205);
+    });
+    $(window).trigger('resize');
+</script>
+

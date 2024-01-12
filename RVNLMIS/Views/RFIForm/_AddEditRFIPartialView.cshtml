@@ -1,0 +1,377 @@
+﻿@model RVNLMIS.Models.RFIModel
+@{
+    Layout = null;
+}
+<style>
+    #ddlBOQ {
+        width: 100% !important;
+    }
+    .DisableID {
+    background-color:#dedcdc;
+    }
+</style>
+
+<div class="card">
+
+    @using (Ajax.BeginForm("AddRFIDetails", "RFIForm", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnRFISuccess" }, new { enctype = "multipart/form-data", @class = "form", @id = "frmRFI" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID, htmlAttributes: new { id = "ID" })
+        @Html.HiddenFor(model => model.selectedBOQIDs, htmlAttributes: new { id = "selectedBOQIDs" })
+        @Html.HiddenFor(model => model.Location, htmlAttributes: new { id = "hdnLocationID" })
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row mb-1">
+                @*@if (ViewBag.SubDate !=null)
+                {
+                    <input type="hidden" id="hdnSubDate" value="@ViewBag.SubDate" />
+                }*@
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtDate">
+                        Date @Html.ValidationMessageFor(model => model.SubDate, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.SubDate, new { htmlAttributes = new { @class = "form-control form-control-sm", onkeydown = "return false",@type = "date" } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtWorkgroup">
+                        Workgroup  @Html.ValidationMessageFor(model => model.WorkGroupID, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-sm-8" id="WorkGroupContainer">
+                    @(Html.Kendo().DropDownListFor(model => model.WorkGroupID).Popup(p => p.AppendTo("#WorkGroupContainer"))
+                    .Name("WorkGroupID")
+                    .DataTextField("WorkGroupName")
+                    .DataValueField("WorkGroupID")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                    .Filter("contains").OptionLabel("Select Workgroup")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("BindWorkGroupDrpValues", "RFIForm");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+
+                </div>
+            </div>
+
+            <div class="row mb-1">
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtRFIID">
+                        RFI ID
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+
+                        @if (Model.ID != 0)
+                        {
+
+                            @Html.EditorFor(model => model.RFIID, new { htmlAttributes = new { @class = "form-control form-control-sm DisableID", @type = "text", onkeypress = "return false;", @id="RFIID", @placeholder = "Enter RFI ID" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.RFIID, new { htmlAttributes = new { @class = "form-control form-control-sm DisableID",  onkeypress = "return false;", @type = "text", @id = "RFIID", @placeholder = "Enter RFI ID " } })
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtWorkgroup">
+                        Activity  @Html.ValidationMessageFor(model => model.ActivityID, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-sm-8" id="ActivityContainer">
+                    @(Html.Kendo().DropDownListFor(model => model.ActivityID).Popup(p => p.AppendTo("#ActivityContainer"))
+                    .Name("ActivityID")
+                    .DataTextField("ActivityName")
+                    .DataValueField("ActivityID")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                    .Filter("contains").OptionLabel("Select Activity")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("BindActivityDrpValues", "RFIForm");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+
+
+                </div>
+
+
+
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtremark">
+                        Layer No @Html.ValidationMessageFor(model => model.LayerNo, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                @*<div class="col-md-8">
+            <div class="form-group">
+                    @Html.EditorFor(model => model.LayerNo, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Layer No" } })
+            </div>
+        </div>*@
+                <div class="col-sm-8" id="ActivityContainer">
+                    @(Html.Kendo().DropDownListFor(model => model.LayerNo).Popup(p => p.AppendTo("#ActivityContainer"))
+                    .Name("LayerNo")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                    .Filter("contains").OptionLabel("Select Layer No")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("BindLayerDrpValues", "RFIForm");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+                    @Html.ValidationMessageFor(model => model.LayerNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtWorkgroup">
+                        BOQ Ref  ID @Html.ValidationMessageFor(model => model.BOQ_RefID, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @if (ViewBag.BOQ_RefID != null)
+                        {                            
+                            @Html.DropDownList("ddlBOQ", ViewBag.BOQ_RefID as SelectList, null, new { @class = "", multiple = "multiple", size = "5" })
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mb-1">
+                @* Location *@
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtLocation">
+                        Location
+                        
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="radio radio-inline">
+                            <label>
+                                <input type="radio" name="rdLocation" id="rbC" checked="checked" value="1">
+                                <i class="helper"></i>Chainage
+                            </label>
+                        </div>
+                        <div class="radio radio-inline">
+                            <label>
+                                <input type="radio" name="rdLocation" id="rbE" value="2">
+                                <i class="helper"></i>Entity
+                            </label>
+                        </div>
+                        <div class="radio radio-inline">
+                            <label>
+                                <input type="radio" name="rdLocation" id="rbO" value="3">
+                                <i class="helper"></i>Other
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row mb-1" id="ChainageDiv">
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtremark">
+                        Start chainage @Html.ValidationMessageFor(model => model.StartChainage, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group mb-1">
+                        @Html.EditorFor(model => model.StartChainage, new { htmlAttributes = new { @class = "form-control", onkeypress = "return Validate(event);", @type = "text", @placeholder = "Ex : 00+11" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtremark">
+                        End chainage @Html.ValidationMessageFor(model => model.EndChainage, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group mb-1">
+                        @Html.EditorFor(model => model.EndChainage, new { htmlAttributes = new { @class = "form-control form-control-sm", onkeypress = "return Validate(event);", @type = "text", @placeholder = "Ex : 00+11" } })
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row mb-1" id="EntityDiv">
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtLocation">
+                        Entity
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-sm-8" id="entitycontainer">
+                    @*@Html.DropDownListFor(model => model.EntityId, ViewBag.EntityList as SelectList, "Select Entity", new { @class = "form-control form-control-sm" })*@
+                    @(Html.Kendo().DropDownListFor(model => model.EntityID).Popup(p => p.AppendTo("#entitycontainer"))
+                    .Name("EntityId")
+                    .DataTextField("EntityName")
+                    .DataValueField("EntityID")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                    .Filter("contains").OptionLabel("Select Entity")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("BindEntityDrpValues", "RFIForm");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+                    @Html.ValidationMessageFor(model => model.EntityID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row mb-1" id="OtherDiv">
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtremark">
+                        Other @Html.ValidationMessageFor(model => model.OtherLocation, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.OtherLocation, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "text", @placeholder = "Enter Other Location" } })
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="row mb-1">
+                <div class="col-md-4">
+
+                    <label class="col-form-label-sm-user text-black-50 pt-1" for="txtWorkgroup">
+                        Workside  @Html.ValidationMessageFor(model => model.WorksideID, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-sm-8" id="WorkSiteContainer">
+                    @(Html.Kendo().DropDownListFor(model => model.WorksideID).Popup(p => p.AppendTo("#WorkSiteContainer"))
+                    .Name("WorksideID")
+                    .DataTextField("WorkSideName")
+                    .DataValueField("WorksideID")
+                    .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-sm" })
+                    .Filter("contains").OptionLabel("Select Workside")
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("BindWorksideDrpValues", "RFIForm");
+                    })
+                    .ServerFiltering(true);
+                    })
+                    )
+                    @Html.ValidationMessageFor(model => model.WorksideID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                @* Remark *@
+                <div class="col-md-4">
+                    <label class="col-form-label-sm-user text-black-50" for="txtremark">
+                        Remark  @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        <span class="text-danger"><b>*</b></span>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Remarks" } })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="text-right mt-1">
+                        <button type="submit" class="btn btn-sm btn-theme pull-right  btnSubmit">Save</button>
+                        <button type="button" id="btnPreview" class="btn btn-sm btn-theme btnSubmit"  ><i class="fa fa-eye"></i> &nbsp; Preview</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    }
+</div>
+
+<script>
+    $(window).resize(function () {
+      //  $('#RFIID').height($(window).height() - 195);
+    });
+    $(window).trigger('resize');
+
+    $(document).ready(function () {
+       // $("#RFIID").prop('disabled', true); 
+        $("input[name$='rdLocation']").click(function () {
+            var Loc = $(this).val();
+            $("#Location").val(Loc);
+            if (Loc == 1) {                    /*for chainage*/
+                $("#ChainageDiv").show();
+                $("#EntityDiv").hide();
+                $("#OtherDiv").hide();
+
+
+            }
+            else if (Loc == 2) {         /*for Entity*/
+                $("#ChainageDiv").hide();
+                $("#EntityDiv").show();
+                $("#OtherDiv").hide();
+
+
+            }
+            else {                        /*for Other Location*/
+                $("#ChainageDiv").hide();
+                $("#EntityDiv").hide();
+                $("#OtherDiv").show();
+
+            }
+
+        });
+    });
+</script>

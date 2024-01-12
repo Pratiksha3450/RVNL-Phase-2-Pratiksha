@@ -1,0 +1,225 @@
+﻿@model RVNLMIS.Models.AuditModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+       
+    }
+</style>
+
+<div class="">
+    <div class="page-wrapper">
+        <div class="page-header">
+        </div>
+        <!-- [ Main Content ] start -->
+            <!-- [ horizontal-layout ] start -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h5 class="mr-1">Audit Details :</h5>
+                                @Html.DropDownList("ddlUsers", ViewBag.UserList as SelectList, "Select User Name", new { @class = "col-8 form-control form-control-sm" })
+                            </div>
+                            <div class="col-md-3">
+                                <h5 class="mr-1">From :</h5>
+                                <input type="date" class=" form-control form-control-sm col-8" Value=@DateTime.Now.ToString("yyyy-MM-dd") id="txtFromDate">
+                            </div>
+                            <div class="col-md-3">
+                                <h5 class="mr-1">To :</h5>
+                                <input type="date" class=" form-control form-control-sm col-8" Value=@DateTime.Now.ToString("yyyy-MM-dd") id="txtToDate">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" id="btnDateSearch" class="btn btn-sm btn-theme full-width"><i class="fa fa-search mr-1"></i> Search </button>
+                            </div>
+
+                        </div>
+
+                        @*
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2">
+                                <h5>Audit Details </h5>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                @Html.DropDownList("ddlUsers", ViewBag.UserList as SelectList, "Select User Name", new { @class = "col-8 form-control form-control-sm" })
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                From:  <input type="date" class=" form-control form-control-sm" Value=@DateTime.Now.ToString("yyyy-MM-dd") id="txtFromDate">
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                To: <input type="date" class=" form-control form-control-sm" Value=@DateTime.Now.ToString("yyyy-MM-dd") id="txtToDate">
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <button type="button" id="btnDateSearch" class="btn btn-xs btn-warning"><i class="m-r-5 feather icon-search"></i></button>
+                            </div>
+                           <div class="col-sm-12 col-md-2 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by ED Code or Name" placeholder="Search by ED Code or Name" />
+                                </div>
+                            </div>
+                        </div>
+                        *@
+                    </div>
+                    <div class="card-body table-responsive">
+                        <div class="table table-condensed" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.AuditModel>()
+                                                                                                                                                                                                                                                                                                                                        .Name("AuditGrid")
+                                                                                                                                                                                                                                                                                                                                        .Columns(columns =>
+                                                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                                                            columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.UserName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.IPAddress).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.AreaAccessed).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                                                            columns.Bound(c => c.TimeAccessed).Format("{0:dd-MMM-yyyy} {0:h:mm:ss tt}").HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                                                        }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g=>g.Add(a=>a.GroupArea))
+.Model(model => model.Id(u => u.UserId))
+.Read(read => read.Action("Audit_Details", "AuditTrail").Data("GetValues"))
+.PageSize(10))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#AuditGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "AuditTrail-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#AuditGrid").data("kendoGrid");
+            // grid.hideColumn(3);
+
+            grid.options.pdf.fileName = "AuditTrail - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            //e.promise.done(function () {
+            //    grid.showColumn(3);
+            //});
+        }
+
+
+        function GetValues() {
+            //var userid = $("#ddlUsers").val();
+            //var fromdate = $("#txtFromDate").val();
+            //var todate = $("#txtToDate").val();
+            //var param = { userid, fromdate, todate };
+            //alert(param);
+            //return
+            //param;
+            return { userid: $("#ddlUsers").val(), fromdate: $("#txtFromDate").val(), todate: $("#txtToDate").val() };
+        }
+
+        $("#btnReset").on("click", function (e) {
+            // $(".btnSubmit").val('Save');
+        });
+
+        function dataBound() {
+            resetRowNumber();
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#AuditGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "UserName", operator: "contains", value: v1 },
+                                    // { field: "EDName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+        //filter grid on package selection
+        $("#ddlUsers").change(function () {
+            RefreshKendoGrid();
+        });
+
+        $("#btnDateSearch").click(function () {
+            RefreshKendoGrid();
+        });
+
+        function RefreshKendoGrid() {
+            ////Refresh Kendo Grid
+            $('#AuditGrid').data('kendoGrid').dataSource.read();
+            $('#AuditGrid').data('kendoGrid').refresh();
+        }
+    </script>
+}

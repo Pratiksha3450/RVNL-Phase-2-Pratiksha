@@ -1,0 +1,112 @@
+﻿@model RVNLMIS.Models.MenuModel
+@{
+    Layout = null;
+}
+<div class="card">
+
+    <div class="card-header pb-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>Menu/Submenu Information</h5>
+            </div>
+        </div>
+    </div>
+
+    @using (Ajax.BeginForm("SubmitMenu", "MenuSubMenu", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "MenusubmenuSuccess" }, new { @class = "form" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MenuID)
+
+        @Html.Hidden("hdnCode", (string)@ViewBag.MenuCode)
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Menu Code  @Html.ValidationMessageFor(model => model.MenuCode, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.MenuCode, new { htmlAttributes = new { @class = "mb-1 form-control", @type = "text", @placeholder = "Ex: Menu Code", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Menu Name @Html.ValidationMessageFor(model => model.MenuName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.MenuName, new { htmlAttributes = new { @class = "mb-1 form-control", @type = "text", @placeholder = "Ex: Menu Name" } })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1" id="container">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Parent Menu</label>
+                        @*@Html.DropDownListFor(model => model.MenuParentID, ViewBag.DrpMenuList as SelectList, "Make Parent", new { @class = "mb-1 form-control form-control-sm" })*@
+                        @(Html.Kendo().DropDownListFor(m => m.MenuParentID).OptionLabel("Make Parent").Popup(p => p.AppendTo("#container")).Filter("contains").HtmlAttributes(new { @class = "full-width" }).BindTo(ViewBag.DrpMenuList as SelectList)
+                        )
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEmail">Description</label>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "mb-1 form-control", @type = "text", @placeholder = "Ex: Description" })
+                    </div>
+                </div>
+
+                @*<div class="col-md-12">
+                    <div class="form-group mb-1">
+                        @Html.CheckBoxFor(model => model.IsRFIMenu, new { @class = "form-control" })
+                        <label class="col-form-label-sm-user text-black-50" for="txtEmail">IsRFIMenu</label>
+                    </div>
+                </div>*@
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Url @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })</label>
+                        @*@if (Model.MenuParentID != 0 && Model.MenuID != 0)
+                {*@
+                        @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "mb-1 form-control", @type = "text", @placeholder = "Ex: /Controller/Action", @maxlength = "50" } })
+                        @*}
+                else
+                {
+                    @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "mb-1 form-control", @type = "text", @Value = "#", @placeholder = "Ex: /Controller/Action", @maxlength = "50", @readonly = "readonly" } })
+                }*@
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Icon </label>
+                        @Html.EditorFor(model => model.Icon, new { htmlAttributes = new { @class = "mb-1 form-control", @type = "text", @placeholder = "Ex: icon" } })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Menu Order</label>
+                        @*@if (Model.MenuParentID != 0 && Model.MenuID != 0)
+                {
+                    @Html.DropDownListFor(model => model.MenuOrder, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }),
+                   "Select Order",new { @class = "mb-1 form-control form-control-sm", disabled = "disabled" })
+                }
+                else
+                {*@
+                        @Html.DropDownListFor(model => model.MenuOrder, Enumerable.Range(1, 15).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }),
+                       "Select Order", new { @class = "mb-1 form-control form-control-sm" })
+                        @*}*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 257);
+    });
+    $(window).trigger('resize');
+</script>

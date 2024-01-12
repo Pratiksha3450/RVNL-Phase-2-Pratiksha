@@ -1,0 +1,514 @@
+﻿@model RVNLMIS.Models.SectionModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+
+    .mb-3, .my-3 {
+        margin-bottom: 5px !important;
+    }
+</style>
+
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected Section ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createSectionModal" tabindex="-1" role="dialog" aria-labelledby="createSectionModal" aria-hidden="true" data-backdrop="static">
+    <div id="createSectionContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="">
+
+            @*<div class="col-sm-3">
+                    <div id="SectionForms">
+                        @Html.Partial("_PartialEditSection", new RVNLMIS.Models.SectionModel())
+                    </div>
+                </div>*@
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="">
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h5>Section Details</h5>
+                            </div>
+
+
+
+                            <div class="col-md-5">
+                                <div class="full-width">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="txtSearch" class="form-control mr-4" title="Search by Package Name or Section Name or Section Code"
+                                               aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by section name or code" / width="30%">
+
+
+                                        <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary mr-2" href="javascript:void()" data-url="@Url.Action("Create", "Section")" value="Save" id="btnCreateSection" title="Add Section"><i class="fas fa-plus"></i> Add</button>
+                                        <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" value="Save" id="btnImport" title="Add Section"><i class="fas fa-upload"></i> Import</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @*<div class="col-md-3">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by section name or code" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by section name or code" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 text-right">
+
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" data-url="@Url.Action("Create", "Section")" value="Save" id="btnCreateSection" title="Add Section"><i class="fas fa-plus"></i> Add</button>
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()" value="Save" id="btnImport" title="Add Section"><i class="fas fa-upload"></i> Import</button>
+
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table table-condensed" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.SectionModel>()
+                            .Name("SectionGrid")
+                            .Columns(columns =>
+                            {
+                            columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("3%");
+                            columns.Bound(c => c.SectionCode).HtmlAttributes(new { style = "text-align:left" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("7%").Title("Code");
+
+
+                            columns.Bound(c => c.SectionName).HtmlAttributes(new { style = "text-align:left", title = "#= SectionName #" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Section Name").Width("");
+
+
+
+                            columns.Bound(c => c.SectionStart).HtmlAttributes(new { style = "text-align:right" }).Format("{0:dd-MMM-yyyy}")
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("7%").Title("Section Start");
+
+                            columns.Bound(c => c.SectionFinish).HtmlAttributes(new { style = "text-align:right" }).Format("{0:dd-MMM-yyyy}")
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("7%").Title("Section Finish");
+
+                            columns.Bound(c => c.StartChaining).HtmlAttributes(new { style = "text-align:right" })
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("7%").Title("Start Chainage");
+
+                            columns.Bound(c => c.EndChaining).HtmlAttributes(new { style = "text-align:right" })
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("7%").Title("End Chainage");
+
+                            columns.Bound(c => c.SectionLength).HtmlAttributes(new { style = "text-align:right" })
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Length").Width("6%");
+                            columns.Bound(c => c.ProjectName).HtmlAttributes(new { style = "text-align:left", title = "#= ProjectName #" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Project Name").Hidden();
+                            columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left", title = "#= PackageName #" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Package Name").Hidden();
+
+                            columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/Section/EditSectionBySectionId/#=SectionId#' class='EditSection btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" + "<button type='button' id='btnDeleteSection' class='btn btn-xs btn-danger has-ripple DeleteSection' data-key='#=SectionId#' Title='Delete'><i class='feather icon-trash'></i></button>" + "&nbsp;" + "<a class='btn btn-xs btn-info has-ripple'  href='/SectionDetailsView/Index/#=SectionId#'> <i class='fa fa-eye'></i></a>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+}).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.ProjectName))
+.Group(g => g.Add(c => c.PackageName))
+
+.Model(model => model.Id(u => u.SectionId))
+.Read(read => read.Action("Section_Details", "Section"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.ExcelExport("ExportExcel").PdfExport("HideColumn").DataBound("DataBound"))
+.Excel(excel => excel
+.FileName("SectionExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("SectionPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        function Validate(event) {
+            var regex = new RegExp(/[0-9]|\+/);
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+    </script>
+    <script>
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#SectionGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+        $("#btnCreateSection").on("click", function () {
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#createSectionContainer').html(data);
+                $('#createSectionModal').modal('show');
+                BindOnChangeEvent();
+            });
+        });
+
+        function getPrjId() {
+            var dID = $("#ProjectId").data("kendoDropDownList").value();
+            return { id: dID };
+        }
+
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+       
+        $(document).ready(function () {
+            $("#SectionCode").val($("#secCode").val());
+            $("#PackageId").change(function () {
+                var dID = $("#PackageId").val();
+                $.get("/Section/GetSectionCode", { id: dID },
+                    function (data) {
+                        $("#SectionCode").val(data);
+                    });
+            });
+
+            $("#btnImport").on("click", function () {
+                $.get("/Section/GetImortModal", function (data) {
+                    $('#createSectionContainer').html(data);
+                    $('#createSectionModal').modal('show');
+                    bs_input_file();
+                });
+            });
+
+            $("#createSectionContainer").on("click", "#btnExcelImport", function () {
+                var formdata = new FormData();
+                var file = document.getElementById("FileUpload").files[0];
+                var packId = $("#packageId").val();
+
+                if (packId == '' || packId == null || packId == 'undefined') {
+                    $.notify("Please select Package", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                if (file == 'undefined' || file == '' || file == null) {
+                    $.notify("Please select file", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                else {
+                    formdata.append("FileUpload", file);
+                    formdata.append("packageId", $("#packageId").val());
+
+                    $.ajax
+                        ({
+                            url: '/Section/ImportExcel',
+                            type: 'POST',
+                            data: formdata,
+                            // datatype: 'json',
+                            processData: false,
+                            contentType: false,
+                            success: function (result) {
+                                if (result == 'Error') {
+                                    $.notify("Please select file", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                                    $("#createSectionModal").modal('hide');
+                                }
+                                else {
+                                    $("#createSectionModal").modal('hide');
+                                    $('#SectionGrid').data('kendoGrid').dataSource.read();
+                                    $('#SectionGrid').data('kendoGrid').refresh();
+                                    $.notify(result, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                                }
+
+                            }
+                        });
+                }
+            });
+        });
+        function BindOnChangeEvent() {
+            $("#ProjectId").change(function () {
+                GetPackageOnProjectSelect();
+            });
+            $("#PackageId").change(function () {
+                var dID = $("#PackageId").val();
+                $.get("/Section/GetSectionCode", { id: dID },
+                    function (data) {
+                        $("#SectionCode").val(data);
+                    });
+            });
+        }
+
+        function GetPackageOnProjectSelect() {
+            var projectDataSource;
+            var dID = $("#ProjectId").data("kendoDropDownList").value()
+            $.get("/Section/Get_PackageByProject", { id: dID },
+                function (data) {
+
+                    $("#PackageId").html('');
+                    //$("#PackageId").append($('<option></option>').val(0).html("Select Package"));
+                    //$.each(data, function (i, item) {
+                    //    $("#PackageId").append($('<option></option>').val(item.PackageId).html(item.PackageName));
+                    //});
+                    projectDataSource = data;
+                    $("#PackageId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: projectDataSource }));
+                });
+        }
+
+        function OnSectionSuccess(response) {
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Already Exists") {
+                // ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else if (response.startsWith("Selected Start and End Chainage")) {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                $('#createSectionContainer').html(response);
+                BindOnChangeEvent();
+                return;
+            }
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Section-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#SectionGrid").data("kendoGrid");
+            grid.hideColumn(10);
+
+            grid.options.pdf.fileName = "Section - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(10);
+            });
+        }
+
+        function DataBound() {
+            rowNumber = 0;
+            $(".EditSection").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //  $('#SectionForms').html(data);
+                    $('#createSectionContainer').html(data);
+                    $('#createSectionModal').modal('show');
+                    setTimeout(function () {
+                        BindOnChangeEvent();
+
+                        //  GetPackageOnProjectSelect();
+
+                        //$(document).ready(function () {
+                        //    $("#PackageId").change(function () {
+                        //        var dID = $("#PackageId").val();
+                        //        $.get("/Section/GetSectionCode", { id: dID },
+                        //            function (data) {
+                        //                $("#SectionCode").val(data);
+                        //            });
+                        //    });
+                        //});
+                    }, 500);
+                });
+            });
+
+            $(".DeleteSection").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+        }
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            //alert(id);
+            $.ajax({
+                url: '/Section/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response == "2") {
+                        $.notify('Entities are added to this section.You cannot delete this.', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                    }
+                    else if (response == "1") {
+                        $("#modalDelete").modal('hide');
+                        $('#SectionGrid').data('kendoGrid').dataSource.read();
+                        $('#SectionGrid').data('kendoGrid').refresh();
+                        $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        function ClearViewAndGrid() {
+            $('#createSectionModal').modal('hide');
+            $('#createSectionContainer').html("");
+            $("#SectionId").val(0);
+            var $id = $("#PackageId");
+
+            if ($id.find('option').length > 1) {
+                $("#PackageId").val(null);
+                $("#SectionCode").val("");
+            }
+
+            $("#SectionName").val("");
+
+            $("#SectionStarts").val("");
+            $("#SectionFinishs").val("");
+            $("#StartChaining").val("");
+            $("#EndChaining").val("");
+            $('#SectionGrid').data('kendoGrid').dataSource.read();
+            $('#SectionGrid').data('kendoGrid').refresh();
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#SectionGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "SectionName", operator: "contains", value: v1 },
+                                    { field: "SectionCode", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 },
+                                    { field: "PackageCode", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='FileUpload' name='FileUpload' class='input-ghost' style='visibility:hidden; height:0'>");
+                        // element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+    </script>
+}

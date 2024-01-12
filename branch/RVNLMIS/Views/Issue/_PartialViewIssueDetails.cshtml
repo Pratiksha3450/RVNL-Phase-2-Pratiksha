@@ -1,0 +1,99 @@
+﻿@model RVNLMIS.Models.IssueRegModel
+@{
+    Layout = null;
+     var instanceUrl = System.Configuration.ConfigurationManager.AppSettings["ServerPath"] as string;
+}
+<div class="modal-dialog-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Issue Details</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+        </div>
+       
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName">Package Name : </label>
+                            <span class="col-md-8">@Model.PackageName</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName">PMC Name :</label>
+                            <span class="col-md-8"> @Model.PMCName</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName">Issue RegNo :</label>
+                            <span class="col-md-8"> @Model.IssueRegNo</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName"> Date : </label>
+                            <span class="col-md-8"> @Model.Date</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName">Reported On :</label>
+                            <span class="col-md-8">@Model.Date</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName">Reported By :</label>
+                            <span class="col-md-8">@Model.UserName</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName">Location :</label>
+                            <span class="col-md-8"> @Model.Location</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-2 text-black-50" for="txtUserName">Subject :</label>
+                            <span class="col-md-10">@Model.IssueSubject</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-12">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-2 text-black-50" for="txtUserName">Description :</label>
+                            <span class="col-md-10"> @Model.IssueDescription</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-4 text-black-50" for="txtUserName">Attachment :</label>
+                            <span class="col-md-8"> @Model.AttachFileName'</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 row">
+                            <a href="@instanceUrl@Model.AttachFilePath" target="_blank" class="col-md-2 btn btn-sm btn-success"><i class="fa fa-download"></i></a>
+                            <span class="col-md-10"> Open in New Tab</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-sm btn-theme pull-right">Save</button>
+                    </div>
+                </div>
+            </div>*@
+        
+    </div>
+</div>

@@ -1,0 +1,121 @@
+﻿@model RVNLMIS.Models.DataIssueWrapper
+
+
+@{
+    Layout = null;
+}
+<style>
+    #tbl_datalogissue{
+        height:30vh;
+        overflow:scroll;
+    }
+</style>
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title">Data Issue: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div> <span title="Latest Remark on Ticket"> @Model.objModel.Remark </span></h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+
+    </div>
+    @using (Ajax.BeginForm("UpdateIssueByUser", "DataIssueReport", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnUpdateSuccess" }, new { @class = "form", Page = "xyz" }))
+    {
+        @Html.HiddenFor(Model => Model.objModel.IssueId)
+
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="">
+                        <div class="modal-header">
+                            Current Status:&nbsp;&nbsp; <span>
+                                <i class="fa @(@Model.objModel.StatusId==4? "fa-check-circle":"fa-exclamation-triangle")"></i> @Model.objModel.Status
+                            </span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 row">
+                                <div class="col-sm-4 text-right"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Ticket No: </label></div>
+                                <div class="col-sm-8"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> @Model.objModel.DataTicket </label></div>
+                                <div class="col-sm-4 text-right"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Package Code: </label></div>
+                                <div class="col-sm-8"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> @Model.objModel.PackageCode </label></div>
+                                <div class="col-sm-4 text-right"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Created On: </label></div>
+                                <div class="col-sm-8"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> @Model.objModel.CreatedOn </label></div>
+                                <div class="col-sm-4 text-right"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Short Details: </label></div>
+                                <div class="col-sm-8"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> @Model.objModel.ShortDescription </label></div>
+                                <div class="col-sm-4 text-right"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Description: </label></div>
+                                <div class="col-sm-8"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> @Model.objModel.Description </label></div>
+                                
+                            </div>
+                            <div class="team-box">
+                                <p class="d-inline-block m-r-20 f-w-400" title="Click here if you can't view attachment below"><a href="~/Uploads/DataIssues/@(Model.objModel.Attachment)" target="_blank"><span class="badge badge-info"><i class="fa fa-file"></i>Attachments</span></a></p><br />
+                                <div class="team-section ">
+                                    <div class="row ">
+                                        <div class=" col-lg-3 col-sm-4 col-xs-12">
+                                            <a href="~/Uploads/DataIssues/@(Model.objModel.Attachment)" data-toggle="lightbox" data-title="@(Model.objModel.ShortDescription)" data-footer="@(Model.objModel.ShortDescription)">
+                                                <img src="~/Uploads/DataIssues/@(Model.objModel.Attachment)" class="img-fluid m-b-10" alt="" width="20px">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="">
+                        <div class="modal-header">
+                            Data Issue Logs
+                        </div>
+                        <div class="modal-body">
+                            <div class=" table-responsive" id="tbl_datalogissue">
+                                <table class="table table-hover table-borderless mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th width="20%">Date</th>
+                                            <th width="3%">Status</th>
+                                            <th width="3%">Name</th>
+                                            <th>Remark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.objLogList)
+                                        {
+                                        <tr>
+                                            <td width="15%"><label class="col-form-label-sm-user" for="txtUserName"> @(Convert.ToDateTime(item.UpdatedOn).ToString("dd-MM-yyyy hh:mm tt"))</label></td>
+                                            <td width="3%">
+                                                <label class="col-form-label-sm-user" for="txtUserName">
+                                                    <span class=@(item.StatusId==4? "text-success": item.StatusId==3? "text-danger":  item.StatusId==2?  "text-info":"text-warning") title="@(item.Status)">
+                                                        <i class="fa @(@item.StatusId==4? "fa-check-circle":"fa-exclamation-triangle")"></i> 
+                                                    </span>
+                                                </label>
+                                            </td>
+                                            <td width="3%"><label class="col-form-label-sm-user" for="txtUserName"> @item.Name</label></td>
+                                            <td><label class="col-form-label-sm-user" for="txtUserName"> @item.Remark</label></td>
+                                        </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="col-sm-12 row">
+                <div class="col-lg-12">                    
+                    @*<a href="~/Uploads/DataIssues/@(Model.objModel.Attachment)" target="_blank"><span class="badge badge-light-warning"><i class="fa fa-file"></i>Click here to Check Attachment</span></a>*@
+                    @if (Model.objModel.StatusId != 2)
+                    {                        
+                        @Html.EditorFor(model => model.objModel.NewRemark, new { htmlAttributes = new { @class = "mb-3 form-control text-right col-md-12 col-lg-9", @type = "text", @placeholder = "Ex: Please add Remark before submitting" } })
+                        <button type="submit" class="btn btn-sm btn-theme m-t-10 float-right">Marked as Acknowledged</button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+

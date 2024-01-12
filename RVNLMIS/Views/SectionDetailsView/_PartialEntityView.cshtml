@@ -1,0 +1,33 @@
+﻿
+@model RVNLMIS.Models.EntityMasterModel
+@{
+    Layout = null;
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 id="modalTitle" class="modal-title">@Model.ModalHeader</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+    <div class="modal-body">
+        <div class="table-responsive" id="Section">
+            <table class='table table-sm mb-0 '>
+                <tbody>
+                    <tr><td style="border-top: 1px solid #ffffff !important;">Entity Name</td><td style="border-top: 1px solid #ffffff !important;">: @Model.EntityName </td></tr>
+                    <tr><td>Project Name</td><td>: @Model.ProjectName </td></tr>
+                    <tr><td>Package Name</td><td>: @Model.PackageName </td></tr>
+                    <tr><td>Section Name</td><td>: @Model.SectionName </td></tr>
+                    <tr><td>Entity Type Name</td><td>: @Model.EntityTypeName </td></tr>
+                    <tr><td>Start Chainage</td><td>: @Model.StartChainage </td></tr>
+                    <tr><td>End Chainage</td><td>: @Model.EndChainage </td></tr>
+                    <tr><td>Lat</td><td>: @Model.Lat </td></tr>
+                    <tr><td>Long</td><td>: @Model.Long </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

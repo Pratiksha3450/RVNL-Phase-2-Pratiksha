@@ -1,0 +1,363 @@
+﻿@model RVNLMIS.Areas.RFI.Models.RFIUserModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        font-size: smaller !important;
+    }
+
+    .divMag {
+        margin-left: 64px !important;
+    }
+</style>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnId">
+                <p class="success-message">Are you sure you wish to delete selected User ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        <div class="row">
+            @*<div class="col-sm-3 pr-1">
+                    <div id="UserForm">
+                        @Html.Partial("_PartialAddEditRfiUser", new RVNLMIS.Areas.RFI.Models.RFIUserModel())
+                    </div>
+                </div>*@
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-12 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <h5>User Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="category" class="form-control" placeholder="Search by Full Name or Email" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                    <button class="btn btn-sm waves-effect waves-light btn-outline-primary ml-2" href="javascript:void()" data-url="/RFI/RFIUser/EditRfiUser/0"
+                                            id="btnCreateRFIUser">
+                                        <i class="fas fa-plus"></i> Add
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Areas.RFI.Models.RFIUserModel>()
+                                                                                                                                        .Name("RfiUsersGrid")
+                                                                                                                                        .Columns(columns =>
+                                                                                                                                        {
+                                                                                                                                        columns.Bound(c => c.FullName).HtmlAttributes(new { style = "text-align:left", title = "#= FullName #" })
+                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Full Name");
+                                                                                                                                        columns.Bound(c => c.Email).HtmlAttributes(new { style = "text-align:left", title = "#= Email #" })
+                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                        columns.Bound(c => c.Password).HtmlAttributes(new { style = "text-align:left", title = "#= Password #" })
+                                                                                                                                                                                                       .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                        columns.Bound(c => c.Mobile).HtmlAttributes(new { style = "text-align:left", title = "#= Email #" })
+                                                                                                                                                                                                      .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("12%");
+                                                                                                                                        columns.Bound(c => c.Organisation).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("15%");
+                                                                                                                                        columns.Bound(c => c.Designation).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Designation");
+                                                                                                                                        columns.Bound(c => c.ReportingToUser).HtmlAttributes(new { style = "text-align:left" }).Title("Reporting To")
+                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                        columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/RFI/RFIUser/EditRfiUser/#=RFIUserId#' class='btnEditUser btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" + "<button type='button' class='btn btn-xs btn-danger has-ripple DeleteUser' data-key='#=RFIUserId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+                                                                                                                        }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 15, 50, 100, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.PackageName))
+.Group(g => g.Add(c => c.Organisation))
+.Model(model => model.Id(u => u.RFIUserId))
+.Read(read => read.Action("Read_RFIUsers", "RFIUser"))
+.PageSize(13)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound"))
+.Excel(excel => excel
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="modal fade" id="createRFIUserModal" tabindex="-1" role="dialog" aria-labelledby="createRFIUserModal" aria-hidden="true" data-backdrop="static">
+    <div id="createRFIUserContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#RfiUsersGrid').height($(window).height() - 198);
+        });
+
+        $(window).trigger('resize');
+
+        function dataBound() {
+            $(".btnEditUser").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                console.log(url);
+                $.get(url, function (data) {
+                    $('#createRFIUserContainer').html(data);
+                    $('#createRFIUserModal').modal('show');
+                    BindOnChangeEvent();
+                });
+            });
+
+            $(".DeleteUser").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hdnId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+        }
+
+        function onFormBegin() {
+            // Disable the button and hide the other image here
+            // or you can hide the whole div like below
+            $(".se-pre-con").show();
+        }
+
+        function AllowNumbersOnly(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        function RFIUserFormSuccess(data) {
+           
+            BindOnChangeEvent();
+            if (data == "2") {
+                $.notify('User updated successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#createRFIUserModal').modal('hide');
+                $('#RfiUsersGrid').data('kendoGrid').dataSource.read();
+                $('#RfiUsersGrid').data('kendoGrid').refresh();
+                ClearFormGrid();
+                $(".se-pre-con").hide();
+            } else if (data == "1") {
+                $.notify('User add successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#createRFIUserModal').modal('hide');
+                $('#RfiUsersGrid').data('kendoGrid').dataSource.read();
+                $('#RfiUsersGrid').data('kendoGrid').refresh();
+                ClearFormGrid();
+                $(".se-pre-con").hide();
+            } else if (data == "3") {
+                $.notify('Email already exist!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                $(".se-pre-con").hide();
+            }
+            else if (data == "4") {
+                $.notify('Mobile number already exist!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                $(".se-pre-con").hide();
+            }
+            else {
+                $('#createRFIUserContainer').html(data);
+                $('#createRFIUserModal').modal('show');
+                // $.notify(data, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                $(".se-pre-con").hide();
+            }
+        }
+
+        function ClearFormGrid() {
+            $("#RFIUserId").val("0");
+            $("#FullName").val("");
+            $("#Email").val("");
+            $("#Mobile").val("");
+            $("#Organisation").data("kendoDropDownList").value("");
+            $("#DesignationId").data("kendoDropDownList").value("");
+            $("#Password").val("");
+            $("#ReportingTo").data("kendoDropDownList").value("");
+        }
+
+        $(document).ready(function () {
+            $("#btnCreateRFIUser").on("click", function () {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createRFIUserContainer').html(data);
+                    $('#createRFIUserModal').modal('show');
+                    BindOnChangeEvent();
+                });
+            });
+
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $("#hdnId").val();
+
+                $.ajax({
+                    url: '/RFI/RFIUser/DeleteUser/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        //Refresh Kendo Grid
+
+                        $("#modalDelete").modal('hide');
+                        // ShowSuccessMessage('Deleted Successfully');
+                        $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                        $('#RfiUsersGrid').data('kendoGrid').dataSource.read();
+                        $('#RfiUsersGrid').data('kendoGrid').refresh();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+
+            $("#category").keyup(function () {
+                var selecteditem = $('#category').val();
+                var kgrid = $("#RfiUsersGrid").data("kendoGrid");
+                selecteditem = selecteditem.toUpperCase();
+                var selectedArray = selecteditem.split(" ");
+                if (selecteditem) {
+                    //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                    var orfilter = { logic: "or", filters: [] };
+                    var andfilter = { logic: "and", filters: [] };
+                    $.each(selectedArray, function (i, v) {
+                        if (v.trim() == "") {
+                        }
+                        else {
+                            $.each(selectedArray, function (i, v1) {
+                                if (v1.trim() == "") {
+                                }
+                                else {
+                                    orfilter.filters.push({ field: "FullName", operator: "contains", value: v1 },
+                                        { field: "Email", operator: "contains", value: v1 },
+                                    );
+                                    andfilter.filters.push(orfilter);
+                                    orfilter = { logic: "or", filters: [] };
+                                }
+
+                            });
+                        }
+                    });
+                    kgrid.dataSource.filter(andfilter);
+                }
+                else {
+                    kgrid.dataSource.filter({});
+                }
+
+            });
+        });
+
+        function BindOnChangeEvent() {
+            $("#Organisation").change(function () {
+                var desgDataSource;
+                var selectedId = $("#Organisation").val();
+                $.get("/RFI/RFIUser/Get_Designation?orgId=" + selectedId, function (data) {
+                    $("#DesignationId").html('');
+                    desgDataSource = data;
+                    $("#DesignationId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: desgDataSource }));
+                });
+
+                //
+                var repDataSource;
+                var selectedId = $("#Organisation").val();
+                $.get("/RFI/RFIUser/Get_ReportingToList?orgId=" + selectedId, function (data) {
+                    $("#ReportingTo").html('');
+                    repDataSource = data;
+                    $("#ReportingTo").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: repDataSource }));
+                });
+            });
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "RFI_Users - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xlsx";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#RfiUsersGrid").data("kendoGrid");
+            grid.hideColumn(7);
+
+            grid.options.pdf.fileName = "RFI_Users - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(7);
+            });
+        }
+
+        function GetOrgId() {
+            return { orgId: $("#Organisation").data("kendoDropDownList").value() };
+        }
+        function mouseoverPass() {
+            var obj = document.getElementById('Password');
+            obj.type = "text";
+        }
+
+        function mouseoutPass() {
+            var obj = document.getElementById('Password');
+            obj.type = "password";
+        }
+    </script>
+}
+
+

@@ -1,0 +1,323 @@
+﻿@model RVNLMIS.Models.UserSettingModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/RFI/Views/Shared/_RFIFilteredLayout.cshtml";
+    var path = "/Content/assets/images/ProfilePic.png";
+}
+
+<div class="card card-body" id="profile_card">
+
+    <!-- profile body start -->
+    <div class="row mt-5">
+        <div class="col-md-3 order-md-1">
+
+            <div class="card mt-5">
+                <div class="text-center mt-n5">
+                    <div class="change-profile text-center">
+                        <div class="dropdown w-auto d-inline-block">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="profile-dp">
+                                    <div class="position-relative d-inline-block">
+                                        @if (!string.IsNullOrEmpty(Model.UserImagePath))
+                                        {
+                                            path = Model.UserImagePath;
+                                        }
+                                        <img id="imgPic" class="img-radius img-fluid wid-100" src="@path" alt="User image">
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 110px, 0px);">
+                                <input id="upload" style="display:none" type="file" />
+                                <a class="dropdown-item" id="upload_link" href="#"><i class="feather icon-upload-cloud mr-2"></i>upload new</a>
+                                @*<a class="dropdown-item" href="#"><i class="feather icon-image mr-2"></i>from photos</a>
+                                    <a class="dropdown-item" href="#"><i class="feather icon-shield mr-2"></i>Protact</a>*@
+                                <a class="dropdown-item" id="btnRemovePhoto" href="#"><i class="feather icon-trash-2 mr-2"></i>remove</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="mb-1">@Model.objUser.Name</h5>
+                        @*<p class="mb-2 text-muted">PMC User</p>*@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8 order-md-2">
+            <ul class="nav nav-tabs profile-tabs nav-fill mb-5" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link text-reset active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><i class="feather icon-user mr-2"></i>Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-reset" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false"><i class="feather icon-settings mr-2"></i>Settings</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="">
+                        <div class="card-body d-flex align-items-center justify-content-between">
+                            <h5 class="mb-0">Personal details</h5>
+
+                        </div>
+                        <div class="card-body border-top pro-det-edit collapse show pt-4" id="pro-det-edit-1">
+                            <div class="row">
+                                <div class=" col-md-12">
+                                    <button type="button" class="btn btn-warning btn-sm rounded mb-2 float-right" data-toggle="collapse" data-target=".pro-det-edit" aria-expanded="false" aria-controls="pro-det-edit-1 pro-det-edit-2">
+                                        <i class="feather icon-edit mr-2"></i> Edit Profile
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bolder">Full Name</label>
+                                <div class="col-sm-9" id="divUserName">
+                                    @Model.objUser.Name
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bolder">Mobile Number</label>
+                                <div class="col-sm-9" id="divMobile">
+                                    @Model.objUser.MobileNo
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bolder">Email Address</label>
+                                <div class="col-sm-9" id="divEmail">
+                                    @Model.objUser.EmailId
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="divGeneral card-body border-top pro-det-edit collapse pt-4" id="pro-det-edit-2">
+                            <div class="row">
+                                <div class=" col-md-12">
+                                    <button type="button" class="btn btn-primary btn-sm rounded mb-2 float-right" data-toggle="collapse" data-target=".pro-det-edit" aria-expanded="false" aria-controls="pro-det-edit-1 pro-det-edit-2">
+                                        <i class="feather icon-corner-up-left mr-2"></i> Back
+                                    </button>
+                                </div>
+                            </div>
+                            @using (Ajax.BeginForm("EditProfileSubmit", "RFIUserSetting", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "UpdateUserProfileSuccess" }, new { @class = "form", Page = "Usersform" }))
+                            {
+                                @Html.HiddenFor(model => model.objUser.UserId)
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Full Name</label>
+                                    <div class="col-sm-9">
+                                        @Html.EditorFor(model => model.objUser.Name, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex: Your Full Name" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Mobile Number</label>
+                                    <div class="col-sm-9">
+                                        @Html.EditorFor(model => model.objUser.MobileNo, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Your Mobile No" } })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Email Address</label>
+                                    <div class="col-sm-9">
+                                        @Html.EditorFor(model => model.objUser.EmailId, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Your Email" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"></label>
+                                    <div class="col-sm-9">
+                                        <button type="submit" class="btn btn-sm btn_theme btn-theme">Save</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                    <div class="">
+                        <div class="card-body d-flex align-items-center justify-content-between">
+                            <h5 class="mb-0">Notification Settings</h5>
+                        </div>
+                        <div class="card-body border-top collapse show pt-4">
+                            @using (Ajax.BeginForm("UpdateNotifySetting", "RFIUserSetting", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "UpdateUserNotifySuccess" }, new { @class = "form", Page = "Usersform", id = "addEditRfi" }))
+                            {
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Email</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <div class="switch switch-info d-inline m-r-10">
+                                                <input type="checkbox" name="Email" id="Email" checked=@Model.objNotify.Email>
+                                                <label for="Email" class="cr"></label>
+                                            </div>
+                                            <label>On / OFF </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">SMS</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <div class="switch switch-info d-inline m-r-10">
+                                                <input type="checkbox" name="SMS" id="SMS" checked=@Model.objNotify.SMS>
+                                                <label for="SMS" class="cr"></label>
+                                            </div>
+                                            <label>On / OFF </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Whatsapp</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <div class="switch switch-info d-inline m-r-10">
+                                                <input type="checkbox" name="Whatsapp" id="Whatsapp" checked=@Model.objNotify.Whatsapp>
+                                                <label for="Whatsapp" class="cr"></label>
+                                            </div>
+                                            <label>On / OFF </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Push Notification on app</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <div class="switch switch-info d-inline m-r-10">
+                                                <input type="checkbox" name="AppPushNotification" id="AppPushNotification" checked=@Model.objNotify.AppPushNotification>
+                                                <label for="AppPushNotification" class="cr"></label>
+                                            </div>
+                                            <label>On / OFF </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Push Notification on desktop</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <div class="switch switch-info d-inline m-r-10">
+                                                <input type="checkbox" name="DesktopPushNotification" id="DesktopPushNotification" checked=@Model.objNotify.DesktopPushNotification>
+                                                <label for="DesktopPushNotification" class="cr"></label>
+                                            </div>
+                                            <label>On / OFF </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Popup Notification</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <div class="switch switch-info d-inline m-r-10">
+                                                <input type="checkbox" name="PopupNotification" id="PopupNotification" checked=@Model.objNotify.PopupNotification>
+                                                <label for="PopupNotification" class="cr"></label>
+                                            </div>
+                                            <label>On / OFF </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"></label>
+                                    <div class="col-sm-9">
+                                        <button type="submit" class="btn btn-sm btn_theme btn-theme">Save</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- profile body end -->
+</div>
+
+
+<script>
+    $(function () {
+        $("#btnRemovePhoto").click(function () {
+            $.get("/RFI/RFIUserSetting/RemovePhoto", function (data) {
+                if (data == "1") {
+                    $("#imgPic").attr('src', "/Content/assets/images/ProfilePic.png");
+                }
+            });
+        });
+
+        $("#upload_link").on('click', function (e) {
+            e.preventDefault();
+            $("#upload:hidden").trigger('click');
+        });
+    });
+
+    $("#upload:hidden").change(function () {
+        var formdata = new FormData(); //FormData object
+        var fileInput = document.getElementById('upload');
+        //Iterating through each files selected in fileInput
+        for (i = 0; i < fileInput.files.length; i++) {
+            //Appending each file to FormData object
+            formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        }
+        //Creating an XMLHttpRequest and sending
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/RFI/RFIUserSetting/Upload');
+        xhr.send(formdata);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                $.notify("Profile picture updated successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+        }
+        return false;
+    });
+
+    //$(".divGeneral").on("click", ".btnEditProfile", function () {
+    //    var data = new FormData($('#EditProfileFrm')[0]);
+    //    $(".se-pre-con").show();
+    //    $.ajax({
+    //        url: '/RFI/GenerateRFI/EditProfileSubmit',
+    //        type: "POST",
+    //        data: data,
+    //        processData: false,
+    //        contentType: false,
+    //        success: function (response) {
+    //            if (response == "1") {
+    //                $.notify("Profile details updated successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+    //                $("#UserId").val("0");
+    //                $("#UserImage").val('');
+    //                $("#Name").val("");
+    //                $("#EmailId").val("");
+    //                $("MobileNo").val();
+    //            }
+    //            else if (response == "0") {
+    //                $("#errFile").css("display", "block");
+    //            }
+    //            else if (response == "2") {
+    //                $.notify("Something went wrong! Please try after some time.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+    //            }
+    //            // bs_input_file();
+    //            $(".se-pre-con").hide();
+    //        }
+    //    });
+    //});
+
+    function UpdateUserNotifySuccess(response) {
+        if (response == "1") {
+            $.notify("Notification setting updated successully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+        }
+        else if (response == "2") {
+            $.notify("Something went wrong! Please try after some time.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+        }
+    }
+
+    function UpdateUserProfileSuccess(response) {
+        if (response.message == "1") {
+            $.notify("Profile details updated successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+            $("#divUserName").html(response.name);
+            $("#divMobile").html(response.mobile);
+            $("#divEmail").html(response.email);
+        }
+        else if (response == "0") {
+            $("#errFile").css("display", "block");
+        }
+        else if (response == "2") {
+            $.notify("Something went wrong! Please try after some time.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+        }
+    }
+</script>

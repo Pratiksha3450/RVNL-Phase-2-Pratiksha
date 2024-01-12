@@ -1,0 +1,313 @@
+﻿@model RVNLMIS.Models.InvoiceModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+    }
+
+    .mb-3, .my-3 {
+        margin-bottom: 5px !important;
+    }
+</style>
+
+
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 id="ModalTitle">Confirm Delete</h4>
+            </div>
+            <div class="modal-body">
+                <h5 class="">
+                    <i class="fa fa-trash-o text-red mr-1 fa-2x"></i>Are you sure you wish to delete selected record ?
+                </h5>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary delete-confirm" id="btnDeleteConfirm">Ok</button>
+                <button class="btn btn-default" data-dismiss="modal"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="partialModal" tabindex="-1" role="dialog" aria-labelledby="createInvoiceModal" aria-hidden="true" data-backdrop="static">
+    <div id="createInvoiceContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+
+        <div class="">
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5>Invoice Details</h5>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="full-width">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" class="form-control mr-4" title="Search by Invoice Code"
+                                           aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by code" / width="30%">
+
+
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary mr-2" href="javascript:void()" data-url="@Url.Action("_AddEditInvoice", "Invoice")" value="Save" id="btnCreateInvoice" title="Add Section"><i class="fas fa-plus"></i> Add</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="table table-condensed" id="KendoHeight">
+
+                        @(Html.Kendo().Grid<RVNLMIS.Models.InvoiceModel>()
+                            .Name("InvoiceGrid")
+                            .Columns(columns =>
+                            {
+
+                            columns.Bound(c => c.InvoiceNo).HtmlAttributes(new { style = "text-align:left" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("100").Title("Code");
+
+
+                            columns.Bound(c => c.InvoiceAmount).HtmlAttributes(new { style = "text-align:left", title = "#= InvoiceAmount #" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Invoice Amount").Width("100");
+
+
+
+                            columns.Bound(c => c.InvoiceDate).HtmlAttributes(new { style = "text-align:right" }).Format("{0:dd-MMM-yyyy}")
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("100").Title("Invoice Date");
+
+                            columns.Bound(c => c.CreatedOn).HtmlAttributes(new { style = "text-align:right" }).Format("{0:dd-MMM-yyyy}")
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("100").Title("Created On");
+
+                            columns.Bound(c => c.CertifiedAmount).HtmlAttributes(new { style = "text-align:right" })
+                            .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("7%").Title("Certified Amount");
+
+                            //columns.Bound(c => c.IsPaid).HtmlAttributes(new { style = "text-align:right" })
+                            //.HeaderHtmlAttributes(new { style = "text-align:right" }).Width("100").Title("IsPaid");
+
+                            columns.Bound(c => c.ProjectName).HtmlAttributes(new { style = "text-align:left", title = "#= ProjectName #" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Project Name").Hidden();
+                            columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left", title = "#= PackageName #" })
+                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Package Name").Hidden();
+
+                            columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/Invoice/EditInvoiceByInvoiceId/#=InvoiceId#' class='EditInvoice btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" +
+                                                       " <button type='button' id='btnDeleteGroup' class='btn btn-xs btn-danger has-ripple DeleteInvoice' data-key='#=InvoiceId#' Title='Delete'><i class='fa fa-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+}).Scrollable(scr => scr.Height(400))
+                .Events(events => events
+                .DataBound("DataBound"))
+                .Sortable()
+                .Resizable(resize => resize.Columns(true))
+                .HtmlAttributes(new { style = "height:600px;" })
+                .Groupable()
+                .Pageable(pageable => pageable
+                                                                                                                                                                                                    .Refresh(true)
+                            .PageSizes(true)
+                            .PageSizes(new List<object> { 10, 20, 50, "all" }).Refresh(true)
+
+                )
+                .PersistSelection(true)
+               .DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.ProjectName))
+.Group(g => g.Add(c => c.PackageName))
+                .Model(model => model.Id(p => p.InvoiceId))
+                .Read(read => read.Action("Invoice_Details", "Invoice"))
+                .PageSize(20))
+                .NoRecords("No Record Found")
+
+            )
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- [ horizontal-layout ] end -->
+    </div>
+</div>
+
+
+
+
+@section scripts{
+   
+    <script>
+
+        function getPrjId() {
+            var dID = $("#ProjectId").data("kendoDropDownList").value();
+            return { id: dID };
+        }
+
+
+        function OnInvoiceSuccess(response) {
+            if (response == "Added Successfully") {
+               ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+               ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Already Exists") {
+                // ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+
+            else {
+                $('#createInvoiceContainer').html(response);
+                BindOnChangeEvent();
+                return;
+            }
+        }
+
+
+        function DataBound() {
+            rowNumber = 0;
+            $(".EditInvoice").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //  $('#SectionForms').html(data);
+                    $('#createInvoiceContainer').html(data);
+                    $('#partialModal').modal('show');
+                    setTimeout(function () {
+                        BindOnChangeEvent();
+                    }, 500);
+                });
+            });
+
+            $(".DeleteInvoice").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+        }
+
+        //#region ----Deleted group---
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            $.ajax({
+                url: '/Invoice/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    $('#InvoiceGrid').data('kendoGrid').dataSource.read();
+                    $('#InvoiceGrid').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        });   
+       
+        //#endregion
+
+        function ClearViewAndGrid() {
+            location.reload();
+
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#InvoiceGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "InvoiceNo", operator: "contains", value: v1 },
+                                    { field: "ProjectName", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 },
+                                    { field: "PackageCode", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+        $("#btnCreateInvoice").on("click", function () {
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#createInvoiceContainer').html(data);
+                $('#partialModal').modal('show');
+                BindOnChangeEvent();
+            });
+        });
+
+
+        function BindOnChangeEvent() {
+            $("#ProjectId").change(function () {
+                // $("#SectionID").html('');
+                //$("#SectionID").append($('<option></option>').val(0).html("Select Section"));
+                // var dID = $("#ProjectId").val();
+
+                GetPackageOnProjectSelect();
+            });
+            $("#PackageId").change(function () {
+                var dID = $("#PackageId").val();
+                $.get("/Invoice/GenerateInvoiceCode", { id: dID },
+                    function (data) {
+                        $("#InvoiceNo").val(data);
+                    });
+            });
+        }
+
+        function GetPackageOnProjectSelect() {
+            var projectDataSource;
+            var dID = $("#ProjectId").data("kendoDropDownList").value()
+            $.get("/Milestone/Get_PackageByProject", { id: dID },
+                function (data) {
+
+                    $("#PackageId").html('');
+                    //$("#PackageId").append($('<option></option>').val(0).html("Select Package"));
+                    //$.each(data, function (i, item) {
+                    //    $("#PackageId").append($('<option></option>').val(item.PackageId).html(item.PackageName));
+                    //});
+                    projectDataSource = data;
+                    $("#PackageId").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: projectDataSource }));
+                });
+        }
+
+    </script>
+}

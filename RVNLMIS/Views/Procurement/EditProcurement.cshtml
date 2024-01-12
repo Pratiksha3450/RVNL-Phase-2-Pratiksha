@@ -1,0 +1,585 @@
+﻿@model RVNLMIS.Models.EditProcurementModel
+@{
+    ViewBag.Title = "EditProcurement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var instanceUrl = System.Configuration.ConfigurationManager.AppSettings["ServerPath"] as string;
+}
+
+<style>
+    #details-container {
+        padding: 10px;
+    }
+
+        #details-container h2 {
+            margin: 0;
+        }
+
+        #details-container em {
+            color: #8c8c8c;
+        }
+
+        #details-container dt {
+            margin: 0;
+            display: inline;
+        }
+
+    .content_wrapper {
+        overflow: hidden;
+        padding: 0.5%;
+    }
+
+    .k-button {
+        border: 1px solid #4680ff;
+        color: #000;
+    }
+</style>
+
+
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnIdToDelete">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        @Html.HiddenFor(model => model.PckMatId)
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-sm-4 pr-1" id="divInfo">
+                @Html.Partial("_MaterialInfo", Model)
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-8 pl-1" id="editProcPartial">
+                @Html.Partial("_EditAddProcOnDateSelect", new RVNLMIS.Models.ExistingProcList())
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-2">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Existing Records</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-sm-12">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.ExistingProcList>()
+                                                                                                                                                                                                                    .Name("ExistingProcGrid")
+                                                                                                                                                                                                                    .Columns(columns =>
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                    columns.Bound(c => c.MaterialCode).HtmlAttributes(new { style = "text-align:center" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.MaterialUnit).HtmlAttributes(new { style = "text-align:center" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.RatePerUnit).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.TransDate).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:center" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.RevisedQty).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.OrderedQty).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.DeliveredQty).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.SupplierName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.PORef).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.TargetDate).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:center" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Bound(c => c.Remark).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                                                                                                                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("<button type='button' class='btn btn-xs btn-warning  has-ripple btnEditProcTran' data-url='/Procurement/LoadEditProcTransView/#=PackMatTransId#' Title='Edit Transaction'><i class='feather icon-edit'></i></button>&nbsp;" +
+"<button type='button' class='btn btn-xs btn-danger has-ripple btnDelete' data-key='#=PackMatTransId#' Title='Delete Transaction'><i class='feather icon-trash'></i></button>&nbsp;" +
+"#if(AttachFilePath!=null){#<a href='/Procurement/DownloadDoc?path=#=AttachFilePath#&name=#=AttachFileName#' class='btnDownload btn btn-xs btn-success has-ripple'>" +
+"<i class='feather icon-download'></i></a>#}#").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                                                                                                                                                                                                    columns.Command(command => command.Custom("ViewDetails").Visible("showCommand").Click("showDetails"))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:center" }).Width("4%").Title("Details");
+
+
+                                                                                                                                                                                                })
+.Pageable()
+.Events(e => e.DataBound("onRowBound"))
+.NoRecords("No Data Found.")
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Model(model => model.Id(u => u.PackMatId))
+.Read(read => read.Action("ReadExistingProcurementForMaterial", "Procurement").Data("GetPkgMatId"))
+.PageSize(10)
+).Resizable(resize => resize.Columns(true)))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ Main Content ] end -->
+
+    </div>
+</div>
+
+@(Html.Kendo().Window().Name("Details")
+                                                                                                                                                                            .Title("Document Preview")
+                                                                                                                                                                            .Visible(false)
+                                                                                                                                                                            .Modal(true)
+                                                                                                                                                                            .Draggable(true)
+                                                                                                                                                                            .Width(1000)
+                                                                                                                                                                            .Height(635)
+)
+<style>
+    .pdfview_popup {
+        overflow: hidden;
+        width: 100%
+    }
+
+    .k-window {
+        overflow: hidden;
+        border: 4px solid red;
+    }
+
+        .k-window > .k-window-titlebar {
+            background: linear-gradient(to right, #5757c5, #00c18d) !important;
+            color: #fff;
+        }
+</style>
+
+<script type="text/x-kendo-template" id="template">
+    <div id="details-container">
+        <div class="row">
+            <div class="col-sm-12" style="width: 500px">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <a class="label label-info" href="@instanceUrl#= AttachFilePath #" target="_blank"> <i class="fa fa-hand-point-right"></i> Click here if file not shown below</a>
+                    </div>
+                </div>
+                <object data="@instanceUrl#= AttachFilePath #" type="application/pdf" width="100%" height="560px">
+                    <embed src="https://drive.google.com/viewerng/viewer?url=@instanceUrl#= AttachFilePath #&embedded=true" width="100%" height="560px"></embed>
+                </object>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#template").html());
+
+    function showDetails(e) {
+        //e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#Details").data("kendoWindow");
+
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+</script>
+
+@section Scripts{
+    <script>
+        function GetPkgMatId() {
+            return { PkgMatId: $("#PckMatId").val() }
+        }
+
+        function onRowBound() {
+            $(".btnEditProcTran").click(function () {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $("#editProcPartial").html(data);
+                    BindClickEvent();
+                    RefreshInfoSection();
+                    $("#OrderedQty").keyup(function () {
+                        $("#errOrdQty").css('display', 'none');
+                        var ordQty = $(this).val();
+                        var balOrdQty = GetZeroIfNaN($("#tempOrdered").val());
+                        var labelOrdQty = GetZeroIfNaN($("#lblBalOrd").html());
+                        // console.log('tempOrdered  ' + balOrdQty);
+                        //var revised = GetZeroIfNaN($("#RevisedQty").val());
+                        //console.log('ordQty  ' + ordQty);
+                        if (parseFloat(ordQty) > parseFloat(balOrdQty)) {
+                            var newBalOrd = (parseFloat(balOrdQty) - parseFloat(ordQty));
+                            //console.log('da' + newBalOrd);
+                            if (parseFloat(labelOrdQty) < parseFloat(Math.abs(newBalOrd))) {
+                                $("#errOrdQty").css('display', 'block');
+                            }
+                        }
+                    });
+
+                    $("#DeliveredQty").keyup(function () {
+                        $("#errDelQty").css('display', 'none');
+                        var delQty = $(this).val();
+                        // var preOrdered = GetZeroIfNaN($("#lblPreOrdered").html());
+                        var newOrdered = GetZeroIfNaN($("#OrderedQty").val());
+                        //// console.log(revised);
+                        // var ordTotal = (parseFloat(preOrdered) + parseFloat(newOrdered));
+                        if (parseFloat(delQty) > parseFloat(newOrdered)) {
+                            $("#errDelQty").css('display', 'block');
+                        }
+                    });
+                });
+            });
+
+            $(".btnDelete").on("click", function () {
+                var Id = $(this).data("key");
+                $("#hdnIdToDelete").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        function showCommand(dataItem) {
+            //console.log("determining to hide or show" + dataItem);
+            // show the Edit button for the item with Status='New'
+            if (dataItem.AttachFilePath != null) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        $(document).ready(function () {
+            BindQtyValidations();
+            BindClickEvent();
+
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $("#hdnIdToDelete").val();
+
+                $.ajax({
+                    url: '/Procurement/DeleteTransaction/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        //Refresh Kendo Grid
+                        RefreshInfoSection();
+                        $("#modalDelete").modal('hide');
+                        $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        $('#ExistingProcGrid').data('kendoGrid').dataSource.read();
+                        $('#ExistingProcGrid').data('kendoGrid').refresh();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+        });
+
+        function BindQtyValidations() {
+            $("#RevisedQty").change(function () {
+                var hdnBalOrd = GetZeroIfNaN($("#hdnBalOrd").val());
+
+                var revisedQty = GetZeroIfNaN($(this).val());
+                // var orignalBal = GetZeroIfNaN($("#lblBalOrd").html());
+                // if (revisedQty != 0) {
+                var newBalOrd = (parseFloat(hdnBalOrd) + parseFloat(revisedQty));
+                $("#lblBalOrd").html(newBalOrd);
+
+
+                ///
+                var hdnBalDel = GetZeroIfNaN($("#hdnBalDel").val());
+                var newBalDelivered = (parseFloat(hdnBalDel) + parseFloat(revisedQty));
+                $("#lblBalDel").html(newBalDelivered);
+
+                //}
+
+                var ordQty = $("#OrderedQty").val();
+                var balOrdQty = GetZeroIfNaN($("#lblBalOrd").html());
+                if (parseFloat(ordQty) > parseFloat(balOrdQty)) {
+                    $("#errOrdQty").css('display', 'block');
+                }
+                else {
+                    $("#errOrdQty").css('display', 'none');
+                }
+
+                var delQty = $("#DeliveredQty").val();
+                var newOrdered = GetZeroIfNaN($("#OrderedQty").val());
+                if (parseFloat(delQty) > parseFloat(newOrdered)) {
+                    $("#errDelQty").css('display', 'block');
+                }
+                else {
+                    $("#errDelQty").css('display', 'none');
+                }
+            });
+
+            $("#OrderedQty").keyup(function () {
+                $("#errOrdQty").css('display', 'none');
+                var ordQty = $(this).val();
+                var balOrdQty = GetZeroIfNaN($("#lblBalOrd").html());
+                if (parseFloat(ordQty) > parseFloat(balOrdQty)) {
+                    $("#errOrdQty").css('display', 'block');
+                }
+            });
+
+            $("#DeliveredQty").keyup(function () {
+                $("#errDelQty").css('display', 'none');
+                var delQty = $(this).val();
+                var newOrdered = GetZeroIfNaN($("#OrderedQty").val());
+                if (parseFloat(delQty) > parseFloat(newOrdered)) {
+                    $("#errDelQty").css('display', 'block');
+                }
+            });
+
+            $("#OrderedQty").change(function () {
+                var delQty = $("#DeliveredQty").val();
+                var newOrdered = GetZeroIfNaN($("#OrderedQty").val());
+                if (parseFloat(delQty) > parseFloat(newOrdered)) {
+                    $("#errDelQty").css('display', 'block');
+                }
+                else {
+                    $("#errDelQty").css('display', 'none');
+                }
+            });
+        }
+        //function LoadEditProcTransView() {
+        //    var TransactionDate = e.target.value;
+        //    var tranDate = new Date(document.getElementById('StrTransDate').value);
+        //    if (TransactionDate != "") {
+        //        var today = new Date();
+        //        if (tranDate > today) {
+        //            $("#errTrans").css("display", "block");
+        //        }
+        //        else {
+        //            $("#errTrans").css("display", "none");
+        //            $.ajax({
+        //                url: '/Procurement/AddEditProcByDate',
+        //                type: "POST",
+        //                data: JSON.stringify({ 'transactionDate': TransactionDate, 'pkgMatId': $("#PckMatId").val() }),
+        //                contentType: "application/json; charset=utf-8",
+        //                dataType: "text",
+        //                success: function (data) {
+        //                    $("#editProcPartial").html(data);
+        //                    //$("#btnPartialSubmit").css("display", "block");
+        //                    //$("#btnPartialSubmit").show();
+
+        //                    BindClickEvent();
+        //                },
+        //                error: function (xhr, ajaxOptions, thrownError) {
+        //                    $.notify('Error loading view', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+        //                }
+        //            });
+        //        }
+        //    }
+        //}
+
+        function CheckTransDate() {            
+            $(".field-validation-error ").text('');
+            var tranDate = new Date(document.getElementById('StrTransDate').value);
+            var today = new Date();
+            var year = tranDate.getFullYear();
+            console.log(year.toString().length);
+            if (year.toString().length == 4 && year >= 2000) {
+                $("#errTransFormat").css("display", "none");
+                if (tranDate > today) {
+                    $("#errTrans").css("display", "block");
+                    //$("#btnPartialDUSubmit").attr("disabled", true);
+                }
+                else {
+                    $("#errTrans").css("display", "none");
+                    //$('#btnPartialDUSubmit').removeAttr("disabled");
+                }
+            }
+            else {
+                $("#errTrans").css("display", "none");
+                $("#errTransFormat").css("display", "block");
+            }
+        }
+
+        function CheckTargetDate() {
+            var targetDate = new Date(document.getElementById('StrTargetDate').value);
+            var today = new Date();
+            var year = targetDate.getFullYear();
+
+            if (year.toString().length == 4 && year >= 2000) {
+                $("#errTargetFormat").css("display", "none");
+                if (targetDate < today) {
+                    $("#errTarget").css("display", "block");
+                }
+                else {
+                    $("#errTarget").css("display", "none");
+                }
+            }
+            else {
+                $("#errTarget").css("display", "none");
+                $("#errTargetFormat").css("display", "block");
+            }            
+        }
+
+        function BindClickEvent() {
+            bs_input_file();
+            //$('#editProcPartial').on('#btnPartialSubmit','click', function (e) {
+            $("#btnPartialSubmit").click(function () {
+                if ($('#errTarget').css('display') == 'block' || $('#errTrans').css('display') == 'block' || $("#errOrdQty").css('display') == 'block'
+                    || $("#errDelQty").css('display') == 'block') {
+                    return false;
+                }
+                else {
+                    $(".se-pre-con").show();
+                    $("#PackMatId").val($("#PckMatId").val());
+                    var data = new FormData($('#ProcAddUpdateFrm')[0]);
+                    $.ajax({
+                        url: '/Procurement/SubmitProc',
+                        type: "POST",
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            $(".se-pre-con").hide();
+                            if (response.includes("successfully")) {
+                                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                                ClearPartialView();
+                                ////Refresh Kendo Grid
+                                $('#ExistingProcGrid').data('kendoGrid').dataSource.read();
+                                $('#ExistingProcGrid').data('kendoGrid').refresh();
+                                RefreshInfoSection();
+                            }
+                            else if (response == "0") {
+                                $("#errFile").css("display", "block");
+                            }
+                            else if (response == "1") {
+                                $("#errOrdQty").css("display", "block");
+                            }
+                            else if (response == "2") {
+                                $("#errDelQty").css("display", "block");
+                            }
+                            else {
+                                $("#editProcPartial").html(response);
+                                BindClickEvent();
+                                BindQtyValidations();
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            // alert(xhr.error);
+                        }
+                    });
+                }
+            });
+
+
+        }
+
+        function GetZeroIfNaN(value) {
+            if (isNaN(parseFloat(value))) {
+                return 0;
+            }
+            else {
+                return value;
+            }
+        }
+
+        function RefreshInfoSection() {
+            $.ajax({
+                url: '/Procurement/RefreshInfoSection',
+                type: "POST",
+                data: JSON.stringify({ 'pkgMatId': $("#PckMatId").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function (data) {
+                    $("#divInfo").html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $.notify('Error loading view', { align: "right", verticalAlign: "top", type: "danger", background: "#20D67B", color: "red" });
+                }
+            });
+        }
+
+        //function OnPartialSuccess(response) {
+        //    if (response.includes("successfully")) {
+        //        $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+        //        ClearPartialView();
+        //        ////Refresh Kendo Grid
+        //        $('#ExistingProcGrid').data('kendoGrid').dataSource.read();
+        //        $('#ExistingProcGrid').data('kendoGrid').refresh();
+        //    }
+        //    else {
+        //        $("#editProcPartial").html(response);
+        //        $("#btnPartialSubmit").show();
+        //        // $("#btnPartialSubmit").show();
+        //    }
+        //}
+
+        function ClearPartialView() {
+            $("#StrTransDate").val("");
+            $("#PackMatTransId").val("0");
+            $("#StrTargetDate").val("");
+            $("#RevisedQty").val("");
+            $("#SupplierName").val("");
+            $("#OrderedQty").val("");
+            $("#PORef").val("");
+            $("#DeliveredQty").val("");
+            $("#Remark").val("");
+            $("#AttachmentFile").val('');
+            $("#openAttach").text("");
+            $("#txtFileinput").val("");
+            //$("#btnPartialSubmit").css("display", "none");
+        }
+
+        function numbersonly(e) {
+            var unicode = e.charCode ? e.charCode : e.keyCode
+            if (unicode != 8) {
+                if ((unicode < 48 || unicode > 57) && unicode != 9)
+                    return false
+            }
+        }
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='AttachmentFile' name='AttachmentFile' class='input-ghost' style='visibility:hidden; height:0'>");
+                        // element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $("#errFile").css("display", "none");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+    </script>
+
+}

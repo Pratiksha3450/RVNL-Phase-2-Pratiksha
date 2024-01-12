@@ -1,0 +1,216 @@
+
+/*left borders*/
+/*--------------*/
+.lb-light-success {
+    border-left: 5px solid #86b154;
+}
+
+.lb-light-danger {
+    border-left: 5px solid #ff5252;
+}
+
+.lb-light-info {
+    border-left: 5px solid #2196F3;
+}
+
+.lb-light-primary {
+    border-left: 5px solid #4680ff;
+}
+
+.lb-light-warning {
+    border-left: 5px solid #dc9229;
+}
+
+.lb-light-cyan {
+    border-left: 5px solid #44b5b0;
+}
+/*badge */
+/*-----------------------*/
+.badge {
+    font-size: 90%;
+}
+
+.badge-light-success {
+    background: rgba(156, 204, 101, 0.2);
+    border-color: #e3f1d4;
+    color: #86b154;
+}
+
+.badge-light-danger {
+    background: rgba(255, 82, 82, 0.2);
+    border-color: #ffcfcf;
+    color: #ff5252;
+}
+
+.badge-light-info {
+    background: rgb(189, 224, 253);
+    border-color: #2196F3;
+    color: #2196F3;
+}
+
+.badge-light-primary {
+    background: rgba(70, 128, 255, 0.2);
+    border-color: #cbdbff;
+    color: #4680ff;
+}
+
+.badge-light-warning {
+    background: rgba(255, 186, 87, 0.2);
+    border-color: #ffecd0;
+    color: #dc9229;
+}
+.badge-light-cyan {
+    background: rgb(204, 238, 243) !important;
+    border-color: #6BD4CF !important;
+    color: #44b5b0 !important;
+}
+/*text-c colors*/
+/*---------------------*/
+.text-c-themeblue {
+    color: #525cc2;
+}
+.text-c-themegreen {
+    color: #04bc8f;
+}
+/*Text colors*/
+/*---------------------*/
+.text-red {
+    color: #f64444 !important;
+}
+.text-light-red {
+    color: #fc7a7a !important
+}
+.text-yellow {
+    color: #f3b402 !important;
+}
+.text-light-yellow {
+   color: #ffde67 !important;
+}
+.text-green {
+    color: #17c534 !important;
+}
+.text-light-green {
+   color: #d0e6a5 !important;
+}
+.text-blue {
+    color: #0051FF  !important;
+}
+.text-light-blue {
+   color: #0078FF  !important;
+}
+.text-skyblue {
+    color: #1ca7ec  !important;
+}
+.text-light-skyblue {
+   color: #78d5f5  !important;
+}
+.text-purple {
+    color: #680ce2 !important
+}
+.text-light-purple {
+    color: #9e65ea !important
+}
+.text-cyan {
+    color: #55e6e0 !important;
+}
+.text-light-cyan {
+    color: #82e2de !important;
+}
+.text-magenta {
+    color: #A8225B !important;
+}
+.text-light-magenta {
+    color: #C34678 !important;
+}
+.text-pink {
+    color: #F8007C !important;
+}
+.text-light-pink {
+    color: #F866AF !important;
+}
+.text-orange {
+    color: #fb8002 !important;
+}
+.text-light-orange {
+    color: #FF581B !important;
+}
+.text-brown {
+    color: #bb4232 !important;
+}
+.text-light-brown {
+    color: #e26e5f !important;
+}
+/*bg-c colors*/
+/*---------------------*/
+.bg-c-purple {
+    background-color: #db46f5;
+}
+/*=======================================================*/
+/*DataissueReport*/ 
+/*=======================================================*/
+#red_card .download-icon, .bg-red {
+    background-color: #f64444a1 !important;
+}
+#lightred_card .download-icon, .bg-light-red {
+    background-color: #fc7a7a4a !important
+}
+#yellow_card .download-icon, .bg-yellow {
+    background-color: #f3b402a1 !important;
+}
+#lightyellow_card .download-icon, .bg-light-yellow {
+    background-color: #e4a5032a !important
+}
+#green_card .download-icon, .bg-green {
+    background-color: #17c534a1 !important;
+}
+#lightgreen_card .download-icon, .bg-light-green {
+    background-color: #0ccc052a !important
+}
+#blue_card .download-icon, .bg-blue {
+    background-color: #0051FFa1 !important;
+}
+#lightblue_card .download-icon, .bg-light-blue {
+    background-color: #0078FF4a  !important;
+}
+#skyblue_card .download-icon, .bg-skyblue {
+    background-color: #1ca7eca1 !important;
+}
+#lightskyblue_card .download-icon, .bg-light-skyblue {
+    background-color: #78d5f54a  !important;
+}
+#purple_card .download-icon, .bg-purple {
+    background-color: #680ce2a1 !important
+}
+#lightpurple_card .download-icon, .bg-light-purple {
+    background-color: #be95f54a !important
+}
+#cyan_card .download-icon, .bg-cyan {
+    background-color: #55e6e0a1 !important;
+}
+#lightcyan_card .download-icon, .bg-light-cyan {
+    background-color: #82e2de2a !important;
+}
+#magenta_card .download-icon, .bg-magenta {
+    background-color: #A8225Ba1 !important;
+}
+#lightmagenta_card .download-icon, .bg-light-magenta {
+    background-color: #C346782a !important;
+}
+#pink_card .download-icon, .bg-pink {
+    background-color: #F8007Ca1 !important;
+}
+#lightpink_card .download-icon, .bg-light-pink {
+    background-color: #F866AF2a !important;
+}
+#orange_card .download-icon, .bg-orange {
+    background-color: #fb8002a1 !important;
+}
+#lightorange_card .download-icon, .bg-light-orange {
+    background-color: #FF581B2a !important;
+}
+#brown_card .download-icon, .bg-brown {
+    background-color: #bb4232a1 !important;
+}
+#lightbrown_card .download-icon, .bg-light-brown {
+    background-color: #e26e5f2a !important;
+}

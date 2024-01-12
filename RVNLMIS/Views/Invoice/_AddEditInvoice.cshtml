@@ -1,0 +1,132 @@
+﻿@model RVNLMIS.Models.InvoiceModel
+@{
+    ViewBag.Title = "_AddEditInvoice";
+    Layout = null;
+}
+
+<div class="modal-content" style="width:800px;position:center;">
+    <div class="modal-header">
+        <h6 class="modal-title">Add / Update Invoice Details</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        @using (Ajax.BeginForm("AddEditInvoice", "Invoice", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnInvoiceSuccess" }, new { @class = "form-horizontal", Page = "form" }))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(mode => Model.InvoiceId)
+            <div class="row">
+                <div class="col-md-6" id="prjContainer">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Project   @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })</label>
+                        @(Html.Kendo().DropDownListFor(model => model.ProjectId).OptionLabel("Select Project").Popup(p => p.AppendTo("#prjContainer")).Filter("contains").HtmlAttributes(new { @class = "form-control form-control-sm" }).BindTo(ViewBag.ProjectList as SelectList)
+                        )
+                    </div>
+                </div>
+                <div class="col-md-6" id="Pkgcontainer">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50">
+                            Package
+                            @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                        </label>
+                        @(Html.Kendo().DropDownListFor(model => model.PackageId).Popup(p => p.AppendTo("#Pkgcontainer"))
+                                 .Name("PackageId")
+                                 .DataTextField("PackageName")
+                                 .DataValueField("PackageId")
+                                 .HtmlAttributes(new { style = "width:100%" })
+                                 .Filter("contains").OptionLabel("Select Package")
+                                 .DataSource(source =>
+                                 {
+                                     source.Read(read =>
+                                     {
+                                         read.Action("Get_PackageByProject", "Milestone").Data("getPrjId");//, new { id = 0 });
+                                     })
+                                          .ServerFiltering(true);
+                                 })
+                        )
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Achievement" class="col-form-label fw-bold">Invoice No</label>
+                        @Html.TextBoxFor(Model => Model.InvoiceNo, new { @class = "form-control text-box single-line", @placeholder = "Invoice Code", @required = "required", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.InvoiceNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3 form-group">
+                        <label for="Due-Date" class="col-form-label fw-bold">Created On</label>
+
+                        @Html.TextBoxFor(m => Model.CreatedOn, new { @type = "date", @class = "form-control", @placeholder = "DD-MMM-YYYY", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3 form-group">
+                        <label for="Due-Date" class="col-form-label fw-bold"> Invoice Date</label>
+
+                        @Html.TextBoxFor(m => Model.InvoiceDate, new { @type = "date", @class = "form-control", @placeholder = "DD-MMM-YYYY", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Achievement-Qty" class="col-form-label fw-bold">Invoice Amount</label>
+                        @Html.TextBoxFor(Model => Model.InvoiceAmount, new { @class = "form-control text-box single-line numericInput", @placeholder = "Invoice Amount", @type = "text", @required = "required", })
+                        @Html.ValidationMessageFor(model => model.InvoiceAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Achievement-Unit" class="col-form-label fw-bold">Certified Amount</label>
+                        @Html.TextBoxFor(Model => Model.CertifiedAmount, new { @class = "form-control text-box single-line numericInput", @placeholder = "Certified Amount", @type = "text", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.CertifiedAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="Description" class="col-sm-3 col-form-label fw-bold">IsPaid</label>
+                            @Html.TextAreaFor(Model => Model.IsPaid, new { @class = "form-control text-box single-line", @placeholder = "Is Paid", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.IsPaid, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Remark" class="col-form-label fw-bold">Remark</label>
+                        @Html.TextBoxFor(Model => Model.Remark, new { @class = "form-control text-box single-line", @placeholder = "Remark", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <button type="submit" class="btn btn-sm btn-theme pull-right">Save</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <script>
+    $(document).ready(function () {
+        $('.numericInput').on('keyup', function () {
+            var inputValue = $(this).val();
+            var sanitizedValue = inputValue.replace(/[^0-9.]/g, '');
+            $(this).val(sanitizedValue);
+        });
+    });
+    </script>
+
+
+
+

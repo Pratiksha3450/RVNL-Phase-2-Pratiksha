@@ -1,0 +1,333 @@
+﻿.loginbody {
+    overflow: hidden!important;
+    /*background: linear-gradient(45deg, #5757c5, #00c18d) center no-repeat;*/
+    background-size: cover;
+    background: url('../images/background/screen2.jpg') no-repeat center center fixed;
+    height: 100vh;
+}
+.vectorwrapper {
+    padding-top: 10%;
+    align-content: center;
+}
+
+.primabi_icon {
+    padding: 1.5%;
+    align-content: center;
+}
+
+.vectorwrapper img {
+    width: 55%;
+}
+
+.loginwrapper {
+    background: transparent;
+    box-shadow: none;
+    height: auto;
+    padding: 0 4%;
+}
+
+.rvnl_logo {
+    width: 100%;
+    text-align: center;
+}
+    .rvnl_logo img {
+        width: 56%;
+        padding-top: 6%;
+    }
+/*.loginwrapper .card {
+            margin: 10vh;
+            height: 80vh;
+        }
+        .loginwrapper .card-header {
+            height: 15vh;
+        }
+        .loginwrapper .card-body {
+            height: 85vh;
+            border: 1px solid blue;
+        }*/
+.loginwrapper {
+    margin-top: 5%;
+    align-content: center;
+    background: #ffffff36;
+    box-shadow: 0 3px 5px #ccc;
+}
+
+    .loginwrapper .card {
+        align-content: center;
+        border-radius: 5%;
+        height: auto;
+        background: #ffffff36!important;
+}
+
+.card-body {
+    padding: 2rem 3.5rem 3rem;
+}
+.card-body .card-title {
+    text-align: center;
+}
+/*.input-group-append {
+    margin-left: -1px;
+    background: aliceblue;
+    padding: 3% 3% 3% 3%;
+}*/
+.input-group-text {
+    background-color: #fff;
+}
+
+/*===============================
+  COMMON : modal
+===============================*/
+    .modal-header {
+    background: linear-gradient(45deg, #5757c5, #00c18d);
+    color: #fff !important;
+    padding: 10px 20px;
+}
+.modal-header .close {
+    color: #fff;
+    opacity: 1;
+}
+/*===============================
+  COMMON : full-width
+===============================*/
+        .full-width {
+    width: 100% !important;
+}
+/*===============================
+  COMMON : btn-sm
+===============================*/
+.btn-sm, .btn-group-sm > .btn {
+    font-size: 0.800rem;
+}
+
+.btn-theme {
+    color: #fff;
+    background: linear-gradient(45deg, #5757c5, #00c18d);
+    min-width: 100px;
+    width: auto;
+}
+
+    .btn-theme:hover {
+        color: #fff;
+        background: linear-gradient(45deg, #00c18d, #5757c5);
+        min-width: 100px;
+        width: auto;
+    }
+
+.btn-theme-outline {
+    color: #5757c5;
+    background: linear-gradient(45deg, #00c18d, #5757c5);
+}
+
+.btn-outline-theme:not(:disabled):not(.disabled):active, .btn-outline-theme:not(:disabled):not(.disabled).active, .show > .btn-outline-theme.dropdown-toggle {
+    color: #fff;
+    background-color: #5757c5;
+    border-color: #5757c5;
+}
+
+.btn-outline-theme:hover {
+    color: #fff;
+    background-color: #5757c5;
+    border-color: #5757c5;
+}
+/*===============================
+  COMMON : web/mob contents
+===============================*/
+.web-content {
+    display: none;
+}
+
+.mob-content {
+    display: block;
+}
+/*===============================
+  COMMON : checkbox
+===============================*/
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+    background-color: #00c18d9e!important;
+    border-color: #00c18d9e!important;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #00c18d !important;
+    background-color: #00c18d !important;
+}
+/*===============================
+  COMMON : forgot link
+===============================*/
+.forgotlink a{
+    color:#00c18d!important;
+}
+/*===============================
+  Media Queries
+===============================*/
+/*@media (min-width:576px) {
+    .vectorwrapper img {
+        width: 85%;
+    }
+
+    .loginwrapper {
+        padding: 0 2%;
+    }
+    
+}
+
+@media (min-width:767px) {
+    .vectorwrapper img {
+        width: 92%;
+    }
+
+    .loginwrapper {
+        padding: 0 3%;
+    }
+
+    .web-content {
+        display: block;
+    }
+
+    .mob-content {
+        display: none;
+    }
+}
+
+@media (min-width:992px) {
+
+    .vectorwrapper img {
+        width: 84%;
+    }
+    .loginwrapper {
+        padding: 0 4%;
+    }
+}
+
+@media (min-width:1200px) {
+    .loginbody {
+        background: linear-gradient(45deg, #5757c5, #00c18d) center no-repeat;
+    }
+    .vectorwrapper img {
+        width: 75%;
+    }
+
+    .loginwrapper {
+        padding: 0 6.5%;
+        margin-top: 5%;
+    }
+    .custom-control-label {
+        font-size: 14.5px !important;
+    }
+
+    .forgotlink a {
+        font-size: 14.5px !important;
+    }
+}*/
+
+
+@media (min-width:1366px) and (max-height:1024px) {
+    .vectorwrapper img {
+        width: 83%;
+    }
+
+    .loginwrapper {
+        padding: 0 6%;
+    }
+    
+}
+/*==============================================================
+  Standard Media Queries
+==============================================================*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .vectorwrapper img {
+        width: 40%;
+    }
+    .loginwrapper {
+        padding: 0 5.2%;
+    }
+    .card-body {
+        padding: 2rem 1.5rem 3rem;
+    }
+    .loginwrapper .card {
+        background: #ffffff!important;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .vectorwrapper img {
+        width: 45%;
+    }
+
+    .loginwrapper {
+        margin-top:4%;
+        padding: 0 9.2%;
+    }
+    .card-body {
+        padding: 2rem 1.5rem 3rem;
+    }
+    .loginwrapper .card {
+        background: #ffffff!important;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .vectorwrapper img {
+        width: 92%;
+    }
+
+    .loginwrapper {
+        padding: 0 3%;
+    }
+
+    .web-content {
+        display: block;
+    }
+
+    .mob-content {
+        display: none;
+    }
+    .loginwrapper {
+        background: #ffffff36;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .vectorwrapper img {
+        width: 85%;
+    }
+
+    .loginwrapper {
+        padding: 0 2%;
+    }
+    .loginwrapper {
+        background: #ffffff36;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .loginbody {
+        background: linear-gradient(45deg, #5757c5, #00c18d) center no-repeat;
+    }
+
+    .vectorwrapper img {
+        width: 75%;
+        margin-top: 14%;
+    }
+
+    .loginwrapper {
+        padding: 0 9%;
+        margin-top: 7%;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .custom-control-label {
+        font-size: 14.5px !important;
+    }
+
+    .forgotlink a {
+        font-size: 14.5px !important;
+    }
+}

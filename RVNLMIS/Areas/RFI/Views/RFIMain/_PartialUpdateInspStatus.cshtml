@@ -1,0 +1,407 @@
+﻿@using RVNLMIS.Models;
+@model RVNLMIS.Areas.RFI.Models.RFIInspStatusUpdateModel
+
+@{
+    Layout = null;
+    var org = ((UserModel)Session["RFIUserSession"]).RoleCode;
+}
+<style>
+    .status h5 {
+        display: inline-block;
+    }
+</style>
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title">
+            View and Update RFI Status
+        </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+
+
+        <div class="pdf_preview">
+
+
+            <div id="example">
+
+
+                <div class="pdf-page">
+
+                    @* ------------------- *@
+                    <div class="pdf_section1">
+
+                        <div class="row">
+                            <div class="col-md-3 table-bordered p-t-10">
+                                <img src="~/Content/assets/images/logo/RVNL_logo.png" width="90%" />
+                            </div>
+                            <div class="col-md-9 table-bordered">
+                                <div class="header text-center">
+                                    <h5 class="p-10">
+                                        REQUEST FOR INSPECTION
+                                        <div class="divider mt-2"></div>
+                                    </h5>
+                                    <p class="text-left">
+                                        <b>Name of Work : </b>
+                                        <span class="ml-2">
+                                            @Model.PackageName
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display:none">
+                            <div class="col-md-3 table-bordered pt-2">
+                                CLient :
+                            </div>
+                            <div class="col-md-4 table-bordered">
+                                <div class="header">
+                                    RVNL
+                                </div>
+                            </div>
+                            <div class="col-md-5 table-bordered">
+                                <div class="subsection">
+                                    <div class="row">
+                                        <div class="col-md-4 table-bordered">
+                                            Contractor
+                                        </div>
+                                        <div class="col-md-8 table-bordered">
+                                            GMR
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 table-bordered">
+                                            PMC
+                                        </div>
+                                        <div class="col-md-8 table-bordered">
+                                            Systra
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row table-bordered">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mt-2 mb-2 status">
+                                            @if (Model.InspName == "Open")
+                                            {
+                                                <b> Current Status :<h5> <label class="label label-primary ml-4">@Model.InspName</label></h5></b>
+                                            }
+                                            else if (Model.InspName == "Approved")
+                                            {
+                                                <b> Current Status :<h5> <label class="label label-success ml-4">@Model.InspName</label></h5></b>
+                                            }
+                                            else if (Model.InspName == "Rejected")
+                                            {
+                                                <b> Current Status :<h5> <label class="label label-danger ml-4">@Model.InspName</label></h5></b>
+                                            }
+                                            else if (Model.InspName == "Scheduled")
+                                            {
+                                                <b> Current Status :<h5> <label class="label label-primary ml-4">@Model.InspName</label></h5></b>
+                                            }
+                                            else
+                                            {
+                                                <b> Current Status :<h5> <label class="label label-warning ml-4">@Model.InspName</label></h5></b>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-4"><label class="col-form-label-sm-user text-black-50" for="txtUserName">RFI Code: </label></div>
+                                            <div class="col-sm-12 col-lg-8"><label class="col-form-label-sm-user" for="txtUserName"> @Model.RFICode </label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-4"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Layer No: </label></div>
+                                            <div class="col-sm-12 col-lg-8"><label class="col-form-label-sm-user" for="txtUserName"> @Model.Layer </label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Workgroup: </label></div>
+                                            <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.Workgroup  </label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Assigned To: </label></div>
+                                            <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user" for="txtUserName"> @Model.AssignedToName (PMC) </label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-2 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Enclosure: </label></div>
+                                            <div class="col-sm-12 col-lg-10 mt-2"><label class="col-form-label-sm-user" for="txtUserName"> @Model.Enclosure </label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">WorkSide: </label></div>
+                                            <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.WorkSide </label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Activity: </label></div>
+                                            <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.ActivityName </label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="preview-lg row">
+                                            <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Location: </label></div>
+                                            <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.LocationType </label></div>
+                                        </div>
+                                    </div>
+
+                                    @if (Model.LocationType == "Other")
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="preview-lg row">
+                                                <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Work Location: </label></div>
+                                                <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.OtherWorkLocation </label></div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                    @if (Model.LocationType == "Entity")
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="preview-lg row">
+                                                <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Entity: </label></div>
+                                                <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.EntityName </label></div>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model.LocationType == "Chainage")
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="preview-lg row">
+                                                <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Start Chainage: </label></div>
+                                                <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.StartChainage </label></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="preview-lg row">
+                                                <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">End Chainage: </label></div>
+                                                <div class="col-sm-12 col-lg-8 mt-2"><label class="col-form-label-sm-user " for="txtUserName"> @Model.EndChainage </label></div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <hr class="mb-2">
+
+                                @if (@Model.InspName != "Approved")
+                                {
+                                    if (org == "Contractor")
+                                    {
+                                        if (@Model.InspName != "Open")
+                                        {
+                                            using (Html.BeginForm("UpdateRFIDateAndStatus", "RFIMain", FormMethod.Post, new { @style = "width=500px", @class = "j-pro", enctype = "multipart/form-data", @id = "InspStatusFrm" }))
+                                            {
+                                                @Html.HiddenFor(Model => Model.RFIId)
+                                                @Html.HiddenFor(Model => Model.RevisionId)
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="preview-lg row">
+                                                            <div class="col-sm-12 col-lg-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Add Comment: </label></div>
+                                                            <div class="col-sm-12 col-lg-8">
+                                                                @Html.TextAreaFor(model => model.ContrComment, new { @class = "form-control" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12 text-right pull-right mb-2">
+                                                        <button type="button" id="btnSubmitInspStatus" class="btn btn-sm btn-theme">Save</button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        using (Html.BeginForm("UpdateRFIDateAndStatus", "RFIMain", FormMethod.Post, new { @style = "width=500px", @class = "j-pro", enctype = "multipart/form-data", @id = "InspStatusFrm" }))
+                                        {
+                                            @Html.HiddenFor(Model => Model.RFIId)
+                                            @Html.HiddenFor(Model => Model.RevisionId)
+                                            @Html.HiddenFor(Model => Model.InspStatus)
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <button type="button" id="btnAssignedToOther" class="btn btn-sm btn-primary"> Assign another Inspector </button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    @*<div class="divAssignedToOther" style="display:none;">
+                                                        <div class="preview-lg row input-group-sm">
+
+                                                            <div class="col-sm-12 col-md-4"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Assigned to: </label></div>
+                                                            <div class="col-sm-12 col-md-8" id="assigncontainer">
+                                                                @(Html.Kendo().DropDownListFor(model => model.AssignedTo).Popup(p => p.AppendTo("#assigncontainer"))
+                                                                                                                                .Name("AssignedTo")
+                                                                                                                                .DataTextField("Name")
+                                                                                                                                .DataValueField("ID")
+                                                                                                                                .HtmlAttributes(new { style = "width:100%", @class = "form-control input-sm form-control-primary fill" })
+                                                                                                                                //.Filter("contains")
+                                                                                                                                .DataSource(source =>
+                                                                                                                                {
+                                                                                                                                    source.Read(read =>
+                                                                                                                                                                    {
+                                                                                                                                                                        read.Action("Get_CanBeInspector", "RFIMain");
+                                                                                                                                                                    })
+                                                                                                                                                                    .ServerFiltering(true);
+                                                                                                                                })
+                                                                )
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+                                                </div>
+                                            </div>
+
+
+
+
+                                            @*<div class="row divAssignedToOther" style="display:none;">
+                                                    <div class="col-md-6 mb-1">
+
+                                                    </div>
+                                                </div>*@
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="preview-lg row">
+                                                        <div class="col-sm-12 col-md-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Inspection Date: </label></div>
+                                                        <div class="col-sm-12 col-md-8 mt-2">
+                                                            @*@Html.EditorFor(model => model.InspDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })*@
+                                                            <div class="input-group date form_datetime" data-date="2012-12-21T15:25:00Z">
+                                                                <div class="input-group input-group-sm">
+                                                                    @*<input class="form-control" size="16" type="text" value="" placeholder="Right addon">*@
+                                                                    @Html.EditorFor(model => model.InspDate, new { htmlAttributes = new { @class = "form-control input-sm", @type = "text" } })
+                                                                    @*@Html.TextBoxFor(model => model.InspDate, new { data_format = "dd/MM/yyyy HH:mm:ss PP" });*@
+                                                                    <span class="input-group-append input-group-sm" id="basic-addon3">
+                                                                        <label class="input-group-text">
+                                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                        </label>
+
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+                                                            <input type="hidden" id="dtp_input3" value="" /><br />
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                @if (Model.InspDate != null)
+                                                {
+                                                    <div class="col-md-6">
+                                                        <div class="preview-lg row">
+                                                            <div class="col-sm-12 col-md-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Update Status: </label></div>
+                                                            <div class="col-sm-12 col-md-8 mt-2" id="inspcontainer">
+                                                                @(Html.Kendo().DropDownListFor(model => model.InspId).Popup(p => p.AppendTo("#inspcontainer"))
+                                                                                                                                                        .Name("InspId")
+                                                                                                                                                        .DataTextField("Name")
+                                                                                                                                                        .DataValueField("ID")
+                                                                                                                                                        .HtmlAttributes(new { style = "width:100%", @class = "form-control form-control-primary fill" })
+                                                                                                                                                        .Filter("contains").OptionLabel("Select Inspection Status")
+                                                                                                                                                        .DataSource(source =>
+                                                                                                                                                        {
+                                                                                                                                                            source.Read(read =>
+                                                                                                                                                                                            {
+                                                                                                                                                                                                read.Action("Get_InspectionStatus", "RFIMain");
+                                                                                                                                                                                            })
+                                                                                                                                                                                            .ServerFiltering(true);
+                                                                                                                                                        })
+                                                                )
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12  mb-1">
+                                                        <div class="preview-lg row">
+                                                            <div class="col-sm-12 col-md-2 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Note: </label></div>
+                                                            <div class="col-sm-12 col-md-10">
+                                                                @*@Html.TextAreaFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                                @Html.TextAreaFor(model => model.Note, new { @class = "form-control" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-1">
+
+                                                        <div class="preview-lg row mb-2">
+                                                            <div class="col-sm-12 col-md-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Picture 1: </label></div>
+                                                            <div class="col-sm-12 col-md-8 mt-2">
+                                                                <div class="input-group insp-file" data-key="Picture1" name="Fichier1">
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-info btn-sm btn-choose mt-2" type="button">
+                                                                            Browse File
+                                                                        </button>
+                                                                    </span>
+                                                                    <input type="text" class="txtFileinput form-control" placeholder='Choose a file...' />
+                                                                </div>
+                                                                <span class="errPicture" style="color:red;display:none">Upload only .png, .jpg, .jpeg, .pdf files.</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-1">
+
+                                                        <div class="preview-lg row">
+                                                            <div class="col-sm-12 col-md-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Picture 2: </label></div>
+                                                            <div class="col-sm-12 col-md-8">
+                                                                <div class="input-group insp-file" data-key="Picture2" name="Fichier1">
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-info btn-sm btn-choose mt-2" type="button">
+                                                                            Browse File
+                                                                        </button>
+                                                                    </span>
+                                                                    <input type="text" class="txtFileinput form-control" placeholder='Choose a file...' />
+                                                                </div>
+                                                                <span id="errPicture" style="color:red;display:none">Upload only .png, .jpg, .jpeg, .pdf files.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="preview-lg row mb-2">
+                                                            <div class="col-sm-12 col-md-4 mt-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName"> Picture 3: </label></div>
+                                                            <div class="col-sm-12 col-md-8 mt-2">
+                                                                <div class="input-group insp-file" data-key="Picture3" name="Fichier1">
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-info btn-sm btn-choose mt-3" type="button">
+                                                                            Browse File
+                                                                        </button>
+                                                                    </span>
+                                                                    <input type="text" class="txtFileinput form-control" placeholder='Choose a file...' />
+                                                                </div>
+                                                                <span id="errPicture" style="color:red;display:none">Upload only .png, .jpg, .jpeg, .pdf files.</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                }
+
+                                                <div class="col-lg-12 text-right pull-right mb-2">
+                                                    <button type="button" id="btnSubmitInspStatus" class="btn btn-sm btn-theme">Save</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @* ------------------- *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

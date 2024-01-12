@@ -1,0 +1,88 @@
+﻿@model RVNLMIS.Models.EntityTypeModel
+
+@{
+    Layout = null;
+}
+
+<div class="card">
+    @*<div class="card-header">
+            <h5>Entity Type Information</h5>
+        </div>*@
+    @using (Ajax.BeginForm("AddEntityTypeDetails", "EntityType", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnEntityTypeSuccess" }, new { @class = "form", @id = "EntityTypeform" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(mode => Model.EntityTypeId)
+
+
+
+
+
+        <div class="card-header pb-4">
+            <h5>Entity Type Information</h5>
+        </div>
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+
+                <div class="col-md-12 mb-1">
+                    <div class="form-group" id="container">
+                        <label for="SelectPackage" class="col-form-label-sm-user text-black-50">
+                            <b>Select Activity Group</b>
+                        </label>
+                        @(Html.Kendo().DropDownListFor(model => model.ActGId).Popup(p => p.AppendTo("#container"))
+.Name("ActGId")
+.DataTextField("ActivityGroupName")
+.DataValueField("ActGId")
+.HtmlAttributes(new { style = "width:100%", @class = "mt-2 mb-3 form-control form-control-sm" })
+//.Filter("contains")
+.OptionLabel("Select Activity Group Name")
+.DataSource(source =>
+{
+source.Read(read =>
+{
+   read.Action("ServerFiltering_GetActivityGroupsList", "EntityType");
+});
+// .ServerFiltering(true);
+})
+                        )
+
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-1">
+                    <div class="form-group">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEntityTypeName">Entity Type @Html.ValidationMessageFor(model => model.EntityTypeName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.EntityTypeName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter entity type name" } })
+                    </div>
+                    @*<div class="" style="width: 28%;display:inline-block;">
+                            <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                        </div>*@
+                </div>
+                <div class="col-md-12 pt-3 text-right">
+                    <div class="">
+                        <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <div class="" style="width: 28%;display:inline-block;">
+                            <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 207);
+    });
+    $(window).trigger('resize');
+</script>

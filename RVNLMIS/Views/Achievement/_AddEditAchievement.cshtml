@@ -1,0 +1,92 @@
+﻿@model RVNLMIS.Models.PowerBI.AchievementModel
+@{
+    ViewBag.Title = "_AddEditAchievement";
+    Layout = null;
+}
+<div class="modal-content" style="width:800px;position:center;">
+    <div class="modal-header">
+        <h6 class="modal-title">Add / Update Section Details</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+
+    @using (Ajax.BeginForm("AddEditAchievement", "Achievement", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnAchieveSuccess" }, new { @class = "form-horizontal", Page = "form" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        @Html.HiddenFor(Model => Model.AchId)
+                        <label for="Achievement" class="col-form-label fw-bold">Select Project Name</label>
+                        @Html.DropDownListFor(model => model.projectId, ViewBag.ProjectList as SelectList, "Select Project", new { @class = "form-control form-control-sm", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Achievement" class="col-form-label fw-bold">Achievement Sequence</label>
+                        @Html.TextBoxFor(Model => Model.AchSeq, new { @class = "form-control text-box single-line", @type = "number", @placeholder = "Achievement Sequence", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.AchSeq, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Achievement-Qty" class="col-form-label fw-bold">Achievement Quantity</label>
+                        @Html.TextBoxFor(Model => Model.AchQty, new { @class = "form-control text-box single-line", @placeholder = "Achievement Qty", @type = "text", @required = "required", @id = "numericInput" })
+                        @Html.ValidationMessageFor(model => model.AchQty, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Achievement-Unit" class="col-form-label fw-bold">Achievement Unit</label>
+                        @Html.TextBoxFor(Model => Model.AchQtyUnit, new { @class = "form-control text-box single-line", @placeholder = "Achievement Unit", @type = "text", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.AchQtyUnit, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Remark" class="col-form-label fw-bold">Remark</label>
+                        @Html.TextBoxFor(Model => Model.Remark, new { @class = "form-control text-box single-line", @placeholder = "Remark", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Description" class="col-sm-3 col-form-label fw-bold">Description</label>
+                        @Html.TextAreaFor(Model => Model.AchDesc, new { @class = "form-control text-box single-line", @placeholder = "Achievement Description", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.AchDesc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary" value="SAVE">@*<i class="feather icon-check"></i>*@SAVE</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#numericInput').on('keyup', function () {
+            var inputValue = $(this).val();
+            var sanitizedValue = inputValue.replace(/[^0-9.]/g, '');
+            $(this).val(sanitizedValue);
+        });
+    });
+</script>
+
+
+
+
+

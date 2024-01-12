@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+    <div class="modal-dialog-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Import RFI </h6>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+            </div>
+            @*@using (Ajax.BeginForm("ImportExcel", "Section", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ImportSuccess" }, new { @class = "form-horizontal", Page = "form" }))*@
+            @using (Html.BeginForm("ImportExcel", "GenerateRFI", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="col-form-label-sm-user text-black-50" for="txtUserName">Packages </label>
+                                @Html.DropDownList("packageId", (IEnumerable<SelectListItem>)ViewBag.ProjectPackageList, "Select Package", new { @class = "form-control", @type = "text" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="col-form-label-sm-user text-black-50" for="txtUserName">
+                                    Select Excel
+                                </label>
+                                <div class="input-group input-file" name="Fichier1">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info btn-choose" type="button"
+                                                style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                            Browse File
+                                        </button>
+                                    </span>
+                                    <input type="text" id="txtFileinput" class="form-control pl-3" placeholder='Choose a file...' />
+
+                                </div>
+                                @*<input type="file" id="FileUpload" name="FileUpload" class="form-control" />*@
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="~/Uploads/ExcelImport/SampleRFIImport.xlsx" class="btn btn-sm btn-success pull-right"><i class="m-r-5 feather icon-download"></i>Download Template</a>
+                            <button type="button" id="btnExcelImport" class="btn btn-sm btn-info pull-right"><i class="m-r-5 feather icon-check"></i>Import</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+

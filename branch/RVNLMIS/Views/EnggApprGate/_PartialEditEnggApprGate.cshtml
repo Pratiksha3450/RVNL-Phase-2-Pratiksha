@@ -1,0 +1,51 @@
+﻿@model RVNLMIS.Models.EnggApprGateModel
+
+@{ 
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header pb-4">
+        <h5>Engg Approval  Gate Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddEnggApprGateDetails", "EnggApprGate", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnEnggApprGateSuccess" }, new { @class = "form", @id = "EnggApprGateform" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(mode => Model.ApprGateId)
+
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+
+                <div class="col-md-12 mb-1">
+                    <div class="form-group">
+                        <label class="col-form-label-sm-user text-black-50" for="txtApprGateName">Approval Gate Name @Html.ValidationMessageFor(model => model.AppGateName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.AppGateName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Approval gate name" } })
+                    </div>
+                </div>
+                <div class="col-md-12 mb-1">
+                    <div class="form-group">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSequence">Sequence  @Html.ValidationMessageFor(model => model.Sequence, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Sequence, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter sequence" } })
+                    </div>
+                </div>
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right mt-4" value="Save">Save</button>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">SAVE</button>
+                </div>
+            </div>
+        </div>*@
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 203);
+    });
+    $(window).trigger('resize');
+</script>

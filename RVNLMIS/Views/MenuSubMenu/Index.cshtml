@@ -1,0 +1,325 @@
+﻿@model RVNLMIS.Models.MenuModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+
+    .divMag {
+        margin-left: 64px !important;
+    }
+</style>
+<!-- [ Main Content ] start -->
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnIdToDelete">
+                <p class="success-message">Are you sure you wish to delete selected menu ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check"></i>&nbsp;Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-3 pr-1">
+                <div id="divAddEditMenu">
+                    @Html.Partial("_PartialAddEditMenu", new RVNLMIS.Models.MenuModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Menu/Submenu Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="category" class="form-control" placeholder="Search by Menu Code or Menu Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.MenuModel>()
+                                                                                                                                                                                                                                                                                                                                                                            .Name("MenuSubmenuGrid")
+                                                                                                                                                                                                                                                                                                                                                                            .Columns(columns =>
+                                                                                                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                                                                                                columns.Bound(c => c.MenuCode).HtmlAttributes(new { style = "text-align:left", title = "#= MenuCode #" })
+                                                                                                                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(130);
+
+
+                                                                                                                                                                                                                                                                                                                                                                                columns.Bound(c => c.MenuName).HtmlAttributes(new { style = "text-align:left", title = "#= MenuName #" })
+                                                                                                                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(150);
+                                                                                                                                                                                                                                                                                                                                                                                columns.Bound(c => c.ParentMenuName).HtmlAttributes(new { style = "text-align:left", title = "#= ParentMenuName #" })
+                                                                                                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(130).Title("Parent Menu");
+                                                                                                                                                                                                                                                                                                                                                                                columns.Bound(c => c.Description).HtmlAttributes(new { style = "text-align:left", title = "#= Description #" })
+                                                                                                                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("20%");
+                                                                                                                                                                                                                                                                                                                                                                                columns.Bound(c => c.Url).HtmlAttributes(new { style = "text-align:left", title = "#= Url #" })
+                                                                                                                                                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(160);
+                                                                                                                                                                                                                                                                                                                                                                                columns.Bound(c => c.Icon).HtmlAttributes(new { style = "text-align:left", title = "#= Icon #" })
+                                                                                                                                                                                                                                                                                                                                                                                                                   .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(120);
+                                                                                                                                                                                                                                                                                                                                                                                columns.Bound(c => c.MenuOrder).HtmlAttributes(new { style = "text-align:left", title = "#= MenuOrder #" })
+                                                                                                                                                                                                                                                                                                                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width(70).Title("Order");
+                                                                                                                                                                                                                                                                                                                                                                                columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/MenuSubMenu/EditMenuById/#=MenuID#' class='btnEditMenu btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" + "<button type='button' class='btn btn-xs btn-danger has-ripple DeleteMenu' data-key='#=MenuID#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width(80);
+
+
+                                                                                                                                                                                                                                                                                                                                                            }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 15, 50, 100, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(m => m.ParentMenuName))
+.Model(model => model.Id(u => u.MenuID))
+.Read(read => read.Action("MenuSubmenu_Read", "MenuSubMenu"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound"))
+.Excel(excel => excel
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            ).
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#MenuSubmenuGrid').height($(window).height() - 198);
+            //$('#CardHeight').height($(window).height() - 140);
+        });
+
+        $(window).trigger('resize');
+
+        $(document).ready(function () {
+            var dataSource = $("#MenuSubmenuGrid").data("kendoGrid").dataSource,
+                total = dataSource.total();
+
+            dataSource.pageSize(total);
+
+            $("#MenuCode").val($("#hdnCode").val());
+            // $("#Url").val("#");
+
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $("#hdnIdToDelete").val();
+
+                $.ajax({
+                    url: '/MenuSubmenu/Delete/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        //Refresh Kendo Grid
+
+                        $("#modalDelete").modal('hide');
+                        // ShowSuccessMessage('Deleted Successfully');
+                        $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                        $('#MenuSubmenuGrid').data('kendoGrid').dataSource.read();
+                        $('#MenuSubmenuGrid').data('kendoGrid').refresh();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+
+            $("#category").keyup(function () {
+                var selecteditem = $('#category').val();
+                var kgrid = $("#MenuSubmenuGrid").data("kendoGrid");
+                selecteditem = selecteditem.toUpperCase();
+                var selectedArray = selecteditem.split(" ");
+                if (selecteditem) {
+                    //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                    var orfilter = { logic: "or", filters: [] };
+                    var andfilter = { logic: "and", filters: [] };
+                    $.each(selectedArray, function (i, v) {
+                        if (v.trim() == "") {
+                        }
+                        else {
+                            $.each(selectedArray, function (i, v1) {
+                                if (v1.trim() == "") {
+                                }
+                                else {
+                                    orfilter.filters.push({ field: "MenuCode", operator: "contains", value: v1 },
+                                        { field: "MenuName", operator: "contains", value: v1 }
+                                    );
+                                    andfilter.filters.push(orfilter);
+                                    orfilter = { logic: "or", filters: [] };
+                                }
+
+                            });
+                        }
+                    });
+                    kgrid.dataSource.filter(andfilter);
+                }
+                else {
+                    kgrid.dataSource.filter({});
+                }
+
+            });
+
+            //$("#divAddEditMenu").on("change", "#MenuParentID", function () {
+            //    var parentId = $("#MenuParentID").val();
+
+            //    if (parentId === '') {
+            //        //$("#Url").val("#");
+            //        //$("#Url").attr("readonly", true);
+            //        $("#MenuOrder").removeAttr("disabled", "disabled");
+            //    }
+            //    else {
+            //        $("#Url").val("");
+            //        //$("#Url").attr("readonly", false);
+            //        $("#MenuOrder").val('');
+            //        $("#MenuOrder").attr("disabled", "disabled");
+            //    }
+            //});
+        });
+
+        function dataBound() {
+           
+
+            $(".btnEditMenu").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#divAddEditMenu').html(data);
+                });
+            });
+
+            $(".DeleteMenu").on("click", function () {
+                var Id = $(this).data("key");
+                $("#hdnIdToDelete").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        function MenusubmenuSuccess(data) {
+            console.log(data.message);
+            if (data.message === 'undefined' || data.message === null || data.message === '') {
+                $('#divAddEditMenu').html(data);
+            }
+            else {
+                if (data.message.includes("successfully")) {
+                    $.notify(data.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                    $('#MenuSubmenuGrid').data('kendoGrid').dataSource.read();
+                    $('#MenuSubmenuGrid').data('kendoGrid').refresh();
+                    ClearFormGrid();
+                    // RefreshMenuPartial();
+                    window.location.href = "/MenuSubmenu/Index";
+                } else if (data.message == "0") {
+                    $.notify('Menu Name already Exist!', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                }
+                $("#MenuCode").val(data.Code);
+            }
+        }
+
+        //function RefreshMenuPartial() {
+        //    //this should refresh PartImagesPartial
+        //    $.ajax({
+        //        url: "/Login/GetMenuList",
+        //        type: "GET",
+        //        dataType: "html",
+        //        contentType: false,
+        //       // data: { PartID: (partId) },
+        //        success: function (result) {
+        //            $("#partialMenu").html(result);
+        //        }
+        //    });
+        //}
+
+        function ClearFormGrid() {
+
+            $("#MenuID").val("0");
+            $("#MenuName").val("");
+            $("#Description").val("");
+            $("#MenuParentID").val("");
+            $("#Url").val("");
+            $("#Icon").val("");
+            $("#MenuOrder").val("");
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "MenuSubmenu-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+        function HideColumn(e) {
+
+            var grid = $("#MenuSubmenuGrid").data("kendoGrid");
+            grid.hideColumn(7);
+
+            grid.options.pdf.fileName = "MenuSubmenu - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(7);
+            });
+        }
+
+
+    </script>
+}
+
+

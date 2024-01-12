@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+</style>
+<!-- [ Main Content ] start -->
+
+<div class="modal fade" id="sendMailModal" tabindex="-1" Deduction="dialog" aria-labelledby="sendMailModal" aria-hidden="true" data-backdrop="true">
+    <div id="sendMailContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-12 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-7">
+                                <h5>View Package Status </h5>
+                            </div>
+                                
+                            <div class="col-sm-12 col-md-5 divMag pull-right">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by Package Code" placeholder="Search by Package Code" />
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-outline-primary ml-2" href="javascript:void()" id="btnSendMail" title="Send Report on mail"> Send Mail</button>
+                                </div>
+                            </div>
+                            @*<div class="col-sm-12 col-md-2">
+                                <button type="button" class="btn btn-sm waves-effect waves-light btn-outline-primary mr-2" href="javascript:void()" id="btnSendMail" title="Send Report on mail"> Send Mail</button>
+                            </div>*@
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.PackageStatusModel>()
+                                                                                                                                                                                                                                                                        .Name("PackageStatusGrid")
+                                                                                                                                                                                                                                                                        .Columns(columns =>
+                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                            columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.EDName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.CPMCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("6%");
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.PackageCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("5%");
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.PackageShortName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("15%");
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("30%");
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.SectionCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.EntityCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.EnggDwgCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.MaterialAssignedCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.MaterialDataUpdatedCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.ConActCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.ConActDataUpdateCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.InvoiceCount).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                            columns.Bound(c => c.Points).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                                           .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                                                        @*columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+                                                                                                                                                                                                                                                                                            "<button  data-url='/EDMaster/EditEDByEDId/#=EDId#' class='EditED btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + " <button type='button' id='btnDeleteED' class='btn btn-xs btn-danger has-ripple DeleteED' data-key='#=EDId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");*@
+                                                                                                                                                                                                                                                                        }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+//.Model(model => model.Id(u => u.EDId))
+.Read(read => read.Action("PackageStatus_Details", "PackageStatus"))
+.PageSize(15))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#PackageStatusGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+        $(document).ready(function () {
+
+        });
+        var rowNumber = 0;
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function dataBound() {
+            rowNumber = 0;
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "PackageStatus-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xlsx";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#PackageStatusGrid").data("kendoGrid");
+            // grid.hideColumn(3);
+
+            grid.options.pdf.fileName = "PackageStatus - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(3);
+            });
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#PackageStatusGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "PackageCode", operator: "contains", value: v1 },
+                                    { field: "CPMCode", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+        $("#btnSendMail").click(function () {
+            $.ajax({
+                url: '/PackageStatus/GetSendmailPartial',
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function (data) {
+                    console.log(data);
+                    $('#sendMailContainer').html(data);
+                    $('#sendMailModal').modal('show');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                }
+            });
+        });
+
+        function OnSendMailSuccess(response) {
+            if (response == "1") {
+                $.notify('Succesfully sent an email !', { align: "right", verticalAlign: "top", type: "success", background: "#0eed73", color: "#fff" });
+            }
+            else {
+                $.notify('Error while sending email. Please try after some time. !', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+
+            $('#sendMailModal').modal('hide');
+        }
+    </script>
+}

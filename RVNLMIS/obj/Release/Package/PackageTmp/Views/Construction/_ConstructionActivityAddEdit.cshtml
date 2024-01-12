@@ -1,0 +1,81 @@
+﻿@model RVNLMIS.Models.ConstructionViewModel
+@{
+    Layout = null;
+    if (string.IsNullOrEmpty(@Model.OperationType))
+    {
+        Model.OperationType = "Add";
+    }
+}
+@using (Ajax.BeginForm("SubmitActivityConst", "Construction", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnPartialSuccess" }, new { Page = "form" }))
+{
+    @Html.HiddenFor(model => model.AutoId)
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Construction Activity</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Package</label>
+                        @*<div class="col-sm-8">
+                                @Html.DropDownListFor(model => model.PackageId, ViewBag.PackageList as SelectList, "Select Package", new { @class = "form-control form-control-sm" })
+                                @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                            </div>*@
+                        <div class="col-sm-8">
+                            @if (ViewBag.PackageList.Items.Count == 1)
+                            {
+                                foreach (var appointment in ViewBag.PackageList)
+                                {
+                                    <label class="col-sm-6 col-form-label-sm">  @appointment.Text</label>
+                                    @Html.HiddenFor(model => model.PackageId)
+                                }
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.PackageId, ViewBag.PackageList as SelectList, "Select Package", new { @class = "form-control form-control-sm" })
+                                @*@Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })*@
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Entity</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(model => model.EntityId, ViewBag.EntityList as SelectList, "Select Entity", new { @class = "form-control form-control-sm" })
+                            @Html.ValidationMessageFor(model => model.EntityId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Activity</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(model => model.ActivityId, ViewBag.ActivityList as SelectList, "Select Activity", new { @class = "form-control form-control-sm" })
+                            @Html.ValidationMessageFor(model => model.ActivityId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label-sm"> Budgeted Qty</label>
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.BudgetedQty, new { htmlAttributes = new { @class = "mb-3 form-control form-control-sm", @type = "text", @placeholder = "Budgeted Qty", } })
+                            @Html.ValidationMessageFor(model => model.BudgetedQty, "", new { @class = "text-danger" })
+                            @*<input class="mb-3 form-control form-control-sm" type="text" placeholder="Rate">*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-sm btn-theme" id="btnPartialCASubmit">@Model.OperationType </button>
+
+            </div>
+        </div>
+
+    </div>
+}

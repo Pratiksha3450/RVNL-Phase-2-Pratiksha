@@ -1,0 +1,580 @@
+﻿ @using RVNLMIS.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+
+<style>
+
+    .demo-section label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    #example .demo-section {
+        max-width: none;
+        width: 100%;
+    }
+
+    #example .k-listbox {
+        width: 98%;
+        height: 390px;
+    }
+
+        #example .k-listbox:first-of-type {
+            margin-right: 1px;
+        }
+
+        #example .k-listbox .k-item {
+            cursor: move;
+        }
+
+    #example .arrow {
+        padding: 8px 0 5px 238px;
+    }
+
+    #button {
+        float: right;
+        margin-top: 20px;
+    }
+    k-widget.k-listbox {
+        height: 70vh !important;
+    }
+    .k-listbox .k-list-scroller {
+        min-height: 100%;
+        height: 110%;
+    }
+
+    #searchingMat {
+        width: 90%;
+    }
+    #mHeading {
+        width: 99%;
+    }
+    .matSearch {
+        width: 87% !important;
+    }
+    .addup {
+        padding: 20px 20px !important;
+    }
+</style>
+
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<input type="hidden" id="hdnConsActID" />
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <div class="row">
+            <div class="col-sm-6 pr-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 mt-3" id="pkgcontainer">
+
+                                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#pkgcontainer"))
+                                            .Name("ddlPackage")
+                                            .DataTextField("PackageName")
+                                            .DataValueField("PackageId")
+                                            .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                            .Filter("contains").OptionLabel("Select Package")
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                             {
+                                                                  read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                              })
+                                                 .ServerFiltering(true);
+                                            })
+                                    )
+
+                            </div>
+                            <div class="col-md-6 mt-3" id="dispContainer">
+                                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#dispContainer"))
+                                                                                .Name("ddlDispId")
+                                                                                .DataTextField("DisciplineName")
+                                                                                .DataValueField("DispId")
+                                                                                .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                                .Filter("contains").OptionLabel("Select Discipline")
+                                                                                .DataSource(source =>
+                                                                                {
+                                                                                    source.Read(read =>
+                                                                                {
+                                                                                    read.Action("Get_Discipline", "MaterialDistribution");
+                                                                                })
+                                                                                    .ServerFiltering(true);
+                                                                                })
+                                    )
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body pl-2 pt-2" id="Card1">
+
+         
+                            <div class=" " id="KendoHeight">
+                                <div id="example" role="application">
+                                    <div class="demo-section k-content wide">
+
+                                        <div class="row mt-1 mb-1 no-gutters">
+
+                                            <div class="col-md-12 mt-1 mb-1 pl-3">
+                                                <label class="text-muted f-12">Material List </label>
+                                                <div class="form-group">
+                                                    <input type="search" id="searchingMat" class="form-control matSearch" placeholder="Search by Material Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div class="col-md-6 mt-1 mb-1 pr-0">
+
+                                                <div class="mt-1 mb-1">
+                                                    @(Html.Kendo().ListBox()
+                                                            .Name("listbox")
+                                                            //.Toolbar(toolbar => toolbar.Tools(tools => tools.MoveUp().MoveDown().TransferTo().TransferAllTo().Remove()))
+                                                            .ConnectWith("listView")
+                                                            .Selectable(ListBoxSelectable.Single)
+                                                            //.Draggable(true)
+                                                            .DropSources("listView")
+                                                            .DataTextField("MaterialName")
+                                                            .DataValueField("PackMatId")
+                                                            .DataSource(source => source.Read(read => read.Action("GetPackage_Materials", "MaterialDistribution").Data("GetPackageAndDispDrp")))
+                                                    )
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-1 mt-1 pl-0">
+
+                                                <div id="mStats">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-xl-12 col-md-12">
+
+                                                            <div class="card quater-card addup">
+                                                                <div class="card-header p-1">
+                                                                    <h6> Material Details </h6>
+                                                                </div>
+                                                                <div class="card-body f-13">
+
+                                                                    <div class="row no-gutters f-12 pt-3">
+
+                                                                        <div class="col-md-4 text-muted mb-2 border-right mr-2"><label>Name </label></div>
+                                                                        <div class="col-md-7 mb-2"><label id="mHeading"></label></div>
+
+                                                                        <div class="col-md-4 text-muted border-right mr-2"><label>Unit </label></div>
+                                                                        <div class="col-md-7"><label id="mUnit"></label></div>
+                                                                        <div class="col-md-4 text-muted border-right mr-2"> <label>Rate </label></div>
+                                                                        <div class="col-md-7"><label id="mRate"></label></div>
+                                                                        <div class="col-md-4 text-muted border-right mr-2"> <label>Original Qty </label></div>
+                                                                        <div class="col-md-7"><label id="mOriginal"></label></div>
+                                                                        <div class="col-md-4 text-muted border-right mr-2"> <label>Revised Qty </label></div>
+                                                                        <div class="col-md-7"><label id="mRevised"></label></div>
+                                                                        <div class="col-md-4 text-muted border-right mr-2"> <label>Ordered Qty  </label></div>
+                                                                        <div class="col-md-7"><label id="mOrdered"></label></div>
+                                                                        <div class="col-md-4 text-muted border-right mr-2"> <label>Delivered Qty  </label></div>
+                                                                        <div class="col-md-7"><label id="mDelivered"></label></div>
+                                                                    </div>
+                                                                    <br />
+                                                                    <h5 class="m-t-4 mb-1" id="toQty">87</h5>
+                                                                    <p class="text-muted mb-2">Total Ordered Qty in Entity <span class="float-right" id="pOrderQty">80%</span></p>
+                                                                    <div class="progress">
+                                                                        <div id="divOrder" class="progress-bar" style="width: 80%"></div>
+                                                                    </div>
+                                                                    <h5 class="m-t-20 mb-1" id="tdQty">68</h5>
+                                                                    <p class="text-muted mb-2">Total Delivered Qty  in Entity<span class="float-right" id="pDeliveredQty">50%</span></p>
+                                                                    <div class="progress">
+                                                                        <div id="divDeliver" class="progress-bar" style="width: 50%"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 mt-3" id="entitycontainer">
+                                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#entitycontainer"))
+                                        .Name("ddlEntityTypeId")
+                                        .DataTextField("EntityTypeName")
+                                        .DataValueField("EntityTypeId")
+                                        .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                        .Filter("contains").OptionLabel("Select Entity Type")
+                                        .DataSource(source =>
+                                        {
+                                            source.Read(read =>
+                                            {
+                                                read.Action("Get_EntityType", "MaterialDistribution");
+                                            })
+                                             .ServerFiltering(true);
+                                        })
+                                )
+                            </div>
+                            <div class="col-md-6 divMag">
+                                <input type="search" id="searching" class="form-control" placeholder="Search by Entity Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" id="Card1">
+                        <div class="">
+                            <div class="customtoolbar" id="KendoHeight">
+                                @(Html.Kendo().Grid<RVNLMIS.Models.MaterialDistributionModel>()
+                                                                    .Name("ActivityGrid")
+                                                                    .Columns(columns =>
+                                                                    {
+                                                                        columns.Bound(c => c.EntityName).HtmlAttributes(new { style = "text-align:left" }).Title("Entity Name").Width("80%").HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                        columns.Bound(c => c.EMOrderedQty).HtmlAttributes(new { style = "text-align:right" }).Title("Ordered Qty")
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("15%");
+                                                                        columns.Bound(c => c.EMDeliveredQty).HtmlAttributes(new { style = "text-align:right" }).Title("Delivered Qty")
+                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("15%");
+                                                                    }).Scrollable(scr => scr.Height(400))
+                                                                    .Pageable()
+                                                                    .ToolBar(toolBar =>
+                                                                    {
+                                                                        toolBar.Save();
+                                                                    })
+                                                                    .Editable(editable => editable.Mode(GridEditMode.InCell))
+
+                                                                    .Sortable()
+                                                                    //.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+                                                                    //.Navigatable()
+                                                                    .Pageable(pageable => pageable
+                                                                    .Refresh(true)
+                                                                    .PageSizes(true)
+                                                                    .ButtonCount(5)
+                                                                    .PageSizes(new List<object>
+                                                                    { 10, 20, 50, "all" }).Refresh(false))
+
+                                                                    // .PersistSelection(false)
+                                                                    .DataSource(dataSource => dataSource
+                                                                    .Ajax()
+                                                                    .Group(g => g.Add(c => c.EntityType))
+                                                                    .Batch(true)
+                                                                    .ServerOperation(false)
+                                                                    .Update(update => update.Action("EditingCustom_Update", "MaterialDistribution"))
+                                                                    .Model(model => model.Id(u => u.EntityID))
+                                                                    .Events(events =>
+                                                                    {
+                                                                        //events.RequestStart("request_Start");
+                                                                        events.RequestEnd("request_end");
+                                                                        events.Error("onError");
+                                                                    })
+                                                                    .Model(model =>
+                                                                    {
+                                                                        model.Id(p => p.EntityID);
+                                                                        model.Id(p => p.EMDId);
+                                                                        model.Id(p => p.PackMatId);
+                                                                        model.Field(p => p.EntityName).Editable(false);
+                                                                        model.Field(p => p.EntityType).Editable(false);
+                                                                    })
+                                                                    .Read(read => read.Action("EntityMaster_Read", "MaterialDistribution").Data("GetEntityId"))
+                                                                    .PageSize(15)).Groupable()
+                                                                    .Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+                                                                    .Excel(excel => excel
+                                                                    .FileName("Entity_Details_Excel.xlsx")
+                                                                    .Filterable(true)
+                                                                    .ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+                                                                    )
+                                                                    .Pdf(pdf => pdf
+                                                                    .AllPages()
+                                                                    .AvoidLinks()
+                                                                    .PaperSize("A4")
+                                                                    .Scale(0.8)
+                                                                    .Margin("2cm", "1cm", "1cm", "1cm")
+                                                                    .Landscape()
+                                                                    .RepeatHeaders()
+                                                                    .TemplateId("page-template")
+                                                                    .FileName("Entity_Details_Pdf.pdf")
+                                                                    .ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+                                                                    )
+
+                                                                    .Events(ev => ev.DataBound("dataBound"))
+                                )
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+
+        </div>
+    </div>    
+</div>
+@section scripts{
+
+    <script>
+        var objMat;
+        var objPackMatId=0;
+        $(document).ready(function () {
+            $("#mStats").hide();
+            var ddlDispList = $("#ddlDispId").data("kendoDropDownList");
+            var ddlEntityTypeList = $("#ddlEntityTypeId").data("kendoDropDownList");
+            ddlDispList.enable(false);
+            ddlEntityTypeList.enable(false);            
+        });
+        function HideColumn(e) {
+
+            var grid = $("#ActivityGrid").data("kendoGrid");
+           // grid.hideColumn(11);
+
+            grid.options.pdf.fileName = "Material - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+               // grid.showColumn(11);
+            });
+        }
+
+        function GetEntityId() {                        
+           // console.log(objMat);
+            return {
+                pkgId: $("#ddlPackage").val(),
+                entityType: $("#ddlEntityTypeId").data("kendoDropDownList").text(),
+                PackMatId: objPackMatId
+            };
+        }
+
+        function dataBound() { }
+        function GetPackageAndDispDrp() {
+            return { packageId: $("#ddlPackage").val(), disp: $("#ddlDispId").val() };
+        }
+
+        bindDropdownList();
+        function bindDropdownList() {
+            $("#ddlPackage").change(function () {
+                var ddlDispList = $("#ddlDispId").data("kendoDropDownList");
+                var ddlEntityTypeList = $("#ddlEntityTypeId").data("kendoDropDownList");
+                ddlDispList.enable(true);
+                ddlEntityTypeList.enable(true);
+                $('#ddlDispId').data("kendoDropDownList").select(0);
+                $('#ddlEntityTypeId').data("kendoDropDownList").select(0);                
+                RefreshKendoGrid();        
+            });
+
+            $("#ddlDispId").change(function () {
+                RefreshKendoGrid();
+            });
+
+            $("#ddlEntityTypeId").change(function () {
+                $('#ActivityGrid').data('kendoGrid').dataSource.read();
+                $('#ActivityGrid').data('kendoGrid').refresh();
+            });
+        }
+
+        function RefreshKendoGrid() {
+            ////Refresh Kendo Grid
+            objPackMatId = 0;
+            $('#ActivityGrid').data('kendoGrid').dataSource.read();
+            $('#ActivityGrid').data('kendoGrid').refresh();
+            $("#mStats").hide();
+            $('#listbox').data('kendoListBox').dataSource.read();
+            $('#listbox').data('kendoListBox').refresh();
+        }
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 180);
+            $('#ActivityGrid').height($(window).height() - 208);
+            $('#Card1').height($(window).height() - 215);
+            $('#listbox').height($(window).height() - 365);    
+            $('.k-listbox').height($(window).height() - 395);   
+            $('#mStats').height($(window).height() - 325);
+        });
+
+        $(function () {
+            $("#listbox").data('kendoListBox').wrapper.find(".k-list").on("click", ".k-item", function (e) {                
+                var listBox = $(e.target).closest(".k-listbox").find("[data-role='listbox']").data("kendoListBox");
+                var dataItem = listBox.dataItem(e.target);                             
+                objPackMatId = dataItem.PackMatId;
+                objMat = dataItem;
+                //console.log(dataItem);                
+                $('#ddlEntityTypeId').data("kendoDropDownList").select(0);
+                $('#ActivityGrid').data('kendoGrid').dataSource.read();
+                $('#ActivityGrid').data('kendoGrid').refresh();
+                GetPackageDetails();
+                $("#mStats").show();
+            })
+        })
+
+        function GetPackageDetails() {
+            var packageId = $("#ddlPackage").val();
+            var disp = $("#ddlDispId").val();
+            $("#mHeading").text(objMat.MaterialName);
+            $("#mUnit").text(objMat.MaterialUnit);
+            $("#mRate").text(objMat.RatePerUnit);
+            $("#mOriginal").text(objMat.OriginalQty);
+            $("#mRevised").text(objMat.RevisedQty);
+            $("#mOrdered").text(objMat.CumOrderdQty);
+            $("#mDelivered").text(objMat.CumDeliveredQty);
+            $('#matId').attr('value', objMat.MaterialName);
+
+            $.ajax({
+                type: "POST",
+                url: "/MaterialDistribution/GetPackgMatDetails",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    "dataObject": objMat,
+                    "packageId": packageId
+                }),
+                dataType: "json",
+                success: function (result) {                    
+                    $("#toQty").text(result.TUsedOrderedQty+"/"+objMat.CumOrderdQty);
+                    $("#tdQty").text(result.TUsedDeliveredQty+"/"+objMat.CumDeliveredQty);
+                    $("#pDeliveredQty").text(result.TUsedDeliveredQtyPerc + "%");
+                    $("#pOrderQty").text(result.TUsedOrderedQtyPerc + "%");
+                    if (result.TUsedDeliveredQtyPerc < 50) {
+                        $('#divDeliver').removeClass('bg-c-red').removeClass('bg-c-blue').addClass('bg-c-green');
+                    }
+                    else if (result.TUsedDeliveredQtyPerc < 90) {
+                        $('#divDeliver').removeClass('bg-c-green').removeClass('bg-c-red').addClass('bg-c-blue');
+                    }
+                    else {
+                        $('#divDeliver').removeClass('bg-c-green').removeClass('bg-c-blue').addClass('bg-c-red');
+                    }
+                    if (result.TUsedOrderedQtyPerc < 50) {
+                        $('#divOrder').removeClass('bg-c-red').removeClass('bg-c-blue').addClass('bg-c-green');
+                    }
+                    else if (result.TUsedOrderedQtyPerc < 90) {
+                        $('#divOrder').removeClass('bg-c-green').removeClass('bg-c-red').addClass('bg-c-blue');
+                    }
+                    else {
+                        $('#divOrder').removeClass('bg-c-green').removeClass('bg-c-blue').addClass('bg-c-red');
+                    }
+
+                    $("#divOrder").removeAttr("style");
+                    $("#divDeliver").removeAttr("style");
+                    $("#divOrder").attr("style", "width: " + result.TUsedOrderedQtyPerc + "%");
+                    $("#divDeliver").attr("style", "width: " + result.TUsedDeliveredQtyPerc + "%");
+                }
+            });
+        }
+
+        //function request_Start(e) {
+        //    console.log(e.type + " Start");
+        //    if (e.type=="update") {
+               
+        //            var entityGrid = $("#ActivityGrid").data("kendoGrid");
+        //            var data = entityGrid.dataSource.data();
+        //            var totalNumber = data.length;
+
+        //            for (var i = 0; i < totalNumber; i++) {
+        //                var currentDataItem = data[i];
+        //                console.log(currentDataItem);
+        //            }
+        //            $.notify("Record updated successfully", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });                
+        //        return false;
+        //    }         
+        //}
+
+        function request_end(e) {
+            console.log(e.type);
+            switch (e.type) {
+                case "create":
+                    //if (e.Errors == undefined && e.response.Total > 0) {
+                    //    //  alert("Saved Successfully");
+                    //    $(".errorMessage").text("Saved Successfully");
+                    //}
+                    break;
+
+                case "update":
+                    if (e.Errors == undefined && e.response.Total > 0) {
+                        // alert("Updated Successfully");
+                        GetPackageDetails();
+                        $.notify("Record updated successfully", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                    }                    
+                    break;
+
+                case "destroy":
+                    //if (e.Errors == undefined && e.response.Total > 0) {
+                    //    // alert("Deleted Successfully");
+                    //    $(".errorMessage").text("Deleted Successfully");
+                    //}
+                    break;
+
+                default:
+                    
+                    break;
+            }
+
+            return true;
+        }
+
+        function onError(e, status) {
+
+            if (e.errors) {
+                var message = " ";
+                $.each(e.errors, function (key, value) {
+                    if (value.errors) {
+                        message += value.errors.join(" ");
+                    }
+                });
+               // alert(message);
+                $.notify(message, { align: "right", verticalAlign: "top", type: "success", background: "#EA1919", color: "#fff" });
+               // $("#ActivityGrid").data("kendoGrid").cancelChanges(); // Remove changes           
+                GetPackageDetails();
+            }
+        }
+
+        $(window).trigger('resize');
+
+        $("#searchingMat").on("input", function (e) {
+            $("#mStats").hide();
+            var listBox = $("#listbox").getKendoListBox();
+            var sarchString = $(this).val();
+            listBox.dataSource.filter({ field: "MaterialName", operator: "contains", value: sarchString });
+        });
+
+        $("#searching").on("input", function (e) {
+            var value = $("#searching").val();
+            grid = $("#ActivityGrid").data("kendoGrid");
+
+            if (value) {
+                grid.dataSource.filter({ field: "EntityName", operator: "contains", value: value });
+            } else {
+                grid.dataSource.filter({});
+            }
+
+        });
+
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Material - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+    </script>
+}

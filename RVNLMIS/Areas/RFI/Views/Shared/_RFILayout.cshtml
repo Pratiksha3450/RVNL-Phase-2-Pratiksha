@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="PrimaBI" />
+
+    <title>RVNL MIS</title>
+    <!-- One signal web push setup-->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: '@System.Configuration.ConfigurationManager.AppSettings["webPushAppId"]',
+            });
+        });
+    </script>
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Content/assets/images/favicon.ico" type="image/x-icon">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link href="~/Content/web/kendo.common-bootstrap.core.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.bootstrap.mobile.min.css" rel="stylesheet" />
+    <link href="~/Content/JQueryNotify/css/notify.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/plugins/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/chosen.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/theme.css" rel="stylesheet" />
+
+    <script src="~/Content/assets/js/vendor-all.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>*@
+    <script src="~/Scripts/pako.min.js"></script>
+
+
+    <style>
+        .fullscreenDIV {
+            text-align: left;
+            background-color: #FFFFFF;
+            cursor: grab;
+            padding-left: 20px;
+        }
+
+
+        .disableCN {
+            pointer-events: none;
+            background-color: #e0d7d7;
+        }
+
+        .table thead th {
+            background: #f5f5f5 !important;
+            text-transform: inherit !important;
+        }
+
+        .k-grid td.k-state-selected:hover, .k-grid tr:hover {
+            color: #fff;
+            background-color: #4680ff;
+        }
+
+        .k-draghandle.k-state-selected:hover, .k-ghost-splitbar-horizontal, .k-ghost-splitbar-vertical, .k-list > .k-state-highlight, .k-list > .k-state-selected, .k-marquee-color, .k-panel > .k-state-selected, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-state-selected, .k-state-selected:link, .k-state-selected:visited {
+            color: #fff;
+            background-color: #4680ff !important;
+            border-color: #4680ff !important;
+        }
+
+        /*.k-button.k-state-focused, .k-button.k-state-hover, .k-button:focus, .k-button:hover, .k-draghandle:hover, .k-listbox .k-item:hover:not(.k-state-disabled), .k-other-month.k-state-hover .k-link, .k-pager-wrap .k-link:hover, .k-split-button:focus, .k-state-hover, .k-state-hover:hover, .k-textbox:hover, div.k-filebrowser-dropzone em {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-gradient(linear,left top,left bottom,from(#8ebc00),to(#8ebc00));
+            background-image: none,-webkit-linear-gradient(top,#8ebc00 0,#8ebc00 100%);
+            background-image: none,linear-gradient(to bottom,#4680ff 0,#4680ff 100%) !important;
+        }*/
+
+        /*.k-dropdown .k-state-focused, .k-filebrowser-dropzone, .k-list > .k-state-hover, .k-mobile-list .k-edit-label.k-check:active, .k-mobile-list .k-item > .k-label:active, .k-mobile-list .k-item > .k-link:active, .k-mobile-list .k-recur-view .k-check:active, .k-pager-wrap .k-link:hover, .k-scheduler .k-scheduler-toolbar ul li.k-state-hover, .k-splitbar-horizontal-hover:hover, .k-splitbar-vertical-hover:hover, .k-state-hover, .k-state-hover:hover {
+                color: #fff;
+                background-color: #4680ff !important;
+                border-color: #4680ff !important;
+            }*/
+
+        .k-editor, .k-grid, .k-menu, .k-scheduler {
+            border-radius: 0px !important;
+        }
+
+        /*.divMag {
+            margin-left: -32px;
+            margin-top: -4px;
+        }*/
+
+        .pcoded-header .dropdown .dropdown-toggle {
+            line-height: 50px;
+            display: inline-block;
+            text-align: center;
+            width: 130px !important;
+        }
+    </style>
+
+    @* LOADER *@
+    <link href="~/Content/assets/css/loader.css" rel="stylesheet" />
+    @* /LOADER *@
+
+</head>
+<body>
+    <!-- Paste this code after body tag -->
+    <div style="display:none" class="se-pre-con"></div>
+    <!-- Ends -->
+    @*<form>*@
+
+    <!-- [ Pre-loader ] start -->
+    <!-- [ navigation menu ] start -->
+    <nav class="pcoded-navbar theme-horizontal menu-light brand-blue">
+        <div class="navbar-wrapper">
+            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
+                <ul class="nav pcoded-inner-navbar sidenav-inner" id="partialMenu">
+                    @Html.Action("GetRFIMenuList", "RFILogin", new { area = "RFI" })
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+    <!-- [ Header ] start -->
+    <header class="navbar pcoded-header navbar-expand-lg header-blue navbar-light">
+        <div class="m-header">
+            <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+            <a href="#!" class="b-brand">
+                <!-- ========   change your logo hear   ============ -->
+                <img src="~/Content/assets/images/logo/RVNL_logo_white.png" alt="" class="logo" width="200px">
+                <img src="~/Content/assets/images/logo-icon.png" alt="" class="logo-thumb">
+            </a>
+            <a href="#!" class="mob-toggler">
+                <i class="feather icon-more-vertical"></i>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <div class="dropdown drp-user">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @*<i class="feather icon-user"></i>*@
+                             <img src="~/Content/assets/images/ProfilePic.png" alt="" class="wid-20 rounded mr-1 img-fluid"> Welcome @(Html.Encode(User.Identity.Name.Split('|')[0])) &nbsp;&nbsp;&nbsp;
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-notification">
+                            <div class="pro-head">
+                                <img src="~/Content/assets/images/ProfilePic.png" class="img-radius" alt="User-Profile-Image" />
+                                <span>@(Html.Encode(User.Identity.Name.Split('|')[0]))</span>
+                            </div>
+                            <ul class="pro-body">
+                                <li><a href="/ChangePassword/Index" class="dropdown-item"><i class="fa fa-key"></i> Change Password </a></li>
+                                <li><a href="/RFILogin/LogOut" class="dropdown-item"><i class="feather icon-lock"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        @RenderBody()
+    </div>
+    <script src="~/Content/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/ripple.js"></script>
+    @*<script src="~/Content/assets/js/pcoded.min.js"></script>*@
+    <script src="~/Content/assets/js/pcoded.js"></script>
+    @*<script src="~/Content/assets/js/menu-setting.min.js"></script>*@
+
+    <!-- prism Js -->
+    <script src="~/Content/assets/js/plugins/prism.js"></script>
+    <script src="~/Content/assets/js/horizontal-menu.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    <script src="~/Content/assets/js/uikit.js"></script>
+    <script src="~/Content/assets/js/analytics.js"></script>
+    @*<script src="~/Content/assets/js/plugins/daterangepicker.js"></script>*@
+    <!-- MDB core JavaScript -->
+    @*<script type="text/javascript" src="~/Content/assets/js/mdb.min.js"></script>*@
+    <script>
+        (function () {
+            if ($('#layout-sidenav').hasClass('sidenav-horizontal') || window.layoutHelpers.isSmallScreen()) {
+                return;
+            }
+            try {
+                window.layoutHelpers._getSetting("Rtl")
+                window.layoutHelpers.setCollapsed(
+                    localStorage.getItem('layoutCollapsed') === 'true',
+                    false
+                );
+            } catch (e) { }
+        })();
+        $(function () {
+            $('#layout-sidenav').each(function () {
+                new SideNav(this, {
+                    orientation: $(this).hasClass('sidenav-horizontal') ? 'horizontal' : 'vertical'
+                });
+            });
+            $('body').on('click', '.layout-sidenav-toggle', function (e) {
+                e.preventDefault();
+                window.layoutHelpers.toggleCollapsed();
+                if (!window.layoutHelpers.isSmallScreen()) {
+                    try {
+                        localStorage.setItem('layoutCollapsed', String(window.layoutHelpers.isCollapsed()));
+                    } catch (e) { }
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#pcoded").pcodedmenu({
+                themelayout: 'horizontal',
+                MenuTrigger: 'hover',
+                SubMenuTrigger: 'hover',
+            });
+        });
+    </script>
+
+    @* LOADER *@
+    <script src="~/Content/assets/js/loader.js"></script>
+    @* /LOADER *@
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Content/JQueryNotify/js/notify.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

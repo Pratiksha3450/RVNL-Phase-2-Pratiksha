@@ -1,0 +1,1312 @@
+/*---------------------------- Updating Theam according to primabi logo  ------------------------------------------/
+/*===============================
+LOGIN
+===============================*/
+.loginwrapper {
+    overflow: hidden !important;
+}
+
+body {
+    font-size: 12.5px!important;
+}
+/*---------------------------------------------------*/
+/*Kendo : tables font size common*/
+/*---------------------------------------------------*/
+.k-grid table {
+    font-size: 12.5px !important;
+}
+
+.k-reset {
+    font-size: 12.5px !important;
+}
+/*----------Heights------------*/
+.height-50 {
+    height: 50px;
+}
+/*===============================
+NAVBAR
+===============================*/
+.pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li.pcoded-hasmenu.active > .pcoded-submenu, .pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li.pcoded-hasmenu.pcoded-trigger > .pcoded-submenu {
+    margin-top: 5px !important;
+}
+.pcoded-navbar .pcoded-inner-navbar li > a {
+    padding: 2px 2px;
+    margin: 2px 4px;
+}
+.pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu .pcoded-submenu li > a:before {
+    left: 12px;
+}
+/*.pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu > a:after {
+    top: 10px;
+}*/
+.pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu .pcoded-submenu li > a {
+    padding: 9px 3px 9px 28px;
+}
+
+
+body .background-grd-info .pcoded-navbar.theme-horizontal ~ .pcoded-header[class*="header-"] {
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+/*.pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li:active {
+    background: red;
+}
+.nav-item a:active{
+    background:red;
+}*/
+
+.pcoded-header.header-blue:not(.headerpos-fixed) {
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+
+.pcoded-navbar.theme-horizontal .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu .pcoded-submenu a {
+    color: #101b33;
+    padding: 10px 20px 10px 30px;
+    border-top: none;
+    /* border-bottom: none; */
+    border-bottom: 1px solid rgba(151, 167, 193, 0.5);
+}
+.pcoded-navbar.menu-light .pcoded-inner-navbar > li.active > a, .pcoded-navbar.menu-light .pcoded-inner-navbar > li.pcoded-trigger > a {
+    color: #fff;
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+/*.nav li.active {
+    color: #4680ff!important;
+    color: #fff !important;
+    box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------------------To fix hide issue- when meuns are more than 10--------------------------------------------------*/
+/*.pcoded-navbar.theme-horizontal .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu .pcoded-submenu:before {
+    top: 153px;
+}
+.pcoded-navbar.theme-horizontal .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu .pcoded-submenu {
+    top: -155px !important;
+}*/
+
+/*===============================
+m-header : logo section
+===============================*/
+    .pcoded-header .m-header {
+    width: 250px;
+    /* background: #fff; */
+    /* position: absolute; */
+    /* top: 0px; */
+    height: 57.3px;
+    /* z-index: 999; */
+    box-shadow: -1px 0px 9px #ccc;
+    /* border: 1px solid red; */
+}
+/*---Breadcrumbs-------*/
+.page-header {
+    font-size: 13px;
+    color: #000;
+    background: #fff;
+    margin-top: 0px;
+    padding: 1%;
+    margin-bottom: 0;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: #ecf0f5;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    list-style: none;
+}
+/*--- /Breadcrumbs-------*/
+/*===============================
+Header Submenu
+===============================*/
+.pcoded-header .ml-auto {
+    margin-right: 13px;
+}
+.pcoded-header .dropdown .dropdown-toggle {
+    line-height: 50px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+    .pcoded-header .dropdown .profile-notification .pro-head {
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+
+    .pcoded-header .dropdown .profile-notification .pro-head img {
+        width: 45px;
+        border: 2px solid #fff;
+        margin-right: 10px;
+    }
+
+.pcoded-header .dropdown .profile-notification .pro-body li.active, .pcoded-header .dropdown .profile-notification .pro-body li:active, .pcoded-header .dropdown .profile-notification .pro-body li:focus, .pcoded-header .dropdown .profile-notification .pro-body li:hover {
+    box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+.pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu .pcoded-submenu li.active > a {
+    margin: 0% 4%;
+    background: linear-gradient(to right, #00c18d, #5757c5) !important;
+    color: #fff;
+}
+/*===============================
+   Top Menubar : Header Menus
+===============================*/
+.nav-item.active .nav-itemi:focus, .nav-item:hover {
+    color: #fff !important;
+    /*box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.25);*/
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+    /*padding: 7px 6px;
+    margin: 5px 5px;*/
+}
+
+/*.pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li > a {
+    padding: 4px 5px !important;
+}*/
+
+.nav-item.active .nav-itemi:focus, .nav-item:hover > a {
+    color: #fff !important;
+}
+
+pcoded-navbar.menu-light.theme-horizontal .pcoded-inner-navbar > li.pcoded-hasmenu.active:before, .pcoded-navbar.menu-light.theme-horizontal .pcoded-inner-navbar > li.pcoded-hasmenu.pcoded-trigger:before {
+    color: #fff;
+    background: -webkit-linear-gradient(#5757c5, #00c18d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li.active:after, .pcoded-navbar.theme-horizontal .pcoded-inner-navbar > li.pcoded-trigger:after {
+    background-color: transparent !important;
+}
+
+.pcoded-navbar.theme-horizontal .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu li.active > a, .pcoded-navbar.theme-horizontal .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu li.pcoded-trigger > a, .pcoded-navbar.theme-horizontal .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu li:hover > a {
+    color: #4680ff;
+    color: #fff !important;
+    box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+
+.pcoded-navbar.menu-light .pcoded-inner-navbar li.pcoded-hasmenu .pcoded-submenu li.active > a:before, .pcoded-navbar.menu-light .pcoded-inner-navbar li.pcoded-hasmenu .pcoded-submenu li.pcoded-trigger > a:before, .pcoded-navbar.menu-light .pcoded-inner-navbar li.pcoded-hasmenu .pcoded-submenu li:hover > a:before {
+    color: #fff;
+}
+
+/*============================================================
+    NAV icons
+=============================================================*/
+li.active .pcoded-micon > i, li.active .pcoded-micon > i, li.active .dropdown-item > i {
+    background: #fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.nav-item:hover i, .nav-item:hover .pcoded-micon > i, .pro-body li:hover .dropdown-item > i {
+    background: #fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pcoded-micon > i, .pcoded-micon > i, .dropdown-item > i {
+    background: -webkit-linear-gradient(#5757c5, #00c18d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.k-popup>.k-window-titlebar {
+    background: red!important;
+}
+/*.demo-section button{
+    float:right!important;
+    width: 4%!important;
+}*/
+.pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu.pcoded-trigger.active > a .pcoded-micon > i,
+.pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu.pcoded-trigger.active > a .pcoded-micon > i,
+.pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu.pcoded-trigger.active > a .dropdown-item > i {
+    background: -webkit-linear-gradient(#fff, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/*===============================
+select list issue
+===============================*/
+select.form-control-sm:not([size]):not([multiple]) {
+    height: calc(2.25rem + 5px) !important;
+}
+/*===============================
+bootstrap Form Controls
+===============================*/
+/*.myform .form-control {
+    border: 0.1px solid #fbfbfb;
+}*/
+.input-ghost {
+    display: none;
+    padding-bottom: 1%;
+}
+/*===============================
+Material Form Controls
+===============================*/
+.form-control {
+    width: 100%;
+    display: inline-block;
+    font-size: 13px;
+}
+
+.form-control-sm {
+    font-size: 13px !important;
+}
+/*===============================
+CARD HEIGHT : 
+===============================*/
+
+#card1 {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+/*===============================
+ DELETE POPUP : 
+===============================*/
+#modalDelete .modal-body {
+    padding: 4%!important;
+}
+/*===============================
+  k-widget : remove nowrap
+===============================*/
+/*#KendoHeight>.table td, #KendoHeight>.table th {
+    white-space: pre-line!important;
+}*/
+/*===============================
+  MANAGE PACKAGES : k-widget
+===============================*/
+    .customtoolbar .k-grid-toolbar:first-child {
+    width: 100%;
+}
+
+.customtoolbar .k-grid > .k-grouping-header {
+    width: 99% !important;
+}
+
+/*.k-widget {
+    width: 100%;
+    
+}*/
+.form-group .form-control {
+    font-size: 13px;
+}
+    .k-grid-toolbar:first-child {
+    /* border-radius: 3px 3px 0 0; */
+    border: none;
+    display: -webkit-inline-box !important;
+    height: 33px !important;
+    width: auto;
+    /* margin: 0.10% !important; */
+    padding: 0 !important;
+    background: transparent;
+    /* box-shadow: 0 2px 10px -1px rgba(69, 90, 100, 0.3); */
+    /* margin-bottom: 30px; */
+    /* transition: box-shadow 0.2s ease-in-out; */
+    float: right;
+}
+
+.k-grid > .k-grouping-header {
+    /* border-radius: 3px 3px 0 0; */
+    border: none;
+    display: -webkit-inline-box !important;
+    height: 28px !important;
+    width: 70.4% !important;
+    /* margin: 0% 0.20% !important; */
+    /* padding: 0 !important; */
+    background: #fff !important;
+    /* box-shadow: 0 2px 10px -1px rgba(69, 90, 100, 0.3); */
+    /* margin-bottom: 30px; */
+    /* transition: box-shadow 0.2s ease-in-out; */
+}
+
+div.k-grid-header {
+    border-top: 1px solid #ccc;
+}
+
+.k-grid .k-button {
+    margin: 4px;
+}
+
+.k-grid-excel {
+    color: #9ccc65;
+    border-color: #9ccc65 !important;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.675rem;
+    line-height: 1;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    .k-grid-excel:hover {
+        color: #fff !important;
+        border-color: #a1ce6c !important;
+        background-color: #9ccc65 !important;
+    }
+
+    .k-grid-excel:active {
+        color: #333 !important;
+        background-color: #9ccc65 !important;
+        border-color: #aeaeae !important;
+    }
+
+.k-grid-pdf {
+    color: #ff5252;
+    border-color: #ff5252 !important;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.675rem;
+    line-height: 1;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    .k-grid-pdf:hover {
+        color: #fff !important;
+        border-color: #ff5252 !important;
+        background-color: #ff5252 !important;
+    }
+
+    .k-grid-pdf:active {
+        color: #333 !important;
+        background-color: #ff5252 !important;
+        border-color: #aeaeae !important;
+    }
+
+/*========================================================
+    Manage Package : Add : Select List / Dropdown
+===========================================================*/
+.k-dropdown-wrap.k-state-default {
+    border-color: #ccc;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.k-dropdown .k-input, .k-dropdown {
+    color: #333;
+}
+
+.k-draghandle.k-state-selected:hover, .k-ghost-splitbar-horizontal, .k-ghost-splitbar-vertical, .k-list > .k-state-highlight, .k-list > .k-state-selected, .k-marquee-color, .k-panel > .k-state-selected, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-state-selected, .k-state-selected:link, .k-state-selected:visited {
+    color: #fff;
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+    border-color: #428bca;
+}
+
+.k-header {
+    background-color: transparent;
+}
+.k-grid-header th.k-header {
+    font-weight: 900!important;
+}
+    /*.k-dropdown > .k-dropdown .k-state-focused {
+    color: #000 !important;
+    background-color: #fff !important;
+    border-color: #4680ff !important;
+    box-shadow: none !important;
+    border-top: none;
+    border-left: none !important;
+    border-right: none !important;
+}
+.k-dropdown .k-state-focused, .k-state-hover, .k-state-hover:hover {
+    color: #000 !important;
+    background-color: #fff !important;
+    border-color: #4680ff !important;
+    box-shadow: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.k-dropdown-wrap.k-state-active.k-state-border-down {
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,.125) !important;
+}
+.k-state-hover, .k-state-hover:hover {
+    color: #000 !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border-color: #4680ff !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}*/
+/*===============================
+  COMMON :divider
+===============================*/
+.divider {
+    padding: 0.1px;
+    background: #cccccc63;
+}
+/*===============================
+  COMMON : content_wrapper
+===============================*/
+.content_wrapper {
+    overflow: hidden;
+    padding: 0.5%;
+}
+/*#CardHeight {
+    height: 370px;
+}*/
+.custom-cardheader {
+    background: linear-gradient(45deg, #5757c5, #00c18d);
+    color: #fff !important;
+    padding: 1%;
+}
+/*===============================
+  COMMON : k table pagination
+===============================*/
+.k-popup .k-list .k-state-focused {
+    color: #fff;
+    background: linear-gradient(to right, #5757c5, #00c18d) !important;
+}
+.k-detail-row:hover {
+    color: #fff;
+    background-color: #4869bb38 !important;
+}
+/*===============================
+  COMMON : full-width
+===============================*/
+.full-width {
+    width: 100%;
+}
+/*===============================
+  COMMON : Custom Checkbox
+===============================*/
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #00c18d;
+    background-color: #00c18d;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #00c18d;
+    background-color: #00c18d;
+}
+
+.card {
+    margin-bottom: auto;
+}
+
+option {
+    word-break: break-all !important;
+    width: 90% !important;
+}
+
+
+
+
+/*-----------------*/
+.checkbox-fade, .checkbox-zoom {
+    display: inline-block;
+    margin-right: 15px;
+}
+.checkbox-fade, .checkbox-zoom {
+    display: inline-block;
+    margin-right: 15px;
+}
+.checkbox-fade label, .checkbox-zoom label {
+    line-height: 20px;
+}
+.checkbox-zoom label input[type="checkbox"], .checkbox-zoom label input[type="radio"] {
+    display: none;
+}
+.checkbox-fade .cr, .checkbox-zoom .cr {
+    border-radius: 0;
+    border: 2px solid #448aff;
+    cursor: pointer;
+    display: inline-BLOCK;
+    /*float: left;*/
+    height: 20px;
+    margin-right: 1rem;
+    position: relative;
+    width: 20px;
+}
+.checkbox-fade.fade-in-primary .cr, .checkbox-fade.zoom-primary .cr, .checkbox-zoom.fade-in-primary .cr, .checkbox-zoom.zoom-primary .cr {
+    border: 2px solid #448aff;
+}
+    .checkbox-zoom label input[type="checkbox"]:checked + .cr > .fa, .checkbox-zoom label input[type="radio"]:checked + .cr > .fa {
+        -webkit-transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+        transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+        opacity: 1;
+    }
+
+    .checkbox-fade label input[type="checkbox"]:checked + .cr > .fa, .checkbox-fade label input[type="radio"]:checked + .cr > .fa, .checkbox-zoom label input[type="checkbox"]:checked + .cr > .fa, .checkbox-zoom label input[type="radio"]:checked + .cr > .fa {
+        -webkit-transform: scale(1) rotateZ(0deg);
+        transform: scale(1) rotateZ(0deg);
+        opacity: 1;
+    }
+
+    .checkbox-zoom label input[type="checkbox"] + .cr > .crfa, .checkbox-zoom label input[type="radio"] + .cr > .fa {
+        -webkit-transform: scale3d(0.2, 0.2, 0.1) translate3d(0, 0, 0);
+        transform: scale3d(0.2, 0.2, 0.1) translate3d(0, 0, 0);
+        opacity: 0;
+        -webkit-transition: all 0.3s ease-in;
+        transition: all 0.3s ease-in;
+    }
+
+    .checkbox-fade label input[type="checkbox"] + .cr > .fa, .checkbox-fade label input[type="radio"] + .cr > .fa, .checkbox-zoom label input[type="checkbox"] + .cr > .fa, .checkbox-zoom label input[type="radio"] + .cr > .fa {
+        -webkit-transform: scale(3) rotateZ(-20deg);
+        transform: scale(3) rotateZ(-20deg);
+        opacity: 0;
+        -webkit-transition: all 0.3s ease-in;
+        transition: all 0.3s ease-in;
+    }
+
+    /*.checkbox-fade.fade-in-primary .cr .fa, .checkbox-fade.zoom-primary .cr .fa, .checkbox-zoom.fade-in-primary .cr .fa, .checkbox-zoom.zoom-primary .cr .fa {
+         color: #448aff; 
+    }*/
+
+    .checkbox-fade .cr .fa, .checkbox-zoom .cr .fa {
+        color: #448aff;
+        font-size: 0.8em;
+        left: 0;
+        line-height: 0;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 50%;
+    }
+
+
+/*===============================
+  COMMON : Right Alignment
+===============================*/
+.pull-right {
+    float: right;
+}
+/*===============================
+  COMMON : Modal - xl
+===============================*/
+.modal-xl {
+        width: 95%!important;
+    }
+
+/*===============================
+  COMMON : Notify Modal
+===============================*/
+.notify_count .badge {
+    background-color: #ff5252;
+    color: #fff;
+    font-size: 10px;
+    border-radius: 50%;
+    text-align: center;
+    border-radius: 50%;
+    right: auto;
+    position: absolute;
+    top: 5px;
+    padding: 4px;
+    width: 19px;
+    -webkit-animation: not-blink 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+    animation: not-blink 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+/*===============================
+  COMMON : btn-sm
+===============================*/
+.btn-sm, .btn-group-sm > .btn {
+    font-size: 0.800rem;
+}
+
+.btn_theme {
+    color: #fff;
+    background: linear-gradient(45deg, #5757c5, #00c18d);
+    min-width: 100px;
+    width: auto;
+    border: 0;
+}
+
+    .btn_theme:hover {
+        color: #fff;
+        background: linear-gradient(45deg, #00c18d, #5757c5);
+        min-width: 100px;
+        width: auto;
+    }
+
+.btn-theme {
+    color: #fff;
+    background: linear-gradient(45deg, #5757c5, #00c18d);
+    min-width: 100px;
+    width: auto;
+    border: 1px solid #1ba19e;
+}
+
+    .btn-theme:hover {
+        color: #fff;
+        background: linear-gradient(45deg, #00c18d, #5757c5);
+        min-width: 100px;
+        width: auto;
+    }
+
+.btn-theme-outline {
+    color: #5757c5;
+    background: linear-gradient(45deg, #00c18d, #5757c5);
+}
+
+.btn-outline-theme:not(:disabled):not(.disabled):active, .btn-outline-theme:not(:disabled):not(.disabled).active, .show > .btn-outline-theme.dropdown-toggle {
+    color: #fff;
+    background-color: #5757c5;
+    border-color: #5757c5;
+}
+
+.btn-outline-theme:hover {
+    color: #fff;
+    background-color: #5757c5;
+    border-color: #5757c5;
+}
+
+/*===============================
+  COMMON : labels
+===============================*/
+
+.label {
+    border-radius: 4px;
+    font-size: 75%;
+    padding: 4px 7px;
+    margin-right: 5px;
+    font-weight: 400;
+    color: #fff;
+}
+.label-warning {
+    color: #fff;
+}
+
+.label-warning {
+    background: #ffba57;
+}
+.label-primary {
+    background: #448aff;
+}
+.label-success {
+    background: #9ccc65;
+}
+.label-danger {
+    background: #ff5252;
+}
+/*===============================
+  COMMON : Page Contents spacing
+===============================*/
+.pcoded-content {
+    padding: 0.5%;
+    margin-top: 148px;
+}
+
+.card .card-body {
+    padding: 0.1%;
+}
+
+.table {
+    margin-bottom: auto;
+}
+
+.modal-body {
+    padding: 1%;
+}
+/*===============================
+  COMMON : Modal
+===============================*/
+.modal-header {
+    background: linear-gradient(45deg, #5757c5, #00c18d);
+    color: #fff !important;
+    padding: 1%;
+}
+
+.modal-title {
+    margin-bottom: 0;
+    /*line-height: 1.1;*/
+    color: #fff;
+}
+
+button.close {
+    padding: 0 2% !important;
+    margin: 0 !important;
+    color: #fff !important;
+    opacity: 1 !important;
+}
+.modal-header .close {
+    padding: 0 0 !important;
+    margin: 0 2% !important;
+    color: #fff !important;
+    opacity: 1 !important;
+}
+.modal-footer {
+    padding: 1%;
+}
+/*===============================
+  COMMON : Hide Page Scroll
+===============================*/
+.scroll_none {
+    overflow: hidden;
+}
+/*===============================
+  COMMON : Links
+===============================*/
+
+a:not([href]):not([tabindex]) {
+    color: #00c18d;
+    text-decoration: none;
+}
+
+.pcoded-navbar.theme-horizontal ~ .pcoded-header[class*="header-"] a {
+    color: rgba(255, 255, 255, 0.8);
+}
+/*===============================
+COMMON : Table
+===============================*/
+.table {
+    height: auto ;
+}
+
+/*===============================
+COMMON : Input icons
+===============================*/
+.input-icon {
+    background: #e4e3e32e;
+    width: 10%;
+    text-align: center;
+    vertical-align: -webkit-baseline-middle;
+    padding-top: 3%;
+}
+/*===============================
+  Contents : REPORTS
+===============================*/
+.explorationContainer .exploration {
+    border: 5px solid black;
+    height: 90vh;
+    overflow: scroll;
+}
+
+/*===============================
+  FOOTER : REPORTS
+===============================*/
+.explorationNavigationContent {
+    border: 5px solid green;
+    position: fixed;
+    bottom: 0 !important;
+    width: 100%;
+    overflow: hidden;
+}
+/*===============================
+  to view all contents of table
+===============================*/
+/*.k-grid td {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    border-style: solid;
+    border-width: 0 0 0 1px;
+    padding: .4em .6em;
+    overflow: hidden;
+    line-height: 1.6em;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+
+.table td, .table th {
+    border-top: 1px solid #e2e5e8;
+    white-space: pre-line;
+    padding: 0.5rem 0.5rem;
+}*/
+/*===============================
+  btn-savelist
+===============================*/
+.btn-savelist{
+    float: right;
+    margin-right: 11%;
+}
+
+/*===============================
+ConstructionActivity 
+===============================*/
+.construction_activity #CardHeight {
+    height: 400px;
+}
+#ExistingConstActGrid {
+       min-height: 386px;
+}
+.k-grid-content .km-widget .km-native-scroller{
+    height:inherit;
+}
+@media (max-width: 768px) {
+    .modal-dialog {
+        max-width: 96% !important;
+    }
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 400px;
+    }
+}
+/*===============================
+  EnggDrawing
+===============================*/
+/*EnggDrawing*/
+.EnggDrawing #Card1 {
+    height: 700px;
+}
+.EnggDrawing #KendoHeight {
+    height: 700px;
+}
+.EnggDrawing #PkgDwgAppGrid {
+    height: 700px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*---------------hide bullets of ul li list-----------------------*/
+.customlisting {
+    list-style: none;
+    height: calc(80vh - 150px);
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+.customlisting li {
+    list-style: none;
+}
+
+.inline-elements-left {
+    width: 20px;
+    display: inline-block;
+}
+
+.inline-elements-right {
+    width: 80%;
+    border-left: 1px solid #d8dada;
+    height: 25px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.customlisting .fa-plus, .customlisting .fa-minus {
+    color: #673AB7;
+}
+/*--------------------- CHECKBOXES-------------------------*/
+.section-preview {
+    border: 1px solid #e0e0e0;
+    padding: 10px 20px;
+}
+
+/*--------------------- Widths-------------------------*/
+.w-5 {
+    width: 5%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-60 {
+    width: 60%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.w-80 {
+    width: 80%;
+}
+/*--------------------- MARGINS-------------------------*/
+.ml-1 {
+    margin-left: 1%;
+}
+
+.ml-2 {
+    margin-left: 2%;
+}
+
+.ml-3 {
+    margin-left: 3%;
+}
+
+.ml-4 {
+    margin-left: 4%;
+}
+
+.ml-5 {
+    margin-left: 5%;
+}
+/*----------------------*/
+.mr-1 {
+    margin-right: 1%;
+}
+
+.mr-2 {
+    margin-right: 2%;
+}
+
+.mr-3 {
+    margin-right: 3%;
+}
+
+.mr-4 {
+    margin-right: 4%;
+}
+
+.ml-5 {
+    margin-right: 5%;
+}
+/*----------------------*/
+.mt-1 {
+    margin-top: 1%;
+}
+
+.mt-2 {
+    margin-top: 2%;
+}
+
+.mt-3 {
+    margin-top: 3%;
+}
+
+.mt-4 {
+    margin-top: 4%;
+}
+
+.mt-5 {
+    margin-top: 5%;
+}
+/*----------------------*/
+.mb-1 {
+    margin-bottom: 1%;
+}
+
+.mb-2 {
+    margin-bottom: 2%;
+}
+
+.mb-3 {
+    margin-bottom: 3%;
+}
+
+.mb-4 {
+    margin-bottom: 4%;
+}
+
+.mb-5 {
+    margin-bottom: 5%;
+}
+
+/*--------------------- MARGINS-------------------------*/
+.pl-1 {
+    padding-left: 1%;
+}
+
+.pl-2 {
+    padding-left: 2%;
+}
+
+.pl-3 {
+    padding-left: 3%;
+}
+
+.pl-4 {
+    padding-left: 4%;
+}
+
+.pl-5 {
+    padding-left: 5%;
+}
+/*----------------------*/
+.pr-1 {
+    padding-right: 1%;
+}
+
+.pr-2 {
+    padding-right: 2%;
+}
+
+.pr-3 {
+    padding-right: 3%;
+}
+
+.pr-4 {
+    padding-right: 4%;
+}
+
+.pl-5 {
+    padding-right: 5%;
+}
+/*----------------------*/
+.pt-1 {
+    padding-top: 1%;
+}
+
+.pt-2 {
+    padding-top: 2%;
+}
+
+.pt-3 {
+    padding-top: 3%;
+}
+
+.pt-4 {
+    padding-top: 4%;
+}
+
+.pt-5 {
+    padding-top: 5%;
+}
+/*----------------------*/
+.pb-1 {
+    padding-bottom: 1%;
+}
+
+.pb-2 {
+    padding-bottom: 2%;
+}
+
+.pb-3 {
+    padding-bottom: 3%;
+}
+
+.pb-4 {
+    padding-bottom: 4%;
+}
+
+.pb-5 {
+    padding-bottom: 5%;
+}
+/*--------------------- WIDTH-------------------------*/
+.w-49 {
+    width: 49%;
+}
+
+/*------------profile_card----------------*/
+#profile_card{
+    min-height: 80vh;
+}
+ 
+/*==============================
+  Standards
+===============================*/
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    /*#Card1 {
+        height: fit-content!important;
+    }*/
+    .crosssection #card1 {
+        height: fit-content;
+    }
+    .btn-savelist {
+        float: right;
+        margin-right: 2%;
+    }
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 400px;
+    }
+   
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .crosssection #card1 {
+        height: 50vh;
+    }
+
+    .crosssection #card3 {
+        height: 26vh;
+    }
+
+    .crosssection #PkgCrossSectionGrid {
+        height: 13vh;
+    }
+
+    .crosssection #ScActGrid {
+        height: 20vh;
+    }
+
+    .crosssection #card2 {
+        height: 84vh;
+    }
+    .crosssection #CrossSectionGrid {
+        height: 44vh;
+    }
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 400px;
+    }
+    
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .crosssection #card1 {
+        height: 50vh;
+    }
+
+    .crosssection #card3 {
+        height: 26vh;
+    }
+
+    .crosssection #PkgCrossSectionGrid {
+        height: 13vh;
+    }
+
+    .crosssection #ScActGrid {
+        height: 20vh;
+    }
+
+    .crosssection #card2 {
+        height: 84vh;
+    }
+
+    .crosssection #CrossSectionGrid {
+        height: 44vh;
+    }
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 400px;
+    }
+    
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .crosssection #card1 {
+        height: 50vh;
+    }
+
+    .crosssection #card3 {
+        height: 26vh;
+    }
+
+    .crosssection #PkgCrossSectionGrid {
+        height: 13vh;
+    }
+
+    .crosssection #ScActGrid {
+        height: 20vh;
+    }
+
+    .crosssection #card2 {
+        height: 84vh;
+    }
+
+    .crosssection #CrossSectionGrid {
+        height: 46vh;
+    }
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 400px;
+    }
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .crosssection #card1 {
+        height: 46vh;
+    }
+    .crosssection #card3 {
+        height: 30vh;
+    }
+    .crosssection #PkgCrossSectionGrid {
+        height: 20vh;
+    }
+    .crosssection #ScActGrid {
+        height: 20vh;
+    }
+    .crosssection #card2 {
+        height: 84vh;
+    }
+    .crosssection #CrossSectionGrid {
+        height: 55vh;
+    }
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 400px;
+    }
+    
+}
+
+
+
+
+@media only screen and (min-width: 768px) and (max-height:1024px) {
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 590px;
+    }
+    /*EnggDrawing*/
+    .EnggDrawing .k-grid-content {
+        height: auto!important;
+    }
+    
+}
+@media only screen and (min-width: 966px) and (max-height:604px) {
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 550px;
+    }
+    
+}
+@media only screen and (min-width: 960px) and (max-height:600px) {
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 550px;
+    }
+    
+}
+@media only screen and (min-width: 1024px) and (max-height:640px) {
+    /*ConstructionActivity*/
+    .construction_activity #CardHeight {
+        height: 550px;
+    }
+    
+}

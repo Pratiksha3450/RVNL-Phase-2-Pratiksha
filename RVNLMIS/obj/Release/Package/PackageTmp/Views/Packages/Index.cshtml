@@ -1,0 +1,649 @@
+﻿@using RVNLMIS.Models
+@model RVNLMIS.Models.PackageModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var roleCode = ((UserModel)Session["UserData"]).RoleCode;
+}
+@**@
+
+
+
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected Package ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModal" aria-hidden="true" data-backdrop="static">
+    <div id="createPackageContainer" class="modal-dialog modal-xl">
+
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class=" ">
+            <!-- [ horizontal-layout ]  <h5>Package Details</h5>start -->
+            <div class=" ">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h5>Packages Details</h5>
+
+                            </div>
+
+                            <div class="col-md-7">
+                                <div class="full-width">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="searching" class="form-control divMag mr-4" placeholder="Search by  Package Code ,Package Name,PMC OR Project Name"
+                                               aria-label="Small" aria-describedby="inputGroup-sizing-sm" width="30%">
+
+
+                                        @if (roleCode != "PKG")
+                                        {
+                                            <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary mr-2" href="javascript:void()" data-url="@Url.Action("Create", "Packages")" value="Save" id="btnCreatePackage" title="Add Package"><i class="fas fa-plus"></i> Add</button>
+                                        }  <a type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary mr-2" href="/Section/Index" title="Section">Go to Sections</a>
+                                        <a type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="/EntityMaster/Index" title="Entity/Yard/Block">Go to Entity/Yard/Block</a>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table table-condensed" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.PackageModel>()
+                                                                                            .Name("PackageGrid")
+                                                                                            .Columns(columns =>
+                                                                                            {
+                                                                                                columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+                                                                                                columns.Bound(c => c.PackageCode).Title("Code").Width("4%");
+                                                                                                            //columns.Bound(c => c.PackageCode).HtmlAttributes(new { style = "text-align:left", title = "#= PackageCode #" })
+                                                                                                            //            .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Code").Width("5%");
+                                                                                                            columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left", title = "#= PackageName #" }).Width("20%")
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                columns.Bound(c => c.PackageShortName).Hidden();
+                                                                                                columns.Bound(c => c.Description).Hidden();
+                                                                                                columns.Bound(c => c.Client).Hidden();
+                                                                                                columns.Bound(c => c.PMC).HtmlAttributes(new { style = "text-align:left", title = "#= PMC #" }).Width("15%")
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                columns.Bound(c => c.Contractor).HtmlAttributes(new { style = "text-align:left", title = "#= Contractor #" })
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                                                                                columns.Bound(c => c.PCPM).Hidden();
+                                                                                                columns.Bound(c => c.PackageStart).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:right", title = "#= PackageStart #" })
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Start Date").Width("6%");
+                                                                                                columns.Bound(c => c.PackageFinish).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:right", title = "#= PackageFinish #" })
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Finish Date").Width("6%");
+                                                                                                columns.Bound(c => c.ForecastComplDate).Format("{0:dd-MMM-yyyy}").Hidden();
+                                                                                                columns.Bound(c => c.PackageValues).HtmlAttributes(new { style = "text-align:right", title = "#= PackageValue #" })
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("7%");
+
+                                                                                                columns.Bound(c => c.RevisedPackageValues).HtmlAttributes(new { style = "text-align:right", title = "#= RevisedPackageValue #" })
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Revised Values").Width("7%");
+                                                                                                columns.Bound(c => c.CompletedValue).Hidden();
+                                                                                                columns.Bound(c => c.BalanceValue).Hidden();
+                                                                                                columns.Bound(c => c.StartChainage).Hidden();
+                                                                                                columns.Bound(c => c.EndChainage).Hidden();
+                                                                                                columns.Bound(c => c.TotalKmLengths).HtmlAttributes(new { style = "text-align:right", title = "#= TotalKmLengths #" }).Width("5%")
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:right" }).Title("Total Km");
+                                                                                                columns.Bound(c => c.Durations).Hidden();
+                                                                                                            //columns.Bound(c => c.Durations).HtmlAttributes(new { style = "text-align:right", title = "#= Durations #" }).Width("8%")
+                                                                                                            //            .HeaderHtmlAttributes(new { style = "text-align:right" });
+                                                                                                            columns.Bound(c => c.EoTgranted).Hidden();
+                                                                                                columns.Bound(c => c.ProjectName).HtmlAttributes(new { style = "text-align:left", title = "#= ProjectName #" })
+                                                                                              .HeaderHtmlAttributes(new { style = "text-align:left" }).Hidden();
+
+
+
+
+                                                                                                            //columns.Bound(c => c.RoleTableName).HtmlAttributes(new { style = "text-align:left" }).Title("Table Name")
+                                                                                                            //   .HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+                                                                                                            columns.Template(@<text></text>).Title("Action").ClientTemplate(
+"<button  data-url='/Packages/EditPackage/#=PackageId#' class='EditPackages btn btn-xs btn-warning has-ripple' title='Edit Package'><i class='feather icon-edit'></i></button>" +
+"&nbsp;#if('" + @roleCode + "'=='SAD'){#" +
+"<button id='btnDeletePackage' class='btn btn-xs btn-danger has-ripple DeletePackage'data-key='#=PackageId#' title='Delete' data-toggle='modal'  ><i class='feather icon-trash'></i></button>#}#" + "&nbsp" + "<a class='btn btn-xs btn-info has-ripple' target='_blank' href='/PackageView/Index/#=PackageId#'> <i class='fa fa-eye'></i></a>"
+).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("7%");
+
+
+}).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+
+.Group(g => g.Add(c => c.ProjectName))
+.Model(model => model.Id(u => u.PackageId))
+.Read(read => read.Action("Package_Details", "Packages"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("PackageGridExcel.xlsx")
+.AllPages(true)
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("PackageGridPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- [ horizontal-layout ] end -->
+    </div>
+
+
+
+</div>
+
+@section scripts{
+
+
+    <script type="text/javascript">
+        function Validate(event) {
+            var regex = new RegExp(/[0-9]|\+/);
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+
+            }
+        }
+    </script>
+    <script>
+        //function CommaValidation() {
+
+        //}
+        function price_in_words(price1) {
+            console.log(price1);
+            // Just remove commas and periods - regex can do any chars
+            price = price1.replace(/([,€])+/g, '');
+            var sglDigit = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"],
+                dblDigit = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"],
+                tensPlace = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"],
+                handle_tens = function (dgt, prevDgt) {
+                    return 0 == dgt ? "" : " " + (1 == dgt ? dblDigit[prevDgt] : tensPlace[dgt])
+                },
+                handle_utlc = function (dgt, nxtDgt, denom) {
+                    return (0 != dgt && 1 != nxtDgt ? " " + sglDigit[dgt] : "") + (0 != nxtDgt || dgt > 0 ? " " + denom : "")
+                };
+            var str = "",
+                digitIdx = 0,
+                digit = 0,
+                nxtDigit = 0,
+                words = [];
+            if (price += "", isNaN(parseInt(price))) str = "";
+            else if (parseInt(price) > 0 && price.length <= 10) {
+                for (digitIdx = price.length - 1; digitIdx >= 0; digitIdx--) switch (digit = price[digitIdx] - 0, nxtDigit = digitIdx > 0 ? price[digitIdx - 1] - 0 : 0, price.length - digitIdx - 1) {
+                    case 0:
+                        words.push(handle_utlc(digit, nxtDigit, ""));
+                        break;
+                    case 1:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 2:
+                        words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] && 0 != price[digitIdx + 2] ? " and" : "") : "");
+                        break;
+                    case 3:
+                        words.push(handle_utlc(digit, nxtDigit, "Thousand"));
+                        break;
+                    case 4:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 5:
+                        words.push(handle_utlc(digit, nxtDigit, "Lakh"));
+                        break;
+                    case 6:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 7:
+                        words.push(handle_utlc(digit, nxtDigit, "Crore"));
+                        break;
+                    case 8:
+                        words.push(handle_tens(digit, price[digitIdx + 1]));
+                        break;
+                    case 9:
+                        words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] || 0 != price[digitIdx + 2] ? " and" : " Crore") : "")
+                }
+                str = words.reverse().join("")
+            }
+
+
+
+            console.log(str);
+            return str
+
+        }
+        function NumberPasteValidation() {
+            $(".allow_decimal").on("input", function (evt) {
+                var self = $(this);
+                self.val(self.val().replace(/[^0-9\.]/g, ''));
+                if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                    evt.preventDefault();
+                    // Just remove commas and periods - regex can do any chars
+                }
+                //$("#spnWord").text(price_in_words(this.value));
+                var money = this.value;
+                var length = money.length;
+                if (length < 15) {
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(this.value));
+                } else {
+                    var moneys = money.replace(new RegExp(',', 'g'), '');
+                    var lacvalue = moneys.substring(moneys.length - 7, moneys.length);
+                    var croreValue = moneys.substr(0, moneys.length - 7);
+
+                    console.log(croreValue + " crore");
+                    console.log(lacvalue + " lac");
+
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(croreValue) + ' Crore ' + price_in_words(lacvalue));
+                }
+            });
+
+            $('.allow_decimal').keyup(function (event) {
+                $(this).val(function (index, value) {
+
+                    return value
+                        .replace(/\D/g, '')
+                        .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,")
+                        ;
+                });
+
+                // $("#spnWord").text(price_in_words(this.value));
+                var money = this.value;
+                var length = money.length;
+                if (length < 15) {
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(this.value));
+                } else {
+                    var moneys = money.replace(new RegExp(',', 'g'), '');
+                    var lacvalue = moneys.substring(moneys.length - 7, moneys.length);
+                    var croreValue = moneys.substr(0, moneys.length - 7);
+
+                    console.log(croreValue + " crore");
+                    console.log(lacvalue + " lac");
+
+                    $(this).closest('.form-group').find('.spnWord').text(price_in_words(croreValue) + ' Crore ' + price_in_words(lacvalue));
+                }
+            });
+        }
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#PackageGrid').height($(window).height() - 198);
+
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+
+        var exportFlag = false;
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Package-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                delete column.width;
+                column.autoWidth = true;
+            });
+            if (!exportFlag) {
+                // e.sender.showColumn(21);
+                e.sender.showColumn("PackageShortName");
+                e.sender.showColumn("Description");
+                e.sender.showColumn("Client");
+                e.sender.showColumn("PackageShortName");
+                e.sender.showColumn("PCPM");
+                e.sender.showColumn("CompletedValue");
+                e.sender.showColumn("BalanceValue");
+                e.sender.showColumn("ForecastComplDate");
+                e.sender.showColumn("StartChainage");
+                e.sender.showColumn("EndChainage");
+                e.sender.showColumn("EoTgranted");
+
+                e.preventDefault();
+                exportFlag = true;
+                setTimeout(function () {
+                    e.sender.saveAsExcel();
+                });
+            } else {
+                // e.sender.hideColumn(21);
+                e.sender.hideColumn("PackageShortName");
+                e.sender.hideColumn("Description");
+                e.sender.hideColumn("Client");
+                e.sender.hideColumn("PackageShortName");
+                e.sender.hideColumn("PCPM");
+                e.sender.hideColumn("CompletedValue");
+                e.sender.hideColumn("BalanceValue");
+                e.sender.hideColumn("ForecastComplDate");
+                e.sender.hideColumn("StartChainage");
+                e.sender.hideColumn("EndChainage");
+                e.sender.hideColumn("EoTgranted");
+
+                exportFlag = false;
+                $('#PackageGrid').width('100%');
+            }
+
+
+        }
+        function HideColumn(e) {
+            var grid = $("#PackageGrid").data("kendoGrid");
+            grid.hideColumn(22);
+            grid.options.pdf.fileName = "Package - " + kendo.toString(new Date, "dd-MMM-yyyy");
+            e.promise.done(function () {
+                grid.showColumn(22);
+
+            });
+        }
+
+        function dataBound() {
+            rowNumber = 0;
+            $(".EditPackages").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //$('#form').html(data);
+                    $('#createPackageContainer').html(data);
+                    $('#createPackageModal').modal('show');
+                    setTimeout(function () {
+                        NumberPasteValidation();
+
+                        //Package value onload
+                        $("#PackageValues").closest('.form-group').find('.spnWord').text(price_in_words($("#PackageValues").val()));
+
+                        //Revised Package value onload
+                        $("#RevisedPackageValues").closest('.form-group').find('.spnWord').text(price_in_words($("#RevisedPackageValues").val()));
+
+
+                        //Completed  value onload
+                        $("#CompletedValues").closest('.form-group').find('.spnWord').text(price_in_words($("#CompletedValues").val()));
+
+                        //balanced value onload
+                        $("#BalanceValues").closest('.form-group').find('.spnWord').text(price_in_words($("#BalanceValues").val()));
+
+                    }, 500);
+                });
+            });
+
+            $(".DeletePackage").on("click", function () {
+                console.info('DeletePackage called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+                $('#PackageGrid').data('kendoGrid').dataSource.read();
+                $('#PackageGrid').data('kendoGrid').refresh();
+            });
+
+        }
+
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            $.ajax({
+                url: '/Packages/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    // ShowSuccessMessage('Deleted Successfully');
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    $('#PackageGrid').data('kendoGrid').dataSource.read();
+                    $('#PackageGrid').data('kendoGrid').refresh();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        $("#btnCreatePackage").on("click", function () {
+            var url = $(this).data("url");
+
+            $.ajax({
+                url: url,
+                //type: "GET",
+                //contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    console.log("popup");
+                    $('#createPackageContainer').html(data);
+                    $('#createPackageModal').modal('show');
+                    setTimeout(function () {
+                        NumberPasteValidation();
+                    }, 500);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    if (XMLHttpRequest.status == 401) {
+                        //redirect window to login page
+
+                        window.location.href = "/Login/Index";
+                        //  alert("expired");
+                        console.log("done session popup issue");
+                    }
+                }
+
+            });
+        });
+
+        function CreatePackageSuccess(data) {
+            if (data == "0")// already exists
+            {
+                $.notify('Package Name already Exist!', { align: "right", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+
+            }
+            else if (data == "1")//success
+            {
+                $('#createPackageModal').modal('hide');
+                // $('#createPackageContainer').html("");
+                $.notify('Package Created Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#PackageGrid').data('kendoGrid').dataSource.read();
+                $('#PackageGrid').data('kendoGrid').refresh();
+            }
+            else if (data == "3")// revised value not less than completed
+            {
+                $.notify('Revised value cannot be less than Completed value', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data == "4")// package value not less than completed
+            {
+                $.notify('Package value cannot be less than Completed value', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data == "5")// End Chainage cannot be greater than Start Chainage.
+            {
+                $.notify('Start Chainage cannot be greater than End Chainage.', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                $('#createPackageContainer').html(data);
+                NumberPasteValidation();
+                return;
+            }
+        }
+
+        function UpdatePackageSuccess(data) {
+
+            if (data == "0")// already exists
+            {
+                $.notify('Package Name already Exist!', { align: "right", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+                $('#createPackageContainer').html("");
+                $('#createPackageModal').modal('hide');
+            }
+            else if (data == "2") {
+
+                $('#createPackageModal').modal('hide');
+                $('#createPackageContainer').html("");
+                $.notify('Package Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#PackageGrid').data('kendoGrid').dataSource.read();
+                $('#PackageGrid').data('kendoGrid').refresh();
+            }
+            else if (data == "3") {
+
+                $.notify('Revised value cannot be less than Completed value', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data == "4")// package value not less than completed
+            {
+                $.notify('Package value cannot be less than Completed value', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else if (data == "5")// End Chainage cannot be greater than Start Chainage.
+            {
+                $.notify('End Chainage cannot be greater than Start Chainage.', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+            else {
+                $('#createPackageContainer').html(data);
+                NumberPasteValidation()
+                return;
+            }
+        }
+
+        $(document).ready(function () {
+            $(".ddlEDId").change(function () {
+                var dID = $(".ddlEDId").val();
+                $.get("/Projects/GetCPMDetails", { id: dID },
+                    function (data) {
+                        $("#PIUId").html('');
+                        $("#PIUId").append($('<option></option>').val(0).html("Select CPM"));
+                        $.each(data, function (i, item) {
+                            $("#PIUId").append($('<option></option>').val(item.PIUId).html(item.PIUName));
+                        });
+                    });
+            });
+
+            //$(".ddlEDId").change(function () {
+            //    var selectedPackageId = $(".ddlEDId").val();
+            //    console.log(selectedPackageId);
+            //    $.get("/Projects/GetCPMDetails/" + selectedPackageId,
+            //        function (data) {
+            //            $("#PIUId").html('');
+            //            $("#PIUId").append($('<option></option>').val(0).html("Select CPM"));
+            //            $.each(data, function (i, item) {
+            //                $("#PIUId").append($('<option></option>').val(item.Id).html(item.Name));
+            //            });
+            //        });
+            //});
+        });
+
+        $("#searching").keyup(function () {
+            var selecteditem = $('#searching').val();
+            var kgrid = $("#PackageGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "PackageCode", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 },
+                                    { field: "ProjectName", operator: "contains", value: v1 },
+                                    { field: "PMC", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+    </script>
+
+    <script>
+        //script to highlight current parent menu
+        $(document).ready(function () {
+
+            //Highlight parent menu : nav-item
+            $('#liDataUpdate').addClass('nav-item pcoded-hasmenu active');
+
+
+            //highlight parent menu by overriding pcoded-trigger script
+            $(".nav-item").hover(
+                function () {
+                    $('#liDataUpdate').addClass('nav-item pcoded-hasmenu active');
+                }, function () {
+                    $('#liDataUpdate').addClass('nav-item pcoded-hasmenu active');
+                }
+            );
+
+
+            //remove active class from other parent menus
+            $('#liKpi').removeClass('active');
+
+
+
+        });
+    </script>
+}
+

@@ -1,0 +1,250 @@
+﻿@model RVNLMIS.Areas.RFI.Models.RFIMainModel
+@{
+    Layout = null;
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 id="modalTitle" class="modal-title">Add/Edit RFI Details</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    @using (Ajax.BeginForm("SubmitRFI", "GenerateRFI", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "RFIMainAddEditSuccess" }, new { @class = "form", Page = "Usersform",id="addEditRfi" }))
+    {
+        @Html.HiddenFor(model => model.RFIId)
+        @Html.HiddenFor(model => model.AssignToPMCName)
+        
+        <div class="modal-body" id="noscroll">
+            <span class="modalError" style="display:none;">
+                All Fields marked with <span style="color:red">*</span> are mandatory
+            </span>
+
+
+            <div class="page-content mt-3">
+                <div class="row">
+
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group fill" id="pkgcontainer">
+                            <label for="PackageId">Package Name @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })</label>
+                            @(Html.Kendo().DropDownListFor(model => model.PackageId).Popup(p => p.AppendTo("#pkgcontainer"))
+                                                                                                                                                                                                                                                    .Name("PackageId")
+                                                                                                                                                                                                                                                    .DataTextField("Name")
+                                                                                                                                                                                                                                                    .DataValueField("ID")
+                                                                                                                                                                                                                                                    .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                                                                                                                                                                                                    .Filter("contains").OptionLabel("Select Package")
+                                                                                                                                                                                                                                                    .DataSource(source =>
+                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                        source.Read(read =>
+                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                            read.Action("Get_Packages", "GenerateRFI");
+                                                                                                                                                                                                                                                        })
+                                                                                                                                                                                                                                                        .ServerFiltering(true);
+                                                                                                                                                                                                                                                    })
+                            )
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fill" id="workgrpcontainer">
+                            <label for="WorkgroupId">Workgroup  @Html.ValidationMessageFor(model => model.WorkgroupId, "", new { @class = "text-danger" })</label>
+                            @(Html.Kendo().DropDownListFor(model => model.WorkgroupId).Popup(p => p.AppendTo("#workgrpcontainer"))
+                                                                                                                                                                                                                                                            .Name("WorkgroupId")
+                                                                                                                                                                                                                                                            .DataTextField("Name")
+                                                                                                                                                                                                                                                            .DataValueField("ID")
+                                                                                                                                                                                                                                                            .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                                                                                                                                                                                                            .Filter("contains").OptionLabel("Select Workgroup")
+                                                                                                                                                                                                                                                            .DataSource(source =>
+                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                source.Read(read =>
+                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                    read.Action("Get_Workgroup", "GenerateRFI");
+                                                                                                                                                                                                                                                                })
+                                                                                                                                                                                                                                                                .ServerFiltering(true);
+                                                                                                                                                                                                                                                            })
+                            )
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fill">
+                            <label for="RFICode">RFI Code @Html.ValidationMessageFor(model => model.RFICode, "", new { @class = "text-danger" })</label>
+                            @Html.EditorFor(model => model.RFICode, new { htmlAttributes = new { @class = "form-control disableCN", @type = "text" } })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group fill" id="actcontainer">
+                            <label for="Mobile">Activity @Html.ValidationMessageFor(model => model.RFIActivityId, "", new { @class = "text-danger" })</label>
+                            @(Html.Kendo().DropDownListFor(model => model.RFIActivityId).Popup(p => p.AppendTo("#actcontainer"))
+                                                                                                                                                                                                                                                    .Name("RFIActivityId")
+                                                                                                                                                                                                                                                    .DataTextField("Name")
+                                                                                                                                                                                                                                                    .DataValueField("ID")
+                                                                                                                                                                                                                                                    .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                                                                                                                                                                                                    .Filter("contains").OptionLabel("Select Activity")
+                                                                                                                                                                                                                                                    .DataSource(source =>
+                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                        source.Read(read =>
+                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                            read.Action("Get_RFIActivity", "GenerateRFI").Data("GetWorkgroup");
+                                                                                                                                                                                                                                                        })
+                                                                                                                                                                                                                                                        .ServerFiltering(true);
+                                                                                                                                                                                                                                                    })
+                            )
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group fill">
+                            <label for="Password">Layer</label>
+                            @Html.DropDownListFor(model => model.LayerNo, new SelectList(ViewBag.LayerList, "Value", "Text"), new { @class = "form-control", @type = "text" })
+
+                            @*@Html.ValidationMessageFor(model => model.LayerNo, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group fill" id="worksidecontainer">
+                            <label for="WorkSide">WorkSide @Html.ValidationMessageFor(model => model.WorkSide, "", new { @class = "text-danger" })</label>
+                            @(Html.Kendo().DropDownListFor(model => model.WorkSide).Popup(p => p.AppendTo("#worksidecontainer"))
+                                                                                                                                                                                                                                                    .Name("WorkSide")
+                                                                                                                                                                                                                                                    .DataTextField("Name")
+                                                                                                                                                                                                                                                    .DataValueField("Name")
+                                                                                                                                                                                                                                                    .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                                                                                                                                                                                                    .Filter("contains").OptionLabel("Select WorkSide")
+                                                                                                                                                                                                                                                    .DataSource(source =>
+                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                        source.Read(read =>
+                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                            read.Action("Get_RFIWorkSideNames", "GenerateRFI");
+                                                                                                                                                                                                                                                        })
+                                                                                                                                                                                                                                                        .ServerFiltering(true);
+                                                                                                                                                                                                                                                    })
+                            )
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group fill">
+                            <label for="Password">Work Description</label>
+                            @Html.TextAreaFor(model => model.WorkDescription, new { style = "width:100%", @class = "form-control", @placeholder = "Ex: Work Description" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group fill" id="asscontainer">
+                            <label for="AssignToPMC">AssignTo </label>
+                            @(Html.Kendo().DropDownListFor(model => model.AssignToPMC).Popup(p => p.AppendTo("#asscontainer"))
+                                                                                                                                                                                                                                                            .Name("AssignToPMC")
+                                                                                                                                                                                                                                                            .DataTextField("Name")
+                                                                                                                                                                                                                                                            .DataValueField("ID")
+                                                                                                                                                                                                                                                            .HtmlAttributes(new { style = "width:100%", @class = "form-control mt-2" })
+                                                                                                                                                                                                                                                            .Filter("contains").OptionLabel("Select PMC")
+                                                                                                                                                                                                                                                            .DataSource(source =>
+                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                source.Read(read =>
+                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                    read.Action("Get_AssignedToPMCNames", "GenerateRFI").Data("GetPakgId");
+                                                                                                                                                                                                                                                                })
+                                                                                                                                                                                                                                                                .ServerFiltering(true);
+                                                                                                                                                                                                                                                            })
+                            )
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group fill">
+                            <label>Location</label>
+
+                            <div class="radio radio-inline mt-2">
+                                <label class="mr-3">
+
+                                    @*<input type="radio" name="rdLocation" id="rbC" checked="checked" value="Chainage">*@
+                                    @Html.RadioButtonFor(model => model.LocationType, "Chainage", new { id = "rbChainage" })
+                                    <i class="helper"></i>Chainage
+                                </label>
+                                <label class="mr-3">
+                                    @*<input type="radio" name="rdLocation" id="rbE" value="Entity">*@
+                                    @Html.RadioButtonFor(model => model.LocationType, "Entity", new { id = "rbEntity" })
+                                    <i class="helper"></i>Entity
+                                </label>
+                                <label>
+                                    @*<input type="radio" name="rdLocation" id="rbO" value="Other">*@
+                                    @Html.RadioButtonFor(model => model.LocationType, "Other", new { id = "rbOther" })
+                                    <i class="helper"></i>Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="selectt Chainage row">
+                            <div class="col-sm-6">
+                                <div class="form-group fill">
+                                    <label for="inputPassword4">Start Chainage</label>
+                                    @Html.EditorFor(model => model.StartChainage, new { htmlAttributes = new { @class = "form-control", onkeypress = "return Numbers1PlusOnly(this,event)" , @placeholder = "Ex: 10010" } })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group fill">
+                                    <label for="EndChainage">
+                                        End Chainage
+                                        @*@Html.ValidationMessageFor(model => model.EndChainage, "", new { @class = "text-danger" })*@
+                                    </label>
+                                    @Html.EditorFor(model => model.EndChainage, new { htmlAttributes = new { @class = "form-control", onkeypress = "return Numbers1PlusOnly(this,event)", @placeholder = "Ex: 20050" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide Entity selectt row">
+                            <div class="col-sm-6 ">
+                                <div class="form-group fill" id="entitycontainer">
+                                    <label for="EntityId">
+                                        Entity
+                                    </label>
+                                    @(Html.Kendo().DropDownListFor(model => model.EntityId).Popup(p => p.AppendTo("#entitycontainer"))
+                                                                                                                                                                                                                                                                                    .Name("EntityId")
+                                                                                                                                                                                                                                                                                    .DataTextField("Name")
+                                                                                                                                                                                                                                                                                    .DataValueField("ID")
+                                                                                                                                                                                                                                                                                    .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                                                                                                                                                                                                                                    .Filter("contains").OptionLabel("Select Entity")
+                                                                                                                                                                                                                                                                                    .DataSource(source =>
+                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                        source.Read(read =>
+                                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                                    read.Action("Get_PackageEntities", "GenerateRFI").Data("GetPakgId");
+                                                                                                                                                                                                                                                                                                })
+                                                                                                                                                                                                                                                                                                .ServerFiltering(true);
+                                                                                                                                                                                                                                                                                    })
+                                    )
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selectt Other hide row">
+                            <div class="col-sm-6">
+                                <div class="form-group fill">
+                                    <label for="OtherWorkLocation">
+                                        Other Work Location
+                                    </label>
+                                    @Html.EditorFor(model => model.OtherWorkLocation, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+                    <div class="col-sm-12 text-right">
+                        <hr>
+                        <input type="submit" value="Save" class="btn btn-sm btn_theme" />
+                    </div>
+                </div>
+                </div>
+        </div>
+    }
+</div>

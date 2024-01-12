@@ -1,0 +1,77 @@
+﻿@using RVNLMIS.Models;
+@model IEnumerable<RVNLMIS.Models.PushNotifyModel>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = null;
+    var className = "alert-danger";
+}
+<style>
+
+    .pull-right {
+        float: right;
+    }
+
+    .notify_count .badge {
+        background-color: #ff5252;
+        color: #fff;
+        font-size: 10px;
+        border-radius: 50%;
+        text-align: center;
+        border-radius: 50%;
+        right: auto;
+        position: absolute;
+        top: 5px;
+        padding: 4px;
+        width: 19px;
+        -webkit-animation: not-blink 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+        animation: not-blink 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+    }
+</style>
+<div class="noti-head">
+    <h6 class="d-inline-block m-b-0">Notifications</h6>
+</div>
+@if (Model.Count() == 0)
+{
+    <ul class="noti-body">
+        <li class="notification alert alert-warning">
+            <div class="media">
+                <div class="media-body">
+                    <p><strong>No Notifications Found</strong></p>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+}
+else
+{
+    <ul class="noti-body">
+
+        @foreach (var item in Model)
+        {
+            className = @item.IsRead == true ? "alert-warning" : "alert-danger";
+            <li class="notification">
+                <div class="media">
+
+                    <div class="media-body">
+                        <p><strong>@item.Title</strong>
+                           <span class="pcoded-badge badge btn-icon btn-outline-purple"><i class="feather icon-clock f-12"></i></span>
+                                @item.SentOn.Value.ToString("dd MMM yyyy hh:mm tt")
+                        </p>
+                        <p class="alert @className">@item.Message</p>
+                    </div>
+                </div>
+            </li>
+
+        }
+    </ul>
+    <div class="noti-footer badge badge-gray full-width">
+        <a target="_blank" href="/NotificationLog/Index">
+            <button class="btn btn-sm full-width">show all</button>
+        </a>
+    </div>
+
+}

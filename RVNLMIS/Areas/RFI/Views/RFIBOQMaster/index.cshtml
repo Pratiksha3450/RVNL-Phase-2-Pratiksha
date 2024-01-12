@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Areas/RFI/Views/Shared/_RFIFilteredLayout.cshtml";
+}
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-sm " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body" id="noscroll">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_wrapper ">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <input type="hidden" id="hdnBOQCode" value="@TempData["BOQCode"].ToString()" />
+            <div class="col-sm-4 pr-1" id="BOQForm">
+                @Html.Partial("_AddEditRFIBOQ", new RVNLMIS.Areas.RFI.Models.RFIBOQMasterModel())
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-8 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-9">
+                                <h5>Existing Records</h5>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body pl-3 pr-3 pb-1 pt-2" id="custom_KendoHeight">
+                        <div class="" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Areas.RFI.Models.RFIBOQMasterModel>()
+                                                                                                                                                                                                                                                                                                                                                          .Name("BOQMasterGrid")
+                                                                                                                                                                                                                                                                                                                                                          .Columns(columns =>
+                                                                                                                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                                                                                                                              columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                                                                                                                                                                                                                                                                                                                              columns.Bound(c => c.BoqCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+
+                                                                                                                                                                                                                                                                                                                                                              columns.Bound(c => c.BoqName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                  .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                                                                                              columns.Bound(c => c.BoqUnit).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                  .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                                                                                                                                                                                                                                                                                                                                                              columns.Bound(c => c.BoqRate).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                  .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                                                                                                                                                                                                                                                                                                                                                              columns.Bound(c => c.BoqQty).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                                                                                                  .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                                                                                                                                                                                                                                                                                                                                                              columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/RFI/RFIBOQMaster/EditBOQDetails/#=BoqID#' class='btnEditBOQ btn btn-sm btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + " <button type='button' class='btn btn-sm btn-danger has-ripple DeleteBOQ' data-key='#=BoqID#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                                                                                                                                                                                                                                                                                                                        }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Model(model => model.Id(u => u.BoqID))
+.Read(read => read.Action("BOQMaster_Details", "RFIBOQMaster"))
+.PageSize(10))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("GroupMasterExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("GroupMasterPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(window).resize(function () {
+        $('#custom_KendoHeight').height($(window).height() - 204);
+    });
+    $(window).trigger('resize');
+
+    $(document).ready(function () {
+        var BOQCode = $("#hdnBOQCode").val();
+        $("#BoqCode").val(BOQCode);
+    });
+
+    var rowNumber = 0;
+
+    function resetRowNumber(e) {
+        rowNumber = 0;
+    }
+
+    function renderNumber(data) {
+        return ++rowNumber;
+    }
+
+    function ExportExcel(e) {
+        e.workbook.fileName = "BOQMaster-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+    }
+
+    function HideColumn(e) {
+
+        var grid = $("#BOQMasterGrid").data("kendoGrid");
+        grid.hideColumn(6);
+
+        grid.options.pdf.fileName = "BOQMaster - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+        e.promise.done(function () {
+            grid.showColumn(6);
+        });
+    }
+
+    function OnBOQMasterSuccess(response) {
+        if (response.message == "Added Successfully") {
+            ClearViewAndGrid();
+            var GroupCode = response.Code;
+            console.log(GroupCode);
+            $("#BoqCode").val(GroupCode);
+            $.notify(response.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+        }
+        else if (response.message == "Updated Successfully") {
+            ClearViewAndGrid();
+            var GroupCode = response.Code;
+            $("#BoqCode").val(GroupCode);
+            $.notify(response.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+        }
+        else if (response.message == "1") {
+            $.notify("BOQ Code already exists.", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+        }
+        else if (response.message == "2") {
+            $.notify("BOQ Name already exists.", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+        }
+        else {
+            $('#BOQForm').html(response);
+        }
+    }
+
+    function dataBound() {
+        resetRowNumber();
+        $(".btnEditBOQ").on("click", function (e) {
+            e.preventDefault();
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#BOQForm').html(data);
+                setTimeout(function () {
+
+                }, 500);
+            });
+        });
+
+        $(".DeleteBOQ").on("click", function () {
+            console.info('DeleteUser called');
+            var Id = $(this).data("key");
+            $("#hiddenId").val(Id);
+            $("#btnDeleteConfirm").attr('data-id', Id);
+            $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+        });
+    }
+    $("#btnDeleteConfirm").on("click", function () {
+        var id = $("#hiddenId").val();
+        //alert(id);
+        $.ajax({
+            url: '/RFI/RFIBOQMaster/Delete/' + id,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function () {
+                //Refresh Kendo Grid
+                ClearViewAndGrid();
+                $("#modalDelete").modal('hide');
+                $('#BOQMasterGrid').data('kendoGrid').dataSource.read();
+                $('#BOQMasterGrid').data('kendoGrid').refresh();
+                $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //ShowErrorMessage('Error deleting Project!');
+            }
+        });
+    });
+    function ClearViewAndGrid() {
+        $("#BoqID").val(0);
+        $("#BoqName").val("");
+        $("#BoqUnit").val("");
+        $("#BoqQty").val("");
+        $("#BoqRate").val("");
+
+        $('#BOQMasterGrid').data('kendoGrid').dataSource.read();
+        $('#BOQMasterGrid').data('kendoGrid').refresh();
+        //  $("#GroupCode").removeClass('disableCN');
+    }
+    $("#txtSearch").keyup(function () {
+        var selecteditem = $('#txtSearch').val();
+        var kgrid = $("#BOQMasterGrid").data("kendoGrid");
+        selecteditem = selecteditem.toUpperCase();
+        var selectedArray = selecteditem.split(" ");
+        if (selecteditem) {
+            var orfilter = { logic: "or", filters: [] };
+            var andfilter = { logic: "and", filters: [] };
+            $.each(selectedArray, function (i, v) {
+                if (v.trim() == "") {
+                }
+                else {
+                    $.each(selectedArray, function (i, v1) {
+                        if (v1.trim() == "") {
+                        }
+                        else {
+                            orfilter.filters.push({ field: "BoqName", operator: "contains", value: v1 },
+                                // { field: "WorkgroupPrefix", operator: "contains", value: v1 }
+                            );
+                            andfilter.filters.push(orfilter);
+                            orfilter = { logic: "or", filters: [] };
+                        }
+
+                    });
+                }
+            });
+            kgrid.dataSource.filter(andfilter);
+        }
+        else {
+            kgrid.dataSource.filter({});
+        }
+
+    });
+
+</script>

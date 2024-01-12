@@ -1,0 +1,126 @@
+﻿@model RVNLMIS.Models.ScCrossSectionDetailsModel
+@{
+                /**/
+
+                Layout = null;
+}
+
+@using (Ajax.BeginForm("SubmitScCsDetails", "CrossSection", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ScCsSuccess" }, new { @class = "form-horizontal", Page = "form" }))
+{
+    @Html.HiddenFor(model => model.CsDPackageId)
+    @Html.HiddenFor(model => model.AutoID)
+
+
+    <div class="row mb-1">
+        <label class="col-sm-3 col-lg-2 col-form-label">Select Cross Section @Html.ValidationMessageFor(model => model.CrossID, "", new { @class = "text-danger" })</label>
+        <div class="col-sm-4 col-lg-3">
+            <div class="input-group input-group-sm mt-1" id="csContainer">
+                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#csContainer"))
+                                              .Name("CrossID")
+                                              .DataTextField("CSName")
+                                              .DataValueField("CsID")
+                                              .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                              .Filter("contains").OptionLabel("Select Cross Section")
+                                              .DataSource(source =>
+                                              {
+                                                  source.Read(read =>
+                                                                                                            {
+                                                                                                                read.Action("ServerFiltering_GetCrossSection", "CrossSection").Data("GetPackageId");
+                                                                                                            })
+                                                    .ServerFiltering(true);
+                                              })
+                )
+               
+            </div>
+
+        </div>
+        <label class="col-sm-3 col-lg-2 col-form-label">Select Activity @Html.ValidationMessageFor(model => model.ScActivityID, "", new { @class = "text-danger" })</label>
+        <div class="col-sm-4 col-lg-3">
+            <div class="input-group input-group-sm mt-1" id="actContainer">
+                @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#actContainer"))
+                                                        .Name("ScActivityID")
+                                                        .DataTextField("ScActName")
+                                                        .DataValueField("ScActID")
+                                                        .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                        .Filter("contains").OptionLabel("Select Activity")
+                                                        .DataSource(source =>
+                                                        {
+                                                            source.Read(read =>
+                                                                                                                                                    {
+                                                                                                                                                        read.Action("ServerFiltering_GetActivity", "CrossSection").Data("GetPackageId");
+                                                                                                                                                    })
+                                                                                             .ServerFiltering(true);
+                                                        })
+                )
+                
+            </div>
+        </div>
+        <div class="col-sm-4 col-lg-2 mt-1">
+            <div class="custom-control custom-checkbox">
+                @*<input type="checkbox" class="custom-control-input" id="layer">*@
+                @Html.CheckBoxFor(model => model.Layer, new { @class = "custom-control-input" })
+                <label class="custom-control-label" for="Layer">Layer</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <label class="col-sm-4 col-md-2 col-lg-2 col-form-label">Thickness  @Html.ValidationMessageFor(model => model.TotalThk, "", new { @class = "text-danger" })</label>
+        <div class="col-sm-8 col-md-2 col-lg-2 mt-1">
+            <div class="input-group input-group-sm">
+                @*<input type="number" class="form-control" placeholder="1" min="1" max="5">*@
+                @*@Html.EditorFor(model => model.TotalThk, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "1",@maxlength="10", onkeypress = "return Numbers1DotOnly(this,event)" } })*@
+                @Html.EditorFor(model => model.TotalThk, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @data_val_number = "", @placeholder = "1", onkeypress = "return Numbers1DotOnly(this,event)" } })
+            </div>
+           
+        </div>
+
+        <label class="col-sm-4 col-md-2 col-lg-2 col-form-label">Max Layer @Html.ValidationMessageFor(model => model.MaxLayerThk, "", new { @class = "text-danger" })</label>
+        <div class="col-sm-8 col-md-2 col-lg-2 mt-1">
+            <div class="input-group input-group-sm">
+                @*<input type="number" class="form-control" placeholder="1" min="1" max="5">*@
+                @Html.EditorFor(model => model.MaxLayerThk, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "1", @data_val_number = "", @maxlength = "10", onkeypress = "return Numbers1DotOnly(this,event)" } })
+            </div>
+            
+        </div>
+
+        <label class="col-sm-4 col-md-2 col-lg-1 col-form-label">Slope @Html.ValidationMessageFor(model => model.Slope, "", new { @class = "text-danger" })</label>
+        <div class="col-sm-8 col-md-2 col-lg-2 mt-1">
+            <div class="input-group input-group-sm">
+                @*<input type="number" class="form-control" placeholder="1" min="1" max="5">*@
+                @Html.EditorFor(model => model.Slope, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "1", @data_val_number = "",@maxlength = "10", onkeypress = "return Numbers1DotOnly(this,event)" } })
+            </div>
+            
+        </div>
+
+        <label class="col-sm-4 col-md-2 col-lg-2 col-form-label">Top Width @Html.ValidationMessageFor(model => model.TopWd, "", new { @class = "text-danger" })</label>
+        <div class="col-sm-8 col-md-2 col-lg-2 mt-1">
+            <div class="input-group input-group-sm">
+                @*<input type="number" class="form-control" placeholder="1" min="1" max="5">*@
+                @Html.EditorFor(model => model.TopWd, new { htmlAttributes = new { @class = "form-control", @type = "text", @data_val_number = "", @placeholder = "1", @maxlength = "10", onkeypress = "return Numbers1DotOnly(this,event)" } })
+            </div>
+            
+        </div>
+
+        <label class="col-sm-4 col-md-2 col-lg-2 col-form-label">Bottom Width  @Html.ValidationMessageFor(model => model.BottomWd, "", new { @class = "text-danger" })</label>
+        <div class="col-sm-8 col-md-2 col-lg-2 mt-1">
+            <div class="input-group input-group-sm">
+                @*<input type="number" class="form-control" placeholder="1" min="1" max="5">*@
+                @Html.EditorFor(model => model.BottomWd, new { htmlAttributes = new { @class = "form-control", @data_val_number = "", @type = "text", @placeholder = "1", @maxlength = "10", onkeypress = "return Numbers1DotOnly(this,event)" } })
+            </div>
+           
+        </div>
+
+        <div class="col-sm-8 col-md-5 col-lg-4 ">
+            <button class="btn btn-outline-primary btn-sm pull-right mr-3"><i class="fa fa-plus"></i>  Add</button>
+            <button onclick="ResetScCsDetailForm()" type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-sync"></i>  Reset</button>
+        </div>
+    </div>
+}
+    <script>
+        $(window).resize(function () {
+            //$('#CrossSectionGrid').height($(window).height() - 435);
+            //$('#ScActGrid').height($(window).height() - 695);
+            //$('#PkgCrossSectionGrid').height($(window).height() - 695);
+        });
+        $(window).trigger('resize');
+    </script>

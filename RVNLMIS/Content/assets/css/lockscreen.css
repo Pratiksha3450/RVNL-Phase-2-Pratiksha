@@ -1,0 +1,125 @@
+﻿
+/* Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap*/
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    .lockscreen {
+        background: url('../../images/screen2.jpg') center top / cover no-repeat;
+        height: 100vh;
+    }
+
+        .lockscreen .container {
+            padding: 6% 8%;
+            width: 45%;
+        }
+
+    .card {
+        border-radius: 25px;
+    }
+
+    .rvnl_logo {
+        width: 70%;
+    }
+
+    .card-body form {
+        padding: 2% 10%;
+    }
+
+    .profile_pic {
+        width: 80px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    .lockscreen {
+        background: url('../../images/screen2.jpg') center top / cover no-repeat;
+        height: 100vh;
+    }
+
+        .lockscreen .container {
+            padding: 6% 8%;
+            width: 90%;
+        }
+
+    .card {
+        border-radius: 25px;
+    }
+
+    .rvnl_logo {
+        width: 70%;
+    }
+
+    .card-body form {
+        padding: 2% 10%;
+    }
+
+    .profile_pic {
+        width: 80px;
+    }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    .lockscreen {
+        background: url('../../images/screen2.jpg') center top / cover no-repeat;
+        height: 100vh;
+    }
+
+        .lockscreen .container {
+            padding: 6% 8%;
+            width: 90%;
+        }
+
+    .card {
+        border-radius: 25px;
+    }
+
+    .rvnl_logo {
+        width: 70%;
+    }
+
+    .card-body form {
+        padding: 2% 10%;
+    }
+
+    .profile_pic {
+        width: 80px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    .lockscreen {
+        background: url('../../images/screen2.jpg') center top / cover no-repeat;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+        .lockscreen .container {
+            padding: 6% 8%;
+            width: 45%;
+        }
+
+    .card {
+        border-radius: 25px;
+    }
+
+    .rvnl_logo {
+        width: 70%;
+    }
+
+    .card-body form {
+        padding: 2% 10%;
+    }
+
+    .profile_pic {
+        width: 80px;
+    }
+}
+
+.form-control {
+    width: 90%;
+    display: inline-block;
+}

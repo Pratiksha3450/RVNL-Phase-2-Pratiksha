@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("SubmitReportUrl", "PMCReportsDetails", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnShareUrlSuccess" }, new { @class = "form", @id = "Sectionform" }))
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">@ViewBag.FileName </h6>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="hdnAutoId" value="@ViewBag.AutoId">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionName">To:</label>
+                        <input type="text" class="form-control" placeholder="Enter Email Ids" id="txtMail" name="txtMail" />
+                    </div>
+                </div>
+                @*<div class="col-md-6">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtSectionCode">Reporting Date @Html.ValidationMessageFor(model => model.ReportingDates, "", new { @class = "text-danger" })</label>
+                            @Html.EditorFor(model => model.ReportingDates, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "Date", @placeholder = "Ex: DD/MM/YYYY", @id = "txtReportingDate" } })
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" id="btnEmailSubmit" class="btn btn-sm btn-theme pull-right" value="Save">Share</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

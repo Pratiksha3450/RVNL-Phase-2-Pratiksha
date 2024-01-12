@@ -1,0 +1,73 @@
+﻿
+@model RVNLMIS.Models.PMCReportDetailsModel
+@{
+    Layout = null;
+}
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title">Add / PMC Report Details </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+
+    @using (Html.BeginForm("AddPMCReportDetailsInformation", "PMCReportsDetails", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "PMCReportsAddUpdate" }))
+    {
+        @Html.HiddenFor(model => model.PackageId)
+        @Html.HiddenFor(model => model.PRId)
+        <div class="modal-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionName">Title @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "mb-3 form-control ", @type = "text", @placeholder = "Enter Title", @id = "txtTitle" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionCode">Reporting Date @Html.ValidationMessageFor(model => model.ReportingDates, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.ReportingDates, new { htmlAttributes = new { @class = "mb-3 form-control", onkeydown = "return false",@type = "Date", @placeholder = "Ex: DD/MM/YYYY", @id = "txtReportingDate" } })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionCode">Remark </label>
+                        @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "Remark", @placeholder = "Enter Remark", @id = "txtRemark" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtSectionCode">
+                            Select File
+                            <a id="openAttach" href="@Model.AttachFilePath" target='_blank' title="" style="font-size: x-small;">@Model.AttachFileName</a>
+                            @Html.ValidationMessageFor(model => model.AttachmentFile, "", new { @class = "text-danger" })
+                        </label>
+
+                        <div class="input-group input-file" name="Fichier1">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-choose" type="button"
+                                        style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                    Browse File
+                                </button>
+                            </span>
+                            @*@Html.TextBoxFor(model => model.AttachmentFile, new { @class = "form-control pl-3", @placeholder = "Choose a file...", type = "text" })*@
+                            <input type="text" id="FileUplaodName" onchange="validatePDF(this)" class="form-control pl-3" placeholder='Choose a file...' />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    @*<input type="button" id="btnAddInvoicePaymentSubmit" class="btn btn-xs btn-primary pull-right" value="Save" />*@
+                    <button type="button" id="btnAddInvoicePaymentSubmit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

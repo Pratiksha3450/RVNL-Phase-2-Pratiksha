@@ -1,0 +1,642 @@
+﻿@model RVNLMIS.Models.AutoCadViewerModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var instanceUrl = System.Configuration.ConfigurationManager.AppSettings["ServerPath"] as string;
+}
+
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
+<meta charset="utf-8">
+
+<!-- Common packages: jQuery, Bootstrap, jsTree -->
+@*<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/jstree.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default/style.min.css" />*@
+<!-- Autodesk Forge Viewer files -->
+<link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css" type="text/css">
+<script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+<!-- this project files -->
+<script src="~/Content/AutoDeskJS/ForgeTree.js"></script>
+<script src="~/Content/AutoDeskJS/ForgeViewer.js"></script>
+
+<style>
+    
+    #Card1{
+        overflow:auto;
+        overflow-x:hidden;
+    }
+    
+    /*===============================
+      hide watermark from docviewer
+    ===============================*/
+
+    /* span.lt a {
+        color: aqua !important;
+        display: none !important;
+    }
+
+    #cadEditorX {
+        color: blue !important;
+        display: none !important;
+    }
+
+        #cadEditorX[style*="color: black"] {
+            color: red !important;
+        }
+
+    a#cadEditorX {
+        color: yellow !important;
+        display: none !important;
+    }
+
+    .lt a[style] {
+        color: yellow !important;
+        display: none !important
+    }
+    span.lt {
+        display: none !important;
+    }
+    /*---------------------------------*/
+    .powered {
+        display: none;
+    }
+</style>
+<style>
+    html, body {
+        min-height: 100%;
+        height: 100%;
+    }
+
+    /*.fill {
+        height: calc(100vh - 100px);
+    }*/
+
+    /*body {
+        padding-top: 60px; /* space for the top nav bar 
+        margin-right: 30px;
+    }*/
+
+    #appBuckets {
+        overflow: auto;
+        width: 100%;
+        height: calc(100vh - 195px);
+    }
+
+    #forgeViewer {
+        width: 100%;
+    }
+</style>
+
+
+<div class="content_wrapper">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4 col-lg-3 pl-1 pr-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h5> Autodesk doc Viewer </h5>
+                    </div>
+                    <div class="card-body pl-3 pr-3 " id="Card1">
+                        <div class="row mb-5 mt-4">
+                            @*<div class="col-xl-12 col-md-12 m-b-5">
+                                    <div class="form-group">
+                                        <label class="col-form-label-sm-user text-black-50" for="txtPackage">
+                                            Switch Drawing type
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="custom-control custom-switch">
+                                                    @Html.CheckBox("chkDrawType", new { @class = "custom-control-input" })
+                                                    <label class="custom-control-label" for="chkDrawType">No / Yes</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="col-xl-12 col-md-12">
+                                <div class="form-group">
+                                    <label class="col-form-label-sm-user text-black-50" for="txtPackage">
+                                        Select Package
+                                    </label>
+                                    <div class="input-group input-group-sm mt-3" id="pkgContainer">
+                                        @(Html.Kendo().DropDownListFor(m => m.PackageId).Popup(p => p.AppendTo("#pkgContainer"))
+                                                                    .Name("drpPackage")
+                                                                    .DataTextField("PackageName")
+                                                                    .DataValueField("PackageId")
+                                                                    .HtmlAttributes(new { style = "", @class = "form-control" })
+                                                                    .Filter("contains").OptionLabel("Select Package")
+                                                                    .DataSource(source =>
+                                                                    {
+                                                                        source.Read(read =>
+                                                                    {
+                                                                        read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                                    })
+                                                                        .ServerFiltering(true);
+                                                                    })
+                                        )
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="col-form-label-sm-user text-black-50" for="txtStartChaining">
+                                        Start Chainage
+                                    </label>
+                                    @Html.EditorFor(model => model.StartChainage, new { htmlAttributes = new { @class = "mb-1 form-control addChainage", @type = "text", @maxlength = "10", @placeholder = "Ex: 150+300", onkeypress = "return Numbers1PlusOnly(this,event)" } })
+                                    @*<input type="text" class="form-control" placeholder="Ex: 00+11" />*@
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="col-form-label-sm-user text-black-50" for="txtEndChaining">
+                                        End Chainage
+                                    </label>
+                                    @Html.EditorFor(model => model.EndChainage, new { htmlAttributes = new { @class = "mb-1 form-control addChainage", @type = "text", @maxlength = "10", @placeholder = "Ex:  231+600", onkeypress = "return Numbers1PlusOnly(this,event)" } })
+                                    @*<input type="text" class="form-control" placeholder="Ex: 00+11" />*@
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-md-12">
+                                <h5 style="color:blue;vertical-align:central;text-align:center;padding-top:25px;">OR</h5>
+                            </div>
+                            <div class="col-xl-12 col-md-12">
+                                <div class="form-group" id="Sectioncontainer">
+                                    <label class="col-form-label-sm-user text-black-50">
+                                        Select Section
+                                    </label>
+                                    @(Html.Kendo().DropDownListFor(m => m.SectionId).Popup(p => p.AppendTo("#Sectioncontainer"))
+                                                                        .Name("ddlSection")
+                                                                        .DataTextField("SectionName")
+                                                                        .DataValueField("SectionId")
+                                                                        .HtmlAttributes(new { style = "width:100%", @class = "mb-1 form-control" })
+                                                                        .Filter("contains").OptionLabel("Select Section")
+                                                                        .DataSource(source =>
+                                                                        {
+                                                                            source.Read(read =>
+                                                                                                {
+                                                                                                    read.Action("Get_SectionsByPackage", "AutoDeskDemo").Data("getPkgId");//, new { id = 0 });
+                                                                                                                    })
+                                                                                                .ServerFiltering(true);
+                                                                        })
+                                    )
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-md-12">
+                                <h5 style="color:blue;vertical-align:central;text-align:center;padding-top:25px;">OR</h5>
+                            </div>
+                            <div class="col-xl-12 col-md-12">
+                                <div class="form-group mb-3" id="entitycontainer">
+                                    <label class="col-form-label-sm-user text-black-50">
+                                        Select Entity
+                                    </label>
+                                    @(Html.Kendo().DropDownListFor(m => m.EntityId).Popup(p => p.AppendTo("#entitycontainer"))
+                                                                        .Name("drpEntities")
+                                                                        .DataTextField("Name")
+                                                                        .DataValueField("Id")
+                                                                        .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                        .Filter("contains").OptionLabel("Select Entity")
+                                                                        .DataSource(source =>
+                                                                        {
+                                                                            source.Read(read =>
+                                                                                                 {
+                                                                                                     read.Action("BindEntityDrpValues", "AutoDeskDemo").Data("GetPackageId");
+                                                                                                 })
+                                                                                                   .ServerFiltering(true);
+                                                                        })
+                                    )
+                                </div>
+                            </div>
+                            @*  <div class="col-xl-12 col-md-12">
+                                    <h5 style="color:blue;vertical-align:central;text-align:center;padding-top:25px;">OR</h5>
+                                </div>
+                                <div class="col-xl-12 col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label-sm-user text-black-50" for="txtPackage">
+                                            Select File
+                                        </label>
+                                        <div class="input-group input-group-sm mt-3" id="filContainer">
+                                            @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#filContainer"))
+                                                                                .Name("ddlFile")
+                                                                                .DataTextField("Text")
+                                                                                .DataValueField("Value")
+                                                                                .HtmlAttributes(new { style = "", @class = "form-control" })
+                                                                                .Filter("contains").OptionLabel("Select File")
+                                                                                .DataSource(source =>
+                                                                                {
+                                                                                    source.Read(read =>
+                                                                                {
+                                                                                    read.Action("GetFileList", "AutocadDocViewer");
+                                                                                })
+                                                                                    .ServerFiltering(true);
+                                                                                })
+                                            )
+                                        </div>
+                                    </div>
+                                </div>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 pt-4 text-right m-b-10">
+                                <button class="btn btn-sm btn-theme" id="btnGetCadDiagram"> Straight Line View </button> |
+                                <button class="btn btn-sm btn-theme" id="btnGetCurveDiagram"> Curve Line view </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-9 pl-1 pr-1">
+                <div class="card">                    
+                    <div class="card-body" id="Card2">
+                        <div class="pl-1 pr1">
+                            <div id="forgeViewer"></div>
+                            @*<iframe src="//beta.sharecad.org/cadframe/load?url=https://dev.primabi.com/uploads/test123.dxf" scrolling="no" class="testFrame" id="frame1"></iframe>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+@*<script>
+        var iframe = document.getElementById("frame1");
+        $('iframe').load(function () {
+            $('#frame1').contents().find("head")
+                .append($("<style type='text/css'>  .lt{display:none;}  </style>"));
+        });
+    </script>*@
+<script>
+    $(window).resize(function () {
+        $('#Card1').height($(window).height() - 195);
+        $('#Card2').height($(window).height() - 145);
+    });
+    $(window).trigger('resize');
+
+
+    function getPkgId() {
+            var dID = $("#drpPackage").data("kendoDropDownList").value();
+            return { id: dID };
+    }
+     function GetPackageId() {
+                return { pkgId: $("#drpPackages").val() }
+            }
+
+    $(window).trigger('resize');
+     var host = "https://beta.sharecad.org/",
+            frame = "cadframe/load?url=";
+         @*var urlBase = '@(instanceUrl+"/Uploads/StripChart/"+ Model.PackageId)';*@
+
+
+        var reloadIframe = function (frame, src) {
+            frame.src = src ? src : host + "cadframe";
+            //$("#frame1").contents().find("#cadEditorX").text('lalalala');
+         }
+       var CheckLoad = function () {
+            var _PackageId = @Model.PackageId;
+            //alert(_PackageId);
+            if (_PackageId != 0) {
+                var entityDataSource;
+                $.get("/AutoDeskDemo/BindEntityDrpValues?pkgId=" + _PackageId, function (data) {
+                    $("#drpEntities").html('');
+                    entityDataSource = data;
+                    $("#drpEntities").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: entityDataSource }));
+                });
+                var sectionDataSource;
+                $.get("/AutoDeskDemo/Get_SectionsByPackage", { id: _PackageId }, function (data) {
+                    $("#ddlSection").html('');
+                    sectionDataSource = data;
+                    $("#ddlSection").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: sectionDataSource }));
+                });
+            }
+        };
+    function refreshObject(urn) {
+        $("#forgeViewer").empty();
+        console.log(urn);
+        getForgeToken(function (access_token) {
+            jQuery.ajax({
+                url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
+                headers: { 'Authorization': 'Bearer ' + access_token },
+                success: function (res) {
+                    console.log(res);
+                    if (res.progress === 'success' || res.progress === 'complete') launchViewer(urn);
+                    else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.' +
+                        '<button class="btn btn-xs btn-info" onclick="refreshObject(\'' + urn +'\')"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                        'Check Process</button>');
+                },
+                error: function (err) {
+                    var msgButton = 'This file is not translated yet! ' +
+                        '<button class="btn btn-xs btn-info" onclick="translateObject(\'' + urn +'\')"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                        'Start translation</button>'
+                    $("#forgeViewer").html(msgButton);
+                }
+            });
+        })
+    }
+
+
+    $(document).ready(function () {
+
+        CheckLoad();
+
+        //$("#ddlFile").change(function () {
+        //    console.log("one");
+        //    $("#fileSelected").text("");
+        //    var selectedFile = $("#ddlFile").val();
+        //    $("#fileSelected").text( selectedFile);
+
+        //    console.log(selectedFile);
+        //    reloadIframe($("#frame1")[0], host + frame +urlBase +selectedFile);
+        //});
+
+
+        $("#drpPackage").change(function () {
+
+            var entityDataSource;
+            var selectedPackageId = $("#drpPackage").data("kendoDropDownList").value();
+            $.get("/AutoDeskDemo/BindEntityDrpValues?pkgId=" + selectedPackageId, function (data) {
+                $("#drpEntities").html('');
+                entityDataSource = data;
+                $("#drpEntities").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: entityDataSource }));
+            });
+            var sectionDataSource;
+            $.get("/AutoDeskDemo/Get_SectionsByPackage", { id: selectedPackageId }, function (data) {
+                $("#ddlSection").html('');
+                sectionDataSource = data;
+                $("#ddlSection").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: sectionDataSource }));
+            });
+
+        });
+
+        $("#ddlSection").change(function () {
+            $('#drpEntities').data("kendoDropDownList").select(0);
+            $('#StartChainage').val("");
+            $('#EndChainage').val("");
+        });
+        $("#drpEntities").change(function () {
+
+            $('#ddlSection').data("kendoDropDownList").select(0);
+            $('#StartChainage').val("");
+            $('#EndChainage').val("");
+        });
+
+        $("#StartChainage").change(function () {
+            $('#drpEntities').data("kendoDropDownList").select(0);
+            $('#ddlSection').data("kendoDropDownList").select(0);
+            var value = $(this).val();
+            if (value=="") {
+
+            }
+            else if (value.includes('+')) {
+                $('#StartChainage').val(value);
+            }
+            else {
+                if (value.length < 3) {
+                    value = padString(value, 3, '0');
+
+                }
+                var newVal = ([value.slice(0, value.length - 3), '+', value.slice(value.length - 3)].join(''));
+
+                if (newVal.charAt(0)=='+') {
+                    newVal = "0" + newVal;
+                }
+                $('#StartChainage').val(newVal);
+            }
+        });
+
+        $("#EndChainage").change(function () {
+            $('#drpEntities').data("kendoDropDownList").select(0);
+            $('#ddlSection').data("kendoDropDownList").select(0);
+            var value = $(this).val();
+
+            if (value == "") {
+
+            }
+            else if (value.includes('+')) {
+                $('#EndChainage').val(value);
+            }
+            else {
+                if (value.length<3) {
+                    value = padString(value, 3, '0');
+
+                }
+                var newVal = ([value.slice(0, value.length - 3), '+', value.slice(value.length - 3)].join(''));
+
+                if (newVal.charAt(0) == '+') {
+                    newVal = "0" + newVal;
+                }
+                $('#EndChainage').val(newVal);
+            }
+        });
+
+        function padString(str, len, padWith) {
+            var padLength = len - str.length;
+            return padLength < 1 ? str : Array(padLength + 1).join(padWith) + str;
+        }
+
+        var urn = "";
+        $(function () {
+            $("#btnGetCadDiagram").click(function () {
+                $('#btnGetCadDiagram').attr('disabled', 'disabled');
+                $('#btnGetCurveDiagram').attr('disabled', 'disabled');
+
+                $("#fileSelected").text( "");
+                var AutoCadViewerModel = {};
+                AutoCadViewerModel.PackageId = $("#drpPackage").data("kendoDropDownList").value();
+                AutoCadViewerModel.SectionId = $("#ddlSection").data("kendoDropDownList").value();
+                AutoCadViewerModel.EntityId = $("#drpEntities").data("kendoDropDownList").value();
+                AutoCadViewerModel.StartChainage = $("#StartChainage").val();
+                AutoCadViewerModel.EndChainage = $("#EndChainage").val();
+                console.log(AutoCadViewerModel);
+                $.ajax({
+                    type: "POST",
+                    url: "/AutoDeskDemo/SaveAndLoadStraightLineFile",
+                    data: JSON.stringify(AutoCadViewerModel) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        $('#btnGetCadDiagram').removeAttr('disabled');
+                        $('#btnGetCurveDiagram').removeAttr('disabled');
+                        if (response == "0") {
+                            $.notify('Technical Error, Please try again', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        if (response == "1") {
+                            $.notify('Please select package!', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else if (response=="Invalid Chainage") {
+                            $.notify('Chainage you entered are invalid, Please enter valid one!', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        } else if (response =="nullChainage") {
+                            $.notify('Start & end chainage must be filled!', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else if (response=="Exception") {
+                            $.notify('Technical Error, Please try again', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else {
+                            urn = response.FileName;
+                            @*$("#fileSelected").text(response.FileName);
+                           // var packageid = response.FileName;
+                            var urlBase = '@(instanceUrl+"/Uploads/StripChart/")' + response.PackageId+"/";
+                            console.log(urlBase);
+                            reloadIframe($("#frame1")[0], host + frame + urlBase + response.FileName);*@
+
+
+                            getForgeToken(function (access_token) {
+                                jQuery.ajax({
+                                    url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
+                                    headers: { 'Authorization': 'Bearer ' + access_token },
+                                    success: function (res) {
+                                        console.log(res);
+                                        if (res.progress === 'success' || res.progress === 'complete') launchViewer(urn);
+                                        else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.' +
+                                            '<button class="btn btn-xs btn-info" onclick="refreshObject(\'' + urn +'\')"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                                            'Check Process</button>');
+                                    },
+                                    error: function (err) {
+                                        var msgButton = 'This file is not translated yet! ' +
+                                            '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                                            'Start translation</button>'
+                                        $("#forgeViewer").html(msgButton);
+                                    }
+                                });
+                            })
+                        }
+                    },
+                    failure: function (response) {
+                        alert("Note: "+ response.responseText);
+                    },
+                    error: function (response) {
+                        alert("Note: " + response.responseText);
+                    }
+                });
+            });
+        });
+
+        
+
+        $(function () {
+            $("#btnGetCurveDiagram").click(function () {
+                $('#btnGetCadDiagram').attr('disabled', 'disabled');
+                $('#btnGetCurveDiagram').attr('disabled', 'disabled');
+                $("#fileSelected").text( "");
+                var AutoCadViewerModel = {};
+                AutoCadViewerModel.PackageId = $("#drpPackage").data("kendoDropDownList").value();
+                AutoCadViewerModel.SectionId = $("#ddlSection").data("kendoDropDownList").value();
+                AutoCadViewerModel.EntityId = $("#drpEntities").data("kendoDropDownList").value();
+                AutoCadViewerModel.StartChainage = $("#StartChainage").val();
+                AutoCadViewerModel.EndChainage = $("#EndChainage").val();
+                console.log(AutoCadViewerModel);
+                $.ajax({
+                    type: "POST",
+                    url: "/AutoDeskDemo/SaveAndLoadCurveFile",
+                    data: JSON.stringify(AutoCadViewerModel) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        $('#btnGetCadDiagram').removeAttr('disabled');
+                        $('#btnGetCurveDiagram').removeAttr('disabled');
+                        if (response == "0") {
+                            $.notify('Technical Error, Please try again', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        if (response == "1") {
+                            $.notify('Please select package!', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else if (response=="Invalid Chainage") {
+                            $.notify('Chainage you entered are invalid, Please enter valid one!', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        } else if (response =="nullChainage") {
+                            $.notify('Start & end chainage must be filled!', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else if (response=="Exception") {
+                            $.notify('Technical Error, Please try again', { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+                        }
+                        else {
+                            urn = response.FileName;
+                            @*$("#fileSelected").text(response.FileName);
+                           // var packageid = response.FileName;
+                            var urlBase = '@(instanceUrl+"/Uploads/StripChart/")' + response.PackageId+"/";
+                            console.log(urlBase);
+                            reloadIframe($("#frame1")[0], host + frame + urlBase + response.FileName);*@
+
+
+                            getForgeToken(function (access_token) {
+                                jQuery.ajax({
+                                    url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
+                                    headers: { 'Authorization': 'Bearer ' + access_token },
+                                    success: function (res) {
+                                        console.log(res);
+                                        if (res.progress === 'success' || res.progress === 'complete') launchViewer(urn);
+                                        else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.' +
+                                            '<button class="btn btn-xs btn-info" onclick="refreshObject(\'' + urn +'\')"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                                            'Check Process</button>');
+                                    },
+                                    error: function (err) {
+                                        var msgButton = 'This file is not translated yet! ' +
+                                            '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                                            'Start translation</button>'
+                                        $("#forgeViewer").html(msgButton);
+                                    }
+                                });
+                            })
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    });
+
+</script>
+
+
+
+
+
+@*<div class="container-fluid fill">
+    <div class="row fill">
+        <div class="col-sm-12 fill">
+            <div id="forgeViewer"></div>
+        </div>
+    </div>
+</div>*@
+@*<script>
+    var urn = "";
+    $(document).ready(function () {
+        $("#forgeViewer").empty();
+        // "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bGhmdWJ3YnRtN2RvdXh5MXUxdWVrb294dGx2cDR2bWgtM2MwMzI4NmQtYmU1OS00YTZlLWI4OGQtZjgxY2IzM2NkOWUyL25ldy5keGY=";
+        $.ajax({
+            url: '/AutoDeskDemo/AddOrGetBucketAsync',
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                urn = data;
+                alert(urn);
+                console.log(data + "hello1");
+                getForgeToken(function (access_token) {
+                    jQuery.ajax({
+                        url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
+                        headers: { 'Authorization': 'Bearer ' + access_token },
+                        success: function (res) {
+                            console.log(res);
+                            if (res.progress === 'success' || res.progress === 'complete') launchViewer(urn);
+                            else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.');
+                        },
+                        error: function (err) {
+                            var msgButton = 'This file is not translated yet! ' +
+                                '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                                'Start translation</button>'
+                            $("#forgeViewer").html(msgButton);
+                        }
+                    });
+                })
+            }
+        });
+
+    });
+</script>*@
+

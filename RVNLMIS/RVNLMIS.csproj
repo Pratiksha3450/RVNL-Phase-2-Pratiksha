@@ -1,0 +1,2596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D63C28E0-326B-4512-B2E5-B561F52C7DC4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RVNLMIS</RootNamespace>
+    <AssemblyName>RVNLMIS</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autodesk.Forge, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autodesk.Forge.1.7.0\lib\net452\Autodesk.Forge.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.95.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.95.0\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>C:\TEMP\bin\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.5.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.5.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.5.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.5.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.5.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.5.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Identity.Client, Version=4.54.1.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.54.1\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.22.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.6.22.0\lib\net461\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.3\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.PowerBI.Api, Version=2.0.14.18205, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.PowerBI.Api.2.0.14\lib\portable-net45+win+wpa81+MonoAndroid10+MonoTouch10+xamarinios10+xamarinmac20\Microsoft.PowerBI.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.0.1\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="netDxf, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\netDXF.2.2.0.1\lib\net45\netDxf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.3.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.3.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\ConstructionApiController.cs" />
+    <Compile Include="API\DataCleanUpApiController.cs" />
+    <Compile Include="API\DataIssueApiController.cs" />
+    <Compile Include="API\DispUserApiController.cs" />
+    <Compile Include="API\EntityYardApiController.cs" />
+    <Compile Include="API\ForgetPasswordController.cs" />
+    <Compile Include="API\InvoiceApiController.cs" />
+    <Compile Include="API\InvoicePaymentApiController.cs" />
+    <Compile Include="API\IonicLoginController.cs" />
+    <Compile Include="API\LoginController.cs" />
+    <Compile Include="API\PackageController.cs" />
+    <Compile Include="API\PackageUserController.cs" />
+    <Compile Include="API\PlanAndDrawingApiController.cs" />
+    <Compile Include="API\PMCReportApiController.cs" />
+    <Compile Include="API\PowerbiReportApiController.cs" />
+    <Compile Include="API\ProcurementApiController.cs" />
+    <Compile Include="API\ProfileController.cs" />
+    <Compile Include="API\SectionApiController.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\RFI\API\RFIMainApiController.cs" />
+    <Compile Include="Areas\RFI\API\RFISummaryApiController.cs" />
+    <Compile Include="Areas\RFI\API\RFIUserApiController.cs" />
+    <Compile Include="Areas\RFI\Common\CommonRFIMethodsController.cs" />
+    <Compile Include="Areas\RFI\Common\RFIFunctions.cs" />
+    <Compile Include="Areas\RFI\Common\RFIPdfHelper.cs" />
+    <Compile Include="Areas\RFI\Controllers\EnclosureController.cs" />
+    <Compile Include="Areas\RFI\Controllers\GenerateRFIController.cs" />
+    <Compile Include="Areas\RFI\Controllers\InspStatusController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFIActivityBOQController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFIActivityController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFIBOQMasterController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFIDocumentController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFILoginController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFIMainController .cs" />
+    <Compile Include="Areas\RFI\Controllers\RFINotificationLogController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFISummaryController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFIUserController.cs" />
+    <Compile Include="Areas\RFI\Controllers\RFIWorkgroupMasterController.cs" />
+    <Compile Include="Areas\RFI\Controllers\WorkSideController.cs" />
+    <Compile Include="Areas\RFI\Models\DropDownOptionModel.cs" />
+    <Compile Include="Areas\RFI\Models\EnclosureAttachModel.cs" />
+    <Compile Include="Areas\RFI\Models\EnclouserModel.cs" />
+    <Compile Include="Areas\RFI\Models\InspStatusModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIActivityBOQModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIActivityModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIBOQMasterModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIConsActivityModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIcountSummary.cs" />
+    <Compile Include="Areas\RFI\Models\RFIDocumentModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIInspStatusUpdateModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIMainModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFITimeLineModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIUserModel.cs" />
+    <Compile Include="Areas\RFI\Models\RFIWorkgroupModel.cs" />
+    <Compile Include="Areas\RFI\Models\WorkSideModel.cs" />
+    <Compile Include="Areas\RFI\RFIAreaRegistration.cs" />
+    <Compile Include="Common\ActionFilters\ApplicationAuthorizeAttribute.cs" />
+    <Compile Include="Common\ActionFilters\AreaSessionExpire.cs" />
+    <Compile Include="Common\ActionFilters\AuditAttribute.cs" />
+    <Compile Include="Common\ActionFilters\Compress.cs" />
+    <Compile Include="Common\ActionFilters\EncryptedActionParameterAttribute.cs" />
+    <Compile Include="Common\ActionFilters\PageAccessFilter.cs" />
+    <Compile Include="Common\ActionFilters\SessionAuthorize.cs" />
+    <Compile Include="Common\ApiHelper.cs" />
+    <Compile Include="Common\ApiLogger.cs" />
+    <Compile Include="Common\DataTableHelper.cs" />
+    <Compile Include="Common\DataTypeEnum.cs" />
+    <Compile Include="Common\Email.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\Functions.cs" />
+    <Compile Include="Common\GlobalVariables.cs" />
+    <Compile Include="Common\Logger.cs" />
+    <Compile Include="Common\PushNotification.cs" />
+    <Compile Include="Common\RowLevelSecurity.cs" />
+    <Compile Include="Common\SMSSend.cs" />
+    <Compile Include="Common\SqlHelper.cs" />
+    <Compile Include="Controllers\AchievementController.cs" />
+    <Compile Include="Controllers\ActivitesGroupsController.cs" />
+    <Compile Include="Controllers\AllPackageUserController.cs" />
+    <Compile Include="Controllers\AssignActivitiesController.cs" />
+    <Compile Include="Controllers\AssignDataIssueController.cs" />
+    <Compile Include="Controllers\AuditTrailController.cs" />
+    <Compile Include="Controllers\AutocadDocViewerController.cs" />
+    <Compile Include="Controllers\AutoDeskDemoController.cs" />
+    <Compile Include="Controllers\CadSoftViewerController.cs" />
+    <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\ConstructionActivityController.cs" />
+    <Compile Include="Controllers\ConstructionController.cs" />
+    <Compile Include="Controllers\ContactDetailsController.cs" />
+    <Compile Include="Controllers\CrossSectionController.cs" />
+    <Compile Include="Controllers\curruncyconverterController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\MilestoneController.cs" />
+    <Compile Include="Controllers\PaginatedReportsController.cs" />
+    <Compile Include="Controllers\DashboardReportsController.cs" />
+    <Compile Include="Controllers\DataIssueReportController.cs" />
+    <Compile Include="Controllers\DataMissingReportController.cs" />
+    <Compile Include="Controllers\DisciplineController.cs" />
+    <Compile Include="Controllers\DisciplineUserController.cs" />
+    <Compile Include="Controllers\DocumentsAdminController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
+    <Compile Include="Controllers\EDMasterController.cs" />
+    <Compile Include="Controllers\EnggApprGateController.cs" />
+    <Compile Include="Controllers\EnggDrawingController.cs" />
+    <Compile Include="Controllers\EnggDwgTypeController.cs" />
+    <Compile Include="Controllers\EntityMasterController.cs" />
+    <Compile Include="Controllers\EntityRoleTableOptions.cs" />
+    <Compile Include="Controllers\EntityTypeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ExportReportController.cs" />
+    <Compile Include="Controllers\GroupMasterController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoicePaymentController.cs" />
+    <Compile Include="Controllers\IssueController.cs" />
+    <Compile Include="Controllers\LayoutFunctionsController.cs" />
+    <Compile Include="Controllers\ListBoxController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ManageActivitiesController.cs" />
+    <Compile Include="Controllers\ManageContactDetailsController.cs" />
+    <Compile Include="Controllers\ManageProcMaterialController.cs" />
+    <Compile Include="Controllers\MaterialDistributionController.cs" />
+    <Compile Include="Controllers\MenuSubMenuController.cs" />
+    <Compile Include="Controllers\ModelDerivativeController.cs" />
+    <Compile Include="Controllers\NotificationLogController.cs" />
+    <Compile Include="Controllers\OAuthController.cs" />
+    <Compile Include="Controllers\OSSController.cs" />
+    <Compile Include="Controllers\PackageDetailsViewController.cs" />
+    <Compile Include="Controllers\PackageMaterialsController.cs" />
+    <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\PackageStatusController.cs" />
+    <Compile Include="Controllers\PackageViewController.cs" />
+    <Compile Include="Controllers\PIUMasterController.cs" />
+    <Compile Include="Controllers\PMCReportsDetailsController.cs" />
+    <Compile Include="Controllers\PMCReportTypeController.cs" />
+    <Compile Include="Controllers\ProcurementController.cs" />
+    <Compile Include="Controllers\ProjectDetailsViewController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\PushNotificationController.cs" />
+    <Compile Include="Controllers\RailwayMasterController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\RFIFormController.cs" />
+    <Compile Include="Controllers\RoleMenuAccessController.cs" />
+    <Compile Include="Controllers\RoleMenuController.cs" />
+    <Compile Include="Controllers\RVNLMISCronController.cs" />
+    <Compile Include="Controllers\ScChainageLevelController.cs" />
+    <Compile Include="Controllers\SectionController.cs" />
+    <Compile Include="Controllers\SectionDetailsViewController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\StraightLinePlotController.cs" />
+    <Compile Include="Controllers\StripPackageActivityController.cs" />
+    <Compile Include="Controllers\StripPkgProgressController.cs" />
+    <Compile Include="Controllers\StripProgressTwoController.cs" />
+    <Compile Include="Controllers\TargetSectionController.cs" />
+    <Compile Include="Controllers\TicketAdminController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\UnderConstructionController.cs" />
+    <Compile Include="Controllers\UpdateProgressChartController.cs" />
+    <Compile Include="Controllers\UserLogsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UserSettingController.cs" />
+    <Compile Include="DAC\actAction.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\C06ConsSummary.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\C100ProcForm.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\CasParameterView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ConstructionActivityView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\CrossKPIReport.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\CrossSectionDetailsView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\EnggDwgAttachmentView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\EntityDrawingApprView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\EntityTypeWithActGroupView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GenerateRFICode_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetActivityDetailsByChainage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetAllIssueDetailsById_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetAllIssueListUserwise_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetAllMasterPIU_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetAllUserList_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetAttachementDetailsZip_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetAttachementDetails_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetConsActivity_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetDemoDetails_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetEntitiesBetweenChainage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetEntityActivityIds_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetEntityByEId_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetExistActivityListByEntity_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetExistingConstrEntityAct_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetExistingProcForPckgMaterial_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetExistMaterialListByPackage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetMaterialList_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetMenusList_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNextMaterialeCode_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNextPackageCode_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNotExistActivityListByEntity_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNotExistMaterialListByPackage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNullEntityFields_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNullPackageFields_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNullProjectFieldsString_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNullProjectFields_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetNullSectionFields_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetOGLFRLByChainage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetOGLFRLforPackage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetPackageListByProjectId_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetPackageUserLogs_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetProcMaterial_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetProcPkgMaterial_BK_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetProcPkgMaterial_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetProcurementIndexList_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetProjectByPIUId_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetReportDataForPowerBIReport_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetRoleAssignedPackageListForMaterialPackage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetRoleAssignedPackageList_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetRoleAssignedProjectList_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetSectionsBetweenChainage_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetTicketDetails_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetUserDetailsById_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\GetUserwiseAuditDetails_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\Get_DicsiplineWithCode_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\Get_EDNameWithCode_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\HscParamenterView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\InvoicePaymentViewDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\InvoiceSumView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\InvoiceTotalSumView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\InvoiceView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\KpiParameterView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\KPIView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\MaterialWithDisplineView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\MilestoneSlippage.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\MilestoneView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PackageDetailsView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PackageInvoice.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PackagelistByUserId_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PackageMaterialDetailsView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PackageStatusByCount_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PackageUserDetailsView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PackageUserLogin_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PhysicalProgressView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\PMCReportDetailsView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\prjBaselineView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\prjInvDueDate.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\prjInvDueDateView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ProjectDetailsView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\QaqcParameterView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\RFICountSummary_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskAction.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskAssignee.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskAttachment.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskCategory.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskComment.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskHeatMap.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskRegister.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskResponse.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskReview.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskStatu.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\rskValue.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\RVNLMISModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RVNLMISModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\RVNLMISModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\RVNLMISModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RVNLMISModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\SectionView.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\SpGetPackageByRoleId_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\SpGetPMCManagerDetails_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\SpGetSubPMCManagerDetails_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\sp_helpdiagrams_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\stripGetActivitesInSquence_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\stripGetProgress_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\SuperAdminLogin_Result.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\sysdiagram.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblAchievement.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblActivityGroup.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblAppMenu.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblApprAction.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblAreaOfConcern.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblAttachment.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblAudit.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblBaseline.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblBOQMaster.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblCashFlow.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblcashParamenter.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblConsActivity.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblConsEntAct.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblConsEntActTran.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDataIssue.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDataIssueStatu.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDataIssueStatusLog.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDeletedRecordLog.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDemo.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDiscipline.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDocument.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDroneImageVideo.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblDroneSurveyDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEnclosure.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEnggApprGate.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEnggDwgAttachment.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEnggDwgType.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEnggEntDwgAppr.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEntityType.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEOT.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblEvent.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblHscParamenter.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblInspectionStatu.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblInvoice.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblInvoicePayment.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblIssue.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblkpiParamenter.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblKPIPlanActual.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblLevel.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMasterED.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMasterEntity.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMasterGroup.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMasterPIU.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMasterProject.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMasterRailway.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMaterialDistribution.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMilestone.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblMilestoneActual.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblModule.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblNotification.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblNotificationMsg.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblNotificationReadStatu.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblNotificationSetting.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblOrganisation.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPackage.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPackageSCurve.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPackageUserContact.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPackageValue.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblphyParamenter.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPkgChngLvl.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPkgMatTransaction.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPMCReportDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPMCReportType.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblpost.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPotreeFile.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPowerBIReport.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblProcMaterial.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblProcPkgMaterial.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblProjectType.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblPushNotifyLog.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblQaqcParamenter.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblReportPeriodM.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblResidentEnggDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblResource.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFI.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIActivity.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIActivityBOQ.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIDesignation.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIDummy.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIEnclosure.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIMain.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFINotification.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIPicture.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIRevision.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFITimelineActivity.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRFIUser.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRole.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblRoleMenuAccess.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblSampleUser.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblScActivityDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblScChainageUpdate.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblScCsDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblSchedule.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblSCPkgChngLvl.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblSCPkgCrossSection.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblSection.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblSetting.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblStripPkgAct.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblStripPkgProgress.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblSystemResolutionDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblTargetSection.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblTicket.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblTimeslot.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblUserDataAccess.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblUserLog.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblUserMaster.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblUserPushNotifyId.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblWorkGroup.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\tblWorkSide.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\UserDetailsWithRole.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\UserLogAudit.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewAchievement.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewAllRisk.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewAreaOfConcern.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewCashFlow.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewConsActSummaryForExcel.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewDemoCalendar.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewEOT.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewIssueRegister.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewPackageStatusReport.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewRfiActivity.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewRFIMainDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewRFIPDFDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewRFIUsersDetail.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewScChainageUpdateChart.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewSCurve.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewStripActivityTwo.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewStripChartEntity.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewStripChartSection.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewStripProgress.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewStripProgress1.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ViewTimeslot.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewUserNotificationMsg.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\viewUserNotify.cs">
+      <DependentUpon>RVNLMISModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ActivityGroup.cs" />
+    <Compile Include="Models\AddUpdateInvoiceWrapper.cs" />
+    <Compile Include="Models\AllProjectPackageDetails.cs" />
+    <Compile Include="Models\AllUsersModel.cs" />
+    <Compile Include="Models\ApiResult.cs" />
+    <Compile Include="Models\AuditModel.cs" />
+    <Compile Include="Models\AutoCadViewerModel.cs" />
+    <Compile Include="Models\BreadCrumbModel.cs" />
+    <Compile Include="Models\Config\CreateCashParam.cs" />
+    <Compile Include="Models\Config\CreateHseParam.cs" />
+    <Compile Include="Models\Config\CreateInvoiceDuePeriod.cs" />
+    <Compile Include="Models\Config\CreateKPIParam.cs" />
+    <Compile Include="Models\Config\CreatePhyProgress.cs" />
+    <Compile Include="Models\Config\CreateProjectBaseline.cs" />
+    <Compile Include="Models\Config\CreateQaQcParam.cs" />
+    <Compile Include="Models\ConsActivity.cs" />
+    <Compile Include="Models\ConsActivityModel.cs" />
+    <Compile Include="Models\ConstActivityViewModel.cs" />
+    <Compile Include="Models\ConstructionViewModel.cs" />
+    <Compile Include="Models\ContactDetailsModel.cs" />
+    <Compile Include="Models\ContrustionDropModel.cs" />
+    <Compile Include="Models\CrossSectionViewModel.cs" />
+    <Compile Include="Models\DataIssueModel.cs" />
+    <Compile Include="Models\DisciplineModel.cs" />
+    <Compile Include="Models\DisciplineUserModel.cs" />
+    <Compile Include="Models\DocumentModel.cs" />
+    <Compile Include="Models\DrpOptionsModel.cs" />
+    <Compile Include="Models\EditProcurementModel.cs" />
+    <Compile Include="Models\EDMasterModel.cs" />
+    <Compile Include="Models\EnggApprGateModel.cs" />
+    <Compile Include="Models\EnggDwgTypeModel.cs" />
+    <Compile Include="Models\EntityMasterModel.cs" />
+    <Compile Include="Models\EntityTypeModel.cs" />
+    <Compile Include="Models\GroupMasterModel.cs" />
+    <Compile Include="Models\InvoiceInfoWrapper.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\InvoicePayment.cs" />
+    <Compile Include="Models\InvoicePaymentDetail.cs" />
+    <Compile Include="Models\InvoicePaymentInfoById.cs" />
+    <Compile Include="Models\InvoiceWrapper.cs" />
+    <Compile Include="Models\IssueRegModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MaterialDistributionModel.cs" />
+    <Compile Include="Models\MaterialMasterModel.cs" />
+    <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\MilestoneModel.cs" />
+    <Compile Include="Models\PackageList.cs" />
+    <Compile Include="Models\PackageMaterialDetailsModel.cs" />
+    <Compile Include="Models\PackageModel.cs" />
+    <Compile Include="Models\PackageStatusModel.cs" />
+    <Compile Include="Models\PackageUserContact.cs" />
+    <Compile Include="Models\PIUMasterModel.cs" />
+    <Compile Include="Models\PkgDwgApprovalModel.cs" />
+    <Compile Include="Models\PMCReportDetailsModel.cs" />
+    <Compile Include="Models\PMCReportType.cs" />
+    <Compile Include="Models\PowerbiReportData.cs" />
+    <Compile Include="Models\PowerBI\AchievementModel.cs" />
+    <Compile Include="Models\PowerBI\PbiEmbeddedManager.cs" />
+    <Compile Include="Models\PowerBI\PbiEmbeddingModels.cs" />
+    <Compile Include="Models\ProcMaterial.cs" />
+    <Compile Include="Models\ProcurementViewModel.cs" />
+    <Compile Include="Models\ProgressStatus.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\PushNotifyModel.cs" />
+    <Compile Include="Models\RailwayMasterModel.cs" />
+    <Compile Include="Models\RBACUser.cs" />
+    <Compile Include="Models\RequestModelView.cs" />
+    <Compile Include="Models\ResidentEnggDetails.cs" />
+    <Compile Include="Models\ResourceModel.cs" />
+    <Compile Include="Models\ResponseModelView.cs" />
+    <Compile Include="Models\RFIModel.cs" />
+    <Compile Include="Models\RoleMenuAccessModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\ScPkgChngLevelModel.cs" />
+    <Compile Include="Models\SectionModel.cs" />
+    <Compile Include="Models\SettingModel.cs" />
+    <Compile Include="Models\StripPackageActivityModel.cs" />
+    <Compile Include="Models\StripProgressModel.cs" />
+    <Compile Include="Models\TargetSectionModel.cs" />
+    <Compile Include="Models\TicketModel.cs" />
+    <Compile Include="Models\UpdateProgressChartModel.cs" />
+    <Compile Include="Models\UserLogsModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserSettingModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\EmailTemplate\loginsuccess.txt" />
+    <Content Include="Common\EmailTemplate\PackageStatusReport.txt" />
+    <Content Include="Common\EmailTemplate\PMCReport_invitation.txt" />
+    <Content Include="Common\EmailTemplate\RFIUserSuccess.txt" />
+    <Content Include="Content\images\primabi.gif" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\RVNLLogoNew.jpg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="libman.json" />
+    <Content Include="Areas\RFI\Views\RFIActivity\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIActivity\_PartialAddUpdateAct.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIBOQMaster\index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIBOQMaster\_AddEditRFIBOQ.cshtml" />
+    <Content Include="Areas\RFI\Views\RFILogin\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIUser\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIUser\_PartialAddEditRfiUser.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIWorkgroupMaster\index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIWorkgroupMaster\_AddEditRFIWGroup.cshtml" />
+    <Content Include="Areas\RFI\Views\Shared\_RFILayout.cshtml" />
+    <Content Include="Areas\RFI\Views\web.config" />
+    <Content Include="Areas\RFI\Views\RFIDocument\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\InspStatus\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\InspStatus\_PartialEditInspectionStatus.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIActivityBOQ\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIActivityBOQ\_ViewAddEditActBOQ.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIMain\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIMain\_PartialAddEditRFIMain.cshtml" />
+    <Content Include="Areas\RFI\Views\Shared\_RFIMenuList.cshtml" />
+    <Content Include="Areas\RFI\Views\WorkSide\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\WorkSide\_EditPartialWorksideView.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIMain\ViewPDF.cshtml" />
+    <Content Include="Areas\RFI\Views\RFIMain\_PartialEnclouser.cshtml" />
+    <Content Include="App_Data\budweiser.dwg" />
+    <Content Include="App_Data\ford_cobra.dwg" />
+    <Content Include="App_Data\Gasket.dwg" />
+    <Content Include="App_Data\SHX\%40extfont2.shx" />
+    <Content Include="App_Data\SHX\amgdt.shx" />
+    <Content Include="App_Data\SHX\bigfont.shx" />
+    <Content Include="App_Data\SHX\chineset.shx" />
+    <Content Include="App_Data\SHX\complex.shx" />
+    <Content Include="App_Data\SHX\extfont.shx" />
+    <Content Include="App_Data\SHX\extfont2.shx" />
+    <Content Include="App_Data\SHX\gdt.shx" />
+    <Content Include="App_Data\SHX\GENISO.SHX" />
+    <Content Include="App_Data\SHX\geniso12.shx" />
+    <Content Include="App_Data\SHX\Gost.shx" />
+    <Content Include="App_Data\SHX\gothice.shx" />
+    <Content Include="App_Data\SHX\gothicg.shx" />
+    <Content Include="App_Data\SHX\gothici.shx" />
+    <Content Include="App_Data\SHX\greekc.shx" />
+    <Content Include="App_Data\SHX\greeks.shx" />
+    <Content Include="App_Data\SHX\isocp.shx" />
+    <Content Include="App_Data\SHX\isocp2.shx" />
+    <Content Include="App_Data\SHX\isocp3.shx" />
+    <Content Include="App_Data\SHX\ltypeshp.shx" />
+    <Content Include="App_Data\SHX\romanc.shx" />
+    <Content Include="App_Data\SHX\romand.shx" />
+    <Content Include="App_Data\SHX\romans.shx" />
+    <Content Include="App_Data\SHX\romant.shx" />
+    <Content Include="App_Data\SHX\scriptc.shx" />
+    <Content Include="App_Data\SHX\scripts.shx" />
+    <Content Include="App_Data\SHX\sgShapes.shx" />
+    <Content Include="App_Data\SHX\simplex.shx" />
+    <Content Include="App_Data\SHX\SIMPLEX8.shx" />
+    <Content Include="App_Data\SHX\TECHNO_M.SHP" />
+    <Content Include="App_Data\SHX\TECHNO_M.shx" />
+    <Content Include="App_Data\SHX\txt.shx" />
+    <Content Include="Areas\RFI\Views\Shared\_RFIFilteredLayout.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialAddEditRFIMain.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialEnclouser.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialListRFI.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialRFITimeline.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialUpdateInspStatus.cshtml" />
+    <Content Include="Areas\RFI\Views\Enclosure\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\Enclosure\_EditPartialEnclouserView.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialListRFIWithOrdering.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialNotifyList.cshtml" />
+    <Content Include="Areas\RFI\Views\GenerateRFI\_PartialRescheduleRFI.cshtml" />
+    <Content Include="Areas\RFI\Views\RFINotificationLog\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFISummary\Index.cshtml" />
+    <Content Include="Areas\RFI\Views\RFISummary\_PartialRFICount.cshtml" />
+    <Content Include="Areas\RFI\Views\Shared\_PartialNotifyLayout.cshtml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\powerbi.js" />
+    <Content Include="Scripts\powerbi.min.js" />
+    <Content Include="Scripts\ViewScripts\config.js" />
+    <Content Include="Uploads\PowerBiReportImages\powerbi_default.png" />
+    <Content Include="Content\JQueryNotify\css\notify.css" />
+    <Content Include="Content\JQueryNotify\css\prettify.css" />
+    <Content Include="Content\JQueryNotify\index.html" />
+    <Content Include="Content\JQueryNotify\js\notify.js" />
+    <Content Include="Content\JQueryNotify\js\prettify.js" />
+    <Content Include="Content\web\16x16\Chart.png" />
+    <Content Include="Content\web\16x16\ComboBox.png" />
+    <Content Include="Content\web\16x16\Grid.png" />
+    <Content Include="Content\web\16x16\Menu.png" />
+    <Content Include="Content\web\16x16\PanelBar.png" />
+    <Content Include="Content\web\16x16\Slider.png" />
+    <Content Include="Content\web\16x16\Splitter.png" />
+    <Content Include="Content\web\16x16\TabStrip.png" />
+    <Content Include="Content\web\16x16\TreeView.png" />
+    <Content Include="Content\web\16x16\Upload.png" />
+    <Content Include="Content\web\24x24\Chart.png" />
+    <Content Include="Content\web\24x24\ComboBox.png" />
+    <Content Include="Content\web\24x24\Grid.png" />
+    <Content Include="Content\web\24x24\Menu.png" />
+    <Content Include="Content\web\24x24\PanelBar.png" />
+    <Content Include="Content\web\24x24\Slider.png" />
+    <Content Include="Content\web\24x24\Splitter.png" />
+    <Content Include="Content\web\24x24\TabStrip.png" />
+    <Content Include="Content\web\24x24\TreeView.png" />
+    <Content Include="Content\web\24x24\Upload.png" />
+    <Content Include="Content\web\32x32\Chart.png" />
+    <Content Include="Content\web\32x32\ComboBox.png" />
+    <Content Include="Content\web\32x32\Grid.png" />
+    <Content Include="Content\web\32x32\Menu.png" />
+    <Content Include="Content\web\32x32\PanelBar.png" />
+    <Content Include="Content\web\32x32\Slider.png" />
+    <Content Include="Content\web\32x32\Splitter.png" />
+    <Content Include="Content\web\32x32\TabStrip.png" />
+    <Content Include="Content\web\32x32\TreeView.png" />
+    <Content Include="Content\web\32x32\Upload.png" />
+    <Content Include="Content\web\48x48\Chart.png" />
+    <Content Include="Content\web\48x48\ComboBox.png" />
+    <Content Include="Content\web\48x48\Grid.png" />
+    <Content Include="Content\web\48x48\Menu.png" />
+    <Content Include="Content\web\48x48\PanelBar.png" />
+    <Content Include="Content\web\48x48\Slider.png" />
+    <Content Include="Content\web\48x48\Splitter.png" />
+    <Content Include="Content\web\48x48\TabStrip.png" />
+    <Content Include="Content\web\48x48\TreeView.png" />
+    <Content Include="Content\web\48x48\Upload.png" />
+    <Content Include="Content\web\Ajax\Editor.png" />
+    <Content Include="Content\web\Ajax\Grid.png" />
+    <Content Include="Content\web\Ajax\Scheduler.png" />
+    <Content Include="Content\web\autocomplete\movies.png" />
+    <Content Include="Content\web\autocomplete\palette.png" />
+    <Content Include="Content\web\autocomplete\shipping.png" />
+    <Content Include="Content\web\autocomplete\taxi.png" />
+    <Content Include="Content\web\Black\editor.png" />
+    <Content Include="Content\web\Black\imagebrowser.png" />
+    <Content Include="Content\web\Black\indeterminate.gif" />
+    <Content Include="Content\web\Black\loading-image.gif" />
+    <Content Include="Content\web\Black\loading.gif" />
+    <Content Include="Content\web\Black\loading_2x.gif" />
+    <Content Include="Content\web\Black\markers.png" />
+    <Content Include="Content\web\Black\markers_2x.png" />
+    <Content Include="Content\web\Black\slider-h.gif" />
+    <Content Include="Content\web\Black\slider-v.gif" />
+    <Content Include="Content\web\Black\sprite.png" />
+    <Content Include="Content\web\Black\sprite_2x.png" />
+    <Content Include="Content\web\Black\sprite_kpi.png" />
+    <Content Include="Content\web\Black\sprite_kpi_2x.png" />
+    <Content Include="Content\web\BlueOpal\editor.png" />
+    <Content Include="Content\web\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\web\BlueOpal\indeterminate.gif" />
+    <Content Include="Content\web\BlueOpal\loading-image.gif" />
+    <Content Include="Content\web\BlueOpal\loading.gif" />
+    <Content Include="Content\web\BlueOpal\loading_2x.gif" />
+    <Content Include="Content\web\BlueOpal\markers.png" />
+    <Content Include="Content\web\BlueOpal\markers_2x.png" />
+    <Content Include="Content\web\BlueOpal\slider-h.gif" />
+    <Content Include="Content\web\BlueOpal\slider-v.gif" />
+    <Content Include="Content\web\BlueOpal\sprite.png" />
+    <Content Include="Content\web\BlueOpal\sprite_2x.png" />
+    <Content Include="Content\web\BlueOpal\sprite_kpi.png" />
+    <Content Include="Content\web\BlueOpal\sprite_kpi_2x.png" />
+    <Content Include="Content\web\Bootstrap\editor.png" />
+    <Content Include="Content\web\Bootstrap\imagebrowser.png" />
+    <Content Include="Content\web\Bootstrap\indeterminate.gif" />
+    <Content Include="Content\web\Bootstrap\loading-image.gif" />
+    <Content Include="Content\web\Bootstrap\loading.gif" />
+    <Content Include="Content\web\Bootstrap\loading_2x.gif" />
+    <Content Include="Content\web\Bootstrap\markers.png" />
+    <Content Include="Content\web\Bootstrap\markers_2x.png" />
+    <Content Include="Content\web\Bootstrap\slider-h.gif" />
+    <Content Include="Content\web\Bootstrap\slider-v.gif" />
+    <Content Include="Content\web\Bootstrap\sprite.png" />
+    <Content Include="Content\web\Bootstrap\sprite_2x.png" />
+    <Content Include="Content\web\Bootstrap\sprite_kpi.png" />
+    <Content Include="Content\web\Bootstrap\sprite_kpi_2x.png" />
+    <Content Include="Content\web\calendar\cake.png" />
+    <Content Include="Content\web\calendar\calendar-template.jpg" />
+    <Content Include="Content\web\calendar\calendar.png" />
+    <Content Include="Content\web\calendar\cocktail.png" />
+    <Content Include="Content\web\calendar\exhibition.png" />
+    <Content Include="Content\web\calendar\party.png" />
+    <Content Include="Content\web\calendar\reports.png" />
+    <Content Include="Content\web\calendar\specialDays.png" />
+    <Content Include="Content\web\colorpicker\background.png" />
+    <Content Include="Content\web\colorpicker\interior-bg.png" />
+    <Content Include="Content\web\colorpicker\motor.png" />
+    <Content Include="Content\web\colorpicker\sofa-3a4c8b.jpg" />
+    <Content Include="Content\web\colorpicker\sofa-746153.jpg" />
+    <Content Include="Content\web\colorpicker\sofa-ac120f.jpg" />
+    <Content Include="Content\web\colorpicker\sofa-d2d2d2.jpg" />
+    <Content Include="Content\web\colorpicker\sofa-ddd1c3.jpg" />
+    <Content Include="Content\web\colorpicker\sofa-fb455f.jpg" />
+    <Content Include="Content\web\colorpicker\sofa-ffcc33.jpg" />
+    <Content Include="Content\web\combobox\tShirt.png" />
+    <Content Include="Content\web\contacts.gif" />
+    <Content Include="Content\web\contactsItems.gif" />
+    <Content Include="Content\web\Customers\ALFKI.jpg" />
+    <Content Include="Content\web\Customers\ANATR.jpg" />
+    <Content Include="Content\web\Customers\ANTON.jpg" />
+    <Content Include="Content\web\Customers\AROUT.jpg" />
+    <Content Include="Content\web\Customers\BERGS.jpg" />
+    <Content Include="Content\web\Customers\BLAUS.jpg" />
+    <Content Include="Content\web\Customers\BLONP.jpg" />
+    <Content Include="Content\web\Customers\BOLID.jpg" />
+    <Content Include="Content\web\Customers\BONAP.jpg" />
+    <Content Include="Content\web\Customers\BOTTM.jpg" />
+    <Content Include="Content\web\Customers\BSBEV.jpg" />
+    <Content Include="Content\web\Customers\CACTU.jpg" />
+    <Content Include="Content\web\Customers\CENTC.jpg" />
+    <Content Include="Content\web\Customers\CHOPS.jpg" />
+    <Content Include="Content\web\Customers\COMMI.jpg" />
+    <Content Include="Content\web\Customers\CONSH.jpg" />
+    <Content Include="Content\web\Customers\DRACD.jpg" />
+    <Content Include="Content\web\Customers\DUMON.jpg" />
+    <Content Include="Content\web\Customers\EASTC.jpg" />
+    <Content Include="Content\web\Customers\ERNSH.jpg" />
+    <Content Include="Content\web\Customers\FAMIA.jpg" />
+    <Content Include="Content\web\Customers\FISSA.jpg" />
+    <Content Include="Content\web\Customers\FOLIG.jpg" />
+    <Content Include="Content\web\Customers\FOLKO.jpg" />
+    <Content Include="Content\web\Customers\FRANK.jpg" />
+    <Content Include="Content\web\Customers\FRANR.jpg" />
+    <Content Include="Content\web\Customers\FRANS.jpg" />
+    <Content Include="Content\web\Customers\FURIB.jpg" />
+    <Content Include="Content\web\Customers\GALED.jpg" />
+    <Content Include="Content\web\Customers\GODOS.jpg" />
+    <Content Include="Content\web\Customers\GOURL.jpg" />
+    <Content Include="Content\web\Customers\GREAL.jpg" />
+    <Content Include="Content\web\Customers\GROSR.jpg" />
+    <Content Include="Content\web\Customers\HANAR.jpg" />
+    <Content Include="Content\web\Customers\HILAA.jpg" />
+    <Content Include="Content\web\Customers\HUNGC.jpg" />
+    <Content Include="Content\web\Customers\HUNGO.jpg" />
+    <Content Include="Content\web\Customers\ISLAT.jpg" />
+    <Content Include="Content\web\Customers\KOENE.jpg" />
+    <Content Include="Content\web\Customers\LACOR.jpg" />
+    <Content Include="Content\web\Customers\LAMAI.jpg" />
+    <Content Include="Content\web\Customers\LAUGB.jpg" />
+    <Content Include="Content\web\Customers\LAZYK.jpg" />
+    <Content Include="Content\web\Customers\LEHMS.jpg" />
+    <Content Include="Content\web\Customers\LETSS.jpg" />
+    <Content Include="Content\web\Customers\LILAS.jpg" />
+    <Content Include="Content\web\Customers\LINOD.jpg" />
+    <Content Include="Content\web\Customers\LONEP.jpg" />
+    <Content Include="Content\web\Customers\MAGAA.jpg" />
+    <Content Include="Content\web\Customers\MAISD.jpg" />
+    <Content Include="Content\web\Customers\MEREP.jpg" />
+    <Content Include="Content\web\Customers\MORGK.jpg" />
+    <Content Include="Content\web\Customers\NORTS.jpg" />
+    <Content Include="Content\web\Customers\OCEAN.jpg" />
+    <Content Include="Content\web\Customers\OLDWO.jpg" />
+    <Content Include="Content\web\Customers\OTTIK.jpg" />
+    <Content Include="Content\web\Customers\PARIS.jpg" />
+    <Content Include="Content\web\Customers\PERIC.jpg" />
+    <Content Include="Content\web\Customers\PICCO.jpg" />
+    <Content Include="Content\web\Customers\PRINI.jpg" />
+    <Content Include="Content\web\Customers\QUEDE.jpg" />
+    <Content Include="Content\web\Customers\QUEEN.jpg" />
+    <Content Include="Content\web\Customers\QUICK.jpg" />
+    <Content Include="Content\web\Customers\RANCH.jpg" />
+    <Content Include="Content\web\Customers\RATTC.jpg" />
+    <Content Include="Content\web\Customers\REGGC.jpg" />
+    <Content Include="Content\web\Customers\RICAR.jpg" />
+    <Content Include="Content\web\Customers\RICSU.jpg" />
+    <Content Include="Content\web\Customers\ROMEY.jpg" />
+    <Content Include="Content\web\Customers\SANTG.jpg" />
+    <Content Include="Content\web\Customers\SAVEA.jpg" />
+    <Content Include="Content\web\Customers\SEVES.jpg" />
+    <Content Include="Content\web\Customers\SIMOB.jpg" />
+    <Content Include="Content\web\Customers\SPECD.jpg" />
+    <Content Include="Content\web\Customers\SPLIR.jpg" />
+    <Content Include="Content\web\Customers\SUPRD.jpg" />
+    <Content Include="Content\web\Customers\THEBI.jpg" />
+    <Content Include="Content\web\Customers\THECR.jpg" />
+    <Content Include="Content\web\Customers\TOMSP.jpg" />
+    <Content Include="Content\web\Customers\TORTU.jpg" />
+    <Content Include="Content\web\Customers\TRADH.jpg" />
+    <Content Include="Content\web\Customers\TRAIH.jpg" />
+    <Content Include="Content\web\Customers\VAFFE.jpg" />
+    <Content Include="Content\web\Customers\VICTE.jpg" />
+    <Content Include="Content\web\Customers\VINET.jpg" />
+    <Content Include="Content\web\Customers\WANDK.jpg" />
+    <Content Include="Content\web\Customers\WARTH.jpg" />
+    <Content Include="Content\web\Customers\WELLI.jpg" />
+    <Content Include="Content\web\Customers\WHITC.jpg" />
+    <Content Include="Content\web\Customers\WILMK.jpg" />
+    <Content Include="Content\web\Customers\WOLZA.jpg" />
+    <Content Include="Content\web\datasource\books.xml" />
+    <Content Include="Content\web\datasource\remote-data\twitter-icon.png" />
+    <Content Include="Content\web\datasource\xml-data\bulletproof-web-design.png" />
+    <Content Include="Content\web\datasource\xml-data\eloquent-javascript.png" />
+    <Content Include="Content\web\datasource\xml-data\handcrafted-css.png" />
+    <Content Include="Content\web\datasource\xml-data\high-performance-javascript.png" />
+    <Content Include="Content\web\datasource\xml-data\javascript-patterns.png" />
+    <Content Include="Content\web\datasource\xml-data\javascript-the-good-parts.png" />
+    <Content Include="Content\web\datasource\xml-data\responsive-web-design.png" />
+    <Content Include="Content\web\datasource\xml-data\secrets-of-the-javascript-ninja.png" />
+    <Content Include="Content\web\datasource\xml-data\stunning-css3.png" />
+    <Content Include="Content\web\datepicker\mailSettings.png" />
+    <Content Include="Content\web\datepicker\todo.png" />
+    <Content Include="Content\web\Default\editor.png" />
+    <Content Include="Content\web\Default\imagebrowser.png" />
+    <Content Include="Content\web\Default\indeterminate.gif" />
+    <Content Include="Content\web\Default\loading-image.gif" />
+    <Content Include="Content\web\Default\loading.gif" />
+    <Content Include="Content\web\Default\loading_2x.gif" />
+    <Content Include="Content\web\Default\markers.png" />
+    <Content Include="Content\web\Default\markers_2x.png" />
+    <Content Include="Content\web\Default\slider-h.gif" />
+    <Content Include="Content\web\Default\slider-v.gif" />
+    <Content Include="Content\web\Default\sprite.png" />
+    <Content Include="Content\web\Default\sprite_2x.png" />
+    <Content Include="Content\web\Default\sprite_kpi.png" />
+    <Content Include="Content\web\Default\sprite_kpi_2x.png" />
+    <Content Include="Content\web\delete.png" />
+    <Content Include="Content\web\dragdrop\drag-clue.png" />
+    <Content Include="Content\web\dragdrop\draggable.png" />
+    <Content Include="Content\web\drawer\menu.png" />
+    <Content Include="Content\web\dropdownlist\cap.png" />
+    <Content Include="Content\web\edit.png" />
+    <Content Include="Content\web\editor\dataviz.png" />
+    <Content Include="Content\web\editor\editorStyles.css" />
+    <Content Include="Content\web\editor\insert-html-icon.png" />
+    <Content Include="Content\web\editor\kendo-ui-web.png" />
+    <Content Include="Content\web\editor\mobile.png" />
+    <Content Include="Content\web\editor\pdf-export-styles.css" />
+    <Content Include="Content\web\editor\web.png" />
+    <Content Include="Content\web\Employees\1.jpg" />
+    <Content Include="Content\web\Employees\2.jpg" />
+    <Content Include="Content\web\Employees\3.jpg" />
+    <Content Include="Content\web\Employees\4.jpg" />
+    <Content Include="Content\web\Employees\5.jpg" />
+    <Content Include="Content\web\Employees\6.jpg" />
+    <Content Include="Content\web\Employees\7.jpg" />
+    <Content Include="Content\web\Employees\8.jpg" />
+    <Content Include="Content\web\Employees\9.jpg" />
+    <Content Include="Content\web\favicon.png" />
+    <Content Include="Content\web\financial\stock-history\scripts.js" />
+    <Content Include="Content\web\financial\stock-history\styles.css" />
+    <Content Include="Content\web\Fiori\editor.png" />
+    <Content Include="Content\web\Fiori\imagebrowser.png" />
+    <Content Include="Content\web\Fiori\indeterminate.gif" />
+    <Content Include="Content\web\Fiori\loading-image.gif" />
+    <Content Include="Content\web\Fiori\loading.gif" />
+    <Content Include="Content\web\Fiori\loading_2x.gif" />
+    <Content Include="Content\web\Fiori\markers.png" />
+    <Content Include="Content\web\Fiori\markers_2x.png" />
+    <Content Include="Content\web\Fiori\slider-h.gif" />
+    <Content Include="Content\web\Fiori\slider-v.gif" />
+    <Content Include="Content\web\Fiori\sprite.png" />
+    <Content Include="Content\web\Fiori\sprite_2x.png" />
+    <Content Include="Content\web\Fiori\sprite_kpi.png" />
+    <Content Include="Content\web\Fiori\sprite_kpi_2x.png" />
+    <Content Include="Content\web\Flat\editor.png" />
+    <Content Include="Content\web\Flat\imagebrowser.png" />
+    <Content Include="Content\web\Flat\indeterminate.gif" />
+    <Content Include="Content\web\Flat\loading-image.gif" />
+    <Content Include="Content\web\Flat\loading.gif" />
+    <Content Include="Content\web\Flat\loading_2x.gif" />
+    <Content Include="Content\web\Flat\markers.png" />
+    <Content Include="Content\web\Flat\markers_2x.png" />
+    <Content Include="Content\web\Flat\slider-h.gif" />
+    <Content Include="Content\web\Flat\slider-v.gif" />
+    <Content Include="Content\web\Flat\sprite.png" />
+    <Content Include="Content\web\Flat\sprite_2x.png" />
+    <Content Include="Content\web\Flat\sprite_kpi.png" />
+    <Content Include="Content\web\Flat\sprite_kpi_2x.png" />
+    <Content Include="Content\web\folder.png" />
+    <Content Include="Content\web\foldersList.gif" />
+    <Content Include="Content\web\fonts\DejaVu\LICENSE.txt" />
+    <Content Include="Content\web\fonts\glyphs\KendoUIGlyphs.svg" />
+    <Content Include="Content\web\fonts\glyphs\WebComponentsIcons.svg" />
+    <Content Include="Content\web\foods\1.jpg" />
+    <Content Include="Content\web\foods\10.jpg" />
+    <Content Include="Content\web\foods\11.jpg" />
+    <Content Include="Content\web\foods\12.jpg" />
+    <Content Include="Content\web\foods\13.jpg" />
+    <Content Include="Content\web\foods\14.jpg" />
+    <Content Include="Content\web\foods\15.jpg" />
+    <Content Include="Content\web\foods\16.jpg" />
+    <Content Include="Content\web\foods\17.jpg" />
+    <Content Include="Content\web\foods\18.jpg" />
+    <Content Include="Content\web\foods\19.jpg" />
+    <Content Include="Content\web\foods\2.jpg" />
+    <Content Include="Content\web\foods\20.jpg" />
+    <Content Include="Content\web\foods\200\11.jpg" />
+    <Content Include="Content\web\foods\200\12.jpg" />
+    <Content Include="Content\web\foods\200\31.jpg" />
+    <Content Include="Content\web\foods\200\32.jpg" />
+    <Content Include="Content\web\foods\200\33.jpg" />
+    <Content Include="Content\web\foods\200\59.jpg" />
+    <Content Include="Content\web\foods\200\60.jpg" />
+    <Content Include="Content\web\foods\200\69.jpg" />
+    <Content Include="Content\web\foods\200\72.jpg" />
+    <Content Include="Content\web\foods\21.jpg" />
+    <Content Include="Content\web\foods\22.jpg" />
+    <Content Include="Content\web\foods\23.jpg" />
+    <Content Include="Content\web\foods\24.jpg" />
+    <Content Include="Content\web\foods\25.jpg" />
+    <Content Include="Content\web\foods\26.jpg" />
+    <Content Include="Content\web\foods\27.jpg" />
+    <Content Include="Content\web\foods\28.jpg" />
+    <Content Include="Content\web\foods\29.jpg" />
+    <Content Include="Content\web\foods\3.jpg" />
+    <Content Include="Content\web\foods\30.jpg" />
+    <Content Include="Content\web\foods\31.jpg" />
+    <Content Include="Content\web\foods\32.jpg" />
+    <Content Include="Content\web\foods\33.jpg" />
+    <Content Include="Content\web\foods\34.jpg" />
+    <Content Include="Content\web\foods\35.jpg" />
+    <Content Include="Content\web\foods\36.jpg" />
+    <Content Include="Content\web\foods\37.jpg" />
+    <Content Include="Content\web\foods\38.jpg" />
+    <Content Include="Content\web\foods\39.jpg" />
+    <Content Include="Content\web\foods\4.jpg" />
+    <Content Include="Content\web\foods\40.jpg" />
+    <Content Include="Content\web\foods\41.jpg" />
+    <Content Include="Content\web\foods\42.jpg" />
+    <Content Include="Content\web\foods\43.jpg" />
+    <Content Include="Content\web\foods\44.jpg" />
+    <Content Include="Content\web\foods\45.jpg" />
+    <Content Include="Content\web\foods\46.jpg" />
+    <Content Include="Content\web\foods\47.jpg" />
+    <Content Include="Content\web\foods\48.jpg" />
+    <Content Include="Content\web\foods\49.jpg" />
+    <Content Include="Content\web\foods\5.jpg" />
+    <Content Include="Content\web\foods\50.jpg" />
+    <Content Include="Content\web\foods\51.jpg" />
+    <Content Include="Content\web\foods\52.jpg" />
+    <Content Include="Content\web\foods\53.jpg" />
+    <Content Include="Content\web\foods\54.jpg" />
+    <Content Include="Content\web\foods\55.jpg" />
+    <Content Include="Content\web\foods\56.jpg" />
+    <Content Include="Content\web\foods\57.jpg" />
+    <Content Include="Content\web\foods\58.jpg" />
+    <Content Include="Content\web\foods\59.jpg" />
+    <Content Include="Content\web\foods\6.jpg" />
+    <Content Include="Content\web\foods\60.jpg" />
+    <Content Include="Content\web\foods\61.jpg" />
+    <Content Include="Content\web\foods\62.jpg" />
+    <Content Include="Content\web\foods\63.jpg" />
+    <Content Include="Content\web\foods\64.jpg" />
+    <Content Include="Content\web\foods\65.jpg" />
+    <Content Include="Content\web\foods\66.jpg" />
+    <Content Include="Content\web\foods\67.jpg" />
+    <Content Include="Content\web\foods\68.jpg" />
+    <Content Include="Content\web\foods\69.jpg" />
+    <Content Include="Content\web\foods\7.jpg" />
+    <Content Include="Content\web\foods\70.jpg" />
+    <Content Include="Content\web\foods\71.jpg" />
+    <Content Include="Content\web\foods\72.jpg" />
+    <Content Include="Content\web\foods\73.jpg" />
+    <Content Include="Content\web\foods\74.jpg" />
+    <Content Include="Content\web\foods\75.jpg" />
+    <Content Include="Content\web\foods\76.jpg" />
+    <Content Include="Content\web\foods\77.jpg" />
+    <Content Include="Content\web\foods\78.jpg" />
+    <Content Include="Content\web\foods\79.jpg" />
+    <Content Include="Content\web\foods\8.jpg" />
+    <Content Include="Content\web\foods\80.jpg" />
+    <Content Include="Content\web\foods\9.jpg" />
+    <Content Include="Content\web\framework\company-logo.png" />
+    <Content Include="Content\web\fx\blogs-screenshot.png" />
+    <Content Include="Content\web\fx\cart.png" />
+    <Content Include="Content\web\fx\groceries.jpg" />
+    <Content Include="Content\web\fx\library.jpg" />
+    <Content Include="Content\web\fx\pageturn\arrow-left.png" />
+    <Content Include="Content\web\fx\pageturn\arrow-right.png" />
+    <Content Include="Content\web\fx\pageturn\audi.jpg" />
+    <Content Include="Content\web\fx\pageturn\book.png" />
+    <Content Include="Content\web\fx\pageturn\ferrari.jpg" />
+    <Content Include="Content\web\fx\pageturn\maserati.jpg" />
+    <Content Include="Content\web\fx\pageturn\mazda.jpg" />
+    <Content Include="Content\web\fx\pageturn\mercedes.jpg" />
+    <Content Include="Content\web\fx\pageturn\mini.jpg" />
+    <Content Include="Content\web\fx\replace\home1.jpg" />
+    <Content Include="Content\web\fx\replace\home2.jpg" />
+    <Content Include="Content\web\fx\replace\home3.jpg" />
+    <Content Include="Content\web\fx\replace\t1.jpg" />
+    <Content Include="Content\web\fx\replace\t2.jpg" />
+    <Content Include="Content\web\fx\replace\t3.jpg" />
+    <Content Include="Content\web\fx\share-handle.png" />
+    <Content Include="Content\web\fx\social-buttons.png" />
+    <Content Include="Content\web\fx\store.jpg" />
+    <Content Include="Content\web\fx\zoom\andreas.png" />
+    <Content Include="Content\web\fx\zoom\background.png" />
+    <Content Include="Content\web\fx\zoom\lysa.png" />
+    <Content Include="Content\web\fx\zoom\mathew.png" />
+    <Content Include="Content\web\gantt\resources\1.jpg" />
+    <Content Include="Content\web\gantt\resources\10.jpg" />
+    <Content Include="Content\web\gantt\resources\11.jpg" />
+    <Content Include="Content\web\gantt\resources\12.jpg" />
+    <Content Include="Content\web\gantt\resources\13.jpg" />
+    <Content Include="Content\web\gantt\resources\2.jpg" />
+    <Content Include="Content\web\gantt\resources\3.jpg" />
+    <Content Include="Content\web\gantt\resources\4.jpg" />
+    <Content Include="Content\web\gantt\resources\5.jpg" />
+    <Content Include="Content\web\gantt\resources\6.jpg" />
+    <Content Include="Content\web\gantt\resources\7.jpg" />
+    <Content Include="Content\web\gantt\resources\8.jpg" />
+    <Content Include="Content\web\gantt\resources\9.jpg" />
+    <Content Include="Content\web\globalization\cultures\kendo.culture.bg-BG.js" />
+    <Content Include="Content\web\globalization\cultures\kendo.culture.de-DE.js" />
+    <Content Include="Content\web\globalization\cultures\kendo.culture.en-GB.js" />
+    <Content Include="Content\web\globalization\cultures\kendo.culture.en-US.js" />
+    <Content Include="Content\web\globalization\cultures\kendo.culture.fr-FR.js" />
+    <Content Include="Content\web\globalization\messages\kendo.messages.bg-BG.js" />
+    <Content Include="Content\web\globalization\messages\kendo.messages.en-US.js" />
+    <Content Include="Content\web\grid\clientsDb.png" />
+    <Content Include="Content\web\HighContrast\editor.png" />
+    <Content Include="Content\web\HighContrast\imagebrowser.png" />
+    <Content Include="Content\web\HighContrast\indeterminate.gif" />
+    <Content Include="Content\web\HighContrast\loading-image.gif" />
+    <Content Include="Content\web\HighContrast\loading.gif" />
+    <Content Include="Content\web\HighContrast\loading_2x.gif" />
+    <Content Include="Content\web\HighContrast\markers.png" />
+    <Content Include="Content\web\HighContrast\markers_2x.png" />
+    <Content Include="Content\web\HighContrast\slider-h.gif" />
+    <Content Include="Content\web\HighContrast\slider-v.gif" />
+    <Content Include="Content\web\HighContrast\sprite.png" />
+    <Content Include="Content\web\HighContrast\sprite_2x.png" />
+    <Content Include="Content\web\HighContrast\sprite_kpi.png" />
+    <Content Include="Content\web\HighContrast\sprite_kpi_2x.png" />
+    <Content Include="Content\web\images\kendoui.svg" />
+    <Content Include="Content\web\kendo.black.min.css" />
+    <Content Include="Content\web\kendo.black.mobile.min.css" />
+    <Content Include="Content\web\kendo.blueopal.min.css" />
+    <Content Include="Content\web\kendo.blueopal.mobile.min.css" />
+    <Content Include="Content\web\kendo.bootstrap-v4.min.css" />
+    <Content Include="Content\web\kendo.bootstrap.min.css" />
+    <Content Include="Content\web\kendo.bootstrap.mobile.min.css" />
+    <Content Include="Content\web\kendo.common-bootstrap.core.min.css" />
+    <Content Include="Content\web\kendo.common-bootstrap.min.css" />
+    <Content Include="Content\web\kendo.common-fiori.min.css" />
+    <Content Include="Content\web\kendo.common-material.core.min.css" />
+    <Content Include="Content\web\kendo.common-material.min.css" />
+    <Content Include="Content\web\kendo.common-nova.core.min.css" />
+    <Content Include="Content\web\kendo.common-nova.min.css" />
+    <Content Include="Content\web\kendo.common-office365.min.css" />
+    <Content Include="Content\web\kendo.common.core.min.css" />
+    <Content Include="Content\web\kendo.common.min.css" />
+    <Content Include="Content\web\kendo.default-v2.min.css" />
+    <Content Include="Content\web\kendo.default.min.css" />
+    <Content Include="Content\web\kendo.default.mobile.min.css" />
+    <Content Include="Content\web\kendo.fiori.min.css" />
+    <Content Include="Content\web\kendo.fiori.mobile.min.css" />
+    <Content Include="Content\web\kendo.flat.min.css" />
+    <Content Include="Content\web\kendo.flat.mobile.min.css" />
+    <Content Include="Content\web\kendo.highcontrast.min.css" />
+    <Content Include="Content\web\kendo.highcontrast.mobile.min.css" />
+    <Content Include="Content\web\kendo.material.min.css" />
+    <Content Include="Content\web\kendo.material.mobile.min.css" />
+    <Content Include="Content\web\kendo.materialblack.min.css" />
+    <Content Include="Content\web\kendo.materialblack.mobile.min.css" />
+    <Content Include="Content\web\kendo.metro.min.css" />
+    <Content Include="Content\web\kendo.metro.mobile.min.css" />
+    <Content Include="Content\web\kendo.metroblack.min.css" />
+    <Content Include="Content\web\kendo.metroblack.mobile.min.css" />
+    <Content Include="Content\web\kendo.moonlight.min.css" />
+    <Content Include="Content\web\kendo.moonlight.mobile.min.css" />
+    <Content Include="Content\web\kendo.nova.min.css" />
+    <Content Include="Content\web\kendo.nova.mobile.min.css" />
+    <Content Include="Content\web\kendo.office365.min.css" />
+    <Content Include="Content\web\kendo.office365.mobile.min.css" />
+    <Content Include="Content\web\kendo.rtl.min.css" />
+    <Content Include="Content\web\kendo.silver.min.css" />
+    <Content Include="Content\web\kendo.silver.mobile.min.css" />
+    <Content Include="Content\web\kendo.uniform.min.css" />
+    <Content Include="Content\web\kendo.uniform.mobile.min.css" />
+    <Content Include="Content\web\listbox\arrow-left2right.png" />
+    <Content Include="Content\web\listbox\arrow-right2left.png" />
+    <Content Include="Content\web\listbox\arrows.png" />
+    <Content Include="Content\web\listview\simple-to-do.png" />
+    <Content Include="Content\web\loremIpsum.html" />
+    <Content Include="Content\web\mail.gif" />
+    <Content Include="Content\web\mailDeletedItems.gif" />
+    <Content Include="Content\web\mailfolder.gif" />
+    <Content Include="Content\web\mailInbox.gif" />
+    <Content Include="Content\web\mailItems.gif" />
+    <Content Include="Content\web\mailOutbox.gif" />
+    <Content Include="Content\web\mailPersonalFolders.gif" />
+    <Content Include="Content\web\mailSearch.gif" />
+    <Content Include="Content\web\mailSent.gif" />
+    <Content Include="Content\web\MaterialBlack\editor.png" />
+    <Content Include="Content\web\MaterialBlack\imagebrowser.png" />
+    <Content Include="Content\web\MaterialBlack\indeterminate.gif" />
+    <Content Include="Content\web\MaterialBlack\loading-image.gif" />
+    <Content Include="Content\web\MaterialBlack\loading.gif" />
+    <Content Include="Content\web\MaterialBlack\loading_2x.gif" />
+    <Content Include="Content\web\MaterialBlack\markers.png" />
+    <Content Include="Content\web\MaterialBlack\markers_2x.png" />
+    <Content Include="Content\web\MaterialBlack\slider-h.gif" />
+    <Content Include="Content\web\MaterialBlack\slider-v.gif" />
+    <Content Include="Content\web\MaterialBlack\sprite.png" />
+    <Content Include="Content\web\MaterialBlack\sprite_2x.png" />
+    <Content Include="Content\web\MaterialBlack\sprite_kpi.png" />
+    <Content Include="Content\web\MaterialBlack\sprite_kpi_2x.png" />
+    <Content Include="Content\web\Material\editor.png" />
+    <Content Include="Content\web\Material\imagebrowser.png" />
+    <Content Include="Content\web\Material\indeterminate.gif" />
+    <Content Include="Content\web\Material\loading-image.gif" />
+    <Content Include="Content\web\Material\loading.gif" />
+    <Content Include="Content\web\Material\loading_2x.gif" />
+    <Content Include="Content\web\Material\markers.png" />
+    <Content Include="Content\web\Material\markers_2x.png" />
+    <Content Include="Content\web\Material\slider-h.gif" />
+    <Content Include="Content\web\Material\slider-v.gif" />
+    <Content Include="Content\web\Material\sprite.png" />
+    <Content Include="Content\web\Material\sprite_2x.png" />
+    <Content Include="Content\web\Material\sprite_kpi.png" />
+    <Content Include="Content\web\Material\sprite_kpi_2x.png" />
+    <Content Include="Content\web\menu\header.jpg" />
+    <Content Include="Content\web\menu\map.png" />
+    <Content Include="Content\web\MetroBlack\editor.png" />
+    <Content Include="Content\web\MetroBlack\imagebrowser.png" />
+    <Content Include="Content\web\MetroBlack\indeterminate.gif" />
+    <Content Include="Content\web\MetroBlack\loading-image.gif" />
+    <Content Include="Content\web\MetroBlack\loading.gif" />
+    <Content Include="Content\web\MetroBlack\loading_2x.gif" />
+    <Content Include="Content\web\MetroBlack\markers.png" />
+    <Content Include="Content\web\MetroBlack\markers_2x.png" />
+    <Content Include="Content\web\MetroBlack\slider-h.gif" />
+    <Content Include="Content\web\MetroBlack\slider-v.gif" />
+    <Content Include="Content\web\MetroBlack\sprite.png" />
+    <Content Include="Content\web\MetroBlack\sprite_2x.png" />
+    <Content Include="Content\web\MetroBlack\sprite_kpi.png" />
+    <Content Include="Content\web\MetroBlack\sprite_kpi_2x.png" />
+    <Content Include="Content\web\Metro\editor.png" />
+    <Content Include="Content\web\Metro\imagebrowser.png" />
+    <Content Include="Content\web\Metro\indeterminate.gif" />
+    <Content Include="Content\web\Metro\loading-image.gif" />
+    <Content Include="Content\web\Metro\loading.gif" />
+    <Content Include="Content\web\Metro\loading_2x.gif" />
+    <Content Include="Content\web\Metro\markers.png" />
+    <Content Include="Content\web\Metro\markers_2x.png" />
+    <Content Include="Content\web\Metro\slider-h.gif" />
+    <Content Include="Content\web\Metro\slider-v.gif" />
+    <Content Include="Content\web\Metro\sprite.png" />
+    <Content Include="Content\web\Metro\sprite_2x.png" />
+    <Content Include="Content\web\Metro\sprite_kpi.png" />
+    <Content Include="Content\web\Metro\sprite_kpi_2x.png" />
+    <Content Include="Content\web\Moonlight\editor.png" />
+    <Content Include="Content\web\Moonlight\imagebrowser.png" />
+    <Content Include="Content\web\Moonlight\indeterminate.gif" />
+    <Content Include="Content\web\Moonlight\loading-image.gif" />
+    <Content Include="Content\web\Moonlight\loading.gif" />
+    <Content Include="Content\web\Moonlight\loading_2x.gif" />
+    <Content Include="Content\web\Moonlight\markers.png" />
+    <Content Include="Content\web\Moonlight\markers_2x.png" />
+    <Content Include="Content\web\Moonlight\slider-h.gif" />
+    <Content Include="Content\web\Moonlight\slider-v.gif" />
+    <Content Include="Content\web\Moonlight\sprite.png" />
+    <Content Include="Content\web\Moonlight\sprite_2x.png" />
+    <Content Include="Content\web\Moonlight\sprite_kpi.png" />
+    <Content Include="Content\web\Moonlight\sprite_kpi_2x.png" />
+    <Content Include="Content\web\Mvc\Grid.png" />
+    <Content Include="Content\web\Mvc\Menu.png" />
+    <Content Include="Content\web\Mvc\PanelBar.png" />
+    <Content Include="Content\web\Mvc\TabStrip.png" />
+    <Content Include="Content\web\mvvm\confirm.png" />
+    <Content Include="Content\web\mvvm\regForm.png" />
+    <Content Include="Content\web\notes.gif" />
+    <Content Include="Content\web\notesItems.gif" />
+    <Content Include="Content\web\notification\envelope.png" />
+    <Content Include="Content\web\notification\error-icon.png" />
+    <Content Include="Content\web\notification\success-icon.png" />
+    <Content Include="Content\web\Nova\editor.png" />
+    <Content Include="Content\web\Nova\imagebrowser.png" />
+    <Content Include="Content\web\Nova\indeterminate.gif" />
+    <Content Include="Content\web\Nova\loading-image.gif" />
+    <Content Include="Content\web\Nova\loading.gif" />
+    <Content Include="Content\web\Nova\loading_2x.gif" />
+    <Content Include="Content\web\Nova\markers.png" />
+    <Content Include="Content\web\Nova\markers_2x.png" />
+    <Content Include="Content\web\Nova\slider-h.gif" />
+    <Content Include="Content\web\Nova\slider-v.gif" />
+    <Content Include="Content\web\Nova\sprite.png" />
+    <Content Include="Content\web\Nova\sprite_2x.png" />
+    <Content Include="Content\web\Nova\sprite_kpi.png" />
+    <Content Include="Content\web\Nova\sprite_kpi_2x.png" />
+    <Content Include="Content\web\numerictextbox\addProduct.png" />
+    <Content Include="Content\web\Office365\editor.png" />
+    <Content Include="Content\web\Office365\imagebrowser.png" />
+    <Content Include="Content\web\Office365\indeterminate.gif" />
+    <Content Include="Content\web\Office365\loading-image.gif" />
+    <Content Include="Content\web\Office365\loading.gif" />
+    <Content Include="Content\web\Office365\loading_2x.gif" />
+    <Content Include="Content\web\Office365\markers.png" />
+    <Content Include="Content\web\Office365\markers_2x.png" />
+    <Content Include="Content\web\Office365\slider-h.gif" />
+    <Content Include="Content\web\Office365\slider-v.gif" />
+    <Content Include="Content\web\Office365\sprite.png" />
+    <Content Include="Content\web\Office365\sprite_2x.png" />
+    <Content Include="Content\web\Office365\sprite_kpi.png" />
+    <Content Include="Content\web\Office365\sprite_kpi_2x.png" />
+    <Content Include="Content\web\orm-comparison.png" />
+    <Content Include="Content\web\overview\autocomplete.png" />
+    <Content Include="Content\web\overview\combobox.png" />
+    <Content Include="Content\web\overview\datasource.png" />
+    <Content Include="Content\web\overview\datepicker.png" />
+    <Content Include="Content\web\overview\editor.png" />
+    <Content Include="Content\web\overview\grid.png" />
+    <Content Include="Content\web\overview\listview.png" />
+    <Content Include="Content\web\overview\mvvm.png" />
+    <Content Include="Content\web\overview\scheduler.png" />
+    <Content Include="Content\web\page_white_text.png" />
+    <Content Include="Content\web\panelbar\ajax\ajaxContent1.html" />
+    <Content Include="Content\web\panelbar\ajax\ajaxContent2.html" />
+    <Content Include="Content\web\panelbar\ajax\ajaxContent3.html" />
+    <Content Include="Content\web\panelbar\ajax\ajaxContent4.html" />
+    <Content Include="Content\web\panelbar\andrew.jpg" />
+    <Content Include="Content\web\panelbar\astonmartin.png" />
+    <Content Include="Content\web\panelbar\history.png" />
+    <Content Include="Content\web\panelbar\nancy.jpg" />
+    <Content Include="Content\web\panelbar\orgFoot.png" />
+    <Content Include="Content\web\panelbar\orgHead.png" />
+    <Content Include="Content\web\panelbar\robert.jpg" />
+    <Content Include="Content\web\pdfprocessing\barChart.png" />
+    <Content Include="Content\web\pdfprocessing\documentAjax.png" />
+    <Content Include="Content\web\pdfprocessing\pdfProcessingAjax.png" />
+    <Content Include="Content\web\pdfprocessing\telerik.png" />
+    <Content Include="Content\web\popover\tag-people.jpg" />
+    <Content Include="Content\web\psy-album.jpg" />
+    <Content Include="Content\web\scheduler\fast-and-furious.jpg" />
+    <Content Include="Content\web\scheduler\now-you-see-me.jpg" />
+    <Content Include="Content\web\scheduler\scheduler-people.png" />
+    <Content Include="Content\web\scheduler\team-schedule.png" />
+    <Content Include="Content\web\scheduler\the-help.jpg" />
+    <Content Include="Content\web\scheduler\the-internship.jpg" />
+    <Content Include="Content\web\scheduler\wallflower.jpg" />
+    <Content Include="Content\web\scroller\title.png" />
+    <Content Include="Content\web\scrollview\arrow-left-black.png" />
+    <Content Include="Content\web\scrollview\arrow-left.png" />
+    <Content Include="Content\web\scrollview\arrow-right-black.png" />
+    <Content Include="Content\web\scrollview\arrow-right.png" />
+    <Content Include="Content\web\Silver\editor.png" />
+    <Content Include="Content\web\Silver\imagebrowser.png" />
+    <Content Include="Content\web\Silver\indeterminate.gif" />
+    <Content Include="Content\web\Silver\loading-image.gif" />
+    <Content Include="Content\web\Silver\loading.gif" />
+    <Content Include="Content\web\Silver\loading_2x.gif" />
+    <Content Include="Content\web\Silver\markers.png" />
+    <Content Include="Content\web\Silver\markers_2x.png" />
+    <Content Include="Content\web\Silver\slider-h.gif" />
+    <Content Include="Content\web\Silver\slider-v.gif" />
+    <Content Include="Content\web\Silver\sprite.png" />
+    <Content Include="Content\web\Silver\sprite_2x.png" />
+    <Content Include="Content\web\Silver\sprite_kpi.png" />
+    <Content Include="Content\web\Silver\sprite_kpi_2x.png" />
+    <Content Include="Content\web\slider\climateController.png" />
+    <Content Include="Content\web\slider\eqBack.png" />
+    <Content Include="Content\web\Sl\Chart.gif" />
+    <Content Include="Content\web\Sl\Docking.gif" />
+    <Content Include="Content\web\Sl\GridView.gif" />
+    <Content Include="Content\web\Sl\Scheduler.gif" />
+    <Content Include="Content\web\sortable\1.jpg" />
+    <Content Include="Content\web\sortable\2.jpg" />
+    <Content Include="Content\web\sortable\3.jpg" />
+    <Content Include="Content\web\sortable\4.jpg" />
+    <Content Include="Content\web\sortable\5.jpg" />
+    <Content Include="Content\web\sortable\dashboard-head.png" />
+    <Content Include="Content\web\sortable\demo-app.jpg" />
+    <Content Include="Content\web\sortable\flat.jpg" />
+    <Content Include="Content\web\sortable\grab.cur" />
+    <Content Include="Content\web\sortable\grabbing.cur" />
+    <Content Include="Content\web\sortable\handle.png" />
+    <Content Include="Content\web\sortable\handlers-title.png" />
+    <Content Include="Content\web\sortable\installer.jpg" />
+    <Content Include="Content\web\sortable\one-way.png" />
+    <Content Include="Content\web\sortable\playlist.png" />
+    <Content Include="Content\web\sortable\property-table.jpg" />
+    <Content Include="Content\web\sortable\sales-dashboard.jpg" />
+    <Content Include="Content\web\sortable\shop-it-later.jpg" />
+    <Content Include="Content\web\sortable\slider.jpg" />
+    <Content Include="Content\web\sortable\two-way.png" />
+    <Content Include="Content\web\sortable\weather-dashboard.jpg" />
+    <Content Include="Content\web\splitter\ajax\ajaxContent1.html" />
+    <Content Include="Content\web\splitter\ajax\ajaxContent2.html" />
+    <Content Include="Content\web\spreadprocessing\csv_file.png" />
+    <Content Include="Content\web\spreadprocessing\CustomDocumentImage.png" />
+    <Content Include="Content\web\spreadprocessing\CustomDocument_file.png" />
+    <Content Include="Content\web\spreadprocessing\pdf_file.png" />
+    <Content Include="Content\web\spreadprocessing\SampleDocumentImage.png" />
+    <Content Include="Content\web\spreadprocessing\txt_file.png" />
+    <Content Include="Content\web\spreadprocessing\xlsx_file.png" />
+    <Content Include="Content\web\spreadstreamprocessing\large-document-export.png" />
+    <Content Include="Content\web\Suites\ajax.png" />
+    <Content Include="Content\web\Suites\mvc.png" />
+    <Content Include="Content\web\Suites\orm.png" />
+    <Content Include="Content\web\Suites\rep.png" />
+    <Content Include="Content\web\Suites\sitefinity.png" />
+    <Content Include="Content\web\Suites\sl.png" />
+    <Content Include="Content\web\Suites\test.png" />
+    <Content Include="Content\web\Suites\win.png" />
+    <Content Include="Content\web\Suites\wpf.png" />
+    <Content Include="Content\web\switch\settings-title.png" />
+    <Content Include="Content\web\tabstrip\ajax\ajaxContent1.html" />
+    <Content Include="Content\web\tabstrip\ajax\ajaxContent2.html" />
+    <Content Include="Content\web\tabstrip\ajax\ajaxContent3.html" />
+    <Content Include="Content\web\tabstrip\bmw.png" />
+    <Content Include="Content\web\tabstrip\forecast.png" />
+    <Content Include="Content\web\tabstrip\weather.png" />
+    <Content Include="Content\web\tasks.gif" />
+    <Content Include="Content\web\tasksItems.gif" />
+    <Content Include="Content\web\textures\brushed-metal.png" />
+    <Content Include="Content\web\textures\dots1.png" />
+    <Content Include="Content\web\textures\dots10.png" />
+    <Content Include="Content\web\textures\dots11.png" />
+    <Content Include="Content\web\textures\dots12.png" />
+    <Content Include="Content\web\textures\dots13.png" />
+    <Content Include="Content\web\textures\dots2.png" />
+    <Content Include="Content\web\textures\dots3.png" />
+    <Content Include="Content\web\textures\dots4.png" />
+    <Content Include="Content\web\textures\dots5.png" />
+    <Content Include="Content\web\textures\dots6.png" />
+    <Content Include="Content\web\textures\dots7.png" />
+    <Content Include="Content\web\textures\dots8.png" />
+    <Content Include="Content\web\textures\dots9.png" />
+    <Content Include="Content\web\textures\glass-lighter.png" />
+    <Content Include="Content\web\textures\glass.png" />
+    <Content Include="Content\web\textures\highlight.png" />
+    <Content Include="Content\web\textures\hsv-gradient.png" />
+    <Content Include="Content\web\textures\hue.png" />
+    <Content Include="Content\web\textures\leather1.png" />
+    <Content Include="Content\web\textures\leather2.png" />
+    <Content Include="Content\web\textures\noise.png" />
+    <Content Include="Content\web\textures\stripe1.png" />
+    <Content Include="Content\web\textures\stripe2.png" />
+    <Content Include="Content\web\textures\stripe3.png" />
+    <Content Include="Content\web\textures\stripe4.png" />
+    <Content Include="Content\web\textures\stripe5.png" />
+    <Content Include="Content\web\textures\stripe6.png" />
+    <Content Include="Content\web\textures\transparency.png" />
+    <Content Include="Content\web\textures\transtexture.png" />
+    <Content Include="Content\web\timepicker\alarmSettings.png" />
+    <Content Include="Content\web\toolbar\done.png" />
+    <Content Include="Content\web\toolbar\forward.png" />
+    <Content Include="Content\web\toolbar\important.png" />
+    <Content Include="Content\web\toolbar\mail.png" />
+    <Content Include="Content\web\toolbar\reply-all.png" />
+    <Content Include="Content\web\toolbar\reply.png" />
+    <Content Include="Content\web\toolbar\save.png" />
+    <Content Include="Content\web\toolbar\todo.png" />
+    <Content Include="Content\web\toolbar\upload.png" />
+    <Content Include="Content\web\toolbar\user.png" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent1.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent2.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent3.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent4.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent5.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent6.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent7.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent8.html" />
+    <Content Include="Content\web\tooltip\ajax\ajaxContent9.html" />
+    <Content Include="Content\web\tooltip\cheese.jpg" />
+    <Content Include="Content\web\tooltip\world-map.jpg" />
+    <Content Include="Content\web\treelist\people\1.jpg" />
+    <Content Include="Content\web\treelist\people\10.jpg" />
+    <Content Include="Content\web\treelist\people\100.jpg" />
+    <Content Include="Content\web\treelist\people\11.jpg" />
+    <Content Include="Content\web\treelist\people\12.jpg" />
+    <Content Include="Content\web\treelist\people\13.jpg" />
+    <Content Include="Content\web\treelist\people\14.jpg" />
+    <Content Include="Content\web\treelist\people\15.jpg" />
+    <Content Include="Content\web\treelist\people\16.jpg" />
+    <Content Include="Content\web\treelist\people\17.jpg" />
+    <Content Include="Content\web\treelist\people\18.jpg" />
+    <Content Include="Content\web\treelist\people\19.jpg" />
+    <Content Include="Content\web\treelist\people\2.jpg" />
+    <Content Include="Content\web\treelist\people\20.jpg" />
+    <Content Include="Content\web\treelist\people\21.jpg" />
+    <Content Include="Content\web\treelist\people\22.jpg" />
+    <Content Include="Content\web\treelist\people\23.jpg" />
+    <Content Include="Content\web\treelist\people\24.jpg" />
+    <Content Include="Content\web\treelist\people\26.jpg" />
+    <Content Include="Content\web\treelist\people\27.jpg" />
+    <Content Include="Content\web\treelist\people\28.jpg" />
+    <Content Include="Content\web\treelist\people\29.jpg" />
+    <Content Include="Content\web\treelist\people\3.jpg" />
+    <Content Include="Content\web\treelist\people\30.jpg" />
+    <Content Include="Content\web\treelist\people\31.jpg" />
+    <Content Include="Content\web\treelist\people\32.jpg" />
+    <Content Include="Content\web\treelist\people\33.jpg" />
+    <Content Include="Content\web\treelist\people\34.jpg" />
+    <Content Include="Content\web\treelist\people\35.jpg" />
+    <Content Include="Content\web\treelist\people\36.jpg" />
+    <Content Include="Content\web\treelist\people\37.jpg" />
+    <Content Include="Content\web\treelist\people\38.jpg" />
+    <Content Include="Content\web\treelist\people\39.jpg" />
+    <Content Include="Content\web\treelist\people\4.jpg" />
+    <Content Include="Content\web\treelist\people\40.jpg" />
+    <Content Include="Content\web\treelist\people\41.jpg" />
+    <Content Include="Content\web\treelist\people\42.jpg" />
+    <Content Include="Content\web\treelist\people\43.jpg" />
+    <Content Include="Content\web\treelist\people\44.jpg" />
+    <Content Include="Content\web\treelist\people\45.jpg" />
+    <Content Include="Content\web\treelist\people\46.jpg" />
+    <Content Include="Content\web\treelist\people\47.jpg" />
+    <Content Include="Content\web\treelist\people\48.jpg" />
+    <Content Include="Content\web\treelist\people\49.jpg" />
+    <Content Include="Content\web\treelist\people\5.jpg" />
+    <Content Include="Content\web\treelist\people\50.jpg" />
+    <Content Include="Content\web\treelist\people\51.jpg" />
+    <Content Include="Content\web\treelist\people\52.jpg" />
+    <Content Include="Content\web\treelist\people\53.jpg" />
+    <Content Include="Content\web\treelist\people\54.jpg" />
+    <Content Include="Content\web\treelist\people\55.jpg" />
+    <Content Include="Content\web\treelist\people\56.jpg" />
+    <Content Include="Content\web\treelist\people\57.jpg" />
+    <Content Include="Content\web\treelist\people\58.jpg" />
+    <Content Include="Content\web\treelist\people\59.jpg" />
+    <Content Include="Content\web\treelist\people\6.jpg" />
+    <Content Include="Content\web\treelist\people\60.jpg" />
+    <Content Include="Content\web\treelist\people\61.jpg" />
+    <Content Include="Content\web\treelist\people\62.jpg" />
+    <Content Include="Content\web\treelist\people\63.jpg" />
+    <Content Include="Content\web\treelist\people\64.jpg" />
+    <Content Include="Content\web\treelist\people\65.jpg" />
+    <Content Include="Content\web\treelist\people\66.jpg" />
+    <Content Include="Content\web\treelist\people\67.jpg" />
+    <Content Include="Content\web\treelist\people\68.jpg" />
+    <Content Include="Content\web\treelist\people\69.jpg" />
+    <Content Include="Content\web\treelist\people\7.jpg" />
+    <Content Include="Content\web\treelist\people\70.jpg" />
+    <Content Include="Content\web\treelist\people\71.jpg" />
+    <Content Include="Content\web\treelist\people\72.jpg" />
+    <Content Include="Content\web\treelist\people\73.jpg" />
+    <Content Include="Content\web\treelist\people\74.jpg" />
+    <Content Include="Content\web\treelist\people\75.jpg" />
+    <Content Include="Content\web\treelist\people\76.jpg" />
+    <Content Include="Content\web\treelist\people\77.jpg" />
+    <Content Include="Content\web\treelist\people\78.jpg" />
+    <Content Include="Content\web\treelist\people\79.jpg" />
+    <Content Include="Content\web\treelist\people\8.jpg" />
+    <Content Include="Content\web\treelist\people\80.jpg" />
+    <Content Include="Content\web\treelist\people\81.jpg" />
+    <Content Include="Content\web\treelist\people\82.jpg" />
+    <Content Include="Content\web\treelist\people\83.jpg" />
+    <Content Include="Content\web\treelist\people\84.jpg" />
+    <Content Include="Content\web\treelist\people\85.jpg" />
+    <Content Include="Content\web\treelist\people\86.jpg" />
+    <Content Include="Content\web\treelist\people\87.jpg" />
+    <Content Include="Content\web\treelist\people\88.jpg" />
+    <Content Include="Content\web\treelist\people\89.jpg" />
+    <Content Include="Content\web\treelist\people\9.jpg" />
+    <Content Include="Content\web\treelist\people\90.jpg" />
+    <Content Include="Content\web\treelist\people\91.jpg" />
+    <Content Include="Content\web\treelist\people\92.jpg" />
+    <Content Include="Content\web\treelist\people\93.jpg" />
+    <Content Include="Content\web\treelist\people\94.jpg" />
+    <Content Include="Content\web\treelist\people\95.jpg" />
+    <Content Include="Content\web\treelist\people\96.jpg" />
+    <Content Include="Content\web\treelist\people\97.jpg" />
+    <Content Include="Content\web\treelist\people\98.jpg" />
+    <Content Include="Content\web\treelist\people\99.jpg" />
+    <Content Include="Content\web\treeview\close.png" />
+    <Content Include="Content\web\treeview\coloricons-sprite.png" />
+    <Content Include="Content\web\treeview\edit.png" />
+    <Content Include="Content\web\treeview\file.png" />
+    <Content Include="Content\web\treeview\folder.png" />
+    <Content Include="Content\web\treeview\icons-sprite.png" />
+    <Content Include="Content\web\treeview\mail.png" />
+    <Content Include="Content\web\treeview\readmail.png" />
+    <Content Include="Content\web\treeview\search.png" />
+    <Content Include="Content\web\treeview\settings.png" />
+    <Content Include="Content\web\Uniform\editor.png" />
+    <Content Include="Content\web\Uniform\imagebrowser.png" />
+    <Content Include="Content\web\Uniform\indeterminate.gif" />
+    <Content Include="Content\web\Uniform\loading-image.gif" />
+    <Content Include="Content\web\Uniform\loading.gif" />
+    <Content Include="Content\web\Uniform\loading_2x.gif" />
+    <Content Include="Content\web\Uniform\markers.png" />
+    <Content Include="Content\web\Uniform\markers_2x.png" />
+    <Content Include="Content\web\Uniform\slider-h.gif" />
+    <Content Include="Content\web\Uniform\slider-v.gif" />
+    <Content Include="Content\web\Uniform\sprite.png" />
+    <Content Include="Content\web\Uniform\sprite_2x.png" />
+    <Content Include="Content\web\Uniform\sprite_kpi.png" />
+    <Content Include="Content\web\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Content\web\upload\default.png" />
+    <Content Include="Content\web\upload\doc.png" />
+    <Content Include="Content\web\upload\jpg.png" />
+    <Content Include="Content\web\upload\pdf.png" />
+    <Content Include="Content\web\upload\xls.png" />
+    <Content Include="Content\web\upload\zip.png" />
+    <Content Include="Content\web\validator\tickets.png" />
+    <Content Include="Content\web\validator\ticketsOnline.png" />
+    <Content Include="Content\web\wave.png" />
+    <Content Include="Content\web\window\ajax\606.jpg" />
+    <Content Include="Content\web\window\ajax\ajaxContent.html" />
+    <Content Include="Content\web\window\ajax\ajaxContent1.html" />
+    <Content Include="Content\web\window\ajax\t-1000.jpg" />
+    <Content Include="Content\web\window\armchair-402.png" />
+    <Content Include="Content\web\window\egg-chair.png" />
+    <Content Include="Content\web\window\kubus-armchair.png" />
+    <Content Include="Content\web\wordsprocessing\CustomDocument_file.png" />
+    <Content Include="Content\web\wordsprocessing\docx_file.png" />
+    <Content Include="Content\web\wordsprocessing\html_file.png" />
+    <Content Include="Content\web\wordsprocessing\rtf_file.png" />
+    <Content Include="Content\web\wordsprocessing\SampleDocumentImage.png" />
+    <Content Include="Content\web\wordsprocessing\txt_file.png" />
+    <Content Include="DAC\RVNLMISModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RVNLMISModel.Context.cs</LastGenOutput>
+      <DependentUpon>RVNLMISModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DAC\RVNLMISModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RVNLMISModel.edmx</DependentUpon>
+      <LastGenOutput>RVNLMISModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="DAC\RVNLMISModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RVNLMISModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAC\RVNLMISModel.edmx.diagram">
+      <DependentUpon>RVNLMISModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\web\datasource\internet-users.json" />
+    <Content Include="Content\web\datasource\top250movies.json" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSans-Bold.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSans-ExtraLight.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSans-Oblique.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSans.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSansMono-Bold.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSansMono-BoldOblique.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSansMono-Oblique.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSansMono.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSerif-Bold.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSerif-BoldItalic.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
+    <Content Include="Content\web\fonts\DejaVu\DejaVuSerif.ttf" />
+    <Content Include="Content\web\fonts\glyphs\KendoUIGlyphs.eot" />
+    <Content Include="Content\web\fonts\glyphs\KendoUIGlyphs.ttf" />
+    <Content Include="Content\web\fonts\glyphs\KendoUIGlyphs.woff" />
+    <Content Include="Content\web\fonts\glyphs\WebComponentsIcons.eot" />
+    <Content Include="Content\web\fonts\glyphs\WebComponentsIcons.ttf" />
+    <Content Include="Content\web\fonts\glyphs\WebComponentsIcons.woff" />
+    <Content Include="Content\web\images\kendoui.ttf" />
+    <Content Include="Content\web\images\kendoui.woff" />
+    <Content Include="Content\web\kendo.black.min.css.map" />
+    <Content Include="Content\web\kendo.black.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.blueopal.min.css.map" />
+    <Content Include="Content\web\kendo.blueopal.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.bootstrap-v4.min.css.map" />
+    <Content Include="Content\web\kendo.bootstrap.min.css.map" />
+    <Content Include="Content\web\kendo.bootstrap.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.common-bootstrap.core.min.css.map" />
+    <Content Include="Content\web\kendo.common-bootstrap.min.css.map" />
+    <Content Include="Content\web\kendo.common-fiori.min.css.map" />
+    <Content Include="Content\web\kendo.common-material.core.min.css.map" />
+    <Content Include="Content\web\kendo.common-material.min.css.map" />
+    <Content Include="Content\web\kendo.common-nova.core.min.css.map" />
+    <Content Include="Content\web\kendo.common-nova.min.css.map" />
+    <Content Include="Content\web\kendo.common-office365.min.css.map" />
+    <Content Include="Content\web\kendo.common.core.min.css.map" />
+    <Content Include="Content\web\kendo.common.min.css.map" />
+    <Content Include="Content\web\kendo.default-v2.min.css.map" />
+    <Content Include="Content\web\kendo.default.min.css.map" />
+    <Content Include="Content\web\kendo.default.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.fiori.min.css.map" />
+    <Content Include="Content\web\kendo.fiori.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.flat.min.css.map" />
+    <Content Include="Content\web\kendo.flat.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.highcontrast.min.css.map" />
+    <Content Include="Content\web\kendo.highcontrast.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.material.min.css.map" />
+    <Content Include="Content\web\kendo.material.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.materialblack.min.css.map" />
+    <Content Include="Content\web\kendo.materialblack.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.metro.min.css.map" />
+    <Content Include="Content\web\kendo.metro.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.metroblack.min.css.map" />
+    <Content Include="Content\web\kendo.metroblack.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.moonlight.min.css.map" />
+    <Content Include="Content\web\kendo.moonlight.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.nova.min.css.map" />
+    <Content Include="Content\web\kendo.nova.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.office365.min.css.map" />
+    <Content Include="Content\web\kendo.office365.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.rtl.min.css.map" />
+    <Content Include="Content\web\kendo.silver.min.css.map" />
+    <Content Include="Content\web\kendo.silver.mobile.min.css.map" />
+    <Content Include="Content\web\kendo.uniform.min.css.map" />
+    <Content Include="Content\web\kendo.uniform.mobile.min.css.map" />
+    <Content Include="Content\web\spreadprocessing\SampleDocument.xlsx" />
+    <Content Include="Content\web\spreadsheet\prices.json" />
+    <Content Include="Content\web\spreadsheet\products.json" />
+    <Content Include="Content\web\wordsprocessing\SampleDocument.docx" />
+    <Content Include="Content\JQueryNotify\LICENSE" />
+    <Content Include="Content\JQueryNotify\README.md" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\kendo.all.min.js" />
+    <Content Include="Scripts\kendo.aspnetmvc.min.js" />
+    <Content Include="Views\CadSoftViewer\CADControl.aspx" />
+    <Content Include="Views\DashboardReports\Index.cshtml" />
+    <Content Include="Views\DashboardReports\ListPowerbiReport.cshtml" />
+    <Content Include="Views\DashboardReports\_PartialCreateEdit.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Packages\Index.cshtml" />
+    <Content Include="Views\Packages\_PartialCreate.cshtml" />
+    <Content Include="Views\Packages\_PartialEditPackage.cshtml" />
+    <Content Include="Views\PMCReportsDetails\Index.cshtml" />
+    <Content Include="Views\PMCReportsDetails\_PartialPMCReportDetails.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\ActivitesGroups\Index.cshtml" />
+    <Content Include="Views\ActivitesGroups\_PartialEditActivityGroup.cshtml" />
+    <Content Include="Views\AssignActivities\Index.cshtml" />
+    <Content Include="Views\AssignActivities\Index_old.cshtml" />
+    <Content Include="Views\AuditTrail\Index.cshtml" />
+    <Content Include="Views\ChangePassword\Index.cshtml" />
+    <Content Include="Views\ConstructionActivity\Index.cshtml" />
+    <Content Include="Views\ConstructionActivity\_AddEditConstAct.cshtml" />
+    <Content Include="Views\ConstructionActivity\_AddEditConstActTransaction.cshtml" />
+    <Content Include="Views\ConstructionActivity\_ConstructionActivityAddEdit.cshtml" />
+    <Content Include="Views\ConstructionActivity\_ConstructionInfo.cshtml" />
+    <Content Include="Views\Construction\Index.cshtml" />
+    <Content Include="Views\Construction\_ConstructionActivityAddEdit.cshtml" />
+    <Content Include="Views\DataMissingReport\Index.cshtml" />
+    <Content Include="Views\DataMissingReport\_PartialMissingEntityEdit.cshtml" />
+    <Content Include="Views\DataMissingReport\_PartialMissingPackeageEdit.cshtml" />
+    <Content Include="Views\DataMissingReport\_PartialMissingSectionEdit.cshtml" />
+    <Content Include="Views\DataMissingReport\_PartilaMissingProjectEdit.cshtml" />
+    <Content Include="Views\DisciplineUser\Index.cshtml" />
+    <Content Include="Views\DisciplineUser\_PartialAddDisciplineUser.cshtml" />
+    <Content Include="Views\Discipline\Index.cshtml" />
+    <Content Include="Views\Discipline\_PartialEditDiscipline.cshtml" />
+    <Content Include="Views\EDMaster\Index.cshtml" />
+    <Content Include="Views\EDMaster\_AddEditED.cshtml" />
+    <Content Include="Views\EnggApprGate\Index.cshtml" />
+    <Content Include="Views\EnggApprGate\_PartialEditEnggApprGate.cshtml" />
+    <Content Include="Views\EnggDrawing\Index.cshtml" />
+    <Content Include="Views\EnggDrawing\_DrawingUpdate.cshtml" />
+    <Content Include="Views\EnggDwgType\Index.cshtml" />
+    <Content Include="Views\EnggDwgType\_PartialEditEnggDwgType.cshtml" />
+    <Content Include="Views\EntityMaster\Index.cshtml" />
+    <Content Include="Views\EntityMaster\_PartialEntityMaster.cshtml" />
+    <Content Include="Views\EntityType\Index.cshtml" />
+    <Content Include="Views\EntityType\_PartialEditEntityType.cshtml" />
+    <Content Include="Views\Help\Index.cshtml" />
+    <Content Include="Views\InvoicePayment\Index.cshtml" />
+    <Content Include="Views\InvoicePayment\_PartialAddEditInvoiceDetails.cshtml" />
+    <Content Include="Views\InvoicePayment\_PartialAddEditPaymentDetails.cshtml" />
+    <Content Include="Views\ListBox\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Lockscreen.cshtml" />
+    <Content Include="Views\ManageActivities\Index.cshtml" />
+    <Content Include="Views\ManageActivities\_PartialAddEditConsActivity.cshtml" />
+    <Content Include="Views\MenuSubMenu\Index.cshtml" />
+    <Content Include="Views\MenuSubMenu\_PartialAddEditMenu.cshtml" />
+    <Content Include="Views\PackageDetailsView\Index.cshtml" />
+    <Content Include="Views\PackageMaterials\Index.cshtml" />
+    <Content Include="Views\PackageMaterials\_PartialImportExcel.cshtml" />
+    <Content Include="Views\PIUMaster\Index.cshtml" />
+    <Content Include="Views\PIUMaster\_AddEditPIU.cshtml" />
+    <Content Include="Views\PMCReportType\Index.cshtml" />
+    <Content Include="Views\PMCReportType\_PartialEditPMCReportType.cshtml" />
+    <Content Include="Views\Procurement\EditProcurement.cshtml" />
+    <Content Include="Views\Procurement\Index.cshtml" />
+    <Content Include="Views\Procurement\_EditAddProcOnDateSelect.cshtml" />
+    <Content Include="Views\Procurement\_MaterialInfo.cshtml" />
+    <Content Include="Views\ProjectDetailsView\Index.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\_PartialCreate.cshtml" />
+    <Content Include="Views\Projects\_PartialEditProject.cshtml" />
+    <Content Include="Views\PushNotification\Index.cshtml" />
+    <Content Include="Views\RailwayMaster\Index.cshtml" />
+    <Content Include="Views\RailwayMaster\_AddEditRailway.cshtml" />
+    <Content Include="Views\Resource\Index.cshtml" />
+    <Content Include="Views\Resource\_PartialEditResource.cshtml" />
+    <Content Include="Views\RoleMenuAccess\Index.cshtml" />
+    <Content Include="Views\RoleMenuAccess\_AddEdit.cshtml" />
+    <Content Include="Views\SectionDetailsView\Index.cshtml" />
+    <Content Include="Views\SectionDetailsView\_PartialEntityView.cshtml" />
+    <Content Include="Views\Section\Index.cshtml" />
+    <Content Include="Views\Section\_ImportExcel.cshtml" />
+    <Content Include="Views\Section\_PartialEditSection.cshtml" />
+    <Content Include="Views\Section\_PartialEditSections.cshtml" />
+    <Content Include="Views\Shared\_MenuList.cshtml" />
+    <Content Include="Views\UnderConstruction\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\_PartialEditUser.cshtml" />
+    <Content Include="Scripts\powerbi.js.map" />
+    <Content Include="Views\CrossSection\Index.cshtml" />
+    <Content Include="Views\CrossSection\_ScActivityDetails.cshtml" />
+    <Content Include="Views\CrossSection\_ScCsDetails.cshtml" />
+    <Content Include="Views\CrossSection\_ScPkgCrossSection.cshtml" />
+    <Content Include="Views\ManageProcMaterial\Index.cshtml" />
+    <Content Include="Views\ManageProcMaterial\_PartialAddEditProcMaterial.cshtml" />
+    <Content Include="Views\AutocadDocViewer\Index.cshtml" />
+    <Content Include="Views\ScChainageLevel\Index.cshtml" />
+    <Content Include="Views\DataIssueReport\Index.cshtml" />
+    <Content Include="Views\DataIssueReport\_PartialIssueLogReportView.cshtml" />
+    <Content Include="Views\AssignDataIssue\Index.cshtml" />
+    <Content Include="Views\AssignDataIssue\_PartialAddIssue.cshtml" />
+    <Content Include="Views\AssignDataIssue\_PartialIssueLogView.cshtml" />
+    <Content Include="Views\AutoDeskDemo\Index.cshtml" />
+    <Content Include="Views\StraightLinePlot\Index.cshtml" />
+    <Content Include="Views\GroupMaster\Index.cshtml" />
+    <Content Include="Views\GroupMaster\_AddEditGroup.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Setting\_PartialAddEditSetting.cshtml" />
+    <Content Include="Views\UpdateProgressChart\Index.cshtml" />
+    <Content Include="Views\ContactDetails\Index.cshtml" />
+    <Content Include="Views\UpdateProgressChart\_PartialUpdateProgress.cshtml" />
+    <Content Include="Views\RoleMenu\index.cshtml" />
+    <Content Include="Views\RoleMenu\_AddEditRoleMenu.cshtml" />
+    <Content Include="Views\StripPackageActivity\Index.cshtml" />
+    <Content Include="Views\StripPackageActivity\_PartialAddUpdate.cshtml" />
+    <Content Include="Views\StripPkgProgress\Index.cshtml" />
+    <Content Include="Views\StripPkgProgress\_PartialUpdateProgress.cshtml" />
+    <Content Include="Views\RFIForm\index.cshtml" />
+    <Content Include="Views\RFIForm\_AddEditRFIPartialView.cshtml" />
+    <Content Include="Views\RFIForm\_PreviewPartialRFI.cshtml" />
+    <Content Include="Views\StripProgressTwo\Index.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\CadSoftViewer\Index.cshtml" />
+    <Content Include="Uploads\StripChart\3\ford_cobra.dwg" />
+    <Content Include="Views\MaterialDistribution\Index.cshtml" />
+    <Content Include="Views\PackageView\Index.cshtml" />
+    <Content Include="Views\PackageView\_PartialCreate.cshtml" />
+    <Content Include="Views\PackageView\_PartialEditPackage.cshtml" />
+    <Content Include="Views\curruncyconverter\index.cshtml" />
+    <Content Include="Views\Issue\Index.cshtml" />
+    <Content Include="Views\Issue\PartialAddEditIssue.cshtml" />
+    <Content Include="Views\Issue\_PartialViewIssueDetails.cshtml" />
+    <Content Include="Views\PackageStatus\Index.cshtml" />
+    <Content Include="Views\PackageStatus\_SendReportMail.cshtml" />
+    <Content Include="Views\TargetSection\Index.cshtml" />
+    <Content Include="Views\TargetSection\_AddEditTargetSection.cshtml" />
+    <Content Include="Views\AllPackageUser\Index.cshtml" />
+    <Content Include="Views\UserLogs\Index.cshtml" />
+    <Content Include="Views\Documents\Index.cshtml" />
+    <Content Include="Views\ManageContactDetails\Index.cshtml" />
+    <Content Include="Views\NotificationLog\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AvailableValues.cshtml" />
+    <Content Include="Views\Shared\_PartialBC.cshtml" />
+    <Content Include="Views\Shared\_PartialNotifyLayout.cshtml" />
+    <Content Include="Views\Shared\_PartialNotifyList.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\_ViewAddEditTicket.cshtml" />
+    <Content Include="Views\UserSetting\Index.cshtml" />
+    <Content Include="Views\UserSetting\_PartialAddEditSetting.cshtml" />
+    <Content Include="Views\TicketAdmin\Index.cshtml" />
+    <Content Include="Views\TicketAdmin\_changeStatus.cshtml" />
+    <Content Include="Views\DocumentsAdmin\Index.cshtml" />
+    <Content Include="Views\ExportReport\Index.cshtml" />
+    <Content Include="Views\PaginatedReports\Index.cshtml" />
+    <Content Include="Views\Shared\_KeepAlive.cshtml" />
+    <Content Include="Views\Achievement\_AddEditAchievement.cshtml" />
+    <Content Include="Views\Achievement\Index.cshtml" />
+    <Content Include="Views\Shared\_ModalDeleteAttachment.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Invoice\_AddEditInvoice.cshtml" />
+    <Content Include="Views\Milestone\_AddEditMileStone.cshtml" />
+    <Content Include="Views\Milestone\Index.cshtml" />
+    <Content Include="Views\Config\_AddEditPhysicalProgress.cshtml" />
+    <Content Include="Views\Config\Index.cshtml" />
+    <Content Include="Views\Config\ListOfCashParameter.cshtml" />
+    <Content Include="Views\Config\_AddEditCashParameter.cshtml" />
+    <Content Include="Views\Config\ListOfKpiParameter.cshtml" />
+    <Content Include="Views\Config\_AddEditKpiParameter.cshtml" />
+    <Content Include="Views\Config\ListOfHseParameter.cshtml" />
+    <Content Include="Views\Config\_AddEditHseParameter.cshtml" />
+    <Content Include="Views\Config\ListOfQaqcParameter.cshtml" />
+    <Content Include="Views\Config\_AddEditQaqcParameter.cshtml" />
+    <Content Include="Views\Config\ListOfInvoiceDueParameter.cshtml" />
+    <Content Include="Views\Config\_AddEditInvoiceDueParameter.cshtml" />
+    <Content Include="Views\Config\ListOfPrjBaselineParameter.cshtml" />
+    <Content Include="Views\Config\_AddEditPrjBaselineParameter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\RFI\Attachments\" />
+    <Folder Include="Areas\RFI\RFiDoc\" />
+    <Folder Include="Content\assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62555</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:62555/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

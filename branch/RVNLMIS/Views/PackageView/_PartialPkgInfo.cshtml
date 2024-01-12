@@ -1,0 +1,159 @@
+﻿
+@model RVNLMIS.Models.PackageModel
+@{
+    Layout = null;
+}
+
+<div class="card-body">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="pt-2 mb-0 ml-4 text-center">
+                PACKAGE INFORMATION
+                <div class="float-right">
+                    <button data-url='/PackageView/EditPackage/@Model.PackageId' class='EditPackages btn btn-sm btn-warning f-10' title='Edit Package'><i class='fas fa-pencil-alt'></i></button>
+                </div>
+            </h5>
+            <!-- <div class="saperator_full "><div class="divider_full"></div></div> -->
+            <!-- <div class="saperator_left"><div class="divider_left"></div></div> -->
+            <div class="saperator_multiple_centered"><div class="divider_multiple"></div><div class="divider_green"></div></div>
+            <!-- <div class="saperator"><div class="divider"></div></div> -->
+            <!-- <h6 class="mt-3">Login</h6> -->
+
+
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <h6 class="mb-2">
+            Code : <span class="text-magenta">  &nbsp; @Model.PackageCode </span>
+            @* <p class="badge badge-light-success float-right d-inline-block m-0">Approved</p>*@
+        </h6>
+        <h6 class=""> Name :  <span class="text-muted"> @Model.PackageName </span> </h6>
+        <!-- <h6 class=""> CPM :  <span class="text-muted">  &nbsp; CPM/ COORDINATION/MAS </span>
+            <span class="float-right"> ED :  <span class="text-muted"> ED/SOUTH </span>
+        </h6> -->
+    </div>
+
+    <div class="pt-2">
+        <div class="row">
+            @*<div class="col-md-5 pb-2">
+                    <a href="#" class="text-purple close-card mr-2"><i class="feather icon-paperclip mr-1"></i> Attachments </a>
+                </div>*@
+
+            <div class="col-md-5">
+
+                <span class="d-inline-block mb-0 text-danger">
+                    <b> Days Remaining : </b>
+                    <label class="mb-0">@Model.DaysRemain</label>
+                </span>
+            </div>
+            <div class="col-md-7 text-right">
+
+                <span class="d-inline-block mb-0 text-danger">
+                    <b> Expiry Date : </b>
+                    <i class="feather icon-calendar mr-1"></i>
+                    <label class="mb-0">@Model.ExpiryDate</label>
+                </span>
+            </div>
+
+            <div class="col-md-12 border-top pt-2">
+                <h6 class=""> User Name :  <span class="text-muted"> @Model.UserName </span></h6>
+            </div>
+            <div class="col-md-6 pt-2">
+                <h6 class=""> CPM :  <span class="text-muted">  &nbsp; @Model.PackageCPM </span> </h6>
+            </div>
+            <div class="col-md-6 pt-2">
+                <h6 class="">  ED :  <span class="text-muted"> @Model.PackageED</span> </h6>
+            </div>
+            <div class="col-md-12 pt-2">
+                <h6 class=""> Contractor :  <span class="text-muted">  @Model.Contractor </span> </h6>
+            </div>
+            <div class="col-md-12 pt-2">
+                <h6 class=""> Client :  <span class="text-muted">  @Model.Client </span> </h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+
+        <div class="card-body p-0">
+            <div class="row border pt-1">
+
+
+                <div class="col-md-6 border-right border-bottom">
+                    <h6> PMC: </h6>
+                    <label> @Model.PMC </label>
+                </div>
+                <div class="col-md-6 border-bottom">
+                    <h6> PCMC: </h6>
+                    <label> @Model.PCPM </label>
+                </div>
+
+                <div class="col-md-6 border-right border-bottom pt-1">
+                    <h6> Duration: </h6>
+                    <label> @Model.Durations  </label>
+                </div>
+                <div class="col-md-6 border-bottom">
+                    <h6 class="">Total Km</h6>
+                    <label> @Model.TotalKmLengths </label>
+                </div>
+
+
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.PackageValues </h6>
+                    <label> Package Value </label>
+                </div>
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.RevisedPackageValues</h6>
+                    <label> Revised Package Value </label>
+                </div>
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.CompletedValues</h6>
+                    <label> Completed Value </label>
+                </div>
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.BalanceValues </h6>
+                    <label> Balance Value  </label>
+                </div>
+
+
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.PackageStart.Value.ToString("dd MMM yyyy") </h6>
+                    <label> Package Start Date </label>
+                </div>
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.PackageFinish.Value.ToString("dd MMM yyyy") </h6>
+                    <label> Package Finish Date </label>
+                </div>
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.ForecastComplDate.Value.ToString("dd MMM yyyy") </h6>
+                    <label> Forecast Completion  </label>
+                </div>
+
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.StartChainage </h6>
+                    <label> Start Chainage </label>
+                </div>
+                <div class="col-md-4 col-xs-6 border p-2 text-left pl-3">
+                    <h6 class=""> @Model.EndChainage </h6>
+                    <label> End Chainage </label>
+                </div>
+
+                @*<div class="col-md-6 border-right border-bottom pt-1">
+                        <h6> Duration: </h6>
+                        <label> @Model.Durations  </label>
+                    </div>
+                    <div class="col-md-6 border-bottom">
+                        <h6 class="">@Model.TotalKmLengths</h6>
+                        <label> Total Km </label>
+                    </div>*@
+                <div class="col-md-12 p-2">
+                    <h6> Description : </h6>
+                    <label> @Model.Description  </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

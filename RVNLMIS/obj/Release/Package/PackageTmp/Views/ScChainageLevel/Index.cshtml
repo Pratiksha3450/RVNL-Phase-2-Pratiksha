@@ -1,0 +1,323 @@
+﻿@using System.Linq;
+@model RVNLMIS.Models.ScPkgChngLevelModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content_wrapper">
+
+    <div class="row" id="divInfo">
+        <div class="col-md-4 pr-1">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Strip Chart Chainage Level</h5>
+                </div>
+                <div class="card-body pl-3 pr-3" id="Card1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="col-form-label-sm-user text-black-50">Select Package</label>
+                                <div class="input-group input-group-sm" id="pkgContainer">
+                                    @if (ViewBag.PackageList.Items.Count == 1)
+                                    {
+                                        @(Html.Kendo().DropDownList().Name("drpPackage").Popup(p => p.AppendTo("#pkgContainer")).HtmlAttributes(new { @class = "full-width  form-control" }).BindTo(ViewBag.PackageList as SelectList)
+                                        )
+                                    }
+                                    else
+                                    {
+                                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#pkgContainer"))
+                                                                                                                            .Name("drpPackage")
+                                                                                                                            .DataTextField("PackageName")
+                                                                                                                            .DataValueField("PackageId")
+                                                                                                                            .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                                                                                            .Filter("contains").OptionLabel("Select Package")
+                                                                                                                            .DataSource(source =>
+                                                                                                                            {
+                                                                                                                                source.Read(read =>
+                                                                                                                                {
+                                                                                                                                    read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                                                                                                })
+                                                                                                                                                                .ServerFiltering(true);
+                                                                                                                            })
+                                        )
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="col-form-label-sm-user text-black-50">Cross Section</label>
+                                <div class="input-group input-group-sm" id="csContainer">
+                                    @*@(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#csContainer"))
+                                                                            .Name("CrossID")
+                                                                            .DataTextField("CSName")
+                                                                            .DataValueField("CsID")
+                                                                            .HtmlAttributes(new { style = "", @class = "form-control" })
+                                                                            .Filter("contains").OptionLabel("Select Cross Section")
+                                                                            .DataSource(source =>
+                                                                            {
+                                                                                source.Read(read =>
+                                                                                {
+                                                                                    read.Action("ServerFiltering_GetCrossSection", "CrossSection").Data("GetPackageId");
+                                                                                })
+                                                                                .ServerFiltering(true);
+                                                                            })
+                                        )*@
+                                    @Html.EditorFor(model => model.CrossSectionName, new { htmlAttributes = new { @class = " form-control", @type = "text", @placeholder = "Ex: Cross Section 1" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-right mt-2">
+                            <a href="~/Uploads/ExcelImport/SampleScPkgChainageImport.xls" class="btn btn-sm btn-success"><i class="feather icon-download"></i>  Download Template</a>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <hr />
+                        <div class="col-md-8">
+                            <div class="form-group mb-3">
+                                <label class="col-form-label-sm-user text-black-50" for="txtUserName">
+                                    Select Excel
+                                </label>
+                                <div class="input-group input-file" name="Fichier1">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info btn-choose" type="button"
+                                                style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                            Browse File
+                                        </button>
+                                    </span>
+                                    <input type="text" id="txtFileinput" class="form-control pl-3" placeholder='Choose a file...' />
+                                </div>
+                                @*<input type="file" id="FileUpload" name="FileUpload" class="form-control" />*@
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-right pt-1">
+                            <button type="button" id="btnExcelImport" class="btn btn-sm btn-theme mt-4"><i class=feather icon-check"></i>Import</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-8 pl-1">
+            <div class="">
+                <div class="card" id="CardHeight">
+                    <div class="card-header">
+                        <h5>Existing Records</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight" style="height:auto!important;">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.ScPkgChngLevelModel>()
+                                                                                .Name("ScPkgChngLevelGrid")
+                                                                                .Columns(columns =>
+                                                                                {
+                                                                                    columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("3%");
+                                                                                    columns.Bound(c => c.GridCloCS).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:center" })
+                                                                                                    .Title("Cross Section")
+                                                                                                    //.ClientTemplate("#:GridCloCS#")
+                                                                                                    .EditorTemplateName("AvailableValues");
+                                                                                    columns.Bound(c => c.Chainage).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                    columns.Bound(c => c.OGL).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                    columns.Bound(c => c.FRL).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:center" });
+                                                                                }).Scrollable(scr => scr.Height(400))
+                                                                                .Pageable()
+                                                                                .ToolBar(toolBar =>
+                                                                                {
+                                                                                    toolBar.Save();
+                                                                                })
+                                                                                .Events(e => e.DataBound("onRowBound"))
+                                                                                .NoRecords("No Data Found.")
+                                                                                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                                                                                .Sortable()
+                                                                                .Resizable(resize => resize.Columns(true))
+                                                                                .Pageable(pageable => pageable
+                                                                                .Refresh(true)
+                                                                                .PageSizes(true)
+                                                                                .ButtonCount(5)
+                                                                                .PageSizes(new List<object> { 10, 20, 50, "all" }).Refresh(true))
+                                                                                .PersistSelection(true)
+                                                                                .DataSource(dataSource => dataSource
+                                                                                .Ajax()
+                                                                                // .Events(events => { events.RequestEnd("request_end"); })
+                                                                                .Group(g => g.Add(c => c.GridCloCS))
+                                                                                .Batch(true)
+.ServerOperation(false)
+.Update(update => update.Action("EditingCustom_Update", "ScChainageLevel"))
+.Model(model =>
+{
+
+    model.Id(p => p.AutoId);
+    model.Field(p => p.Chainage).Editable(false);
+    model.Field(p => p.GridCloCS);
+    //.DefaultValue(
+    //                ViewData["defaultCS"] as RVNLMIS.Models.ScPkgCrossSectionModel);
+})
+                                                                                .Read(read => read.Action("Read_ExistingList", "ScChainageLevel").Data("GetId"))
+                                                                                .PageSize(15)))
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+@section Scripts{
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            //$('#ExistingConstActGrid').height($(window).height() - 198);
+            $('#Card1').height($(window).height() - 195);
+            $('#k-grid-content').height($(window).height() - 195);
+
+            //$('#divEditConstAct').height($(window).height() - 385);
+
+        });
+        $(window).trigger('resize');
+
+        function GetId() {
+            var dID = $("#drpPackage").data("kendoDropDownList").value();
+            var csID = 0;
+            //$("#CrossID").data("kendoDropDownList").value();
+            return { pkgId: dID };
+        }
+
+        //function GetPackageId() {
+        //    var dID = $("#drpPackage").data("kendoDropDownList").value();
+        //    return { pkgId: dID };
+        //}
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function onRowBound() {
+            rowNumber = 0;
+        }
+
+        function request_end() {
+            $('#ScPkgChngLevelGrid').data('kendoGrid').dataSource.read();
+            $('#ScPkgChngLevelGrid').data('kendoGrid').refresh();
+        }
+
+        $(document).ready(function () {
+            bs_input_file();
+            // PackageChangeEvent();
+
+            $("#drpPackage").change(function () {
+                $(".se-pre-con").css("display", "block");
+                $('#ScPkgChngLevelGrid').data('kendoGrid').dataSource.read();
+                $('#ScPkgChngLevelGrid').data('kendoGrid').refresh();
+                $(".se-pre-con").css("display", "none");
+            });
+
+            $("#CrossID").change(function () {
+                $('#ScPkgChngLevelGrid').data('kendoGrid').dataSource.read();
+                $('#ScPkgChngLevelGrid').data('kendoGrid').refresh();
+            });
+
+            $("#divInfo").on("click", "#btnExcelImport", function () {
+                var formdata = new FormData();
+                var file = document.getElementById("FileUpload").files[0];
+                var packId = $("#drpPackage").val();
+                //var crossSecId = $("#CrossID").val();
+                var crossSectionName = $("#CrossSectionName").val();
+
+                if (packId == '' || packId == null || packId == 'undefined') {
+                    $.notify("Please select Package.", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                if (crossSectionName == '' || crossSectionName == null || crossSectionName == 'undefined') {
+                    $.notify("Please enter Cross Section Name.", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                if (file == 'undefined' || file == '' || file == null) {
+                    $.notify("Please select file.", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    return false;
+                }
+                else {
+                    formdata.append("FileUpload", file);
+                    formdata.append("packageId", packId);
+                    formdata.append("crossSectionName", crossSectionName);
+                    console.log(formdata);
+
+                    $.ajax
+                        ({
+                            url: '/ScChainageLevel/ImportExcel',
+                            type: 'POST',
+                            data: formdata,
+                            // datatype: 'json',
+                            processData: false,
+                            contentType: false,
+                            success: function (result) {
+                                if (result == 'Error') {
+                                    $.notify("Please select file", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                                }
+                                else {
+                                    //$("#drpPackage").val('');
+                                    $("#CrossID").val('');
+                                    $("#CrossSectionName").val('');
+                                    $("#txtFileinput").val('');
+                                    $('#ScPkgChngLevelGrid').data('kendoGrid').dataSource.read();
+                                    $('#ScPkgChngLevelGrid').data('kendoGrid').refresh();
+                                    $.notify(result, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                                    bs_input_file();
+                                }
+                            }
+                        });
+                }
+            });
+        });
+
+        //function PackageChangeEvent() {
+        //    var packageID = $("#drpPackage").data("kendoDropDownList").value();
+        //    $.get("/CrossSection/ServerFiltering_GetCrossSection", { pkgId: packageID },
+        //        function (data) {
+        //            var projectDataSource;
+        //            // console.log(data);
+        //            $("#CrossID").html('');
+        //            projectDataSource = data;
+        //            $("#CrossID").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: projectDataSource }));
+        //        });
+        //}
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='FileUpload' name='FileUpload' class='input-ghost' style='visibility:hidden; height:0'>");
+                        // element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+    </script>
+}   

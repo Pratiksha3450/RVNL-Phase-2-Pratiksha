@@ -1,0 +1,315 @@
+﻿@model RVNLMIS.Models.EDMasterModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+</style>
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-sm-3 pr-1">
+                <input type="hidden" id="hdnEDCode" value="@TempData["EDCode"].ToString()" />
+                <div id="EDForms">
+                    @Html.Partial("_AddEditED", new RVNLMIS.Models.EDMasterModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Executive Director </h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by ED Code or Name" placeholder="Search by ED Code or Name" /></td>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+                            <input type="hidden" id="hdnRoleValue" value="@TempData["RoleValue"].ToString()" />
+                            <input type="hidden" id="hdnRole" value="@TempData["Role"].ToString()" />
+
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.EDMasterModel>()
+                                                                                                                                                                                                                                                        .Name("EDMasterGrid")
+                                                                                                                                                                                                                                                        .Columns(columns =>
+                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                        //columns.Bound(c => c.EDId).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                        //        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                        columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%");
+                                                                                                                                                                                                                                                            columns.Bound(c => c.EDCode).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                                                                                                                                                                                                                                                            columns.Bound(c => c.EDName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+
+                                                                                                                                                                                                                                                            columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/EDMaster/EditEDByEDId/#=EDId#' class='EditED btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + " <button type='button' id='btnDeleteED' class='btn btn-xs btn-danger has-ripple DeleteED' data-key='#=EDId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                                                                                                                                                                                                                        }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Model(model => model.Id(u => u.EDId))
+.Read(read => read.Action("ED_Details", "EDMaster").Data("GetRoleValue"))
+.PageSize(10))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("EDMasterExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("EDMasterPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#EDMasterGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+        $(document).ready(function () {
+            var EDCode = $("#hdnEDCode").val();
+            console.log(EDCode);
+            $("#EDCode").val(EDCode);
+        });
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "EDMaster-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#EDMasterGrid").data("kendoGrid");
+            grid.hideColumn(3);
+
+            grid.options.pdf.fileName = "EDMaster - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(3);
+            });
+        }
+
+
+        function GetRoleValue() {
+            return {
+                EDName: $("#hdnRoleValue").val(),
+                role: $("#hdnRole").val()
+
+            };
+        }
+        function OnEDSuccess(response) {
+
+            if (response.message == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                var EDCode = response.Code;
+                $("#EDCode").val(EDCode);
+
+            }
+            else if (response.message == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                var EDCode = response.Code;
+                $("#EDCode").val(EDCode);
+            }
+            else if (response.message == "Already Exists") {
+                $.notify(response.message, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+                //showNoty('warning', 'ED Add/Updated Failed!');
+            }
+        }
+        $("#btnReset").on("click", function (e) {
+            // $(".btnSubmit").val('Save');
+        });
+        function dataBound() {
+            resetRowNumber();
+            $(".EditED").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#EDForms').html(data);
+                    setTimeout(function () {
+
+                    }, 500);
+                });
+            });
+
+            $(".DeleteED").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();          
+            $.ajax({
+                url: '/EDMaster/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    $('#EDMasterGrid').data('kendoGrid').dataSource.read();
+                    $('#EDMasterGrid').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+        function ClearViewAndGrid() {
+
+            $("#EDId").val(0);
+            $("#EDCode").val("");
+            $("#EDName").val("");
+            $('#EDMasterGrid').data('kendoGrid').dataSource.read();
+            $('#EDMasterGrid').data('kendoGrid').refresh();
+            //  $("#EDCode").removeClass('disableCN');
+        }
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#EDMasterGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "EDCode", operator: "contains", value: v1 },
+                                    { field: "EDName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+    </script>
+
+    <script>
+        //script to highlight current parent menu
+        $(document).ready(function () {
+
+            //Highlight parent menu : nav-item
+            $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+
+
+            //highlight parent menu by overriding pcoded-trigger script
+            $(".nav-item").hover(
+                function () {
+                    $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+                }, function () {
+                    $('#liMasterUpdate').addClass('nav-item pcoded-hasmenu active');
+                }
+            );
+
+
+            //remove active class from other parent menus
+            $('#liKpi').removeClass('active');
+
+
+
+        });
+    </script>
+}

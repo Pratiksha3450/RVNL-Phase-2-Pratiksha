@@ -1,0 +1,41 @@
+﻿@model RVNLMIS.Models.ActivityGroup
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header pb-4">
+        <h5>Activity Group Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddActivityGroup", "ActivitesGroups", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnActivityGroupSuccess" }, new { @class = "form", @id = "ActivityGroupForms" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(mode => Model.ActGId)
+
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <div class="form-group">
+                        <label class="col-form-label-sm-user pt-3" for="txtPMCReportTypeName"><h6>Activity Group Name @Html.ValidationMessageFor(model => model.ActivityGroupName, "", new { @class = "text-danger" })</h6> </label>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-1">
+                    <div class="form-group mb-3">
+                        @Html.EditorFor(model => model.ActivityGroupName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Activity Group Name" } })
+                    </div>
+                </div>
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 198);
+    });
+    $(window).trigger('resize');
+</script>

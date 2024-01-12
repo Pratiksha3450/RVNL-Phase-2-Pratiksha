@@ -1,0 +1,130 @@
+﻿
+@model RVNLMIS.Models.EntityMasterModel
+@{
+    Layout = null;
+}
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 id="modalTitle" class="modal-title">@Model.ModalHeader</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+
+    </div>
+    @using (Ajax.BeginForm("SubmitEntity", "EntityMaster", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "EntityMasterSuccess" }, new { @class = "form-horizontal", Page = "form" }))
+    {
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        @Html.HiddenFor(model => model.EntityID)
+        @Html.HiddenFor(model => model.EntityTypeName)
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mb-3" id="prjContainer">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Project   @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })</label>
+                        @*@Html.DropDownListFor(model => model.ProjectId, ViewBag.ProjectList as SelectList, "Select Project", new { @class = "form-control form-control-sm" })*@
+                        @(Html.Kendo().DropDownListFor(model => model.ProjectId).OptionLabel("Select Project").Popup(p => p.AppendTo("#prjContainer")).Filter("contains").HtmlAttributes(new { @class = "form-control" }).BindTo(ViewBag.ProjectList as SelectList)
+                        )
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3" id="Pkgcontainer">
+                        <label class="col-form-label-sm-user text-black-50">
+                            Package
+                            @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                        </label>
+                        @*@Html.DropDownListFor(model => model.PackageId, ViewBag.PackageList as SelectList, "Select Package", new { @class = "form-control form-control-sm" })*@
+                        @(Html.Kendo().DropDownListFor(model => model.PackageId).Popup(p => p.AppendTo("#Pkgcontainer"))
+                                        .Name("PackageId")
+                                        .DataTextField("PackageName")
+                                        .DataValueField("PackageId")
+                                        .HtmlAttributes(new { style = "width:100%" })
+                                        .Filter("contains").OptionLabel("Select Package")
+                                        .DataSource(source =>
+                                        {
+                                            source.Read(read =>
+                                            {
+                                                read.Action("Get_PackageByProject", "Section").Data("getPrjId");//, new { id = 0 });
+                                                 })
+                                                 .ServerFiltering(true);
+                                        })
+                        )
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3" id="Sectioncontainer">
+                        <label class="col-form-label-sm-user text-black-50">
+                            Section @Html.ValidationMessageFor(model => model.SectionID, "", new { @class = "text-danger" })
+                        </label>
+                        @*@Html.DropDownListFor(model => model.SectionID, ViewBag.SectionList as SelectList, "Select Section", new { @class = "form-control form-control-sm" })*@
+                        @(Html.Kendo().DropDownListFor(model => model.SectionID).Popup(p => p.AppendTo("#Sectioncontainer"))
+                            .Name("SectionID")
+                            .DataTextField("SectionName")
+                            .DataValueField("SectionId")
+                            .HtmlAttributes(new { style = "width:100%" })
+                            .Filter("contains").OptionLabel("Select Section")
+                            .DataSource(source =>
+                            {
+                            source.Read(read =>
+                            {
+                            read.Action("Get_SectionsByPackage", "EntityMaster").Data("getPkgId");//, new { id = 0 });
+                            })
+                            .ServerFiltering(true);
+                            })
+                        )
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Entity Code @Html.ValidationMessageFor(model => model.EntityCode, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.EntityCode, new { htmlAttributes = new { @class = "form-control ", @type = "text", @placeholder = "Ex: ENT0001", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Entity Name @Html.ValidationMessageFor(model => model.EntityName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.EntityName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Entity Name" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtPassword">Entity Type @Html.ValidationMessageFor(model => model.EntityTypeId, "", new { @class = "text-danger" })</label>
+                        @Html.DropDownListFor(model => model.EntityTypeId, ViewBag.EntityType as SelectList, "Select Entity Type", new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEmail">Latitude @Html.ValidationMessageFor(model => model.Lat, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Lat, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @placeholder = "Ex: 38.8951", onkeypress = "return Numbers1DotOnly(this,event)" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">Longitude @Html.ValidationMessageFor(model => model.Long, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.Long, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @placeholder = "Ex: -77.0364", onkeypress = "return Numbers1Dot1MinusOnly(this,event)" } })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEmail">Start Chainage @Html.ValidationMessageFor(model => model.StartChainage, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.StartChainage, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @placeholder = "Ex: 150+300", onkeypress = "return Numbers1PlusOnly(this,event)" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtMobile">End Chainage @Html.ValidationMessageFor(model => model.EndChainage, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.EndChainage, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @placeholder = "Ex:  231+600", onkeypress = "return Numbers1PlusOnly(this,event)" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-theme pull-right">Save</button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,322 @@
+﻿@model RVNLMIS.Models.LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>RFI | Login</title>
+    <!-- One signal web push setup-->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: '@System.Configuration.ConfigurationManager.AppSettings["webPushAppId"]',
+            });
+        });
+    </script>
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 11]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Phoenixcoded" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Content/assetsNew/images/favicon.ico" type="image/x-icon">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/style.css">
+
+    <!-- Custom.css -->
+    <link rel="stylesheet" href="~/Content/assetsNew/css/custom.css">
+
+    <link href="~/Content/JQueryNotify/css/notify.css" rel="stylesheet" />
+
+    @* LOADER *@
+    <link href="~/Content/assets/css/loader.css" rel="stylesheet" />
+    @* /LOADER *@
+
+    <style>
+        .form-control {
+            padding: 0.7rem;
+        }
+
+        .input-group-text {
+            padding: 0.79rem 0.55rem;
+            background-color: #fcfcfc;
+            border: 1px solid #ced4da66;
+        }
+
+        .form-group .form-control {
+            padding-left: 5px !important;
+        }
+    </style>
+
+</head>
+<body class="loginbody">
+    <div style="display:none" class="se-pre-con"></div>
+    <!-- [ signin-img-tabs ] start -->
+    <div class="blur-bg-images"></div>
+    <div class="auth-wrapper">
+        <div class="container">
+
+            <div class="auth-content">
+
+                <div class="card auth_right">
+                    <div class="card-header">
+                        <div class="text-center">
+                            <img src="~/Content/assetsNew/images/auth/RVNL_logo.png" width="70%">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @using (Ajax.BeginForm("Login", "RFILogin", null, new AjaxOptions { HttpMethod = "Post", OnBegin = "onLoginBegin", OnSuccess = "LoginSuccess" }, new { @class = "form", Page = "loginform" }))
+                        {
+                            @Html.HiddenFor(model => model.returnUrl)
+                            <div class="logincard">
+                                <h4 class="mb-2 text-center">RFI Login<!-- <span class="text-c-themeblue">RVNL</span> --></h4>
+                                <!-- <div class="saperator_full "><div class="divider_full"></div></div> -->
+                                <!-- <div class="saperator_left"><div class="divider_left"></div></div> -->
+                                <div class="saperator_multiple_centered"><div class="divider_multiple"></div><div class="divider_green"></div></div>
+                                <!-- <div class="saperator"><div class="divider"></div></div> -->
+                                <!-- <h5 class="mt-3">Login</h5> -->
+
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <div class="form-group fill mb-4">
+                                            <label class="" for="Email">Email/Mobile</label>
+                                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control md-addon", @placeholder = "Email OR Mobile", @type = "text" } })
+
+                                            <div class="input-group-append">
+                                                <i class="fa fa-user input-group-text"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger " })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group fill mb-4">
+                                            <label class="" for="Email">Password</label>
+                                            @Html.EditorFor(model => model.Password, new
+                                            {
+                                            htmlAttributes = new
+                                            {
+                                            @class = "form-control md-addon",
+                                            @type = "password",
+                                            @placeholder = "Password",
+                                            @aria_label = "Recipient's username",
+                                            @aria_describedby = "basic-addon2"
+                                            }
+                                            })
+                                            <div onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" class="input-group-append">
+                                                <i class="fa fa-eye input-group-text"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger mb-3" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p class="mb-2 mr-4 text-muted pull-right">
+                                            <a href="" class="f-w-400" data-toggle="modal" data-target="#forgotpswd">Forgot password?</a>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-md btn_theme full-width mt-3 btnLogin"> Login </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+
+                    <div class="auth_footer text-center">
+                        <p class="text-muted mt-2">
+                            Powered By
+                            <img src="~/Content/assetsNew/images/auth/primabi_logo.png" alt="loginvector" class="">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ signin-img-tabs ] end -->
+
+    <div class="modal fade show" id="forgotpswd" role="dialog" aria-labelledby="myExtraLargeModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">
+                        Forgot Password
+
+                    </h5>
+                    <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+
+                </div>
+                <form>
+                    <div class="modal-body" id="noscroll">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group fill mb-4 ml-3">
+                                    <label class="" for="Email">Email address</label>
+                                    <input type="email" class="form-control md-addon" id="txtEmailid" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <i class="fa fa-user input-group-text"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success btn-sm delete-confirm waves-effect waves-light" id="btnVerifyConfirm"><i class="fa fa-check"></i>&nbsp;Verify</button>
+                        <button class="btn btn-danger btn-sm waves-effect waves-light" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @* Required Js Files *@
+    <script src="~/Content/assetsNew/js/vendor-all.min.js"></script>
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+    <script src="~/Content/assetsNew/js/plugins/bootstrap.min.js"></script>
+    <script src="~/Content/assetsNew/js/ripple.js"></script>
+    <script src="~/Content/assetsNew/js/pcoded.min.js"></script>
+
+    <script src="~/Content/JQueryNotify/js/notify.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*  *@
+
+    @* LOADER *@
+    <script src="~/Content/assets/js/loader.js"></script>
+    @* /LOADER *@
+    <script>
+        var playerId = '';
+        $('.btnLogin').prop('disabled', true);
+        function OneSignalCall() {
+            window.OneSignal = window.OneSignal || [];
+            OneSignal.push(function () {
+                /* These examples are all valid */
+                OneSignal.isPushNotificationsEnabled().then(function (isEnabled) {
+                    if (isEnabled) {
+                        OneSignal.getUserId().then(function (userId) {
+                            // console.log("OneSignal User ID:", userId);
+                            playerId = userId;
+                            $.post('/Login/SetPlayerId', { playerId: userId },
+                                function (returnedData) {
+                                    console.log(returnedData);
+                                });
+                            console.log("player:" + userId);
+                        });
+                        $('.btnLogin').prop('disabled', false);
+                    }
+                    else
+                        console.log("Push notifications are not enabled yet.");
+                    $('.btnLogin').prop('disabled', false);
+                });
+            });
+
+        }
+        $(document).ready(function () {
+            // we call the function
+
+            OneSignalCall();
+        });
+
+        function onLoginBegin() {
+            // Disable the button and hide the other image here
+            // or you can hide the whole div like below
+            $(".se-pre-con").show();
+        }
+
+        function LoginSuccess(data) {
+            if (data == "1") {
+                $(".se-pre-con").hide();
+                $.notify('Login Credentials Are Invalid ', { align: "left", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+            } else if (data == "-1") {
+                $(".se-pre-con").hide();
+                $.notify('Technical Error Please Try Again Later', { align: "left", verticalAlign: "top", type: "success", background: "#fcdc4c", color: "#08212c" });
+
+            } else if (data == "0") {
+                window.location.href = "/RFI/GenerateRFI/Index";
+            }
+            else {
+                window.location.href = data;
+            }
+        }
+
+        $(document).ready(function () {
+            $("#btnVerifyConfirm").on("click", function (e) {
+                if ($('#txtEmailid').val() == "") {
+                    console.log("..");
+                    e.preventDefault();
+                    $.notify('Email address is required', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+                } else {
+                    $.ajax({
+                        //url: '/login/VerifyEmail/',
+                        url: '/RFI/RFIlogin/VerifyEmail',
+                        data: '{email: "' + $('#txtEmailid').val() + '" }',
+                        //data: '{std: ' + JSON.stringify(std) + '}',
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (type) {
+                            //Refresh Kendo Grid
+
+                            $("#modalVerify").modal('hide');
+                            if (type == "1") {
+                                $.notify('Please check your registered mail id !', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            } else if (type == "2") {
+                                $.notify('Email address not registered', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                            }
+                            else {
+                                $.notify('Something went wrong', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                            }
+
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $.notify('Something went wrong', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                        }
+                    });
+                }
+            });
+
+        });
+
+        function mouseoverPass() {
+            var obj = document.getElementById('Password');
+            obj.type = "text";
+        }
+
+        function mouseoutPass() {
+            var obj = document.getElementById('Password');
+            obj.type = "password";
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

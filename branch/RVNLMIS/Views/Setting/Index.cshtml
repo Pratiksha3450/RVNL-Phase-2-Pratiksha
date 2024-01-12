@@ -1,0 +1,316 @@
+﻿@model RVNLMIS.Models.SettingModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+</style>
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-sm-3 pr-1">
+                <div id="frmSetting">
+                    @Html.Partial("_PartialAddEditSetting", new RVNLMIS.Models.SettingModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Setting  Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by Type And Key" placeholder="Search by Type And Key" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive">
+                        <div class="table table-condensed" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.SettingModel>()
+                                                                                                                                                                                                                                                                .Name("SettingMasterGrid")
+                                                                                                                                                                                                                                                                .Columns(columns =>
+                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                //columns.Bound(c => c.SettingId).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                //        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                                                                                                                                                                                                                                                                columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+
+                                                                                                                                                                                                                                                                    columns.Bound(c => c.SKey).Title("Key").HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                                                                                                                                                                                                                                                                      columns.Bound(c => c.DataType).Title("Type").HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                                                                                                       .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+
+                                                                                                                                                                                                                                                                    columns.Bound(c => c.Value).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                                                                                                                                             .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("8%");
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/Setting/EditbySettingID/#=SettingID#' class='EditSetting btn btn-xs btn-warning  has-ripple'><i class='feather icon-edit'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+}).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax().Group(g => g.Add(c => c.DataType))
+.Model(model => model.Id(u => u.SettingID))
+.Read(read => read.Action("Setting_Details", "Setting"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable()
+.Excel(excel => excel
+.FileName("Setting_DetailsExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("SettingMasterPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+    function Validate(event) {
+            var regex = new RegExp(/[0-9]|\+/);
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+
+            }
+        }
+
+        BindOnChangeEvent();
+        function BindOnChangeEvent() {
+            $('.alphaonly').keypress(function (event) {
+                var inputValue = event.charCode;
+                if (!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) {
+                    event.preventDefault();
+                }
+            });
+
+            jQuery('.alphaonly').keyup(function () {
+                $(this).val($(this).val().toUpperCase());
+            });
+
+        }
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#SettingMasterGrid').height($(window).height() - 198);
+
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        function OnSettingSuccess(response) {
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $(".btnSubmit").val('Save');
+            }
+            else if (response == "2") {
+                $.notify("already exists", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            } else if (response == "3") {
+                $.notify("already exists", { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+                $('#frmSetting').html(response);
+                BindOnChangeEvent();
+            }
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Setting Master - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#SettingMasterGrid").data("kendoGrid");
+            grid.hideColumn(6);
+            grid.options.pdf.fileName = "Setting Master - " + kendo.toString(new Date, "dd-MMM-yyyy");
+            e.promise.done(function () {
+                grid.showColumn(6);
+            });
+        }
+
+        function dataBound() {
+            resetRowNumber();
+            //ActivityCode();
+            $(".EditSetting").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#frmSetting').html(data);
+                    setTimeout(function () {
+                    }, 500);
+                });
+            });
+
+            $("#btnReset").on("click", function (e) {
+                $(".btnSubmit").val('Save');
+            });
+
+            $(".DeleteSetting").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            //alert(id);
+            $.ajax({
+                url: '/ManageActivities/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    $('#SettingMasterGrid').data('kendoGrid').dataSource.read();
+                    $('#SettingMasterGrid').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        function ClearViewAndGrid() {
+            $("#SKey").val("");
+            $("#Value").val("");
+            $("#DataType").val('');
+            $("#SettingID").val("0");
+            $("#SKey").attr("readonly", false);
+            $(".field-validation-error").text('');
+            $('#SettingMasterGrid').data('kendoGrid').dataSource.read();
+            $('#SettingMasterGrid').data('kendoGrid').refresh();
+            BindOnChangeEvent();
+
+        }
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#SettingMasterGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "SKey", operator: "contains", value: v1 },
+                                    { field: "DataType", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+                                                                                                                                                                                                                //function ActivityCode() {
+                                                                                                                                                                                                                //    $("#ActGId").change(function () {
+                                                                                                                                                                                                                //        var dID = $("#ActGId").val();
+                                                                                                                                                                                                                //        $.get("/ManageActivities/ActivityCode", { id: dID },
+                                                                                                                                                                                                                //            function (data) {
+                                                                                                                                                                                                                //                $("#ActivityCode").val(data);
+                                                                                                                                                                                                                //            });
+                                                                                                                                                                                                                //    });
+                                                                                                                                                                                                                //};
+
+    </script>
+}
+

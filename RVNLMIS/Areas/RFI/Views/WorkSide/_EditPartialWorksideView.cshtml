@@ -1,0 +1,49 @@
+﻿
+@model RVNLMIS.Areas.RFI.Models.WorkSideModel
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header pb-4">
+        <h5>Work Side Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddWorkSideDetails", "WorkSide", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnDisSuccess" }, new { @class = "form", @id = "WorkSideform" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.WorkSideId)
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+
+
+                <div class="col-md-12 mb-1">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtWorkSideName">Work Side Name  @Html.ValidationMessageFor(model => model.WorkSideName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.WorkSideName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Work Side Name" } })
+                    </div>
+                </div>
+                <div class="col-md-12 text-right">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-sm btn_theme pull-right">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="card-footer">
+                <div class="row">
+
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-sm btn-theme pull-right"><i class="m-r-5 feather icon-check"></i>Save</button>
+                    </div>
+
+                </div>
+            </div>*@
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 204);
+    });
+    $(window).trigger('resize');
+</script>

@@ -1,0 +1,76 @@
+﻿@model RVNLMIS.Models.ProcMaterial
+@{
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header pb-4">
+        <h5> Procurement Material  Information</h5>
+    </div>
+    @using (Ajax.BeginForm("AddProcMaterialDetails", "ManageProcMaterial", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnProcMaterialSuccess" }, new { @class = "form", @id = "frmProcMaterial" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaterialId)
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtConsActivityCode">Discipline Group @Html.ValidationMessageFor(model => model.DispId, "", new { @class = "text-danger" })</label>
+                        @if (ViewBag.DisciplinesList != null)
+                        {
+                            @Html.DropDownListFor(model => model.DispId, ViewBag.DisciplinesList as SelectList, "Select Discipline Group", new { @class = "mb-3 form-control form-control-sm" })
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtConsActivityCode">Procurement Material Code @Html.ValidationMessageFor(Model => Model.MaterialCode, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.MaterialCode, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "MAT001", @readonly = "readonly" } })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtConsActivityName">Material Name @Html.ValidationMessageFor(model => model.MaterialName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.MaterialName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Material Name" } })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txLatitude">Material Unit @Html.ValidationMessageFor(model => model.MaterialUnit, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.MaterialUnit, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Material Unit" } })
+                    </div>
+                </div>
+                @*<div class="col-md-12">
+                        <div class="form-group mb-3">
+                            <label class="col-form-label-sm-user text-black-50" for="txtLogitude">Act Wtg @Html.ValidationMessageFor(model => model.ActWtg, "", new { @class = "text-danger" })</label>
+                            @Html.EditorFor(model => model.ActWtg, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter Act Wtg" } })
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @*@if (Model.ConsActivityId != 0)
+                        {
+                            <button type="submit" class="btn btn-xs btn-primary has-ripple  btnSubmit" value="Update"><i class="m-r-5 feather icon-check"></i>Update</button>
+                        }
+                        else
+                        {*@
+                    <button type="submit" class="btn btn-sm btn-theme pull-right  btnSubmit">Save</button>
+                    @*}*@
+                    @*<button type="button" id="btnReset" class="btn btn-sm btn-danger pull-right btn-xs" onclick="ClearViewAndGrid()"><i class="fa fa-refresh"></i> Reset</button>*@
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 258);
+    });
+    $(window).trigger('resize');
+</script>
+

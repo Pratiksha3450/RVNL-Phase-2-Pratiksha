@@ -1,0 +1,221 @@
+﻿@model RVNLMIS.Models.RoleMenuAccessModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+</style>
+<!-- [ Main Content ] start -->
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<style>
+    .chosen-container-multi .chosen-choices {
+        max-height: 250px;
+        overflow-y: scroll;
+    }
+</style>
+<div class="content_wrapper">
+    <div class=" ">
+        @*<div class="page-header">
+        </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-sm-4 pr-1">
+                <div id="RoleaccessAdEdit">
+                    @Html.Partial("_AddEdit", new RVNLMIS.Models.RoleMenuAccessModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-8 pl-1">
+                <div class="card">
+                    <div class="card-header pb-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Role- Menu Access Details</h5>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <input type="search" id="txtSearch" style="width:380px" 
+                                       class="form-control" title="Search by Menu or Role" 
+                                       placeholder="Search by Menu or Role" />
+                            </div>
+                        </div>
+
+                    </div>
+                    @*<div class="card-header">
+                        <table width="100%">
+                            <tr>
+                                <td align="left"><h5>Role- Menu Access Details </h5></td>
+                                <td align="right"> <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by Menu or Role" placeholder="Search by Menu or Role" /></td>
+                            </tr>
+                        </table>
+
+                    </div>*@
+                    <div class="card-body ">
+                        <div class="" id="KendoHeight">
+
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.RoleMenuAccessModel>()
+                                                                                                  .Name("RoleMenuGrid")
+                                                                                                  .Columns(columns =>
+                                                                                                  {
+                                                                                                                  //columns.Bound(c => c.role).Width(40).Title("Role");
+                                                                                                                  columns.Bound(c => c.MenuName).Width(60);
+
+                                                                                                  })
+
+.HtmlAttributes(new { style = "height: 480px;" })
+.Scrollable()
+.Sortable()
+.Selectable()
+.Resizable(resize => resize.Columns(true))
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5))
+.DataSource(dataSource => dataSource
+.Ajax()
+
+.Group(x => x.Add(c => c.role))
+
+
+.Read(read => read.Action("RoleMenu_Details", "RoleMenuAccess"))
+//.PageSize(20)
+))
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+         $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#RoleMenuGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+        $(document).ready(function () {
+            $("#ddlMenus").chosen({ width: "100%", no_results_text: "Oops, user's not found!" });
+        });
+
+        function dataBound() {
+        }
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#RoleMenuGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "MenuName", operator: "contains", value: v1 },
+                                    { field: "role", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+        $("#cmbRole").change(function () {
+            var Role = $("#cmbRole").val();
+            console.log(Role);
+            if (Role != '') {
+                $.ajax({
+                    url: '/RoleMenuAccess/GetSelectedMenuIds',
+                    type: "POST",
+                    data: '{Role: "' + Role + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (data) {
+
+                        var res = data.toString()
+                        if (data === "") {
+                            $("#ddlMenus").val('');
+
+                        }
+                        else {
+                            debugger;
+                            //----------For already Assigned-------------------------
+
+                            var dataarray = res.split(",");
+                            // alert(dataarray);
+                            $('#ddlMenus').val(dataarray);
+                            $('#ddlMenus').trigger('chosen:updated');
+
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.error);
+                    }
+                });
+            }
+            else {
+                $("#ddlMenus").val('');
+                $("#ddlMenus").chosen().trigger("chosen:updated")
+            }
+        });
+
+        function OnMenuRoleSuccess(response) {         
+            if (response == "Added Successfully") {
+                $('#cmbRole').val('');             
+                $('#ddlMenus').val('');
+
+                $('#RoleMenuGrid').data('kendoGrid').dataSource.read();
+                $('#RoleMenuGrid').data('kendoGrid').refresh();
+
+                $("#ddlMenus").chosen().trigger("chosen:updated")
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                window.location.href = "/RoleMenuAccess/Index";
+            }
+            //else if (response == "Updated Successfully") {
+            //   // ClearViewAndGrid();
+            //    $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            //    $(".btnSubmit").val('Save');
+            //}
+            //else if (response == "Already Exists") {
+            //    $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            //}
+            else {
+                $("#RoleaccessAdEdit").html(response);
+            }
+        }
+
+      
+    </script>
+}

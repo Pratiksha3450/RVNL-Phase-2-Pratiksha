@@ -1,0 +1,125 @@
+﻿@model RVNLMIS.Models.ConstActivityViewModel
+@{
+    Layout = null;
+}
+
+@*@using (Ajax.BeginForm("SubmitConstAct", "ConstructionActivity", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnPartialSuccess" }, new { Page = "form" }))*@
+@using (Html.BeginForm("SubmitConstAct", "ConstructionActivity", FormMethod.Post, new { @class = "j-pro", enctype = "multipart/form-data", @id = "ConstrTransForm" }))
+{
+    @Html.HiddenFor(model => model.entityActvity)
+    @Html.HiddenFor(model => model.ConsTranId)
+    @Html.HiddenFor(model => model.OperationType)
+    <input type="hidden" id="tempComp" value="@Model.CompletedQty">
+    <div class="card">
+        <div class="card-header">
+            <h5>Edit Info</h5>
+        </div>
+        <div class="card-body  mr-2" id="CardHeight">
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label-sm">Transaction Date</label>
+                    @Html.EditorFor(model => model.StrTransDate, new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control form-control-sm col-sm-8",
+                       @placeholder = "Date",
+                       @type = "date",
+                       onchange = "CheckTransDate(event);"
+                   }
+               })
+
+                </div>
+                @*<label class="col-sm-4 col-form-label-sm"></label>*@
+                @Html.ValidationMessageFor(model => model.StrTransDate, "", new { @class = "text-danger" })
+                <span id="errTrans" class="errMsg" style="color:red;display:none">This date cannot be greater than current date.</span>
+                <span id="errTransFormat" class="errMsg" style="color:red;display:none">Date format is not supported.</span>
+            </div>
+
+
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label-sm">Target Date</label>
+                    @Html.EditorFor(model => model.StrTargetDate, new { htmlAttributes = new { @class = "form-control form-control-sm col-sm-8", @placeholder = "Date", @type = "date", @onchange = "CheckTargetDate()"} })
+                    <span id="errTarget" class="errMsg ml-3" style="color:red;display:none">This date cannot be less than current date.</span>
+                    <span id="errTargetFormat" class="errMsg ml-3" style="color:red;display:none">Date format is not supported.</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label-sm">Revised Qty</label>
+                    @Html.EditorFor(model => model.RevisedQty, new { htmlAttributes = new { @class = "form-control form-control-sm col-sm-8", onkeypress = "return Numbers1Dot1MinusOnly(this,event)", @placeholder = "Revised Qty", @maxlength = "15" } })
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="Select" class="col-sm-4 col-form-label-sm">Remark</label>
+
+                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control form-control-sm col-sm-8", @placeholder = "Remark", @maxlength = "400" } })
+
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="Select" class="col-sm-4 col-form-label-sm">Completed Qty</label>
+
+                    @Html.EditorFor(model => model.CompletedQty, new { htmlAttributes = new { @class = "form-control form-control-sm col-sm-8", onkeypress = "return Numbers1Dot1MinusOnly(this,event)", @placeholder = "Completed Qty", @maxlength = "15" } })
+
+                </div>
+                <span id="errCompQty" class="errMsg" style="color:red;display:none">Completed Qty should not be greater than Balance Qty.</span>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <label for="Select" class="col-form-label-sm">Select file</label>
+                    </div>
+                    <div class="col-sm-8 ml-4">
+                        <div class="input-group input-file" name="Fichier1">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-choose" type="button"
+                                        style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                    Browse File
+                                </button>
+                            </span>
+                            <input type="text" id="txtFileinput" class="form-control pl-3" placeholder='Choose a file...' />
+                        </div>
+                        <span id="errFile" style="color:red;display:none">Upload only .pdf, .xls, .xlsx, .png, .jpg, .jpeg files.</span>
+                        <p class="mt-2">
+                            <a id="openAttach" href="@Model.AttachFilePath" target='_blank' title="">@Model.AttachFileName</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-2">
+                <a href="/Construction/Index" type="button" onclick="history.go(-1);" class="btn btn-sm btn-outline-primary mr-2"><i class="fa fa-arrow-left mr-2 "></i>Back</a>
+                <button type="button" id="btnPartialSubmit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                @*<button type="button" onclick="@("window.location.href='" + @Url.Action("Index", "Construction") + "'");" class="btn btn-sm btn-outline-primary "><i class="fa fa-arrow-left mr-2"></i>Back</button>*@
+
+            </div>
+
+        </div>
+        @*<div class="card-footer">
+            <div class="row">
+                <div class="col-md-6 text-right">
+                    <button type="button" id="btnPartialSubmit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                    <button type="button" onclick="history.go(-1);" class="btn btn-sm btn-outline-primary mr-2"><i class="fa fa-arrow-left mr-2"></i>Back</button>
+                </div>
+            </div>
+        </div>*@
+    </div>
+}
+
+<script>
+    $(window).resize(function () {
+        //$('#CardHeight').height($(window).height() - 320);
+    });
+    $(window).trigger('resize');
+</script>

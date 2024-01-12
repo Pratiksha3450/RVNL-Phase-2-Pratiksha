@@ -1,0 +1,112 @@
+﻿@model RVNLMIS.Models.DataIssueWrapper
+
+
+@{
+    Layout = null;
+
+    <style>
+        .form-control-sm {
+            height: calc(2.5em + 0.5rem + 2px);
+        }
+    </style>
+}
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Data Issue: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div> <span title="Latest Remark on Ticket"> @Model.objModel.Remark </span></h6>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+
+        </div>
+        @using (Ajax.BeginForm("UpdateIssueStatus", "AssignDataIssue", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnUpdateSuccess" }, new { @class = "form", Page = "xyz" }))
+        {
+            @Html.HiddenFor(Model => Model.objModel.IssueId)
+
+        <div class="modal-body">
+            <div class="card">
+                <div class="modal-header">
+                    Current Status : <span class="ml-2">
+                        <i class="fa @(@Model.objModel.StatusId==4? "fa-check-circle":"fa-exclamation-triangle")"></i> @Model.objModel.Status
+                    </span>
+                </div>
+                <div class="card-body pl-3 pr-3">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Ticket No: </label></div>
+                        <div class="col-sm-12 col-lg-4"><label class="col-form-label-sm-user " for="txtUserName"> @Model.objModel.DataTicket </label></div>
+                        <div class="col-sm-12 col-lg-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Package Code: </label></div>
+                        <div class="col-sm-12 col-lg-4"><label class="col-form-label-sm-user " for="txtUserName"> @Model.objModel.PackageCode </label></div>
+                        <div class="col-sm-12 col-lg-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Created On: </label></div>
+                        <div class="col-sm-12 col-lg-4"><label class="col-form-label-sm-user " for="txtUserName"> @Model.objModel.CreatedOn </label></div>
+                        <div class="col-sm-12 col-lg-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Short Details: </label></div>
+                        <div class="col-sm-12 col-lg-4"><label class="col-form-label-sm-user " for="txtUserName"> @Model.objModel.ShortDescription </label></div>
+                        <div class="col-sm-12 col-lg-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Description: </label></div>
+                        <div class="col-sm-12 col-lg-10"><label class="col-form-label-sm-user " for="txtUserName"> @Model.objModel.Description </label></div>
+
+                        <div class="col-sm-12 col-lg-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Add/Edit Remark</label></div>
+                        <div class="col-sm-12 col-lg-4">
+                            @Html.EditorFor(model => model.objModel.NewRemark, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Remarks" } })
+                        </div>
+                        <div class="col-sm-12 col-lg-2"><label class="col-form-label-sm-user text-black-50" for="txtUserName">Update Status</label></div>
+                        <div class="col-sm-12 col-lg-4">
+                            @Html.DropDownListFor(model => model.objModel.StatusId, ViewBag.StatusList as SelectList, "Select Status", new { @class = "mb-3 form-control form-control-sm" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <a href="~/Uploads/DataIssues/@(Model.objModel.Attachment)" target="_blank"><span class="btn btn-sm btn-info"><i class="fa fa-file"></i> Click here Check Attachment</span></a>
+                            <button type="submit" class="btn btn-sm btn-theme pull-right">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="modal-header">
+                            Data Issue Logs
+                        </div>
+                        <div class="card-body">
+                            <div class=" table-responsive" style="height:300px">
+                                <table class="table table-hover table-borderless mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th width="3%">Date</th>
+                                            <th width="3%">Status</th>
+                                            <th width="3%">Name</th>
+                                            <th >Remark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.objLogList)
+                                        {
+                                            <tr>
+                                                <td width="3%"><label class="col-form-label-sm-user" for="txtUserName"> @(Convert.ToDateTime(item.UpdatedOn).ToString("dd-MM-yyyy hh:mm tt"))</label></td>
+                                                <td width="3%">
+                                                    <label class="col-form-label-sm-user" for="txtUserName">
+                                                        <span class=@(item.StatusId==4? "text-success": item.StatusId==3? "text-danger":  item.StatusId==2?  "text-info":"text-warning") title="@(item.Status)">
+                                                            <i class="fa @(@item.StatusId==4? "fa-check-circle":"fa-exclamation-triangle")"></i>
+                                                        </span>
+                                                    </label>
+                                                </td>
+                                                <td width="3%"><label class="col-form-label-sm-user" for="txtUserName"> @item.Name</label></td>
+                                                <td><label class="col-form-label-sm-user" for="txtUserName"> @item.Remark</label></td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            
+        }
+
+    </div>
+

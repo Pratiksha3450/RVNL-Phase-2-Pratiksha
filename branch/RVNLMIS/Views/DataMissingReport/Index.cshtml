@@ -1,0 +1,321 @@
+﻿@model RVNLMIS.Models.PackageModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .new-cust-card .align-middle .status {
+        top: 0px !important;
+        font-size: 10px;
+    }
+
+    #ProjectName {
+        font-weight: 600;
+    }
+</style>
+
+<div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="createProjectModal" aria-hidden="true" data-backdrop="static">
+    <div id="createProjectContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <div class="row">
+
+            <!-- [ border ] start -->
+            <div class="col-sm-12 mb-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Data Missing Report</h5>
+                            </div>
+                            <div class="col-md-6 divMag" id="project">
+                                @if (ViewBag.ProjectPackageList != null)
+                                {
+                                    @*@Html.DropDownList("Project", (IEnumerable<SelectListItem>)ViewBag.ProjectPackageList, "Select Project", htmlAttributes: new { @class = "form-control form-control-sm " })*@
+                                    @(Html.Kendo().DropDownListFor(m => m.ProjectId).Popup(p => p.AppendTo("#container"))
+                                             .Name("Project")
+                                             .DataTextField("ProjectName")
+                                             .DataValueField("ProjectId")
+                                             .HtmlAttributes(new { style = "width:100%" })
+                                             .Filter("contains").OptionLabel("Select Project")
+                                             .DataSource(source =>
+                                                     {
+                                                 source.Read(read =>
+                                                 {
+                                                     read.Action("ServerFiltering_GetProducts", "Packages");
+                                                 })
+                                                 .ServerFiltering(true);
+                                             })
+                                    )
+                                }
+                            </div>
+                            @*<button type="button" Class="btnProjectDetails" >
+                                    <i class="feather icon-more-horizontal"></i>
+                                </button>*@
+                        </div>
+                    </div>
+                    <div class="card-body pl-3 pr-3">
+                        <div class="full-width">
+                            <div class="row" id="projects54">
+                                <div class="col-md-12 pl-3 pr-3">
+                                    <lable id="ProjectName">Project Name :</lable>
+                                 
+                                    <span id="divReportHtml" class="text-danger p-1" title=""></span>
+                                </div>
+                                @*<div id="divReportHtml" class="col-md-12 text-danger p-1" title=""></div>*@
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 pr-1" id="package">
+                <div class="card new-cust-card">
+                    <div class="card-header">
+                        <h5>Package Data Missing Report</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                @*<button type="button" id="btnPackageDetails" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                                            </button>*@
+                                @*<ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cust-scroll" style="overflow-y: scroll!important;" id="CardHeight">
+                        <div class="card-body p-b-0 pl-3 pr-3 pt-2" id="divPackage">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 pl-1 pr-1" id="section">
+                <div class="card new-cust-card">
+                    <div class="card-header">
+                        <h5>Section Data Missing Report</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                @*<button type="button" id='btnSectionDetails' class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                                            </button>*@
+                                @*<ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cust-scroll" style="overflow-y:scroll!important;" id="CardHeight1">
+                        <div class="card-body p-b-0  pl-3 pr-3 pt-2" id="divSection">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 pl-1" id="Entity">
+                <div class="card new-cust-card">
+                    <div class="card-header">
+                        <h5>Entity Data Missing Report</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                @*<button type="button" id="" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                               <i class="feather icon-more-horizontal"></i>
+                                    </button>*@
+                                @*<ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cust-scroll" style="overflow-y:scroll!important;" id="CardHeight2">
+                        <div class="card-body p-b-0 pl-3 pr-3 pt-2" id="divEntity">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- [ border ] end -->
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createPackagesModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModal" aria-hidden="true" data-backdrop="static">
+    <div id="createPackagesContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+        $("#Project").change(function () {
+            var newText = $("#Project").data("kendoDropDownList").text();
+           
+            $('#ProjectName').text(newText);
+            GetAllDetails();
+
+        });
+        function GetAllDetails() {
+            var dID = $("#Project").val();
+            $.get("/DataMissingReport/Project_Details", { id: dID },
+                function (data) {  // success callback
+                    $("#divReportHtml").html(data);
+                    $.get("/DataMissingReport/PackageDetails", { projectId: dID },
+                        function (data) {  // success callback
+                            $("#divPackage").html(data);
+                            $.get("/DataMissingReport/SectionDetails", { projectId: dID },
+                                function (data) {  // success callback
+                                    $("#divSection").html(data);
+                                    $.get("/DataMissingReport/EntityDetails", { projectId: dID },
+                                        function (data) {  // success callback
+                                            $("#divEntity").html(data);
+                                        });
+                                });
+                        });
+                });
+        };
+
+
+        $(window).resize(function () {
+            $('#projects54').height('85px');
+            $('#CardHeight').height($(window).height() - 335);
+            $('#CardHeight1').height($(window).height() - 335);
+            $('#CardHeight2').height($(window).height() - 335);
+        });
+        $(window).trigger('resize');
+
+        $("#package").on("click", "#btnPackageDetails", function () {
+            var url = $(this).data("url");
+
+            $.get(url, function (data) {
+                $('#createPackagesContainer').html(data);
+                $('#createPackagesModal').modal('show');
+            });
+        });
+
+
+        function UpdatePackageSuccess(data) {
+
+            if (data == "2") {
+                $('#createPackagesModal').modal('hide');
+                $('#createPackagesContainer').html("");
+                $.notify('Package Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                GetAllDetails();
+
+            } else {
+                $('#createPackageContainer').html(data);
+                return;
+            }
+        }
+
+
+        $("#section").on("click", "#btnSectionDetails", function () {
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#createPackagesContainer').html(data);
+                $('#createPackagesModal').modal('show');
+            });
+        });
+
+        function OnSectionSuccess(response) {
+
+            if (response == "Updated Successfully") {
+                $('#createPackagesModal').modal('hide');
+                $('#createPackagesContainer').html("");
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                GetAllDetails();
+            }
+            else {
+                $('#createPackagesContainer').html(response);
+                return;
+            }
+        }
+
+
+
+        $("#Entity").on("click", "#btnEntityDetails", function () {
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#createPackagesContainer').html(data);
+                $('#createPackagesModal').modal('show');
+            });
+        });
+
+        function EntityMasterSuccess(response) {
+            if (response.includes("successfully")) {
+                $("#createPackagesModal").modal('hide');
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                GetAllDetails();
+
+            }
+
+            else {
+                $('#createEntityContainer').html(response);
+                $('#createEntityModal').modal('show');
+            }
+        }
+
+        $(document).ready(function () {
+            $("#projects54").on("click", ".btnProjectDetails", function (e) {
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#createPackagesContainer').html(data);
+                    $('#createPackagesModal').modal('show');
+                });
+            });
+        });
+
+
+        function UpdateProjectSuccess(data) {
+
+            if (data == "2") {
+                $('#createPackagesModal').modal('hide');
+                $('#createPackagesContainer').html("");
+                $.notify('Project Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                GetAllDetails();
+            }
+        }
+
+        function Validate(event) {
+            var regex = new RegExp(/[0-9]|\+/);
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+
+            }
+        }
+    </script>
+
+}

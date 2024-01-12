@@ -1,0 +1,38 @@
+﻿@model RVNLMIS.Models.BreadCrumbModel
+@{
+    Layout = null;
+    var homeUrl="#";
+}
+
+    <ul class="breadcrumb pull-right">
+        <li class="breadcrumb-item">
+            @{
+                homeUrl = "/DashboardReports/Index/?id=" + HttpUtility.UrlEncode(Convert.ToString("?id=1"));
+            }
+            <a href="@homeUrl">
+                <i class="feather icon-home"></i>
+                Home
+            </a>
+        </li>
+        @if (!string.IsNullOrEmpty(Model.MainParent))
+        {
+            <li class="breadcrumb-item">
+                <a href="#">@Model.MainParent</a>
+            </li>
+        }
+        @if (!string.IsNullOrEmpty(Model.SubParent))
+        {
+            <li class="breadcrumb-item">
+                <a href="#">@Model.SubParent</a>
+            </li>
+        }
+        <li class="breadcrumb-item">
+            <a href="#">@Model.MenuName</a>
+        </li>
+    </ul>
+
+
+
+
+
+

@@ -1,0 +1,303 @@
+﻿@model RVNLMIS.Models.Config.CreatePhyProgress
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .nav > li > a:hover, .nav > li > a:focus {
+        background-color: #353F4F;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .high {
+        padding: 5px 15px;
+        background-color: palevioletred;
+        color: #fff;
+        border-radius: 3px;
+    }
+
+    input::file-selector-button {
+        font-weight: bold;
+        padding: 0.5em;
+        background-color: #353f4f;
+        color: #fff;
+    }
+
+    .commen-table tbody tr td {
+        border: none;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-sm-12">
+            <div class="card cbtab border border-1">
+                <div class="row mt-2 p-1">
+                    <div class="col-sm-auto">
+                        <a class=" btn btn-primary fw-bold h4 border border-4 border-dark" flow="down" href="@Url.Action("Index", "Config")">Physical Progress Parameter</a>
+                    </div>
+                    <div class="col-sm-auto">
+                        <a class="btn btn-primary fw-bold h4 border border-4 border-dark" flow="down" href="@Url.Action("ListOfCashParameter", "Config")">Cash Flow Parameter</a>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <a class="btn btn-primary fw-bold h4  border border-4 border-dark" flow="down" href="@Url.Action("ListOfKpiParameter", "Config")">Project KPI Parameters</a>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <a class="btn btn-primary fw-bold h4  border border-4 border-dark" flow="down" href="@Url.Action("ListOfHseParameter", "Config")">HSE Report Parameters</a>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <a class="btn btn-primary fw-bold h4  border border-4 border-dark" flow="down" href="@Url.Action("ListOfQaqcParameter", "Config")">QAQC Report Parameters</a>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <a class="btn btn-primary fw-bold h4 border  border-4 border-dark" flow="down" href="@Url.Action("ListOfInvoiceDueParameter", "Config")">Invoice Due Periods</a>
+                    </div>
+                    <div class="col-sm-auto">
+                        <a class="btn btn-primary fw-bold h4  border border-4 border-dark" flow="down" href="@Url.Action("ListOfPrjBaselineParameter", "Config")">Project Baseline</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 id="ModalTitle">Confirm Delete</h4>
+            </div>
+            <div class="modal-body">
+                <h5 class="">
+                    <i class="fa fa-trash-o text-red mr-1 fa-2x"></i>Are you sure you wish to delete selected record ?
+                </h5>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary delete-confirm" id="btnDeleteConfirm">Ok</button>
+                <button class="btn btn-default" data-dismiss="modal"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-3 pr-1">
+                <div id="phyforms">
+                    @Html.Partial("_AddEditPhysicalProgress", new RVNLMIS.Models.Config.CreatePhyProgress())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Physical Progress Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" class="form-control" placeholder="Search by Project Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.DAC.PhysicalProgressView>()
+                    .Name("PhyList")
+                    .Columns(columns =>
+                    {
+                    columns.Bound(c => c.PhyID).Title("Phy Para Code").HtmlAttributes(new { style = "text-align:center" })
+                                   .HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100).Hidden();
+                    columns.Bound(c => c.ProjectCode).Title("Project Code").HtmlAttributes(new { style = "text-align:center" })
+.HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+
+                    columns.Bound(c => c.ProjectName).Title("Project Name").HtmlAttributes(new { style = "text-align:center" })
+.HeaderHtmlAttributes(new { style = "text-align:center" }).Width(200);
+
+                    columns.Bound(c => c.PhyParaCode).Title("Phy Para Code") .HtmlAttributes(new { style = "text-align:center" })
+                                .HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+
+                    columns.Bound(c => c.PhyParaName).Title("PhyParaName").HtmlAttributes(new { style = "text-align:center" })
+                                                               .HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+
+
+                    columns.Template(@<text></text>).Title("Action").ClientTemplate("<button  data-url='/Config/EditConfigById/#=PhyID#' class='editphy btn btn-xs btn-info has-ripple'><i class='fa fa-edit'></i></button>" +
+                                                       " <button type='button' id='btnDeleteGroup' class='btn btn-xs btn-danger has-ripple DeletePhy' data-key='#=PhyID#' Title='Delete'><i class='fa fa-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+                    }).Scrollable(scr => scr.Height(400))
+                .Events(events => events
+                .DataBound("DataBound"))
+                .Sortable()
+                .Resizable(resize => resize.Columns(true))
+                .HtmlAttributes(new { style = "height:600px;" })
+                .Groupable()
+                .Pageable(pageable => pageable
+                                                                                                                                                                                                    .Refresh(true)
+                            .PageSizes(true)
+                            .PageSizes(new List<object> { 10, 20, 50, "all" }).Refresh(true)
+
+                )
+                .PersistSelection(true)
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Model(model => model.Id(p => p.PhyID))
+                .Read(read => read.Action("PhyProgress_Details", "Config"))
+                .PageSize(20))
+                .NoRecords("No Record Found")
+
+
+                            ).
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function DataBound() {
+            $(".editphy").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#phyforms').html(data);
+                });
+            });
+
+            $(".DeletePhy").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        //#region ----Deleted group---
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hiddenId").val();
+            $.ajax({
+                url: '/Config/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    $('#PhyList').data('kendoGrid').dataSource.read();
+                    $('#PhyList').data('kendoGrid').refresh();
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        });
+        //#endregion
+
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#PhyList").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "ProjectName", operator: "contains", value: v1 }
+
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+
+        function OnPhySuccess(data) {
+
+            console.log(data.message);
+            if (data.message === 'undefined' || data.message === null || data.message === '') {
+                $('#phyforms').html(data);
+            }
+            else {
+                if (data.message == ("Added successfully")) {
+                    $.notify(data.message, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                    $('#PhyList').data('kendoGrid').dataSource.read();
+                    $('#PhyList').data('kendoGrid').refresh();
+                    ClearViewAndGrid();
+                    // RefreshMenuPartial();
+                    window.location.href = "/Config/Index";
+                } else if (data.message == "0") {
+                    $.notify('Project Name already Exist!', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                }
+                /* $("#MenuCode").val(data.Code);*/
+            }
+        }
+
+        function ClearViewAndGrid() {
+
+            $("#PhyID").val("0");
+            $("#PhyParaCode").val("");
+            $("#PhyParaName").val("");
+        }
+        //#endregion
+
+        function getPrjId() {
+            var dID = $("#ProjectId").data("kendoDropDownList").value();
+            return { id: dID };
+        }
+    </script>
+}
+

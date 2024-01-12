@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+
+<div id="example" role="application">
+    <div class="demo-section k-content wide">
+        <label for="optional" id="employees">Employees</label>
+        <label for="selected">Developers</label>
+        <br />
+        @(Html.Kendo().ListBox()
+                                                                                            .Name("optional")
+                                                                                            .Toolbar(toolbar =>
+                                                                                            {
+                                                                                                toolbar.Position(Kendo.Mvc.UI.Fluent.ListBoxToolbarPosition.Right);
+                                                                                                toolbar.Tools(tools => tools
+                                                                                                    .MoveUp()
+                                                                                                    .MoveDown()
+                                                                                                    .TransferTo()
+                                                                                                    .TransferFrom()
+                                                                                                    .TransferAllTo()
+                                                                                                    .TransferAllFrom()
+                                                                                                    .Remove()
+                                                                                                );
+                                                                                            })
+                                                                                            .ConnectWith("selected")
+                                                                                            .BindTo(ViewBag.Attendees)
+        )
+
+        @(Html.Kendo().ListBox()
+                                                                                            .Name("selected")
+                                                                                            .BindTo(new List<SelectListItem>())
+                                                                                            .Selectable(ListBoxSelectable.Multiple)
+        )
+    </div>
+</div>
+<button id="submit">submit</button>
+
+<style>
+    .demo-section label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    #employees {
+        width: 270px;
+    }
+
+    #example .demo-section {
+        max-width: none;
+        width: 515px;
+    }
+
+    #example .k-listbox {
+        width: 236px;
+        height: 310px;
+    }
+
+        #example .k-listbox:first-of-type {
+            width: 270px;
+            margin-right: 1px;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('#submit').on('click', function () {
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/Home/Create",
+            //    contentType: "application/json; charset=utf-8",
+            //data: JSON.stringify({ selectedItems: $('#selected').data('kendoListBox').dataItems() }),
+            //    dataType: "json",
+            //    success: function (result) {
+            //        alert("Successfully sent to server: " + result.map(function (x) {
+            //            return x.Text
+            //        }))
+            //    }
+            //});
+           
+
+            var data = { "selectedItems": $('#selected').data('kendoListBox').dataItems() };
+
+            //JSON.stringify({ selectedItems: $('#selected').data('kendoListBox').dataItems() });
+            console.log(data);
+            console.log(data.selectedItems);
+            var selected = new Array();
+
+            var categoryArray = data.selectedItems;
+            for (var i = 0; i < categoryArray.length; i++) {
+                selected.push(categoryArray[i].Value);
+            }
+            alert("Selected values: " + selected.join(","));
+        });
+    });
+</script>

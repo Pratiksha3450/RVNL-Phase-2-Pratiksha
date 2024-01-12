@@ -1,0 +1,683 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-grid-header th.k-header {
+        vertical-align: bottom;
+        border-top: 1px solid #ccc !important;
+    }
+
+    .colorpick-eyedropper-input-trigger {
+        width: 25px;
+        height: 25px;
+    }
+    /*.k-grid tbody tr {
+        cursor: move;
+    }*/
+    /*#card1{
+        height:87vh;
+    }
+    #card2 {
+        height: 87vh;
+    }*/
+    div#ScActGrid {
+        overflow: scroll;
+        /*max-height: 20vh;*/
+    }
+
+    div#PkgCrossSectionGrid {
+        overflow: scroll;
+        /*max-height: 20vh;*/
+    }
+
+    div#CrossSectionGrid {
+        overflow: scroll;
+        /*max-height: 53vh;*/
+    }
+</style>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-sm " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnIdToDelete">
+                <input type="hidden" id="hdnTypeToDelete">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper myform crosssection">
+    <div class="row">
+        <div class="col-md-5 pr-1">
+            @* card 1 *@
+            <div class="card">
+                <div class="card-header">
+                    <h5>Cross Section Strip Chart</h5>
+                </div>
+                <div class="card-block" id="card1">
+                    <!-- Basic group add-ons start -->
+                    <div class="mb-2">
+                        @*<h6 class="sub-title">Cross Section Strip Chart</h6>*@
+                        <div class="row mb-1">
+                            <label class="col-sm-4 col-lg-3 col-form-label">Select Package</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <div class="input-group input-group-sm mt-1" id="pkgContainer">
+                                    @if (ViewBag.PackageList.Items.Count == 1)
+                                    {
+                                        @*@Html.DropDownList("drpPackage", ViewBag.PackageList as SelectList, new { @class = "col-8 form-control form-control-sm mt-1" })*@
+                                        @(Html.Kendo().DropDownList().Name("drpPackage").Popup(p => p.AppendTo("#pkgContainer")).HtmlAttributes(new { @class = "full-width  form-control" }).BindTo(ViewBag.PackageList as SelectList)
+                                        )
+                                    }
+                                    else
+                                    {
+                                        @(Html.Kendo().DropDownList().Popup(p => p.AppendTo("#pkgContainer"))
+                                                .Name("drpPackage")
+                                                .DataTextField("PackageName")
+                                                .DataValueField("PackageId")
+                                                .HtmlAttributes(new { style = "width:100%", @class = "form-control" })
+                                                .Filter("contains").OptionLabel("Select Package")
+                                                .DataSource(source =>
+                                                {
+                                                    source.Read(read =>
+                                                                        {
+                                                    read.Action("ServerFiltering_GetProducts", "Procurement");
+                                                })
+                                                                        .ServerFiltering(true);
+                                                })
+                                        )
+                                    }
+                                    <span id="spnPkgErr" style="display:none;color:red">Please select Package.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divScAct">
+                        @Html.Partial("_ScActivityDetails", new RVNLMIS.Models.ScActivityDetailsModel())
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.ScActivityDetailsModel>()
+                                    .Name("ScActGrid")
+                                    .Columns(columns =>
+                                    {
+                                        columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+                                        columns.Bound(c => c.ScActName).HtmlAttributes(new { style = "text-align:left" }).Width("10%")
+                                                                                                                                                                                                                                                                                                    .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Name");
+                                                    //columns.Bound(c => c.PlotColour).HtmlAttributes(new { style = "text-align:center" }).Width("10%")
+                                                    //                                                                                                                      .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Color");
+                                                    columns.Template(@<text></text>).Title("Color").ClientTemplate("<input type='color' id='body' name='body' value='#=PlotColour#' disabled=''>").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%");
+                                    columns.Bound(c => c.PlotThk).HtmlAttributes(new { style = "text-align:right" }).Width("10%")
+                                                                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Thickness");
+                                    columns.Template(@<text></text>).Title("Action").ClientTemplate("<button type='button' class='btn btn-xs btn-warning  has-ripple btnEditCsAct' data-url='/CrossSection/EditScActivity/#=ScActID#' Title='Edit Activity'><i class='feather icon-edit'></i></button>&nbsp;" +
+                                    "<button type='button' class='btn btn-xs btn-danger has-ripple btnScActDelete' data-key='#=ScActID#' Title='Delete Activity'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                                    })
+                                    .Pageable()
+                                    .Events(e => e.DataBound("onScActBound"))
+                                    .NoRecords("No Data Found.")
+                                    .Sortable()
+                                    .Pageable(pageable => pageable
+                                    .Refresh(true)
+                                    .PageSizes(true)
+                                    .ButtonCount(5)
+                                    .PageSizes(new List<object>
+                                    { 10, 20, 50, "all" }).Refresh(true))
+                                    .PersistSelection(true)
+                                    .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    .Model(model => model.Id(u => u.ScActID))
+                                    .Read(read => read.Action("Read_CsActivityDetails", "CrossSection").Data("GetPackageId"))
+                                    .PageSize(10)
+                                    ).Resizable(resize => resize.Columns(true)))
+                        </div>
+                    </div>
+
+
+
+                </div>
+                @* /Card 1 *@
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="card mt-2">
+                @*<div class="card-header">
+                    <h5>Cross Section Strip Chart</h5>
+                </div>*@
+                <div class="card-block" id="card3">
+                    <!-- Basic group add-ons start -->
+
+                    <div id="divpkgCs">
+                        @Html.Partial("_ScPkgCrossSection", new RVNLMIS.Models.ScPkgCrossSectionModel())
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.ScPkgCrossSectionModel>()
+                                        .Name("PkgCrossSectionGrid")
+                                        .Columns(columns =>
+                                        {
+                                            columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+                                            columns.Bound(c => c.CSName).HtmlAttributes(new { style = "text-align:left" }).Width("22%")
+                                                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Name");
+                                            columns.Template(@<text></text>).Title("Action").ClientTemplate("<button type='button' class='btn btn-xs btn-warning  has-ripple btnEditpkgCs' data-url='/CrossSection/EditCrossSection/#=CsID#' Title='Edit Cross Section'><i class='feather icon-edit'></i></button>&nbsp;" +
+                                        "<button type='button' class='btn btn-xs btn-danger has-ripple btnPkgCsDelete' data-key='#=CsID#' Title='Delete'><i class='feather icon-trash'></i></button>&nbsp;").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("8%");
+                        })
+                        .Pageable()
+                        .Events(e => e.DataBound("onPkgCsBound"))
+                        .NoRecords("No Data Found.")
+                        .Sortable()
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+
+                        .ButtonCount(5)
+                        .PageSizes(new List<object>
+                        { 10, 20, 50, "all" }).Refresh(true))
+                        .PersistSelection(true)
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model => model.Id(u => u.CsID))
+                        .Read(read => read.Action("Read_PkgCrossSectionList", "CrossSection").Data("GetPackageId"))
+                        .PageSize(10)
+                        ).Resizable(resize => resize.Columns(true)))
+                        </div>
+                    </div>
+
+
+                </div>
+                @* /Card 1 *@
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div class="col-md-7 pl-1">
+            <div class="card" id="card2">
+                <div class="card-header">
+                    <h5>Strip Chart Activity Details</h5>
+                </div>
+                <div class="card-block">
+                    <div id="divScCs">
+                        @Html.Partial("_ScCsDetails", new RVNLMIS.Models.ScCrossSectionDetailsModel())
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.ScCrossSectionDetailsModel>()
+.Name("CrossSectionGrid")
+.Columns(columns =>
+{
+columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+columns.Bound(c => c.ActivityName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                                                                                                .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Activity").Width("20%");
+                        //columns.Bound(c => c.StrLayer).HtmlAttributes(new { style = "text-align:center" })
+                        //                                                                        .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Layer");
+                        columns.Bound(e => e.StrLayer).Template(@<text></text>).ClientTemplate("#= checkLayer(data) #").HtmlAttributes(new { style = "text-align:center" }).Title("Layer")
+                                                    .HeaderHtmlAttributes(new { style = "text-align:center" }).Width("2%");
+columns.Bound(c => c.TotalThk).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Total Thickness");
+columns.Bound(c => c.MaxLayerThk).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Max Layers");
+columns.Bound(c => c.Slope).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" });
+columns.Bound(c => c.TopWd).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Top Width");
+columns.Bound(c => c.BottomWd).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" }).Title("Bottom Width");
+columns.Bound(p => p.SeqNo).HtmlAttributes(new { style = "text-align:right" })
+                                                                                                                                                                            .HeaderHtmlAttributes(new { style = "text-align:center" });
+columns.Template(@<text></text>).Title("Action").ClientTemplate("<button type='button' class='btn btn-xs btn-warning  has-ripple btnEditCsD' data-url='/CrossSection/EditCsD/#=AutoID#' Title='Edit Details'><i class='feather icon-edit'></i></button>&nbsp;" +
+    "<button type='button' class='btn btn-xs btn-danger has-ripple btnCsDDelete' data-key='#=AutoID#' Title='Delete'><i class='feather icon-trash'></i></button>&nbsp;").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+})
+.ToolBar(toolBar =>
+{
+// toolBar.Create();
+toolBar.Save();
+})
+.Editable(editable => editable.Mode(GridEditMode.InCell))
+.Pageable()
+.Events(e => e.DataBound("onCsDBound"))
+.NoRecords("No Data Found.")
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Events(events => events.Error("OnError"))
+.Group(g => g.Add(c => c.CrossSectionName))
+.ServerOperation(false)
+.Batch(true)
+.Model(model =>
+{
+model.Id(u => u.AutoID);
+model.Field(u => u.ActivityName).Editable(false);
+model.Field(u => u.BottomWd).Editable(false);
+model.Field(u => u.TopWd).Editable(false);
+model.Field(u => u.Layer).Editable(false);
+model.Field(u => u.StrLayer).Editable(false);
+model.Field(u => u.TotalThk).Editable(false);
+model.Field(u => u.MaxLayerThk).Editable(false);
+model.Field(u => u.Slope).Editable(false);
+})
+.Read(read => read.Action("Read_CrossSectionDetails", "CrossSection").Data("GetPackageSectionId"))
+.Update(update => update.Action("EditingCustomCsD_Update", "CrossSection"))
+.PageSize(10)
+).Resizable(resize => resize.Columns(true)))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+
+        $(window).resize(function () {
+            //$('#card1').height($(window).height() - 443);
+            //$('#card3').height($(window).height() - 591);
+            //$('#card2').height($(window).height() - 145);
+
+
+            //$('#PkgCrossSectionGrid').height($(window).height() - 640);
+            //$('#ScActGrid').height($(window).height() - 605);
+            //$('#CrossSectionGrid').height($(window).height() - 380);
+
+            //$('#ScActGrid').height($(window).height() - 395);
+            //$('#PkgCrossSectionGrid').height($(window).height() - 395);
+        });
+
+        $(window).trigger('resize');
+
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function checkLayer(data) {
+            var _Status = data.StrLayer;
+            console.log(_Status);
+            if (_Status == "True") {
+                return "<p style='padding-top:3px' class='text-success'><i class='fa fa-check'></i></p>";
+            }
+            else {
+                return "<p style='padding-top:3px' class='text-warning'><i class='fa fa-times'></i></p>";
+
+            }
+        }
+
+        function OnError(e, status) {
+            if (e.status == "customerror") {
+                if (e.errors == "Please enter unique sequence for each cross section activity.") {
+                    $.notify(e.errors, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                    RefreshScCsDetailsGrid();
+                }
+                else {
+                    $.notify("Data updated successfully.", { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                }
+            }
+            else {
+                $.notify("Generic server error.", { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+            }
+        }
+
+        //register custom validation rules
+        (function ($, kendo) {
+            $.extend(true, kendo.ui.validator, {
+                rules: { // custom rules
+                    seqnovalidation: function (input, params) {
+                        if (input.is("[name='SeqNo']") && input.val() != "") {
+                            input.attr("data-seqnovalidation-msg", "Sequence number should be grater than or eqaul to 1.");
+                            return /^[1-9]/.test(input.val());
+                        }
+                        return true;
+                    }
+                },
+                messages: { //custom rules messages
+                    seqnovalidation: function (input) {
+                        // return the message text
+                        return input.attr("data-val-seqnovalidation");
+                    }
+                }
+            });
+        })(jQuery, kendo);
+
+        function onScActBound() {
+
+            $(".btnEditCsAct").click(function () {
+                var url = $(this).data('url');
+                $.get(url, function (data) {
+                    $("#divScAct").html(data);
+                });
+            });
+
+            $(".btnScActDelete").on("click", function () {
+                alert("SCAct");
+                var Id = $(this).data("key");
+                $("#hdnIdToDelete").val(Id);
+                $("#hdnTypeToDelete").val("ScActivity");
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        function onPkgCsBound() {
+            $(".btnEditpkgCs").click(function () {
+                var url = $(this).data('url');
+                $.get(url, function (data) {
+                    $("#divpkgCs").html(data);
+                });
+            });
+
+            $(".btnPkgCsDelete").on("click", function () {
+                alert("pkg");
+                var Id = $(this).data("key");
+                $("#hdnIdToDelete").val(Id);
+                $("#hdnTypeToDelete").val("ScPkgCs");
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        function onCsDBound() {
+            $(".btnEditCsD").click(function () {
+                var url = $(this).data('url');
+                $.get(url, function (data) {
+                    $("#divScCs").html(data);
+                });
+            });
+
+            $(".btnCsDDelete").on("click", function () {
+                alert("SCAct");
+                var Id = $(this).data("key");
+                $("#hdnIdToDelete").val(Id);
+                $("#hdnTypeToDelete").val("ScCsDetails");
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+        }
+
+        $(document).ready(function () {
+            PackageChangeEvent();
+
+            $("#drpPackage").change(function () {
+                PackageChangeEvent();
+            });
+
+            $("#CrossID").change(function () {
+                RefreshScCsDetailsGrid();
+            });
+
+            $("#btnDeleteConfirm").on("click", function () {
+                debugger;
+                var id = $("#hdnIdToDelete").val();
+                var type = $("#hdnTypeToDelete").val();
+                var url;
+
+                if (type == "ScActivity") {
+                    url = "/CrossSection/DeleteScActivity/" + id;
+                }
+                else if (type == "ScPkgCs") {
+                    url = "/CrossSection/DeleteScPkgCs/" + id;
+                }
+                else if (type == "ScCsDetails") {
+                    url = "/CrossSection/DeleteScCsDetails/" + id;
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (type) {
+                        $("#modalDelete").modal('hide');
+                        $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                        if (type == "ScActivity") {
+                            RefreshScActivity();
+                        }
+                        else if (type == "ScpkgCs") {
+                            RefreshPkgCrossSection();
+                        }
+                        else if (type == "ScCsDetails") {
+                            RefreshScCsDetailsGrid();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+                // }
+            });
+        });
+
+        function PackageChangeEvent() {
+            $("#spnPkgErr").css("display", "none");
+            var dID = $("#drpPackage").data("kendoDropDownList").value();
+            $("#PackageId").val(dID);
+            $("#CSPackageId").val(dID);
+            $("#CsDPackageId").val(dID);
+
+            FillCrossSectionDrp();
+            FillScActivityDrp();
+
+            RefreshScActivity();
+            RefreshPkgCrossSection();
+            RefreshScCsDetailsGrid();
+        }
+
+        function FillCrossSectionDrp() {
+            var packageID = $("#drpPackage").data("kendoDropDownList").value();
+            $.get("/CrossSection/ServerFiltering_GetCrossSection", { pkgId: packageID },
+                function (data) {
+                    var projectDataSource;
+                    // console.log(data);
+                    $("#CrossID").html('');
+                    projectDataSource = data;
+                    $("#CrossID").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: projectDataSource }));
+                });
+        }
+
+        function FillScActivityDrp() {
+            var packageID = $("#drpPackage").data("kendoDropDownList").value();
+            $.get("/CrossSection/ServerFiltering_GetActivity", { pkgId: packageID },
+                function (data) {
+                    // console.log(data);
+                    var projectDataSource;
+                    $("#ScActivityID").html('');
+                    projectDataSource = data;
+                    $("#ScActivityID").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: projectDataSource }));
+                });
+        }
+
+        function RefreshScCsDetailsGrid() {
+            $('#CrossSectionGrid').data('kendoGrid').dataSource.read();
+            $('#CrossSectionGrid').data('kendoGrid').refresh();
+        }
+
+        function RefreshPkgCrossSection() {
+            $('#PkgCrossSectionGrid').data('kendoGrid').dataSource.read();
+            $('#PkgCrossSectionGrid').data('kendoGrid').refresh();
+        }
+
+        function RefreshScActivity() {
+            $('#ScActGrid').data('kendoGrid').dataSource.read();
+            $('#ScActGrid').data('kendoGrid').refresh();
+        }
+
+        function GetPackageId() {
+            var dID = $("#drpPackage").data("kendoDropDownList").value();
+            return { pkgId: dID };
+        }
+
+        function GetPackageSectionId() {
+            var dID = $("#drpPackage").data("kendoDropDownList").value();
+            var crossSecId = $("#CrossID").data("kendoDropDownList").value();
+            return { pkgId: dID, CsId: crossSecId };
+        }
+
+        function PkgCsSuccess(response) {
+            if (response.includes("successfully")) {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                RefreshPkgCrossSection();
+                ResetScPkgForm();
+                FillCrossSectionDrp();
+            }
+            else if (response == "0") {
+                $.notify("Cross Section Name already exists.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            }
+            else if (response == "3") {
+                $("#spnPkgErr").css("display", "block");
+            }
+            else if (response == "-1") {
+                $.notify("Error Occurred.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            }
+            else {
+
+            }
+        }
+
+        function ScCsSuccess(response) {
+            if (response.includes("successfully")) {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                RefreshScCsDetailsGrid();
+                ResetScCsDetailForm();
+            }
+            else if (response == "0") {
+                $.notify("Cross Section Name already exists.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            }
+            else if (response == "3") {
+                $("#spnPkgErr").css("display", "block");
+            }
+            else if (response == "-1") {
+                $.notify("Error Occurred.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            }
+            else {
+                $("#divScCs").html(response);
+            }
+        }
+
+        function ScActivitySuccess(response) {
+            if (response.includes("successfully")) {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+
+                RefreshScActivity();
+                ResetScActForm();
+                FillScActivityDrp();
+            }
+            else if (response == "0") {
+                $.notify("Activity Name already exists.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            }
+            else if (response == "3") {
+                $("#spnPkgErr").css("display", "block");
+            }
+            else if (response == "-1") {
+                $.notify("Error Occurred.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            }
+            else {
+
+            }
+        }
+
+        function ResetScActForm() {
+            $("#ScActID").val("0");
+            $("#ScActName").val("");
+            $("#PlotColour").val("#000000");
+            $("#PlotThk").val("1");
+        }
+
+        function ResetScPkgForm() {
+            $("#CsID").val("0");
+            $("#CSName").val("");
+        }
+
+        function ResetScCsDetailForm() {
+            $("#AutoID").val("0");
+            $("#CrossID").val("");
+            $("#ScActivityID").val("");
+            $("#TotalThk").val("");
+            $("#MaxLayerThk").val("");
+            $("#Slope").val("");
+            $("#TopWd").val("");
+            $("#BottomWd").val("");
+            $('#Layer').prop("checked", false);
+        }
+
+    </script>
+}

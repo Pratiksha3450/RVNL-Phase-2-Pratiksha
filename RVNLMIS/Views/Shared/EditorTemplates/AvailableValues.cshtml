@@ -1,0 +1,15 @@
+﻿@model RVNLMIS.Models.ScPkgChngLevelModel
+@*@(Html.Kendo().DropDownListFor(m => m)
+                .DataValueField("CrossID")
+                .DataTextField("CrossSectionName")
+                .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+)*@
+
+@(Html.Kendo().DropDownListFor(m => m)
+              .DataValueField("CrossID")
+              .DataTextField("CSName")
+                 .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+        .DataSource(dataSource => dataSource
+            .Read(read => read.Action("GetChildData", "ScChainageLevel")
+                .Data("GetId"))
+             ))

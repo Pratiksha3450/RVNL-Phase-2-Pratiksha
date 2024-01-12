@@ -1,0 +1,762 @@
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\obj\Debug\RVNLMIS.csprojAssemblyReference.cache
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\ApplicationInsights.config
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\RVNLMIS.dll.config
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\RVNLMIS.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\RVNLMIS.pdb
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\csc.exe
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\csc.exe.config
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\csc.rsp
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\csi.exe
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\csi.exe.config
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\csi.rsp
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.Managed.Core.targets
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.AppContext.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Collections.Immutable.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Console.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.IO.Compression.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.IO.FileSystem.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.IO.Pipes.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Reflection.Metadata.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Security.AccessControl.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Security.Claims.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Security.Principal.Windows.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.ValueTuple.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Xml.XmlDocument.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Xml.XPath.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\vbc.exe
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\vbc.exe.config
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\vbc.rsp
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\VBCSCompiler.exe
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\roslyn\VBCSCompiler.exe.config
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Antlr3.Runtime.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\EntityFramework.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\EntityFramework.SqlServer.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Kendo.Mvc.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.Agent.Intercept.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.DependencyCollector.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.Web.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.WindowsServer.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.ApplicationInsights.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.PowerBI.Api.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.Web.Infrastructure.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Newtonsoft.Json.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Net.Http.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Net.Http.Formatting.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Security.Cryptography.Algorithms.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Security.Cryptography.Encoding.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Security.Cryptography.Primitives.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Security.Cryptography.X509Certificates.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Helpers.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Http.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Http.WebHost.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Mvc.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Optimization.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Razor.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.WebPages.Deployment.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.WebPages.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.WebPages.Razor.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\WebGrease.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\EntityFramework.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\EntityFramework.SqlServer.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.pdb
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Helpers.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Mvc.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Optimization.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Razor.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.WebPages.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.WebPages.Deployment.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.WebPages.Razor.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Newtonsoft.Json.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Antlr3.Runtime.pdb
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Net.Http.Formatting.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Http.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Web.Http.WebHost.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.DependencyCollector.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.WindowsServer.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.AI.Web.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\obj\Debug\RVNLMIS.csproj.CopyComplete
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\obj\Debug\RVNLMIS.dll
+D:\All My Working Project\CMS LIte & Super\PrimaBI RVNL\RVNLMIS\obj\Debug\RVNLMIS.pdb
+C:\Project\RvnlMIS\RVNLMIS\bin\ApplicationInsights.config
+C:\Project\RvnlMIS\RVNLMIS\bin\RVNLMIS.dll.config
+C:\Project\RvnlMIS\RVNLMIS\bin\RVNLMIS.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\RVNLMIS.pdb
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\csc.exe
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\csc.exe.config
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\csc.rsp
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\csi.exe
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\csi.exe.config
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\csi.rsp
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.AppContext.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Collections.Immutable.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Console.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.Compression.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.Pipes.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.AccessControl.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Claims.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.ValueTuple.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.XPath.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\vbc.exe
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\vbc.exe.config
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\vbc.rsp
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe
+C:\Project\RvnlMIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe.config
+C:\Project\RvnlMIS\RVNLMIS\bin\Antlr3.Runtime.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.SqlServer.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.Web.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.ApplicationInsights.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.PowerBI.Api.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.Web.Infrastructure.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Newtonsoft.Json.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Net.Http.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Net.Http.Formatting.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.Algorithms.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.Encoding.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.Primitives.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.X509Certificates.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Cors.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Helpers.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.WebHost.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Mvc.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Optimization.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Razor.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Deployment.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Razor.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\WebGrease.dll
+C:\Project\RvnlMIS\RVNLMIS\bin\Antlr3.Runtime.pdb
+C:\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.SqlServer.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.Web.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.pdb
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\Newtonsoft.Json.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Net.Http.Formatting.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Helpers.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.WebHost.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Mvc.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Optimization.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.Razor.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Deployment.xml
+C:\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Razor.xml
+C:\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.csprojAssemblyReference.cache
+C:\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.CopyComplete
+C:\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.dll
+C:\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.pdb
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.CoreCompileInputs.cache
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\ApplicationInsights.config
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\RVNLMIS.dll.config
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\RVNLMIS.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\RVNLMIS.pdb
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\csc.exe
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\csc.exe.config
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\csc.rsp
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\csi.exe
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\csi.exe.config
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\csi.rsp
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.CSharp.Core.targets
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.Managed.Core.targets
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.AppContext.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Collections.Immutable.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Console.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Diagnostics.StackTrace.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.Compression.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.IO.Pipes.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Reflection.Metadata.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.AccessControl.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Claims.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Security.Principal.Windows.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Text.Encoding.CodePages.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.ValueTuple.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.ReaderWriter.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.XmlDocument.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.XPath.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\System.Xml.XPath.XDocument.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\vbc.exe
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\vbc.exe.config
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\vbc.rsp
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe.config
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Antlr3.Runtime.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.SqlServer.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.Agent.Intercept.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.PerfCounterCollector.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.Web.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.ApplicationInsights.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.PowerBI.Api.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.Web.Infrastructure.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\netDxf.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Newtonsoft.Json.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Net.Http.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Net.Http.Formatting.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.Algorithms.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.Encoding.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.Primitives.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Security.Cryptography.X509Certificates.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Cors.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Helpers.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.WebHost.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Mvc.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Optimization.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Razor.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Deployment.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Razor.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\WebGrease.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Antlr3.Runtime.pdb
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\EntityFramework.SqlServer.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.Web.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.pdb
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\netDxf.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\Newtonsoft.Json.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Net.Http.Formatting.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Helpers.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Http.WebHost.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Mvc.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Optimization.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.Razor.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Deployment.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\bin\System.Web.WebPages.Razor.xml
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.CopyComplete
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.dll
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.pdb
+K:\PRIYANKA DESIGNER\WEB\PROJECTS\RVNL RUNNING\Project\RvnlMIS\RVNLMIS\obj\Debug\RVNLMIS.csprojAssemblyReference.cache
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.CoreCompileInputs.cache
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\ApplicationInsights.config
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\RVNLMIS.dll.config
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\RVNLMIS.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\RVNLMIS.pdb
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\csc.exe
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\csc.exe.config
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\csc.rsp
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\csi.exe
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\csi.exe.config
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\csi.rsp
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.AppContext.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Collections.Immutable.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Console.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.Compression.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.Pipes.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Reflection.Metadata.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.AccessControl.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Claims.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.ValueTuple.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.XPath.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\vbc.exe
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\vbc.exe.config
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\vbc.rsp
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe.config
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Antlr3.Runtime.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Autodesk.Forge.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\ClosedXML.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\DocumentFormat.OpenXml.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\EntityFramework.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\EntityFramework.SqlServer.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\ExcelNumberFormat.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\itextsharp.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.Web.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.ApplicationInsights.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.Identity.Client.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Abstractions.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.PowerBI.Api.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.Web.Infrastructure.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\netDxf.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Newtonsoft.Json.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\RestSharp.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.IO.Compression.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.IO.FileSystem.Primitives.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.IO.Packaging.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Net.Http.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Net.Http.Formatting.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.Algorithms.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.Encoding.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.Primitives.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.X509Certificates.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Cors.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Helpers.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Http.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Http.WebHost.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Mvc.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Optimization.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Razor.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Deployment.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Razor.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\WebGrease.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Antlr3.Runtime.pdb
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\ClosedXML.pdb
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\ClosedXML.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\DocumentFormat.OpenXml.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\EntityFramework.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\EntityFramework.SqlServer.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\ExcelNumberFormat.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\itextsharp.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.Web.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.Identity.Client.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Abstractions.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.pdb
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\netDxf.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\Newtonsoft.Json.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Net.Http.Formatting.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Helpers.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Http.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Http.WebHost.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Mvc.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Optimization.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.Razor.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Deployment.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Razor.xml
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.CopyComplete
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.dll
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.pdb
+D:\Projects\PrimaBi-Projects\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.csprojAssemblyReference.cache
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\ApplicationInsights.config
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\RVNLMIS.dll.config
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\RVNLMIS.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\RVNLMIS.pdb
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\csc.exe
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\csc.exe.config
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\csc.rsp
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\csi.exe
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\csi.exe.config
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\csi.rsp
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.Managed.Core.targets
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.AppContext.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Collections.Immutable.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Console.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.Compression.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.IO.Pipes.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Reflection.Metadata.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.AccessControl.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Claims.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Security.Principal.Windows.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.ValueTuple.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.XmlDocument.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.XPath.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\vbc.exe
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\vbc.exe.config
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\vbc.rsp
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\roslyn\VBCSCompiler.exe.config
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Antlr3.Runtime.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Autodesk.Forge.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\ClosedXML.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\DocumentFormat.OpenXml.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\EntityFramework.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\EntityFramework.SqlServer.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\ExcelNumberFormat.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\itextsharp.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.Agent.Intercept.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.Web.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.ApplicationInsights.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.Identity.Client.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Abstractions.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.PowerBI.Api.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.Web.Infrastructure.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\netDxf.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Newtonsoft.Json.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\RestSharp.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.IO.Compression.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.IO.FileSystem.Primitives.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.IO.Packaging.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Net.Http.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Net.Http.Formatting.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.Algorithms.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.Encoding.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.Primitives.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Security.Cryptography.X509Certificates.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Cors.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Helpers.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Http.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Http.WebHost.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Mvc.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Optimization.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Razor.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Deployment.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Razor.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\WebGrease.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Antlr3.Runtime.pdb
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\ClosedXML.pdb
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\ClosedXML.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\DocumentFormat.OpenXml.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\EntityFramework.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\EntityFramework.SqlServer.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\ExcelNumberFormat.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\itextsharp.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.DependencyCollector.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.Web.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AI.WindowsServer.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.Identity.Client.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Abstractions.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.pdb
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\netDxf.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\Newtonsoft.Json.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Net.Http.Formatting.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Helpers.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Http.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Http.WebHost.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Mvc.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Optimization.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.Razor.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Deployment.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\bin\System.Web.WebPages.Razor.xml
+E:\RVNL\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.AssemblyReference.cache
+E:\RVNL\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.CoreCompileInputs.cache
+E:\RVNL\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.csproj.CopyComplete
+E:\RVNL\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.dll
+E:\RVNL\Primabi-MIS\RVNLMIS\obj\Debug\RVNLMIS.pdb
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\ApplicationInsights.config
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\RVNLMIS.dll.config
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\RVNLMIS.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\RVNLMIS.pdb
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\csc.exe
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\csc.exe.config
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\csc.rsp
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\csi.exe
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\csi.exe.config
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\csi.rsp
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.Managed.Core.targets
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.AppContext.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Collections.Immutable.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Console.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.IO.Compression.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.IO.FileSystem.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.IO.Pipes.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Reflection.Metadata.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Security.AccessControl.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Security.Claims.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Security.Principal.Windows.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.ValueTuple.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Xml.XmlDocument.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Xml.XPath.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\vbc.exe
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\vbc.exe.config
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\vbc.rsp
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\VBCSCompiler.exe
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\roslyn\VBCSCompiler.exe.config
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Antlr3.Runtime.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Autodesk.Forge.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\ClosedXML.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\DocumentFormat.OpenXml.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\EntityFramework.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\EntityFramework.SqlServer.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\ExcelNumberFormat.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\itextsharp.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.Agent.Intercept.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.DependencyCollector.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.Web.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.WindowsServer.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.ApplicationInsights.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.Identity.Client.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.IdentityModel.Abstractions.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.PowerBI.Api.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.Web.Infrastructure.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\netDxf.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Newtonsoft.Json.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\RestSharp.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.IO.Compression.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.IO.FileSystem.Primitives.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.IO.Packaging.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Net.Http.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Net.Http.Formatting.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Security.Cryptography.Algorithms.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Security.Cryptography.Encoding.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Security.Cryptography.Primitives.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Security.Cryptography.X509Certificates.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Cors.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Helpers.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Http.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Http.WebHost.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Mvc.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Optimization.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Razor.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.WebPages.Deployment.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.WebPages.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.WebPages.Razor.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\WebGrease.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Antlr3.Runtime.pdb
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\ClosedXML.pdb
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\ClosedXML.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\DocumentFormat.OpenXml.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\EntityFramework.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\EntityFramework.SqlServer.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\ExcelNumberFormat.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\itextsharp.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.DependencyCollector.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.Web.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AI.WindowsServer.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AspNet.Identity.Core.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.Identity.Client.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.IdentityModel.Abstractions.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.pdb
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Microsoft.Rest.ClientRuntime.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\netDxf.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\Newtonsoft.Json.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Diagnostics.DiagnosticSource.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Net.Http.Formatting.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Helpers.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Http.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Http.WebHost.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Mvc.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Optimization.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.Razor.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.WebPages.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.WebPages.Deployment.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\bin\System.Web.WebPages.Razor.xml
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\obj\Debug\RVNLMIS.csproj.AssemblyReference.cache
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\obj\Debug\RVNLMIS.csproj.CoreCompileInputs.cache
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\obj\Debug\RVNLMIS.csproj.CopyComplete
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\obj\Debug\RVNLMIS.dll
+D:\PlanSquare\RVNL-Phase-2-Pratiksha\RVNLMIS\obj\Debug\RVNLMIS.pdb

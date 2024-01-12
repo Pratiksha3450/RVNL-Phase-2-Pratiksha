@@ -1,0 +1,477 @@
+﻿@model RVNLMIS.Models.UserViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+        
+    }
+
+    .divMag {
+        margin-left: 64px !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        var len = $("#ListPackage").length;
+        $("#get").click(function () {
+            var id = $("#ListPackage").data("kendoMultiSelect");
+            $.ajax({
+                url: '/Users/AddCustomUserDetails/' + id.value(),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalAddPackagesDetails").modal('hide');
+                    $("#btnAddPackages").hide();
+                    //// ShowSuccessMessage('Deleted Successfully');
+                    //$.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    //$('#UsersGrid').data('kendoGrid').dataSource.read();
+                    //$('#UsersGrid').data('kendoGrid').refresh();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+
+        });
+    });
+</script>
+
+<!-- [ Main Content ] start -->
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>*@
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnId">
+                <p class="success-message">Are you sure you wish to delete selected User ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAddPackagesDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Assign Packages</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-sm " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group mb-3 demo-section k-content" id="container">
+                    <label class="col-form-label-sm-user text-black-50 mb-1" for="txtUserName">
+                        Select Packages
+                    </label>
+
+
+                    @(Html.Kendo().MultiSelect()
+    .Name("ListPackage")
+    .DataTextField("PackageName")
+    .DataValueField("PkgId")
+    .Placeholder("Select Package...")
+    .AutoBind(false)
+    .DataSource(source =>
+{
+        source.Read(read =>
+        {
+            read.Action("ServerFiltering_GetPackage", "Users");
+        }).ServerFiltering(true);
+    }).Events(events => events.DataBound("dataBound"))
+                    )
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-theme pull-right" id="get"> Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_wrapper">
+    <div class="">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+
+            <div class="col-sm-3 pr-1">
+                <div id="UserForms">
+                    @Html.Partial("_PartialEditUser", new RVNLMIS.Models.UserViewModel())
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-9 pl-1">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <h5>User Details</h5>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="category" class="form-control" placeholder="Search by Package Code,Name or User Name " aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="" id="KendoHeight">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.UserViewModel>()
+                                .Name("UsersGrid")
+                                .Columns(columns =>
+                                {
+                                columns.Bound(c => c.Name).HtmlAttributes(new { style = "text-align:left", title = "#= Name #" })
+                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("13%");
+
+                                columns.Bound(c => c.UserName).HtmlAttributes(new { style = "text-align:left", title = "#= UserName #" })
+
+                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("13%");
+                                columns.Bound(c => c.EmailId).HtmlAttributes(new { style = "text-align:left", title = "#= EmailId #" })
+                                                        .HeaderHtmlAttributes(new { style = "text-align:left" });
+                                columns.Bound(c => c.Password).HtmlAttributes(new { style = "text-align:left", title = "#= Password #" })
+                                                           .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                columns.Bound(c => c.RoleName).HtmlAttributes(new { style = "text-align:left", title = "#= RoleName #" })
+                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Role").Width("10%");
+                                columns.Bound(c => c.RoleTableName).HtmlAttributes(new { style = "text-align:left", title = "#= RoleTableName #" }).Title("Role Table")
+                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("13%");
+                                columns.Bound(c => c.TableDataName).HtmlAttributes(new { style = "text-align:left", title = "#= TableDataName #" })
+                                                                    .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Table Data").Visible(false);
+                                columns.Bound(c => c.TableDataCode).HtmlAttributes(new { style = "text-align:left", title = "#= TableDataName #" })
+                                                                            .HeaderHtmlAttributes(new { style = "text-align:left" }).Hidden().Title("Code");
+                                columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button  data-url='/Users/EditUserByUserId/#=UserId#' class='EditUser btn btn-xs btn-warning has-ripple'><i class='feather icon-edit'></i></button>" + "&nbsp;" + "<button type='button' id='btnDeleteUser' class='btn btn-xs btn-danger has-ripple DeleteUser' data-key='#=UserId#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%"); 
+
+
+                                }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 15, 50, 100, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax().Group(g => g.Add(c => c.RoleName))
+.Model(model => model.Id(u => u.UserId))
+.Read(read => read.Action("User_Details", "Users"))
+.PageSize(13)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound"))
+.Excel(excel => excel
+.FileName("Kendo UI Grid Export.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("Kendo UI Grid Export.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            ).
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+
+
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#UsersGrid').height($(window).height() - 198);
+            $("#btnAddPackages").hide();
+            //$('#CardHeight').height($(window).height() - 170);
+            //document.getElementById("CardHeight").style.height = "585px";
+        });
+
+        $("#btnCreateProject").on("click", function () {
+            var url = $(this).data("url");
+            $.get(url, function (data) {
+                $('#createProjectContainer').html(data);
+                $('#createProjectModal').modal('show');
+                GetCPMListByEdID();
+                setTimeout(function () {
+                    NumberPasteValidation();
+                }, 500);
+            });
+        });
+
+        $(window).trigger('resize');
+
+        function dataBound() {
+
+
+            $(".EditUser").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $('#UserForms').html(data);
+                    //var hv = $('#RoleId').val();
+                    var hv = $(".ddlRoleId option:selected").val();
+                    if (hv == '800') {
+                        if (UserId != '0') {
+                            var id = $('#UserId').val();
+                            $.ajax({
+                                url: '/Users/SetPreSelectValue/' + id,
+                                type: "POST",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+                                    $("#ListPackage").data("kendoMultiSelect").value(data);
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    //ShowErrorMessage('Error deleting Project!');
+                                }
+                            });
+                        }
+
+                        $("#btnAddPackages").show();
+
+                        $("#btnAddPackages").on("click", function () {
+                            $("#modalAddPackagesDetails").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+                        });
+                    } else {
+                        $("#btnAddPackages").hide();
+                    }
+                    setTimeout(function () {
+                        $(".ddlRoleId").change(function () {
+                            var dID = $(".ddlRoleId option:selected").text();
+                            $.get("/Users/GetRoleTableDetails", { rolename: dID },
+                                function (data) {
+                                    $("#RoleTableId").html('');
+                                    $("#RoleTableId").append($('<option></option>').val(0).html("Select RoleTable Id"));
+                                    $.each(data, function (i, item) {
+                                        $("#RoleTableId").append($('<option></option>').val(item.Id).html(item.Name));
+                                    });
+                                });
+                            if (dID == 'Custom User') {
+                                $("#btnAddPackages").show();
+                                $("#btnAddPackages").on("click", function () {
+                                    $("#modalAddPackagesDetails").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+                                });
+
+                            } else {
+                                $("#btnAddPackages").hide();
+                            }
+                        });
+                    }, 500);
+                });
+            });
+
+            $(".DeleteUser").on("click", function () {
+                console.info('DeleteUser called');
+                var Id = $(this).data("key");
+                $("#hdnId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+        }
+
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hdnId").val();
+
+            $.ajax({
+                url: '/Users/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+
+                    $("#modalDelete").modal('hide');
+                    // ShowSuccessMessage('Deleted Successfully');
+                    $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+                    $('#UsersGrid').data('kendoGrid').dataSource.read();
+                    $('#UsersGrid').data('kendoGrid').refresh();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+        $("#btnAddPackages").on("click", function () {
+            $("#modalAddPackagesDetails").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+        });
+
+
+
+        function UpdateUserSuccess(data) {
+
+            if (data == "2") {
+                $.notify('User Updated Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#UsersGrid').data('kendoGrid').dataSource.read();
+                $('#UsersGrid').data('kendoGrid').refresh();
+                ClearFormGrid();
+            } else if (data == "1") {
+                $.notify('User Add Successfully!', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $('#UsersGrid').data('kendoGrid').dataSource.read();
+                $('#UsersGrid').data('kendoGrid').refresh();
+                ClearFormGrid();
+            } else if (data == "0") {
+                $.notify('User Name already Exist!', { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                $('#UsersGrid').data('kendoGrid').dataSource.read();
+                $('#UsersGrid').data('kendoGrid').refresh();
+
+            }
+        }
+
+        function ClearFormGrid() {
+            $("#UserId").val("0");
+            $("#Name").val("");
+            $("#UserName").val("");
+            $("#EmailId").val("");
+            $("#MobileNo").val("");
+            $("#RoleId").val("");
+            $("#RoleTableId").val("");
+            var multiSelect = $('#ListPackage').data("kendoMultiSelect");
+            multiSelect.value([]);
+            //$("#RoleId").append($('<option></option>').val(0).html("Select Role"));
+            //$("#RoleTableId").append($('<option></option>').val(0).html("Select Role Table Name"));
+        }
+
+        $(document).ready(function () {
+            $(".ddlRoleId").change(function () {
+                var dID = $(".ddlRoleId option:selected").text();
+                $.get("/Users/GetRoleTableDetails", { rolename: dID },
+
+                    function (data) {
+                        $("#RoleTableId").html('');
+                        $("#RoleTableId").append($('<option></option>').val(0).html("Select RoleTable Id"));
+                        $.each(data, function (i, item) {
+                            $("#RoleTableId").append($('<option></option>').val(item.Id).html(item.Name));
+                        });
+                    });
+                if (dID == 'Custom User') {
+                    $("#btnAddPackages").show();
+                } else {
+                    $("#btnAddPackages").hide();
+                }
+            });
+
+        });
+
+
+        $("#category").keyup(function () {
+            var selecteditem = $('#category').val();
+            var kgrid = $("#UsersGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "Name", operator: "contains", value: v1 },
+                                    { field: "UserName", operator: "contains", value: v1 },
+                                    { field: "TableDataName", operator: "contains", value: v1 },
+                                    { field: "TableDataCode", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+        $(document).ready(function () {
+            $('.OnlyNumDec').keypress(function (event) {
+                return isNumber(event, this)
+            });
+        });
+        // THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+        function isNumber(evt, element) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (
+                (charCode != 45 || $(element).val().indexOf('-') != -1) &&      // “-” CHECK MINUS, AND ONLY ONE.
+                (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+                (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Users - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#UsersGrid").data("kendoGrid");
+            grid.hideColumn(7);
+
+            grid.options.pdf.fileName = "Users - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(7);
+            });
+        }
+
+    </script>
+
+
+}
+
+

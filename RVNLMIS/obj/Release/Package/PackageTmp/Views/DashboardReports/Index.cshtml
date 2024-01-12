@@ -1,0 +1,230 @@
+﻿@using RVNLMIS.Common;
+@using RVNLMIS.Models;
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var role = ((UserModel)HttpContext.Current.Session["UserData"]).RoleCode;
+}
+
+<style>
+    iframe {
+        border-width: 1px;
+        border-style: none !important;
+        border-color: initial;
+        border-image: initial;
+    }
+
+    .float {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        bottom: 40px;
+        left: 40px;
+        background-color: #0C9;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+    }
+
+    a#spnLRDT {
+        position: fixed;
+        width: auto;
+        background: crimson;
+        bottom: 2%;
+        padding: 0.4% 1% 1% 1%;
+        margin: 0;
+        text-align: center;
+        right: 1%;
+        left: auto;
+    }
+
+    .my-float {
+        margin-top: 9px;
+    }
+
+    .i-refresh {
+        bottom: 85px;
+    }
+
+    #btnExport {
+        bottom: 130px;
+    }
+</style>
+<style>
+    .clsBtnExport {
+        bottom: 130px;
+    }
+
+    #container {
+        width: 100%;
+        height: 700px;
+    }
+
+
+    #overlay {
+        position: absolute;
+        width: inherit;
+        height: inherit;
+    }
+
+        #overlay #spinner {
+            position: absolute;
+            top: calc(50% - 50px);
+            left: calc(50% - 50px);
+        }
+</style>
+
+<a href="#" class="float fullscreen" id="fullScreen" title="fullscreen">
+    <i class="fas fa-expand-arrows-alt my-float"></i>
+</a>
+<a href="#" class="float fullscreen i-refresh" id="btnRefresh" title="Refresh Report">
+    <i class="fas fa-sync my-float"></i>
+</a>
+
+<a href="#" class="float fullscreen i-refresh" style="display:none" id="spnLRDT" title="Refresh Report">
+
+</a>
+
+<a href="/ExportReport/Index/@Model.MenuId" class="clsBtnExport float fullscreen" target="_blank" title="Export to PDF">
+    <i class="fas fa-download my-float"></i>
+</a>
+@Html.EncodedActionLink("", "Index", "ExportReport", new { id = @Model.MenuId }, new { @class = "clsBtnExport float fullscreen", @title = "Export to PDF" })
+
+
+@*<a href="#" id="btnExport" class="clstnExport float fullscreen" title="Export to PDF">
+        <i class="fas fa-download my-float"></i>
+    </a>*@
+
+<input type="hidden" value="@Model.MenuId" id="hdnMenuId">
+<div id="container">
+    <div id="overlay">
+        <img id="spinner" src="~/Content/images/primabi.gif" />
+    </div>
+    <div id="embedContainer" class="iframeContainer active" />
+</div>
+
+<script src="~/Scripts/powerbi.js"></script>
+<script>
+    window.setInterval(function () {
+        try {
+            UpdateRefreshTime();
+        } catch (e) { }
+    }, 30000);
+
+    function UpdateRefreshTime() {
+        var menuId = $("#hdnMenuId").val();
+        $.get("/DashboardReports/ReloadLastRefreshDate", { menuId }, function (data) {
+            if (data != "1") {
+                $('#spnLRDT').css("display", "block");
+                $('#spnLRDT').text("Last Refresh : "+data);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        UpdateRefreshTime();
+        $('.iframeContainer').css('height', $(window).height());
+
+        $('#liKpi').removeClass('active');
+        $('#liConstrReport').removeClass('active');
+    });
+    $(window).resize(function () {
+        $('.iframeContainer').css('height', $(window).height());
+        // Comma, not colon ----^
+    });
+
+  // data required for embedding Power BI report
+  var embedReportId = "@Model.reportId";
+  var embedUrl = "@Model.embedUrl";
+  var accessToken = "@Model.accessToken";
+
+  // Get models object to access enums for embed configuration
+  var models = window['powerbi-client'].models;
+
+    var config = {
+        type: 'report',
+        accessToken: accessToken,
+        embedUrl: embedUrl,
+        id: embedReportId,
+        permissions: models.Permissions.ReadWrite /*both save & save as buttons will be visible*/,
+        tokenType: models.TokenType.Embed,
+        viewMode: models.ViewMode.View,
+        settings: {
+            filterPaneEnabled: true,
+            navContentPaneEnabled: true
+        }
+  };
+
+  // Get a reference to HTML element that will be embed container
+  var reportContainer = document.getElementById('embedContainer');
+
+  // Embed the report and display it within the div container.
+   $("#embedContainer").css("visibility", "hidden");
+   var report = powerbi.embed(reportContainer, config);
+
+    if ('@Model.DatasetId' == null || '@Model.DatasetId' == '') {
+        console.log("inside dataset id null check");
+        $("#overlay").hide();
+        $("#embedContainer").css("visibility", "visible");
+    }
+    else {
+        console.log("dataset id not null");
+        report.on("rendered", function (event) {
+            $("#overlay").hide();
+            $("#embedContainer").css("visibility", "visible");
+            report.off("rendered");
+        })
+    }
+
+  var viewMode = "view";
+
+  $("#toggleEdit").click(function () {
+    // toggle between view and edit mode
+    viewMode = (viewMode == "view") ? "edit" : "view";
+    report.switchMode(viewMode);
+    // show filter pane when entering edit mode
+    var showFilterPane = (viewMode == "edit");
+    report.updateSettings({
+      "filterPaneEnabled": showFilterPane
+    });
+  });
+
+  $("#fullScreen").click(function () {
+    report.fullscreen();
+    });
+
+    $("#btnRefresh").click(function () {
+        $.get("/DashboardReports/AjaxRefreshDataset", {
+            groupId: '@Model.WorkspaceId', datasetId: '@Model.DatasetId',
+            applicationSecret: '@Model.applicationSecret', applicationId: '@Model.applicationId', tenantId:'@Model.tenantId'
+        }, function (data) {
+            var param = '/DashboardReports/Index?id=' + encodeURIComponent('?id=@Model.MenuId');
+            window.location.href = param;
+        });
+    });
+
+    @*$("#btnExport").click(function () {
+        $("#overlay").css('display','block');
+        $.get("/DashboardReports/AjaxExportReport/@Model.MenuId", function (data) {
+            console.log('success called');
+            $("#overlay").hide();
+            $('.progress').css({
+                width: '100%'
+            });
+            if (data.code == "Error") {
+                $.notify("Error while exporting report. Please try again!", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+            }
+            else if (data.code == "success") {
+                window.location.href = "/ExportReport/Download?filename=" + data.fileName;
+            }
+        });
+    });*@
+
+  $("#print").click(function () {
+    report.print();
+  });
+
+</script>
+

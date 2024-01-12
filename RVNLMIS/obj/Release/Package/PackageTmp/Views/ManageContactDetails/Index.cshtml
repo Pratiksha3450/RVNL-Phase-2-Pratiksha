@@ -1,0 +1,221 @@
+﻿@model RVNLMIS.Models.PackageUserContact
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
+<div class="content_wrapper">
+    <div class=" ">
+        <div class="row">
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-12">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <h5>PMC User Details  </h5>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="lblAmount"></p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="full-width">
+                                    <div class="input-group input-group-sm">
+
+                                        <input type="search" id="txtSearch" class="form-control mr-4" title="Search by PMC User Name ,Package Name or Package Code"
+                                               aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by PMC User Name ,Package Name or Package Code" width="30%" />
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by PMC User no , Project Name or Package Name"
+                                               aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search by PMC User no , Project Name or Package Name" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 text-right">
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-outline-primary" href="javascript:void()"
+                                            data-url="@Url.Action("Create", "PMC UserPayment")" value="Save" id="btnCreatePMC User" title="Add PMC User"><i class="fas fa-plus"></i> Add</button>
+                                </div>*@
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-condensed" id="KendoHeight" style="overflow-y:scroll">
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.PackageUserContact>()
+                                                                                        .Name("PackageUserContactGrid")
+                                                                                        .Columns(columns =>
+                                                                                        {
+                                                                                            columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("2%");
+
+                                                                                            columns.Bound(c => c.PackageCode).HtmlAttributes(new { style = "text-align:left", title = "#= PackageCode #" })
+                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("24%").Title("Package Code");
+
+                                                                                            columns.Bound(c => c.PackageName).HtmlAttributes(new { style = "text-align:left", title = "#= PackageName #" })
+                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("24%").Title("Package Name");
+
+                                                                                            columns.Bound(c => c.FullName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%").Title("PMC Manager");
+
+                                                                                            columns.Bound(c => c.Email).HtmlAttributes(new { style = "text-align:left" })
+                                                                                .HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%").Title("Email");
+
+                                                                                            columns.Bound(c => c.WhatsappNo).HtmlAttributes(new { style = "text-align:right" })
+                                                                                .HeaderHtmlAttributes(new { style = "text-align:right" }).Width("10%").Title("WhatsappNo");
+
+
+
+}).Scrollable(scr => scr.Height(400)).ClientDetailTemplateId("templatePMCUserPay")
+
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Model(model => model.Id(u => u.AutoId))
+.Read(read => read.Action("ManageContact_Details", "ManageContactDetails"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.DataBound("dataBoundPMCUser"))
+                            )
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+
+</div>
+@section scripts{
+
+    <script id="templatePMCUserPay" type="text/kendo-tmpl">
+        @(Html.Kendo().Grid<RVNLMIS.Models.ResidentEnggDetails>()
+                                                                .Name("PackageUserContactGrid_#=AutoId#") // template expression, to be evaluated in the master context
+                                                                .Columns(columns =>
+                                                                {
+                                                                    columns.Bound(e => e.ResidentEngineerName).Width("12%").Title("RE1 Name");
+                                                                    columns.Bound(e => e.ReWhatsAppNum).Width("45%").Title("RE1 Number");
+                                                                    columns.Bound(e => e.ResidentEngineerName2).Width("45%").Title("RE2 Name");
+                                                                    columns.Bound(e => e.ResidentEngineerName2).Width("45%").Title("RE2 Number");
+
+
+          })
+                  .DataSource(dataSource => dataSource.Ajax()
+                  .PageSize(20)
+                  .Read(read => read
+                  .Action("SubManageContact_Details", "ManageContactDetails", new { AutoId = "#=AutoId#" })))
+                  .Events(events => events.DataBound("dataBound"))
+                  .Pageable()
+                  .Sortable()
+                  .ToClientTemplate()
+        )
+    </script>
+
+
+    <style>
+        .pdfview_popup {
+            overflow: hidden;
+            width: 100%
+        }
+
+        .k-window {
+            overflow: hidden;
+            border: 4px solid red;
+        }
+
+            .k-window > .k-window-titlebar {
+                background: linear-gradient(to right, #5757c5, #00c18d) !important;
+                color: #fff;
+            }
+    </style>
+
+
+
+
+    <script>
+
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            //$('#PMC UserGrid').height($(window).height() - 105);
+            //$('.k-grid-content').height($(window).height() - 195);
+
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function dataBoundPMCUser() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
+            rowNumber = 0;
+
+        }
+
+        function dataBound() {
+            rowNumber = 0;
+        }
+
+
+
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#PackageUserContactGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "PackageCode", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 },
+                                    { field: "FullName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+        });
+
+
+
+    </script>
+}

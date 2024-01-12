@@ -1,0 +1,623 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/RFI/Views/Shared/_RFILayout.cshtml";
+    //var org = ((UserModel)Session["RFIUserSession"]).RoleCode;
+    var instanceUrl = System.Configuration.ConfigurationManager.AppSettings["ServerPath"] as string;
+}
+    
+
+@*<script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>*@
+<style>
+    .k-editor, .k-grid, .k-menu, .k-scheduler {
+        border-radius: 0px !important;
+         
+    }
+
+    .content_wrapper {
+        overflow: hidden;
+        padding: 0.5%;
+    }
+
+    .k-button {
+        border: 1px solid #4680ff;
+        border-radius: 0px;
+    }
+
+    .pcoded-content {
+        position: relative;
+        display: block;
+        padding: 0px !important;
+        margin-top: 30px !important;
+    }
+
+    .card-header {
+        padding: 0.7rem 0.7rem !important;
+        margin-bottom: 0;
+        background-color: rgba(0, 0, 0, 0);
+        border-bottom: 0px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .card .card-block, .card .card-body {
+        padding: 15px 15px;
+    }
+
+    /*.col {
+        /*flex: 0 0 100% !important;*/
+    /*max-width: 100% !important;*/
+    padding-bottom: 20px !important;
+    padding-top: 10px !important;
+    padding-left: 5px !important;
+    }
+    */
+</style>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <input type="hidden" id="hdnDeleteId">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createViewIssueModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModal" aria-hidden="true" data-backdrop="static">
+    <div id="createViewIssueContainer" class="modal-dialog modal-lg">
+
+    </div>
+</div>
+
+
+
+
+<div class="content_wrapper">
+    <div class="EnggDrawing">
+        @*<div class="page-header">
+
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-md-4 pr-1 mb-1" id="divDwgIssue">
+                @Html.Partial("PartialAddEditIssue", new RVNLMIS.Models.IssueRegModel())
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-md-8 order-md-1 pl-1" id="divBackLink" style="display:none;">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>Issue Register Info </h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="searching" class="form-control" placeholder="Search by Issue Reg No, Package Name" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body ">
+                        <div class="  table-responsive table table-condensed" id="KendoHeight">
+                            @(Html.Kendo().Grid<RVNLMIS.Models.IssueRegModel>()
+                                            .Name("IsuueGrid")
+                                            .Columns(columns =>
+                                            {
+                                                columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("3%");
+
+                                                columns.Bound(c => c.IssueRegNo).HtmlAttributes(new { style = "text-align:left" })
+                                                               .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Issue Reg No").Width("7%");
+                                                columns.Bound(c => c.Date).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:left" })
+                                                                 .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Date").Width("5%");
+
+                                                columns.Bound(c => c.DisciplineName).HtmlAttributes(new { style = "text-align:left" })
+                                                                                                                        .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Disp").Width("4%");
+                                                columns.Bound(c => c.IssueSubject).HtmlAttributes(new { style = "text-align:left" })
+                                                                       .HeaderHtmlAttributes(new { style = "text-align:left" }).Title("Subject").Width("11%");
+
+
+
+                                                columns.Template(@<text></text>).Title("Action").ClientTemplate(@*"<button type='button' class='btn btn-xs btn-warning  has-ripple btnEditIssue'" +
+" data-url='/Issue/BindIssueEditDetails/#=ID#' Title='Edit Issue Info'><i class='feather icon-edit'></i>" +
+"</button>&nbsp;" +
+"<button type='button' class='btn btn-xs btn-danger  has-ripple btnDelete' data-key='#=ID#' Title='Delete'><i class='feather icon-trash'></i></button>&nbsp;"*@
+ "<button type='button' class='btn btn-xs btn-info  has-ripple btnViewIssue'" +
+" data-url='/Issue/ViewIssueDetails/#=ID#' Title='view Attachment Details'><i class='fa fa-eye'></i>")
+.HtmlAttributes(new { style = "text-align:left" }).HeaderHtmlAttributes(new { style = "text-align:left" }).Width("2%");
+
+}).Scrollable(scr => scr.Height(400))
+//.ClientDetailTemplateId("templateAttachment")
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 20, 40, 60, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Group(g => g.Add(c => c.PackageName))
+.Model(model => model.Id(u => u.ID))
+.Read(read => read.Action("IssueRegDetails", "Issue"))
+.PageSize(10)).Groupable().Resizable(resize => resize.Columns(true))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("IssueExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Issue", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("IssuePdf.pdf")
+.ProxyURL(Url.Action("Issue_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- [ horizontal-layout ] end -->
+</div>
+
+
+
+
+@section scripts
+    {
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+           
+            var res = '@ViewBag.Visibility';
+          
+            if (res == "true") {
+                $('#divBackLink').css("display", "block");
+                $('#divDwgIssue').hide();
+                $('#divBackLink').removeClass("col-md-8 order-md-1 pl-1");
+                $('#divBackLink').addClass("col-md-12 order-md-1 pl-1");
+            }
+            else
+            {
+                $('#divDwgIssue').show();
+                $('#divBackLink').hide();
+            }
+});
+    </script>
+
+
+
+
+
+
+    <script type="text/javascript">
+        function Validate(event) {
+            var regex = new RegExp(/[0-9]|\+/);
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+
+            }
+        }
+    </script>
+
+
+
+    <script>
+
+
+        $(window).resize(function () {
+            $('#KendoHeight').height($(window).height() - 195);
+            $('#IsuueGrid').height($(window).height() - 198);
+        });
+        $(window).trigger('resize');
+        var rowNumber = 0;
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+
+        function ExportExcel(e) {
+            e.workbook.fileName = "Issue Register - " + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                // also delete the width if it is set
+                delete column.width;
+                column.autoWidth = true;
+            });
+
+        }
+
+        function HideColumn(e) {
+
+            var grid = $("#IsuueGrid").data("kendoGrid");
+            grid.hideColumn(5);
+
+            grid.options.pdf.fileName = "Issue Register - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(5);
+
+            });
+        }
+        function RefreshKendoGrid() {
+            ////Refresh Kendo Grid
+            resetRowNumber();
+            $('#IsuueGrid').data('kendoGrid').dataSource.read();
+            $('#IsuueGrid').data('kendoGrid').refresh();
+        }
+
+        function dataBound() {
+            resetRowNumber();
+            $(".btnEditIssue").on("click", function (e) {
+                var url = $(this).data("url");
+
+                $.get(url, function (data) {
+
+                    $("#divDwgIssue").html(data);
+
+                    BindDrpClickEvent();
+
+                    var inputValue = $("input[name='LocationType']:checked").val();
+
+                    var targetBox = $("." + inputValue);
+                    $(".selectt").not(targetBox).hide();
+                    $(targetBox).show();
+
+                    //var Loc = document.getElementById("hdnLocationID").value;
+                    //alert(Loc);
+                    //if (Loc =="Chainage") {                    /*for chainage*/
+                    //    alert("1");
+                    //    $("#ChainageDiv").show();
+                    //    $("#ChainagesDiv").show();
+                    //    $("#EntityDiv").hide();
+                    //    $("#DivOther").hide();
+                    //    $('#rbChainage').prop('checked', true);
+
+                    //}
+                    //else if (Loc =="Entity") {         /*for Entity*/
+                    //    alert("2")
+                    //    $("#EntityDiv").show();
+                    //    $("#ChainageDiv").hide();
+                    //    $("#ChainagesDiv").hide();
+                    //    $("#DivOther").hide();
+                    //    $('#rbEntity').prop('checked', true);
+
+                    //}
+                    //else {                        /*for Other Location*/
+                    //    alert("3")
+                    //    $("#DivOther").show();
+                    //    $("#ChainageDiv").hide();
+                    //    $("#ChainagesDiv").hide();
+                    //    $("#EntityDiv").hide();
+                    //    $('#rbOther').prop('checked', true);
+                    //}
+                    showHide();
+                    bs_input_file();
+                    BindClickEvent();
+                });
+            });
+
+
+            $(".btnDelete").on("click", function () {
+                var Id = $(this).data("key");
+
+                // $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#hdnDeleteId").val(Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+
+            $(".btnViewIssue").on("click", function (e) {
+
+                var url = $(this).data("url");
+
+                $.get(url, function (data) {
+                    $('#createViewIssueContainer').html(data);
+                    $('#createViewIssueModal').modal('show');
+                });
+            });
+
+        }
+
+        $(document).ready(function () {
+            showHide();
+            CreateIssueCode();
+        });
+
+
+        $("#btnDeleteConfirm").on("click", function () {
+            var id = $("#hdnDeleteId").val();
+
+            $.ajax({
+                url: '/Issue/Delete/' + id,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    //Refresh Kendo Grid
+                    $("#modalDelete").modal('hide');
+                    $.notify('Data deleted successfully.', { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                    RefreshKendoGrid();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //ShowErrorMessage('Error deleting Project!');
+                }
+            });
+        });
+
+
+
+        function CreateIssueCode() {
+            $.get("/Issue/CreateIssueCode", function (response) {
+
+                data = response;
+                //$(".Code").text(response);
+                $("#IssueRegNo").val(response);
+                showHide();
+                BindDrpClickEvent();
+            });
+        }
+    </script>
+
+    <script>
+
+
+
+
+
+
+
+        function GetPackageId() {
+            return { pkgId: $("#PackageId").val() }
+        }
+
+        function BindDrpClickEvent() {
+            $("#PackageId").change(function () {
+                var entityDataSource;
+                var selectedPackageId = $("#PackageId").val();
+                $.get("/Issue/BindEntityDrpValues?pkgId=" + selectedPackageId, function (data) {
+                    $("#EntityID").html('');
+                    entityDataSource = data;
+
+                    $("#EntityID").data("kendoDropDownList").setDataSource(new kendo.data.DataSource({ data: entityDataSource }));
+                });
+                //ClearViewAndGrid();
+            });
+        }
+
+
+        //$(document).ready(function () {
+        function showHide() {
+            //$("input[name$='Location']").click(function () {
+            //    var Loc = $(this).val();
+            //    alert(Loc);
+            //    //var inputValue = $(this).attr("value");
+            //    //alert(inputValue);
+            //    $("#Location").val(Loc);
+            //    if (Loc == "Chainage") {                    /*for chainage*/
+            //        $("#ChainageDiv").show();
+            //        $("#ChainagesDiv").show();
+            //        $("#EntityDiv").hide();
+            //        $("#DivOther").hide();
+
+
+            //    }
+            //    else if (Loc == "Entity") {         /*for Entity*/
+            //        $("#EntityDiv").show();
+            //        $("#ChainageDiv").hide();
+            //        $("#ChainagesDiv").hide();
+            //        $("#DivOther").hide();
+
+
+            //    }
+            //    else {                        /*for Other Location*/
+
+            //        $("#DivOther").show();
+            //        $("#ChainageDiv").hide();
+            //        $("#ChainagesDiv").hide();
+            //        $("#EntityDiv").hide();
+            //         $("rbChainage").val(Loc);
+
+            //    }
+
+            //});
+            $('input[type="radio"]').click(function () {
+                var inputValue = $(this).attr("value");
+
+                var targetBox = $("." + inputValue);
+
+                $(".selectt").not(targetBox).hide();
+                $(targetBox).show();
+            });
+        }
+        //});
+        function BindClickEvent() {
+            bs_input_file();
+            $("#IssueFrm").on("click", "#btnPartialSubmit", function () {
+                bs_input_file();
+                var data = new FormData($('#IssueFrm')[0]);
+                $.ajax({
+                    url: '/Issue/AddEditIssue',
+                    type: "POST",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+
+                        if (response.includes("Added Successfully")) {
+
+                            $(".field-validation-error ").text('');
+                            $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            RefreshKendoGrid();
+                            CreateIssueCode();
+                            ClearViewandGrid();
+
+                        }
+                        else if (response == "already exists") {
+
+                            $.notify("record already exists.", { align: "right", verticalAlign: "top", type: "danger", background: "red", color: "#fff" });
+                        }
+                        else if (response.startsWith("Section Start and End Chainage")) {
+                            $.notify(response, { align: "right", verticalAlign: "top", type: "danger", background: "#ff0000", color: "#fff" });
+                            //ClearViewandGrid();
+                        }
+                        else if (response.includes("Update Successfully")) {
+
+                            $(".field-validation-error ").text('');
+                            $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                            RefreshKendoGrid();
+                            CreateIssueCode();
+                            ClearViewandGrid();
+
+                        }
+                        else {
+
+                            $("#divDwgIssue").html(response);
+                            showHide();
+                            CreateIssueCode();
+                            BindDrpClickEvent();
+                            BindClickEvent();
+
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // $("#loadingDiv").css("display", "none");
+
+                    }
+                });
+
+            });
+        }
+
+
+        function ClearViewandGrid() {
+            $("#ID").val("0");
+            $("#PackageId").val("");
+            $("#EntityId").val("");
+            $("#PackageId").data("kendoDropDownList").value(null);
+            $("#DisplineId").data("kendoDropDownList").value(null);
+            $("#IssueRegNo").val("");
+            $("input[name$='rdLocation']").prop("checked", false);
+            $("#EntityID").data("kendoDropDownList").value(null);
+            $("#OtherLocation").val("");
+            $("#StartChainage").val("");
+            $("#EndChainage").val("");
+            $("#IssueDescription").val("");
+            $("#Date").val("");
+            $("#IssueSubject").val("");
+            $("#AttachmentFile").val('');
+            $("#openAttach").text("");
+            $("#txtFileinput").val("");
+        }
+
+        $(document).ready(function () {
+            bs_input_file();
+            BindClickEvent();
+        });
+
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' id='AttachmentFile' multiple='multiple' name='AttachmentFile' class='input-ghost' style='visibility:hidden; height:0'>");
+                        // element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $("#errFile").css("display", "none");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+
+        $("#searching").keyup(function () {
+            var selecteditem = $('#searching').val();
+            var kgrid = $("#IsuueGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                //kgrid.dataSource.filter({ field: "UserName", operator: "eq", value: selecteditem });
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "IssueRegNo", operator: "contains", value: v1 },
+                                    { field: "PackageName", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+
+    </script>
+}
+

@@ -1,0 +1,115 @@
+﻿@model IEnumerable<RVNLMIS.Areas.RFI.Models.RFIMainModel>
+@using RVNLMIS.Models;
+
+@{
+    Layout = null;
+    var org = ((UserModel)Session["RFIUserSession"]).RoleCode;
+}
+
+
+<div class="row no-gutters">
+
+    @if (Model.Count() == 0)
+    {
+        <div class="col-md-4 offset-4">
+            <div class="card card-body">
+                <div class="text-center">
+                    <img src="/Content/assetsNew/images/vector/nodata.jpg" width="300px">
+                    <h2 class="mt-4">No Record Found!</h2>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-4 @item.InspStatus.Replace(" ", "")-tic">
+
+                <div class="card hd-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div data-key="@item.RFIId" class="card-body show-timeline">
+                                <div class="ticket-customer font-weight-bold">
+                                    <span>@string.Concat(item.RFICode, " (Rev.", item.RevisionNo, ")")</span>
+                                    <p class="float-right d-inline-block m-0" id="status">
+                                        <span class="badge badge-light-primary ">@item.InspStatus </span>
+                                    </p>
+
+                                </div>
+                                @*<ul class="list-inline mt-2 mb-0">
+                                        <li class="list-inline-item">
+                                            <div class="ticket-type-icon private"><i class="feather icon-lock mr-1 f-14"></i>@item.ActivityName</div>
+                                        </li>
+                                    </ul>*@
+                                <div class="full-width">
+                                    <ul class="list-inline p-0 m-0">
+                                        <li class="list-inline-item text-left">
+                                            <span class="pcoded-badge badge btn-icon btn-outline-skyblue"><i class="feather icon-lock mr-1 f-14"></i></span>@item.ActivityName
+                                        </li>
+                                        @if (item.InspStatus == "Scheduled" || item.InspStatus == "Rescheduled")
+                                        {
+                                            <li class="list-inline-item  float-right ">
+                                                <div class="text-right d-inline-block m-0 f-10">
+                                                    <span class="pcoded-badge badge btn-icon btn-outline-brown">
+                                                        <div class="spinner-grow spinner-grow-sm bg-brown text-white text-center p-1" role="status">
+                                                            <i class="feather icon-clock"></i><span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </span>
+                                                    <b>On</b> @item.InspectionDate.Value.ToString("dd MMM yyyy  hh:mm tt")
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                    <ul class="list-inline p-0 m-0">
+                                        <li class="list-inline-item"><span class="pcoded-badge badge btn-icon btn-outline-purple"><i class="feather icon-user f-14"></i></span>Assigned to @item.AssignToPMCName</li>
+                                    </ul>
+                                    <ul class="list-inline p-0 m-0">
+                                        <li class="list-inline-item"><span class="pcoded-badge badge btn-icon btn-outline-yellow"><i class="feather icon-calendar mr-1 f-14"></i></span>Created On @item.RFIOpenDate.Value.ToString("dd MMM yyyy hh:mm tt")</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-option text-right">
+
+                                    @if (org == "RVNL" && item.InspStatus == "Approved by PMC")
+                                    {
+                                        <a href="#" class="text-success approveRFI" title="Close the RFI" data-url="/RFI/GenerateRFI/ApproveRFIByRVNL/@item.RFIId">
+                                            <i class="fa fa-check"></i>
+                                            Approve
+                                        </a>
+                                    }
+
+                                    @if ((org == "PMC" && item.InspStatus == "Scheduled") || (org == "PMC" && item.InspStatus == "Rescheduled"))
+                                    {
+                                        <a href="#" class="text-purple rescheduleRFI" title="Reschedule RFI" data-url="/RFI/GenerateRFI/GetRFIToReschedule/@item.RFIId">
+                                            <i class="fas fa-calendar-alt mr-1"></i>
+                                            Reschedule
+                                        </a>
+                                    }
+
+                                    <a href="javascript:void(0)" data-url="/RFI/GenerateRFI/GetRFIWithStatus" title="View and Update RFI Inspection Status" data-key="@item.RFIId" class="btnViewUpdate btnViewtext-blue"><i class="feather icon-eye mr-1"></i> View</a>
+                                    <a href="/RFI/RFIDocument/Index/@item.RFIId" title="Download RFI" class="pcoded-badge badge btn-icon btn-outline-darkgreen"><i class="fa fa-download"></i></a>
+
+                                    @if (org == "Contractor" && item.InspStatus == "Open")
+                                    {
+                                        <a href="javascript:void(0)" data-url="/RFI/GenerateRFI/GetEnclAttachModel/@item.RFIId" title="Add Enclosure" class="btnAddEnclosure text-info"><i class="feather icon-plus mr-1"></i> Add Enclosure</a>
+                                        <span data-key="@item.RFIId" class="DeleteRFI pcoded-badge badge btn-icon btn-outline-danger"><i class="fa fa-trash"></i></span>
+                                        <span data-url="/RFI/GenerateRFI/AddEditRFI/@item.RFIId" title="Update" class="btnEditRFI pcoded-badge badge btn-icon btn-outline-warning">
+                                            <i class="fa fa-pen"></i>
+                                        </span>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>

@@ -1,0 +1,199 @@
+﻿
+@model RVNLMIS.Models.PowerbiReportData
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add / Update Report Details</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+        </div>
+        @using (Html.BeginForm("AddEditPowerbiReportInfo", "DashboardReports", FormMethod.Post, new { @class = "j-pro", @id = "formAssignment", enctype = "multipart/form-data" }))
+        {
+        <div class="modal-body">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ReportName, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="TenantId">
+                            Tenant ID @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })
+                        </label>
+                        @Html.EditorFor(model => model.TenantId, new { htmlAttributes = new { @class = "form-control form-control-sm", maxlength = "50" } })
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="ApplicationSecret">  Application Secret  @Html.ValidationMessageFor(model => model.ApplicationSecret, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.ApplicationSecret, new { htmlAttributes = new { @class = "form-control form-control-sm", maxlength = "50" } })
+                        @*@Html.EditorFor(model => model.ReportId, new { htmlAttributes = new { @class = "form-control form-control-sm", maxlength = "50" } })*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="ApplicationId"> Application ID  @Html.ValidationMessageFor(model => model.ApplicationId, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.ApplicationId, new { htmlAttributes = new { @class = "form-control form-control-sm", maxlength = "50" } })
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1" id="Wscontainer">
+                        <label class="col-form-label-sm-user text-black-50" for="WorkSpaceId"> WorkSpace ID @Html.ValidationMessageFor(model => model.WorkSpaceId, "", new { @class = "text-danger" })</label>
+                        @*@Html.DropDownListFor(model => model.WorkSpaceId, Enumerable.Empty<SelectListItem>(), "Select Workspace", new { @class = "form-control form-control-sm" })*@
+                        @(Html.Kendo().DropDownListFor(model => model.WorkSpaceId).Popup(p => p.AppendTo("#Wscontainer"))
+                                                    .Name("WorkSpaceId")
+                                                    .DataTextField("Name")
+                                                    .DataValueField("ID")
+                                                    .HtmlAttributes(new { style = "width:100%" })
+                                                    .Filter("contains").OptionLabel("Select Workspace")
+                                                    .DataSource(source =>
+                                                    {
+                                                        source.Read(read =>
+                                                        {
+                                                            read.Action("Get_Workspace", "DashboardReports").Data("GetValues");//, new { id = 0 });
+                                                                })
+                                                             .ServerFiltering(true);
+                                                    })
+                        )
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1" id="reportcontainer">
+                        <label class="col-form-label-sm-user text-black-50" for="ReportId">Report ID  @Html.ValidationMessageFor(model => model.ReportId, "", new { @class = "text-danger" })</label>
+                        @*@Html.DropDownListFor(model => model.ReportId, Enumerable.Empty<SelectListItem>(), "Select Workspace", new { @class = "form-control form-control-sm" })*@
+                        @(Html.Kendo().DropDownListFor(model => model.ReportId).Popup(p => p.AppendTo("#reportcontainer"))
+                                                           .Name("ReportId")
+                                                           .DataTextField("Name")
+                                                           .DataValueField("ID")
+                                                           .HtmlAttributes(new { style = "width:100%" })
+                                                           .Filter("contains").OptionLabel("Select Report")
+                                                           .DataSource(source =>
+                                                           {
+                                                               source.Read(read =>
+                                                               {
+                                                                   read.Action("Get_ReportInGroup", "DashboardReports").Data("GetGroupId");//, new { id = 0 });
+                                                                       })
+                                                                    .ServerFiltering(true);
+                                                           })
+                        )
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1" id="Dscontainer">
+                        <label class="col-form-label-sm-user text-black-50" for="DatasetId">Dataset ID</label>
+                        @*@Html.DropDownListFor(model => model.DatasetId, Enumerable.Empty<SelectListItem>(), "Select Workspace", new { @class = "form-control form-control-sm" })*@
+                        @(Html.Kendo().DropDownListFor(model => model.DatasetId).Popup(p => p.AppendTo("#Dscontainer"))
+                                                           .Name("DatasetId")
+                                                           .DataTextField("Name")
+                                                           .DataValueField("ID")
+                                                           .HtmlAttributes(new { style = "width:100%" })
+                                                           .Filter("contains").OptionLabel("Select Dataset")
+                                                           .DataSource(source =>
+                                                           {
+                                                               source.Read(read =>
+                                                               {
+                                                                   read.Action("Get_Dataset", "DashboardReports").Data("GetGroupId");//, new { id = 0 });
+                                                                       })
+                                                                    .ServerFiltering(true);
+                                                           })
+                        )
+                    </div>
+                </div>
+                @*<div class="col-md-6">
+                <div class="form-group mb-1">
+                    <label class="col-form-label-sm-user text-black-50" for="txtUserName"> Tenant ID  @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })</label>
+
+                </div>
+            </div>*@
+
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="MenuId"> Menu Name  @Html.ValidationMessageFor(model => model.MenuId, "", new { @class = "text-danger" })</label>
+                        @Html.DropDownListFor(model => model.MenuId, ViewBag.MenuList as SelectList, "Select Menu", new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="GroupId"> Group Name  @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })</label>
+                        @Html.DropDownListFor(model => model.GroupId, ViewBag.GroupList as SelectList, "Select Group", new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="Description">Description</label>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control form-control-sm", maxlength = "200" })
+                    </div>
+                </div>
+
+                @*<div class="col-md-4">
+                <div class="form-group mb-3">
+
+                </div>
+            </div>*@
+
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName"> Icon</label>
+
+                        @Html.TextBoxFor(model => model.Image, new { type = "file", onchange = "readURL(this);" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        @*<label class="col-form-label-sm-user text-black-50" for="txtUserName"> Icon</label>
+
+                    @Html.TextBoxFor(model => model.Image, new { type = "file", onchange = "readURL(this);" })*@
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label class="col-form-label-sm-user text-black-50" for="txtUserName">Icon Preview</label>
+
+                        @if (@Model.ReportImage == "" || @Model.ReportImage == null)
+                        {
+                            <img id="imgPreview" src="~/Uploads/PowerBiReportImages/powerbi_default.png" width="100" height="100">
+                        }
+                        else
+                        {
+                            <img id="imgPreview" src="~/Uploads/PowerBiReportImages/@Model.ReportImage" width="100" height="100">
+                        }
+                    </div>
+                </div>
+
+                @*<div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label-sm">URL</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.URL, new { htmlAttributes = new { @class = "form-control form-control-sm col-sm-8", maxlength = "50" } })
+                        @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+
+            </div>
+        </div>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-theme has-ripple  btnAddData" id="btnPartialCASubmit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+

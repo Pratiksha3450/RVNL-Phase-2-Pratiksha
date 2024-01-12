@@ -1,0 +1,66 @@
+﻿@model RVNLMIS.Models.EDMasterModel
+@{
+    Layout = null;
+}
+
+
+<div class="card">
+    <div class="card-header pb-4">
+        <h5>ED Information</h5>
+    </div>
+    
+    @using (Ajax.BeginForm("AddEDDetails", "EDMaster", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnEDSuccess" }, new { @class = "form",  @id = "frmED" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.EDId)
+        <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEDCode">ED Code @Html.ValidationMessageFor(model => model.EDCode, "", new { @class = "text-danger" })</label>
+
+                        @if (Model.EDId != 0)
+                        {
+
+                            @Html.EditorFor(model => model.EDCode, new { htmlAttributes = new { @class = "mb-3 form-control disableCN", @type = "text", @placeholder = "Enter ED code" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.EDCode, new { htmlAttributes = new { @class = "mb-3 form-control disableCN", @type = "text", @placeholder = "Enter ED code" } })
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-1">
+                    <div class="form-group mb-3">
+                        <label class="col-form-label-sm-user text-black-50" for="txtEDName">ED Name @Html.ValidationMessageFor(model => model.EDName, "", new { @class = "text-danger" })</label>
+                        @Html.EditorFor(model => model.EDName, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Enter ED name" } })
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-right">
+                    <div class="form-group ">
+                        @*@if (Model.EDId != 0)
+                        {
+                            <button type="submit" class="btn btn-xs btn-primary has-ripple  btnSubmit" value="Update"><i class="m-r-5 feather icon-check"></i>Update</button>
+                        }
+                        else
+                        {*@
+                        <button type="submit" class="btn btn-sm btn-theme pull-right btnSubmit" value="Save">Save</button>
+                        @*}*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+    }
+</div>
+
+<script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 205);
+    });
+    $(window).trigger('resize');
+</script>

@@ -1,0 +1,82 @@
+﻿@model RVNLMIS.Models.EditProcurementModel
+@{
+    Layout = null;
+}
+
+<div class="card" id="CardHeight">
+    <div class="card-header">
+        <h5>Material Information</h5>
+    </div>
+    <div class="card-body p-b-0 pl-3 pr-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label-sm"> Package</label>
+                    <label class="col-sm-8 col-form-label-sm"> @Model.PackageName</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label-sm"> Material</label>
+                    <label class="col-sm-8 col-form-label-sm"> @Model.MaterialName</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label-sm"> Rate / Unit</label>
+                    <div class="col-sm-8">
+                        <label class="col-form-label-sm">@Model.RatePerUnit </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="Select" class="col-sm-4 col-form-label-sm">Original Quantity</label>
+                    <div class="col-sm-8">
+                        <label class="col-form-label-sm">@Model.OriginalQty</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="Select" class="col-sm-4 col-form-label-sm">Revised Quantity</label>
+                    <div class="col-sm-8">
+                        <label class="col-form-label-sm">@Model.RevisedQty</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="Select" class="col-sm-4 col-form-label-sm">Ordered Quantity</label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label-sm" id="lblPreOrdered">@Model.OrderedQty</label>
+                            <label class="col-sm-5 col-form-label-sm text-right pull-right text-danger">Balance </label>
+                            <label class="col-sm-4 col-form-label-sm text-right text-danger" title="Balance Ordered" id="lblBalOrd">
+                                @(@Convert.ToDouble(@Model.RevisedQty) - @Convert.ToDouble(Model.OrderedQty))
+                            </label>
+                        </div>
+                        <input type="hidden" id="hdnBalOrd" value="@(@Convert.ToDouble(@Model.RevisedQty) - @Convert.ToDouble(Model.OrderedQty))"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="Select" class="col-sm-4 col-form-label-sm">Delivered Quantity</label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <label class="col-md-3 col-form-label-sm">@Model.DeliveredQty </label>
+                            <label class="col-sm-5 col-form-label-sm text-right pull-right text-danger">Balance </label>
+                            <label class="col-md-4 col-form-label-sm text-right text-danger" title="Balance Delivered" id="lblBalDel">
+                                @(@Convert.ToDouble(@Model.RevisedQty) - @Convert.ToDouble(Model.DeliveredQty))
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="hdnBalDel" value="@(@Convert.ToDouble(@Model.RevisedQty) - @Convert.ToDouble(Model.DeliveredQty))"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+

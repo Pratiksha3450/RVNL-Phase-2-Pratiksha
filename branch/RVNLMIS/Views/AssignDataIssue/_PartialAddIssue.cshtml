@@ -1,0 +1,89 @@
+﻿@model RVNLMIS.Models.DataIssueModel
+
+@{
+    Layout = null;
+}
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                    <h5>Data Issue</h5>
+                </div>
+
+            </div>
+
+        </div>
+        @*@using (Html.BeginForm("AddUserDetails", "Users", FormMethod.Post, new { @class = "form", @id = "Usersform" }))*@        
+        @using (Html.BeginForm("SubmitIssue", "AssignDataIssue", FormMethod.Post, new { encType = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="card-body pl-3 pr-3 pb-1 pt-2" id="card1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-3" id="prjContainer">
+                            <label class="col-form-label-sm-user text-black-50" for="txtUserName">Select Package   @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })</label>
+                            @*@Html.DropDownListFor(model => model.ProjectId, ViewBag.ProjectList as SelectList, "Select Project", new { @class = "form-control form-control-sm" })*@
+                            @(Html.Kendo().DropDownListFor(model => model.PackageId).OptionLabel("Select Package")
+                                                                                    .Name("PackageId").Popup(p => p.AppendTo("#prjContainer"))
+                                                                                    .Filter("contains").HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                                                                    .BindTo(ViewBag.PackageList as SelectList)
+                            )
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50" for="txtUserName">Short Description @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })</label>
+                            @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Short Description" } })
+                        </div>
+                    </div>                   
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            @*<label class="col-form-label-sm-user text-black-50" for="txtEmail">Email @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })</label>*@
+                            <label class="col-form-label-sm-user text-black-50" for="txtEmail">Description @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })</label>
+                            @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "mb-3 form-control", @type = "text", @placeholder = "Ex: Description" } })*@
+                            @Html.TextAreaFor(model => model.Description, new { @class = "nb-3 form-control", @type = "text", @placeholder = "Messages", @cols = 40, @rows = 5 })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label-sm-user text-black-50 mb-3 m-b-10" for="txtMobile">Upload File @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })</label><br />
+                            @Html.TextBoxFor(m => m.File , new { type = "file", name = "File", @class = "btn btn-default btn-file" })
+                        </div>
+                    </div>
+                    @*<div class="col-md-12">
+                        <div class="form-group mb-3">
+                            <label class="col-form-label-sm-user text-black-50" for="txtUserName">
+                                Select Attachment
+                            </label>
+                            <div class="input-group input-file" name="Fichier1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-choose" type="button"
+                                            style="padding: 8% 4%;width: max-content;margin-top: 9%;">
+                                        Browse File
+                                    </button>
+                                </span>
+                                @Html.TextBoxFor(m => m.File, new { type = "file", name = "File" })
+                                <input type="text" id="txtFileinput" class="form-control pl-3" placeholder='Choose a file...' />
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-sm btn-theme pull-right" value="Save">Save</button>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+    <script>
+    $(window).resize(function () {
+        $('#card1').height($(window).height() - 258);
+    });
+    $(window).trigger('resize');
+    </script>

@@ -1,0 +1,440 @@
+﻿@using RVNLMIS.Models;
+@model RVNLMIS.Areas.RFI.Models.RFIInspStatusUpdateModel
+
+@{
+    Layout = null;
+    var org = ((UserModel)Session["RFIUserSession"]).RoleCode;
+}
+
+
+<style type="text/css">
+    .uploadImages img {
+        max-width: 80px;
+    }
+
+    input[type=file] {
+        padding: 10px 0;
+    }
+
+    .uploadImages .btn_theme {
+        min-width: 65px;
+    }
+</style>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">
+            View RFI
+        </h5>
+        <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" id="hdnInspStatus" value="@Model.InspName">
+
+        <div class="">
+
+            <h4 class="text-center">Inspection Request <!-- <span class="text-c-themeblue">RVNL</span> --></h4>
+            <!-- <div class="saperator_full "><div class="divider_full"></div></div> -->
+            <!-- <div class="saperator_left"><div class="divider_left"></div></div> -->
+            <div class="saperator_multiple_centered"><div class="divider_multiple"></div><div class="divider_green"></div></div>
+            <!-- <div class="saperator"><div class="divider"></div></div> -->
+            <!-- <h5 class="mt-3">Login</h5> -->
+
+            <div class="mt-1">
+                <!--  <h6 class="border-bottom"> <img src="assets/images/auth/RVNL_logo.png" width="150px" class="mb-2"> </h6> -->
+                <h5>
+                    @string.Concat(Model.RFICode, " (Rev.", Model.RevisionNo, ")")
+
+                    @if (Model.InspName == "Open")
+                    {
+                        <span class="badge badge-light-primary float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+                    else if (Model.InspName == "Approved by PMC")
+                    {
+                        <span class="badge badge-light-green float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+                    else if (Model.InspName == "Rejected")
+                    {
+                        <span class="badge badge-light-danger float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+                    else if (Model.InspName == "Scheduled")
+                    {
+                        <span class="badge badge-light-purple float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+                    else if (Model.InspName == "Rescheduled")
+                    {
+                        <span class="badge badge-light-orange float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+                    else if (Model.InspName == "Revise and Resubmit")
+                    {
+                        <span class="badge badge badge-light-brown  float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+                    else if (Model.InspName == "Approved by RVNL")
+                    {
+                        <span class="badge badge badge-light-gray  float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge badge-light-cyan  float-right d-inline-block m-0">@Model.InspName</span>
+                    }
+
+                </h5>
+            </div>
+            <div class="border-bottom mb-1 pt-1">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h5> @Model.PackageName </h5>
+                    </div>
+                    @*<div class="col-md-5 text-right">
+                            <p class="d-inline-block mb-0"><i class="feather icon-calendar mr-1"></i><label class="">sat,10/03/2019</label></p>
+                        </div>*@
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-1 border-bottom">
+                <h6> Workgroup: </h6>
+                <label> @Model.Workgroup   </label>
+            </div>
+            <div class="col-md-4 mb-1 border-bottom">
+                <h6> Layer No: </h6>
+                <label>  @Model.Layer  </label>
+            </div>
+            <div class="col-md-4 mb-1 border-bottom">
+                <h6> Assigned To: </h6>
+                <label> @Model.AssignedToName (PMC) </label>
+            </div>
+            <div class="col-md-4 mb-1 border-bottom">
+                <h6> Enclosure: </h6>
+                <label> @Model.Enclosure  </label>
+            </div>
+            <div class="col-md-4 mb-1 border-bottom">
+                <h6> WorkSide: </h6>
+                <label> @Model.WorkSide  </label>
+            </div>
+            <div class="col-md-4 mb-1 border-bottom">
+                <h6> Activity: </h6>
+                <label> @Model.ActivityName  </label>
+            </div>
+            <div class="col-md-4 mb-1 border-bottom">
+                <h6> Location: </h6>
+                <label> @Model.LocationType  </label>
+            </div>
+
+            @if (Model.LocationType == "Chainage")
+            {
+                <div class="col-md-4 mb-1 border-bottom">
+                    <h6> Start Chainage </h6>
+                    <label> @Model.StartChainage  </label>
+                </div>
+                <div class="col-md-4 mb-1 border-bottom">
+                    <h6> End Chainage </h6>
+                    <label> @Model.EndChainage  </label>
+                </div>
+            }
+
+            @if (Model.LocationType == "Entity")
+            {
+                <div class="col-md-4 mb-1 border-bottom">
+                    <h6> Entity </h6>
+                    <label> @Model.EntityName  </label>
+                </div>
+                <div class="col-md-4 mb-1 border-bottom">
+                </div>
+            }
+
+            @if (Model.LocationType == "Other")
+            {
+                <div class="col-md-4 mb-1 border-bottom">
+                    <h6> Other Work Location </h6>
+                    <label> @Model.OtherWorkLocation  </label>
+                </div>
+                @*<div class="col-md-4 mb-1 border-bottom">
+                    </div>*@
+            }
+
+            @if (!string.IsNullOrEmpty(Model.ContrComment) && org != "Contractor")
+            {
+                <div class="col-md-4 mb-1 border-bottom">
+                    <h6> Comment by Contractor </h6>
+                    <label> @Model.ContrComment  </label>
+                </div>
+                @*<div class="col-md-4 mb-1 border-bottom">
+                    </div>*@
+            }
+
+
+        </div>
+
+        @using (Html.BeginForm("UpdateRFIDateAndStatus", "GenerateRFI", FormMethod.Post, new { @style = "width=500px", @class = "j-pro", enctype = "multipart/form-data", @id = "InspStatusFrm" }))
+        {
+            @Html.HiddenFor(Model => Model.RFIId)
+            @Html.HiddenFor(Model => Model.RevisionId)
+            @Html.HiddenFor(Model => Model.InspStatus)
+            @Html.Hidden("InitialInspStatus", Model.InspName)
+            @Html.Hidden("InitialNote", Model.Note)
+            @Html.Hidden("CountPictures", Model.objPicture.Count())
+
+            @*<div class="hide" id="inspectionform" style="display: block;" data-select2-id="inspectionform">*@
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="hide" id="inspectionform" style="display: block;" data-select2-id="inspectionform">
+                        <div class="row" data-select2-id="34">
+                            @{
+                                var strings = new List<string> { "Approved by PMC", "Approved by RVNL" };
+                            }
+                            @if (!strings.Contains(Model.InspName))
+                            {
+                                if (@org == "PMC")
+                                {
+                                    @*<div class="col-md-6">
+                                            <label> Date </label>
+                                            @Html.EditorFor(model => model.InspDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>*@
+                                    <div class="col-md-6">
+                                        <label class="" for="Email">Date</label>
+                                        <div class="form-group fill mb-4">
+
+                                            @Html.EditorFor(model => model.InspDate, new { htmlAttributes = new { @class = "form-control md-addon", @placeholder = "", @type = "text" } })
+
+                                            <div class="input-group-append">
+                                                <i class="fa fa-calendar input-group-text"></i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    if (Model.InspStatus != "Open")
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="form-group fill" id="inspcontainer">
+                                                <label for="inputPassword4">Update Status</label>
+                                                @(Html.Kendo().DropDownListFor(model => model.InspId).Popup(p => p.AppendTo("#inspcontainer"))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .Name("InspId")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .DataTextField("Name")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .DataValueField("ID")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .HtmlAttributes(new { style = "width:100%", @class = "js-example-placeholder-multiple full-width" })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .Filter("contains").OptionLabel("Select Inspection Status")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .DataSource(source =>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            source.Read(read =>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                read.Action("Get_InspectionStatus", "RFIMain");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .ServerFiltering(true);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        })
+                                                )
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 hide" id="PartiallyAppChainage">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group fill">
+                                                        <label for="inputPassword4">Start Chainage <span class="text-danger">*</span></label>
+                                                        @Html.EditorFor(model => model.AprrovedStartChainage, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ex: 10010" } })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group fill">
+                                                        <label for="EndChainage">
+                                                            End Chainage
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        @Html.EditorFor(model => model.AprrovedFinishChainage, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ex: 20050" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group fill">
+                                                <label for="inputPassword4">Note</label>
+                                                @Html.TextAreaFor(model => model.Note, new { @class = "form-control", @placeholder = "Ex: Note" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @if (Model.objPicture.Count() != 0)
+                                            {
+                                                <div class="col-md-4 mt-2">
+                                                    <h6> Pictures with Remark </h6>
+                                                </div>
+                                                <div class="uploadImages" id="editPicture">
+                                                    @Html.Partial("_PartialRFIPictures", Model)
+                                                </div>
+
+                                                //if (Model.objPicture.Count() < 3)
+                                                //{
+                                                    <div class="notEdit" style="display:none">
+                                                        <div class="col-md-12 text-right">
+                                                            <button type="button" class="btnAddMorePicture btn btn-sm btn-info mt-4 f-10"> <i class="fa fa-plus"> </i>Add More Images </button>
+                                                        </div>
+
+                                                        <div class="col-md-12" id="items">
+
+                                                            @* ------ *@
+                                                            <div class="uploadImages row">
+                                                                <div class="col-md-2 mb-1">
+                                                                    <img id="imgview1" src="http://placehold.it/180" alt="your image" />
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-group fill">
+                                                                        <label>Select file</label>
+                                                                        <input onchange="showImgPreview(this);" type="file" id="Picture1" name="Picture1" class="form-control" />
+                                                                        <span class="errPic" style="display:none;color:red">Select only .png, .jpg, .jpeg files.</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group fill">
+                                                                        <label for="inputPassword4">Remark</label>
+                                                                        @Html.TextAreaFor(model => model.Remark1, new { @class = "form-control", @placeholder = "Ex: Remark" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            @* ------ *@
+                                                        </div>
+                                                    </div>
+
+                                                <div class="changeSinglePicture" style="display:none">
+                                                    <input type="hidden" name="hdnPicId" id="hdnPicId" />
+                                                    <div class="full-width">
+                                                        <div class="uploadImages row no-gutters">
+                                                            <div class="col-md-2 mb-1">
+                                                                <img id="imgviewSingle" src="http://placehold.it/180" alt="your image" />
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group fill">
+                                                                    <label>Select file</label>
+                                                                    <input onchange="showImgPreview(this);" type="file" id="PictureSingle" class="form-control" />
+                                                                    <span class="errPic" style="display:none;color:red;">Select only .png, .jpg, .jpeg files.</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group fill">
+                                                                    <label for="inputPassword4">Remark</label>
+                                                                    <input type="text" id="remark" class="form-control mt-3" placeholder="Remark" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-3 mt-5">
+                                                                <div class="pull-right">
+                                                                    <button type="button" class="btnSubmitSinglePic btn btn-sm btn_theme has-ripple"> Update </button>
+                                                                    <button type="button" class="btnCancelSubmitSinglePic btn btn-sm btn_theme has-ripple"> Cancel </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-12 text-right">
+                                                    <button type="button" class="btnAddMorePicture btn btn-sm btn-info has-ripple mt-4 f-10"> <i class="fa fa-plus mr-1"> </i> Add More Images </button>
+                                                </div>
+
+                                                <div class="col-md-12" id="items">
+
+                                                    @* ------ *@
+                                                    <div class="uploadImages row">
+                                                        <div class="col-md-2 mb-1">
+                                                            @*<img id="imgview1" src="http://placehold.it/180" alt="your image" />*@
+                                                            <img id="imgview1" src="http://placehold.it/180" alt="your image" />
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group fill">
+                                                                <label>Select file</label>
+                                                                <input onchange="showImgPreview(this);" type="file" id="Picture1" name="Picture1" class="form-control" />
+                                                                <span class="errPic" style="display:none;color:red">Select only .png, .jpg, .jpeg files.</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group fill">
+                                                                <label for="inputPassword4">Remark</label>
+                                                                @Html.TextAreaFor(model => model.Remark1, new { @class = "form-control", @placeholder = "Ex: Remark" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    @* ------ *@
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    <div class="col-sm-12 text-right">
+                                        <button type="button" class="btnSubmitInspStatus btn btn-sm btn_theme has-ripple mt-4"> Submit </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-12">
+                                        @if (Model.objPicture.Count() != 0)
+                                        {
+                                            <div class="col-md-4 mt-2">
+                                                <h6> Pictures with Remark </h6>
+                                            </div>
+                                            <div class="uploadImages">
+                                                @foreach (var item in Model.objPicture)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-2 mb-2">
+                                                            <img style="cursor:pointer;" class="imgLarge" src="@Url.Content(@item.ImgUrl)" alt="your image" data-key="@item.ImgUrl" />
+                                                        </div>
+
+                                                        <div class="col-md-5">
+                                                            <div class="form-group fill">
+                                                                <a title="Download Picture" target="_blank" href="/RFI/GenerateRFI/DownloadDoc?path=@item.ImgUrl&name=@item.FileName">@item.FileName</a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-5">
+                                                            <div class="form-group fill">
+                                                                <label>@item.Remarks</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+
+                                    if (org == "Contractor")
+                                    {
+                                        if (Model.InspStatus == "Revise and Resubmit" || Model.InspStatus == "Rejected")
+                                        {
+                                            <div class="col-md-6">
+                                                <label> Comment </label>
+                                                @Html.EditorFor(model => model.ContrComment, new { htmlAttributes = new { @class = "form-control" } })
+                                            </div>
+
+                                            <div class="col-sm-12 text-right">
+                                                <button type="button" class="btnSubmitInspStatus btn btn-sm btn_theme has-ripple mt-4"> Submit </button>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*</div>*@
+        }
+    </div>
+</div>
+
+
+

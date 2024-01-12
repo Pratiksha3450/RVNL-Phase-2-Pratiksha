@@ -1,0 +1,506 @@
+﻿
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .radio-inline {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .chosen-container-multi .chosen-choices {
+        max-height: 250px;
+        overflow-y: scroll;
+    }
+</style>
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <input type="hidden" id="hiddenId" />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirm Delete</h5>
+                <button id="btnCloseDelete" type="button" class="close btn-xs " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Are you sure you wish to delete selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success delete-confirm" id="btnDeleteConfirm"><i class="fa fa-check mr-2"></i>Ok</button>
+                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_wrapper ">
+    <div class="">
+        @*<div class="page-header">
+            </div>*@
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <input type="hidden" id="hdnRFICode" value="@TempData["RFICode"].ToString()" />
+            <div class="col-sm-4 pr-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>RFI Form</h5>
+                    </div>
+                    <div id="frmRFI">
+                        @Html.Partial("_AddEditRFIPartialView", new RVNLMIS.Models.RFIModel())
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-8 pl-1">
+                <div class="card">
+                    <div class="card-header mb-0">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <h5>RFI Form Details </h5>
+                            </div>
+                            <div class="col-sm-12 col-md-4 divMag">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" id="txtSearch" style="width:380px" class="form-control" title="Search by RFI ID, Workgroup, Activity, Workside" placeholder="Search by RFI ID, Workgroup, Activity, Workside" /></td>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" id="cust-kendo-height">
+                        <div class="" id="KendoHeight">
+                            <input type="hidden" id="hdnRoleValue" value="@TempData["RoleValue"].ToString()" />
+                            <input type="hidden" id="hdnRole" value="@TempData["Role"].ToString()" />
+
+
+
+                            @(Html.Kendo().Grid<RVNLMIS.Models.RFIModel>()
+                              .Name("RFIGrid")
+                              .Columns(columns =>
+                              {
+                              columns.Template(t => { }).Title("#").ClientTemplate("#= renderNumber(data) #").Width("4%"); ;
+                              columns.Bound(c => c.SubDate).Format("{0:dd-MMM-yyyy}").HtmlAttributes(new { style = "text-align:left" })
+                              .HeaderHtmlAttributes(new { style = "text-align:left" });
+                              columns.Bound(c => c.RFIID).HtmlAttributes(new { style = "text-align:left" })
+                                  .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                              columns.Bound(c => c.WorkGroup).HtmlAttributes(new { style = "text-align:left" })
+                                                  .HeaderHtmlAttributes(new { style = "text-align:left" });
+                              columns.Bound(c => c.Workside).HtmlAttributes(new { style = "text-align:left" })
+                                                 .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                              columns.Bound(c => c.Activity).HtmlAttributes(new { style = "text-align:left" })
+                                               .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                              columns.Bound(c => c.LayerNo).HtmlAttributes(new { style = "text-align:left" })
+                                            .HeaderHtmlAttributes(new { style = "text-align:left" });
+
+                              columns.Template(@<text></text>).Title("Action").ClientTemplate("" +
+"<button data-url='/RFIForm/EditbyID/#=ID#'  class='EditRFI btn btn-xs btn-warning has-ripple'  ><i class='feather icon-edit'></i></button>" + " <button type='button' id='btnDeleteRFI' class='btn btn-xs btn-danger has-ripple DeleteRFI' data-key='#=ID#' Title='Delete'><i class='feather icon-trash'></i></button>").HeaderHtmlAttributes(new { style = "text-align:left" }).Width("10%");
+                                                                                                    }).Scrollable(scr => scr.Height(400))
+.ToolBar(tools => { tools.Excel(); tools.Pdf(); })
+.Pageable()
+.Sortable()
+.Pageable(pageable => pageable
+.Refresh(true)
+.PageSizes(true)
+.ButtonCount(5)
+.PageSizes(new List<object>
+{ 10, 20, 50, "all" }).Refresh(true))
+.PersistSelection(true)
+.DataSource(dataSource => dataSource
+.Ajax()
+.Model(model => model.Id(u => u.ID))
+.Read(read => read.Action("rfi_details", "RFIForm").Data("GetRoleValue"))
+.PageSize(10))
+.Events(events => events.PdfExport("HideColumn").ExcelExport("ExportExcel").DataBound("dataBound")).Groupable().Resizable(resize => resize.Columns(true))
+.Excel(excel => excel
+.FileName("RFIMasterExcel.xlsx")
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "Users"))
+)
+.Pdf(pdf => pdf
+.AllPages()
+.AvoidLinks()
+.PaperSize("A4")
+.Scale(0.8)
+.Margin("2cm", "1cm", "1cm", "1cm")
+.Landscape()
+.RepeatHeaders()
+.TemplateId("page-template")
+.FileName("RFIMasterPdf.pdf")
+.ProxyURL(Url.Action("Pdf_Export_Save", "Users"))
+)
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="PreviewRFIModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Preview RFI Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="createContainer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(window).resize(function () {
+            $('#card1').height($(window).height() - 195);
+            $('#cust-kendo-height').height($(window).height() - 195);
+            $('.k-grid-content').height($(window).height() - 355);
+        });
+        $(window).trigger('resize');
+        $(document).ready(function () {
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+            $('#SubDate').val(today);
+
+            var RFICode = $("#hdnRFICode").val();
+            $("#RFIID").val(RFICode);
+
+            $("#ddlBOQ").chosen({ width: "100%", no_results_text: "Oops, user's not found!" });
+            $("#ddlBOQ2").chosen({ width: "100%", no_results_text: "Oops, user's not found!" });
+
+            $("#EntityDiv").hide();
+            $("#OtherDiv").hide();
+
+            setTimeout(function () {                
+                //bindTaskAddEditClickEvent();
+            }, 500);
+        });
+
+        function dataBound() {
+            resetRowNumber();
+            $(".EditRFI").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    //console.log(data);
+                    debugger;
+                    $('#frmRFI').html(data);
+                    var selectedBOQIDs = document.getElementById("selectedBOQIDs").value;
+
+                   
+                    //alert(statusID);
+                    var dataarray = selectedBOQIDs.split(",");
+                    $('#ddlBOQ').val(dataarray);
+                    $('#ddlBOQ').trigger('chosen:updated');
+                    $("#ddlBOQ").chosen().trigger("chosen:updated")
+
+                    var Loc = document.getElementById("hdnLocationID").value;
+                    if (Loc == 1) {                    /*for chainage*/
+                        $("#ChainageDiv").show();
+                        $("#EntityDiv").hide();
+                        $("#OtherDiv").hide();
+                        $('#rbC').prop('checked', true);
+
+                    }
+                    else if (Loc == 2) {         /*for Entity*/
+                        $("#ChainageDiv").hide();
+                        $("#EntityDiv").show();
+                        $("#OtherDiv").hide();
+                        $('#rbE').prop('checked', true);
+
+                    }
+                    else {                        /*for Other Location*/
+                        $("#ChainageDiv").hide();
+                        $("#EntityDiv").hide();
+                        $("#OtherDiv").show();
+                        $('#rbO').prop('checked', true);
+                    }
+
+
+                    var Subdate = document.getElementById("hdnSubDate").value;
+                    var Sdate = Subdate.split(' ')[0];
+                    var newdate = Sdate.split("-").reverse().join("-");
+
+
+
+                    $('#SubDate').val(newdate);
+
+
+                    setTimeout(function () {
+
+                    }, 500);
+                });
+            });
+
+            $(".DeleteRFI").on("click", function () {
+                debugger;
+                var Id = $(this).data("key");
+                $("#hiddenId").val(Id);
+                $("#btnDeleteConfirm").attr('data-id', Id);
+                $("#modalDelete").modal({ backdrop: 'static', keyboard: false, position: 'center' });
+            });
+            $("#btnDeleteConfirm").on("click", function () {
+                var id = $("#hiddenId").val();
+                //alert(id);
+                $.ajax({
+                    url: '/RFIForm/Delete/' + id,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        //Refresh Kendo Grid
+                        $("#modalDelete").modal('hide');
+                        $('#RFIGrid').data('kendoGrid').dataSource.read();
+                        $('#RFIGrid').data('kendoGrid').refresh();
+                        $.notify('Deleted Successfully', { align: "right", verticalAlign: "top", type: "success", background: "#ff0000", color: "#fff" });
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //ShowErrorMessage('Error deleting Project!');
+                    }
+                });
+            });
+        }
+        function GetRoleValue() {
+            return {
+                EDName: $("#hdnRoleValue").val(),
+                role: $("#hdnRole").val()
+
+            };
+        }
+        var rowNumber = 0;
+
+        function resetRowNumber(e) {
+            rowNumber = 0;
+        }
+
+        function renderNumber(data) {
+            return ++rowNumber;
+        }
+        function OnRFISuccess(response) {
+            // alert(response);
+            if (response == "Added Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+            }
+            else if (response == "Updated Successfully") {
+                ClearViewAndGrid();
+                $.notify(response, { align: "right", verticalAlign: "top", type: "success", background: "#20D67B", color: "#fff" });
+                $(".btnSubmit").val('Save');
+            }
+            else if (response.includes("already exists")) {
+                $.notify(response, { align: "right", verticalAlign: "top", type: "warning", background: "#ff9933", color: "#ffffff" });
+            }
+            else {
+                //showNoty('warning', 'ED Add/Updated Failed!');
+            }
+        }
+        function HideColumn(e) {
+
+            var grid = $("#RFIGrid").data("kendoGrid");
+            grid.hideColumn(7);
+
+            grid.options.pdf.fileName = "RFI - " + kendo.toString(new Date, "dd-MMM-yyyy");
+
+            e.promise.done(function () {
+                grid.showColumn(7);
+            });
+        }
+        function ClearViewAndGrid() {
+
+
+            $("#SubDate").val("");
+            $("#WorkGroupID").val(0);
+            //var RFICode = $("#hdnRFICode").val();
+            //$("#RFIID").val(RFICode);
+
+            $("#ActivityID").val(0);
+            $("#LayerNo").val(0);
+            $("#EntityID").val(0);
+            $("#WorksideID").val(0);
+            $("#OtherLocation").val("");
+            $("#Remark").val("");
+            $("#ddlBOQ").val('');
+            $("#ddlBOQ").chosen().trigger("chosen:updated")
+
+
+            $('#RFIGrid').data('kendoGrid').dataSource.read();
+            $('#RFIGrid').data('kendoGrid').refresh();
+            //  $("#EDCode").removeClass('disableCN');
+        }
+        function Validate(event) {
+
+            var regex = new RegExp(/[0-9]|\+/);
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+
+            }
+        }
+        $("#txtSearch").keyup(function () {
+            var selecteditem = $('#txtSearch').val();
+            var kgrid = $("#RFIGrid").data("kendoGrid");
+            selecteditem = selecteditem.toUpperCase();
+            var selectedArray = selecteditem.split(" ");
+            if (selecteditem) {
+                var orfilter = { logic: "or", filters: [] };
+                var andfilter = { logic: "and", filters: [] };
+                $.each(selectedArray, function (i, v) {
+                    if (v.trim() == "") {
+                    }
+                    else {
+                        $.each(selectedArray, function (i, v1) {
+                            if (v1.trim() == "") {
+                            }
+                            else {
+                                orfilter.filters.push({ field: "RFIID", operator: "contains", value: v1 },
+                                    { field: "WorkGroup", operator: "contains", value: v1 },
+                                    { field: "Workside", operator: "contains", value: v1 },
+                                    { field: "Activity", operator: "contains", value: v1 }
+                                );
+                                andfilter.filters.push(orfilter);
+                                orfilter = { logic: "or", filters: [] };
+                            }
+
+                        });
+                    }
+                });
+                kgrid.dataSource.filter(andfilter);
+            }
+            else {
+                kgrid.dataSource.filter({});
+            }
+
+        });
+        function ExportExcel(e) {
+            e.workbook.fileName = "RFI-" + kendo.toString(new Date, "dd-MMM-yyyy") + ".xls";
+        }
+
+        //$("#btnPreview").click(function (e) {
+        //   // 
+
+        //    var ID = document.getElementById("ID").value;
+        //    alert(ID);
+        //    var NewURL = '/RFIForm/LoadPreviewForm/' + ID;
+        //    alert(NewURL);
+        //   // var url = $(this).data("url");
+        //    $.get(NewURL, function (response) {
+        //       // $('#frmRFI').html(data);
+        //        $("#createContainer").html(response);                
+        //        $('#PreviewRFIModel').modal('show');
+        //        var selectedBOQIDs = document.getElementById("selectedBOQIDs").value;
+
+        //        //alert(statusID);
+        //        var dataarray = selectedBOQIDs.split(",");
+        //        $('#ddlBOQ2').val(dataarray);
+        //        $('#ddlBOQ2').trigger('chosen:updated');
+        //       // $("#ddlBOQ2").chosen().trigger("chosen:updated")
+
+        //        var Loc = document.getElementById("hdnLocationID").value;
+        //        if (Loc == 1) {                    /*for chainage*/
+        //            $("#ChainageDiv2").show();
+        //            $("#EntityDiv2").hide();
+        //            $("#OtherDiv2").hide();
+        //            $('#rbC').prop('checked', true);
+
+        //        }
+        //        else if (Loc == 2) {         /*for Entity*/
+        //            $("#ChainageDiv2").hide();
+        //            $("#EntityDiv2").show();
+        //            $("#OtherDiv2").hide();
+        //            $('#rbE').prop('checked', true);
+
+        //        }
+        //        else {                        /*for Other Location*/
+        //            $("#ChainageDiv2").hide();
+        //            $("#EntityDiv2").hide();
+        //            $("#OtherDiv2").show();
+        //            $('#rbO').prop('checked', true);
+        //        }
+
+
+
+        //        var Subdate = document.getElementById("hdnSubDate").value;
+        //        var Sdate = Subdate.split(' ')[0];
+        //        var newdate = Sdate.split("-").reverse().join("-");
+
+        //        //alert(newdate);
+        //       // $('#SubDate').val('');
+        //        $('#SubDate2').val(newdate);
+        //    });
+        //});
+
+
+//function bindTaskAddEditClickEvent() {
+            $("#btnPreview").click(function (e) {
+                var myData = $('#frmRFI').serialize();
+                //var formData = new FormData($('form').get(0));
+                //var formData = new FormData();
+               // var formData = new FormData($('#frmRFI')[0]);
+                debugger;
+                //formData.append("SubDate", $("#SubDate").val());
+                //formData.append("WorkGroupID", $("WorkGroupID").val());
+                //formData.append("RFIID", $("RFIID").val());
+                //formData.append("ActivityID", $("ActivityID").val());
+                //formData.append("LayerNo", $("LayerNo").val());
+                //formData.append("WorksideID", $("WorksideID").val());
+                //formData.append("Remark", $("Remark").val());
+               // console.log(formData);
+                // alert(formData);
+                var PreviewModel = {
+                    SubDate: '2020-09-04',
+                    WorkGroupID: 1,
+                    WorkGroupID: "RFI011",
+                    ActivityID: 1,
+                    LayerNo: 1,
+                    WorksideID: 1,
+                    Remark: "RFI011",
+
+                };
+
+                //$.ajax({
+                //    url: '/RFIForm/FillPreviewForm',
+                //    type: "POST",
+                //    contentType: "application/json; charset=utf-8",
+                //    data: JSON.stringify({ 'RFIModel': PreviewModel }),
+                //    //data: myData,
+                //    //processData: false,
+                //    //contentType: false,
+                //   // data: '{SubDate: "' + $("#SubDate").val() + '", WorkGroupID: " + $("#WorkGroupID").val() + ", RFIID: "' + $("#RFIID").val() + '",  ActivityID: " + $("#ActivityID").val() + ",  LayerNo: " + $("#LayerNo").val() + ", WorksideID: " + $("#WorksideID").val() + ", Remark: "' + $("#Remark").val() + '", }',
+                //    //contentType: "application/json; charset=utf-8",
+                //    //dataType: "json",
+                //    success: function (data) {
+                //        $('#frmRFI').html(data);
+                //        $("#createContainer").html(data);
+                //        $('#PreviewRFIModel').modal('show');
+                //    },
+
+                //    failure: function (data) {
+                //    },
+                //    error: function (data) {
+
+                //    }
+                //});
+            });
+     //   }
+
+    </script>
+}

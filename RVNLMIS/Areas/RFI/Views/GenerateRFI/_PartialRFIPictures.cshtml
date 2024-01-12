@@ -1,0 +1,41 @@
+﻿
+@model RVNLMIS.Areas.RFI.Models.RFIInspStatusUpdateModel
+
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.objPicture)
+{
+<div class="row">
+    <div class="col-md-2 mb-2">
+        <img style="cursor:pointer;" class="imgLarge" src="@Url.Content(@item.ImgUrl)" alt="your image" data-key="@item.ImgUrl" />
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group fill">
+            <a title="Download Picture" target="_blank" href="/RFI/GenerateRFI/DownloadDoc?path=@item.ImgUrl&name=@item.FileName">@item.FileName</a>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group fill">
+            <label>@item.Remarks</label>
+        </div>
+    </div>
+
+    @*<div class="col-md-1">
+                <div class="form-group fill">
+                    <button type="button" data-key="@item.PicId" class="btnChangeSingleImg btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
+                </div>
+        </div>*@
+
+    <div class="col-md-2">
+        <div class="form-group fill text-right">
+            <button type="button" data-key="@item.PicId" class="btnChangeSingleImg btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
+            <button type="button" data-key="@item.PicId" class="btnDeleteImg btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+        </div>
+    </div>
+
+</div>
+}

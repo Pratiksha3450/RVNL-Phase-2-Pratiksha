@@ -1,0 +1,55 @@
+﻿@model RVNLMIS.Models.ScActivityDetailsModel
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("SubmitScActivity", "CrossSection", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ScActivitySuccess" }, new { @class = "form-horizontal", Page = "form" }))
+{
+    @Html.HiddenFor(model => model.PackageId)
+    @Html.HiddenFor(model => model.ScActID)
+    <h6 class="sub-title">Strip Chart Activities</h6>
+    <div class="row mb-1">
+        <label class="col-sm-4 col-lg-3 col-form-label">Activity Name</label>
+        <div class="col-sm-8 col-lg-4 mt-1">
+            <div class="input-group input-group-sm">
+                @*<input type="text" class="form-control" placeholder="Activity Name">*@
+                @Html.EditorFor(model => model.ScActName, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Activity Name" } })
+                @Html.ValidationMessageFor(model => model.ScActName, "", new { @class = "text-danger full-width" })
+            </div>
+        </div>
+        <label class="col-sm-2 col-lg-2 col-form-label">Color</label>
+        <div class="col-sm-4 col-lg-3 mt-1">
+            <div class="input-group input-group-sm">
+                @*<input type="color" class="form-control colorpicker" id="favcolor" name="favcolor" value="#ff0000">*@
+                @* @Html.TextBoxFor(model => model.PlotColour, new { @class = "form-control colorpicker", type = "color", @value = "#ff0000" })*@
+                @*<div style="border-radius: 158px; background-color:#ff0000" id="previewColor">preview</div>*@
+                @Html.EditorFor(model => model.PlotColour, new { htmlAttributes = new { @class = "form-control colorpicker", @type = "color" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <label class="col-sm-4 col-lg-3 col-form-label">Thickness</label>
+        <div class="col-sm-8 col-lg-4 mt-1">
+            <div class="input-group input-group-sm">
+                @Html.EditorFor(model => model.PlotThk, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @data_val_number = "", @placeholder = "1", onkeypress = "return Numbers1DotOnly(this,event)" } })
+                @*@Html.EditorFor(model => model.PlotThk, new { htmlAttributes = new { @class = "form-control", @type = "number", @data_val_number = "", @placeholder = "1", @min = "1", @step = "1", @value = "1" } })*@
+                @Html.ValidationMessageFor(model => model.PlotThk, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-8 col-lg-5 text-right pr-1">
+            <button type="submit" class="btn btn-outline-primary btn-sm "><i class="fa fa-plus"></i>  Add</button>
+            <button onclick="ResetScActForm()" type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-sync"></i>  Reset</button>
+        </div>
+    </div>
+
+    <!-- Icon Group Addons end -->
+}
+    <script>
+        $(window).resize(function () {
+            //$('#CrossSectionGrid').height($(window).height() - 195);
+            
+            //$('#PkgCrossSectionGrid').height($(window).height() - 795);
+        });
+        $(window).trigger('resize');
+    </script>
